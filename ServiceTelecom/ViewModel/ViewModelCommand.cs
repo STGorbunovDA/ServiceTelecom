@@ -10,7 +10,7 @@ namespace ServiceTelecom.ViewModel
         private readonly Predicate<object> _canExecuteAction;
 
         //Constructors
-        public ViewModelCommand(Action<object> executeAction, object canExecuteLoginCommand)
+        public ViewModelCommand(Action<object> executeAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = null;
