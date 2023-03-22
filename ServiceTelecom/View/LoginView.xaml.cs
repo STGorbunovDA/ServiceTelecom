@@ -40,14 +40,5 @@ namespace ServiceTelecom.View
             Application.Current.Shutdown();
         }
         
-        private void BtnAuthorization_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TxbClearPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            psbPass.Password = string.Empty;
-        }
     }
 }

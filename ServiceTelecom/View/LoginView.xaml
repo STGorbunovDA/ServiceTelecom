@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceTelecom.View"
-        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
+        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" xmlns:customcontrols="clr-namespace:ServiceTelecom.CustomControls"
         mc:Ignorable="d"
         Title="LoginView" Height="410" Width="700"
         WindowStyle="None"
@@ -156,7 +156,7 @@
                                HorizontalAlignment="Left"
                                Margin="0,5,0,0"/>
                     <TextBox x:Name="txbUser"
-                             Text="{Binding Username}"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="22"
                              FontFamily="Montserrat"
                              Foreground="Black"
@@ -182,44 +182,24 @@
                                TextWrapping="Wrap"
                                HorizontalAlignment="Left"
                                Margin="0,5,0,0"/>
-                    <PasswordBox x:Name="psbPass"
-                             FontSize="22"
-                             FontFamily="Montserrat"
-                             Foreground="Black"
-                             FontWeight="Bold"
-                             CaretBrush="#005fa1"
-                             BorderBrush="#75ddff"
-                             BorderThickness="0,0,0,4"                                
-                             Margin="0,5,0,0" 
-                             Padding="50,10,20,0" 
-                             Height="50">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/pass.png"
-                                        Stretch="Uniform"
-                                        AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                    </PasswordBox>
-                    <TextBlock x:Name="txbClearPassword"
-                                   Foreground="Black"
-                                   FontSize="10"
-                                   FontFamily="Montserrat"
-                                   Text="clear password"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,3,0,0"
-                                   Padding="4,1,0,0"
-                                   Cursor="Hand"
-                                   PreviewMouseDown ="TxbClearPassword_PreviewMouseDown">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseDirectlyOver" Value="True">
-                                        <Setter Property="Background" Value="#D3995F"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+
+                    <customcontrols:BindablePasswordBox 
+                        Password="{Binding Password, 
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
+                        Height="50" Margin="0,5,0,0">
+                    </customcontrols:BindablePasswordBox>
+                    
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#D75596"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="0,10,0,0"/>
+                    
                     <Button x:Name="btnAuthorization"
+                            Command="{Binding LoginCommand}"
                             BorderThickness="0"
                             Content="Authorization"
                             Foreground="White"
@@ -227,8 +207,7 @@
                             FontFamily="Montserrat"
                             Cursor="Hand"
                             Grid.Column="1"
-                            Margin="0,10,0,0"
-                            Click="BtnAuthorization_Click">
+                            Margin="0,0,0,0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="#A65400"/>
