@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceTelecom.Model
+namespace ServiceTelecom.Models
 {
     public class UserModel
     {

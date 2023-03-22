@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace ServiceTelecom.Model
+namespace ServiceTelecom.Models
 {
     public interface IUserRepository
     {
