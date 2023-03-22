@@ -1,10 +1,10 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
+using System;
+using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Principal;
+using System.Threading;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -16,6 +16,8 @@ namespace ServiceTelecom.ViewModels
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
+
+        private IUserRepository userRepository;
 
         public string Username { get => _username; set { _username = value; OnPropertyChanged(nameof(Username)); } }
         public SecureString Password { get => _password; set { _password = value; OnPropertyChanged(nameof(Password)); } }
@@ -29,6 +31,7 @@ namespace ServiceTelecom.ViewModels
 
         public LoginViewModel()
         {
+            userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
         }
@@ -40,12 +43,19 @@ namespace ServiceTelecom.ViewModels
                     Password == null || Password.Length < 3)
                 validData = false;
             else validData = true;
-            return validData; 
+            return validData;
         }
 
         private void ExecuteLoginCommand(object obj)
         {
-            
+            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
+            if (isValidUser)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(
+                    new GenericIdentity(Username), null);
+                IsViewVisible= false;
+            }
+            else ErrorMessage = "Invalid username or password";
         }
         private void ExecuteRecoverPasswordCommand(string username, string email)
         {
