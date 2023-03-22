@@ -1,6 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -17,7 +19,17 @@ namespace ServiceTelecom.Repositories
 
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            throw new NotImplementedException();
+            bool validUser;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.CommandText = "SELECT * FROM [User] WHERE username=@username and [password]=@password";
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
+                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
+                validUser = command.ExecuteScalar() ==null? false: true;
+            }
+            return validUser;
         }
 
         public void Edit(UserModel userModel)
