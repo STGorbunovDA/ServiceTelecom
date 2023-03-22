@@ -45,7 +45,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            throw new NotImplementedException();
+            
         }
         private void ExecuteRecoverPasswordCommand(string username, string email)
         {
