@@ -1,4 +1,7 @@
-﻿using ServiceTelecom.Models;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
+using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,19 +13,42 @@ using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories
 {
-    public class UserRepository : RepositoryBase, IUserRepository
+    public class UserRepository: IUserRepository
     {
+        /// <summary>
+        /// Проверка наличия USER в БД
+        /// </summary>
+        /// <param name="credential"></param>
+        /// <returns></returns>
         public bool AuthenticateUser(NetworkCredential credential)
         {
-            bool validUser;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            bool validUser = false;
+            
+            using (MySqlCommand command = new MySqlCommand("usersSelect_1", 
+                RepositoryDataBase.GetInstance.GetConnection()))
             {
-                connection.Open();
-                command.CommandText = "SELECT * FROM [User] WHERE username=@username and [password]=@password";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? false : true;
+                RepositoryDataBase.GetInstance.OpenConnection();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue($"loginUser", Encryption.EncryptPlainTextToCipherText(credential.UserName));
+                command.Parameters.AddWithValue($"passUser", Encryption.EncryptPlainTextToCipherText(credential.Password));
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                {
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+                    if (table.Rows.Count == 1)
+                    {
+                        UserModel user = new UserModel(
+                            table.Rows[0].ItemArray[0].ToString(), 
+                            table.Rows[0].ItemArray[2].ToString());
+                        RegistryKey currentUserKey = Registry.CurrentUser;
+                        RegistryKey helloKey = currentUserKey.CreateSubKey("SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
+                        helloKey.SetValue("Login", $"{credential.UserName}");
+                        helloKey.SetValue("Password", $"{credential.Password}");
+                        helloKey.Close();
+                        validUser =true;
+                    }
+                    else validUser= false;
+                }    
             }
             return validUser;
         }
