@@ -40,7 +40,7 @@ namespace ServiceTelecom.Repositories
                         RegistryKey currentUserKey = Registry.CurrentUser;
                         RegistryKey helloKey = currentUserKey.CreateSubKey("SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                         helloKey.SetValue("Login", $"{credential.UserName}");
-                        helloKey.SetValue("Password", $"{credential.Password}");
+                        helloKey.SetValue("Password", $"{credential.Password}");//TODO 1. убрать пароль из реестра?
                         helloKey.Close();
                         validUser =true;
                     }

@@ -1,5 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
@@ -84,13 +83,15 @@ namespace ServiceTelecom.ViewModels
                     RegistryKey currentUserKey = Registry.CurrentUser;
                     RegistryKey helloKey = currentUserKey.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                     Username = helloKey.GetValue("Login").ToString();
+                    #region 
+                    // TODO 2. убрать пароль из реестра?
                     string pass = helloKey.GetValue("Password").ToString();
                     helloKey.Close();
-
                     for (int i = 0; i < pass.Length; i++)
                     {
-                        //Password.AppendChar(pass[i]);
+                        //Password.AppendChar(pass[i]); 
                     }
+                    #endregion
                 }
             }
             catch
