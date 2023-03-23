@@ -1,10 +1,10 @@
-﻿using ServiceTelecom.Models;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.Win32;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
 using System.Net;
 using System.Security;
-using System.Security.Principal;
-using System.Threading;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -19,8 +19,20 @@ namespace ServiceTelecom.ViewModels
 
         private IUserRepository userRepository;
 
-        public string Username { get => _username; set { _username = value; OnPropertyChanged(nameof(Username)); } }
-        public SecureString Password { get => _password; set { _password = value; OnPropertyChanged(nameof(Password)); } }
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged(nameof(Username));
+            }
+        }
+        public SecureString Password
+        {
+            get =>_password;
+            set { _password = value; OnPropertyChanged(nameof(Password)); }
+        }
         public string ErrorMessage { get => _errorMessage; set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); } }
         public bool IsViewVisible { get => _isViewVisible; set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
 
@@ -34,6 +46,7 @@ namespace ServiceTelecom.ViewModels
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
+            GetRegistry();
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -51,15 +64,38 @@ namespace ServiceTelecom.ViewModels
             var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
             if (isValidUser)
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(
-                    new GenericIdentity(Username), null);
-                IsViewVisible= false;
+                //Thread.CurrentPrincipal = new GenericPrincipal(
+                //    new GenericIdentity(Username), null);
+                IsViewVisible = false;
             }
             else ErrorMessage = "Invalid username or password";
         }
         private void ExecuteRecoverPasswordCommand(string username, string email)
         {
             throw new NotImplementedException();
+        }
+        private void GetRegistry()
+        {
+            try
+            {
+                RegistryKey reg1 = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
+                if (reg1 != null)
+                {
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
+                    Username = helloKey.GetValue("Login").ToString();
+                    string pass = helloKey.GetValue("Password").ToString();
+                    helloKey.Close();
+
+                    for (int i = 0; i < pass.Length; i++)
+                    {
+                        //Password.AppendChar(pass[i]);
+                    }
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }
