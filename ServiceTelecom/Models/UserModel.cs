@@ -12,5 +12,10 @@ namespace ServiceTelecom.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string Post { get; set; }
+        public UserModel(string login, string post)
+        {
+            Login = login.Trim();
+            Post = post;
+        }
     }
 }
