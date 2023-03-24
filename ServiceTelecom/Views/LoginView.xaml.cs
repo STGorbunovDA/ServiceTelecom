@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace ServiceTelecom.View
+namespace ServiceTelecom.Views
 {
     /// <summary>
     /// Логика взаимодействия для LoginView.xaml
