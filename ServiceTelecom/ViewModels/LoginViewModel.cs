@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using System;
 using System.Net;
 using System.Security;
 using System.Windows.Input;
+using ServiceTelecom.View;
+using System.Threading;
+using System.Security.Principal;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -16,43 +18,29 @@ namespace ServiceTelecom.ViewModels
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private IUserRepository userRepository;
+        private UserRepository userRepository;
 
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
-            }
-        }
-        public SecureString Password
-        {
-            get =>_password;
-            set { _password = value; OnPropertyChanged(nameof(Password)); }
-        }
+        public string Username { get => _username; set { _username = value; OnPropertyChanged(nameof(Username)); } }
+        public SecureString Password { get => _password; set { _password = value; OnPropertyChanged(nameof(Password)); } }
         public string ErrorMessage { get => _errorMessage; set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); } }
         public bool IsViewVisible { get => _isViewVisible; set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
 
         public ICommand LoginCommand { get; }
-        public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
-        public ICommand RememberPasswordCommand { get; }
 
         public LoginViewModel()
         {
+            GetRegistry();
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPasswordCommand("", ""));
-            GetRegistry();
         }
 
         private bool CanExecuteLoginCommand(object obj)
         {
             bool validData;
             if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3 ||
-                    Password == null || Password.Length < 3)
+                    Password == null || Password.Length < 3 || Username.ToLower().Equals("select")
+                    || Username.Length > 22 || Password.Length > 22)
                 validData = false;
             else validData = true;
             return validData;
@@ -60,19 +48,19 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
-            if (isValidUser)
+            UserModel user = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
+            if (user != null)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
-                //    new GenericIdentity(Username), null);
+                //    new GenericIdentity(user.Post), null);
                 IsViewVisible = false;
+                var work = new WorkView(user);
+                work.Show();
             }
             else ErrorMessage = "Invalid username or password";
         }
-        private void ExecuteRecoverPasswordCommand(string username, string email)
-        {
-            throw new NotImplementedException();
-        }
+
+        /// <summary>Получаем если есть логин из реестра</summary>
         private void GetRegistry()
         {
             try
@@ -83,15 +71,6 @@ namespace ServiceTelecom.ViewModels
                     RegistryKey currentUserKey = Registry.CurrentUser;
                     RegistryKey helloKey = currentUserKey.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                     Username = helloKey.GetValue("Login").ToString();
-                    #region 
-                    // TODO 2. убрать пароль из реестра?
-                    string pass = helloKey.GetValue("Password").ToString();
-                    helloKey.Close();
-                    for (int i = 0; i < pass.Length; i++)
-                    {
-                        //Password.AppendChar(pass[i]); 
-                    }
-                    #endregion
                 }
             }
             catch

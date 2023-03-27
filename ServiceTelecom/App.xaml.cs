@@ -14,11 +14,12 @@ namespace ServiceTelecom
             loginView.Show();
             loginView.IsVisibleChanged += (s, ev) =>
             {
-                if(loginView.IsVisible == false && loginView.IsLoaded)
+                if (loginView.IsVisible == false && loginView.IsLoaded)
                 {
-                    var mainView = new MainWindow();
-                    mainView.Show();
+                    //var work = new WorkView();
+                    //work.Show();
                     loginView.Close();
+
                 }
             };
         }

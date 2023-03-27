@@ -5,7 +5,7 @@ namespace ServiceTelecom.Models
 {
     public interface IUserRepository
     {
-        bool AuthenticateUser(NetworkCredential credential);
+        UserModel AuthenticateUser(NetworkCredential credential);
         void Add(UserModel userModel);
         void Edit(UserModel userModel);
         void Remove(int id);

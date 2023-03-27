@@ -16,12 +16,9 @@ namespace ServiceTelecom.Repositories
         /// </summary>
         /// <param name="credential"></param>
         /// <returns></returns>
-        public bool AuthenticateUser(NetworkCredential credential)
+        public UserModel AuthenticateUser(NetworkCredential credential)
         {
-            bool validUser = false;
-            string loginUser = Encryption.EncryptPlainTextToCipherText(credential.UserName);
-            string passUser = Encryption.EncryptPlainTextToCipherText(credential.Password);
-            using (MySqlCommand command = new MySqlCommand("usersSelect_1", 
+            using (MySqlCommand command = new MySqlCommand("usersSelect_1",
                 RepositoryDataBase.GetInstance.GetConnection()))
             {
                 RepositoryDataBase.GetInstance.OpenConnection();
@@ -35,19 +32,17 @@ namespace ServiceTelecom.Repositories
                     if (table.Rows.Count == 1)
                     {
                         UserModel user = new UserModel(
-                            table.Rows[0].ItemArray[0].ToString(), 
+                            table.Rows[0].ItemArray[0].ToString(),
                             table.Rows[0].ItemArray[2].ToString());
                         RegistryKey currentUserKey = Registry.CurrentUser;
                         RegistryKey helloKey = currentUserKey.CreateSubKey("SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                         helloKey.SetValue("Login", $"{credential.UserName}");
-                        helloKey.SetValue("Password", $"{credential.Password}");//TODO 1. убрать пароль из реестра?
                         helloKey.Close();
-                        validUser =true;
+                        return user;
                     }
-                    else validUser= false;
-                }    
+                    else return null;
+                }
             }
-            return validUser;
         }
 
         public void Add(UserModel userModel)
