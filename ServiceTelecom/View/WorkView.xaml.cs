@@ -21,15 +21,11 @@ namespace ServiceTelecom.View
     public partial class WorkView : Window
     {
         readonly UserModel _user;
-        public WorkView()
+        public WorkView(UserModel user)
         {
             InitializeComponent();
         }
 
-        public WorkView(UserModel user)
-        {
-            _user= user;
-        }
 
         void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
