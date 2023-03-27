@@ -148,7 +148,7 @@
                             Orientation="Vertical"
                             Margin="200,0,200,0"
                             VerticalAlignment="Top">
-                    <TextBlock Text="Username"
+                    <TextBlock Text="Имя"
                                Foreground="Black"
                                FontSize="16"
                                FontWeight="Medium"
@@ -175,7 +175,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Password"
+                    <TextBlock Text="Пароль"
                                Foreground="Black"
                                FontSize="16"
                                FontWeight="Medium"
@@ -202,7 +202,7 @@
                     <Button x:Name="btnAuthorization"
                             Command="{Binding LoginCommand}"
                             BorderThickness="0"
-                            Content="Authorization"
+                            Content="Авторизация"
                             Foreground="White"
                             FontSize="16"
                             FontFamily="Montserrat"
@@ -230,7 +230,6 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
                 </StackPanel>
             </Grid>
         </Border>
