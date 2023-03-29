@@ -11,16 +11,20 @@
     <Color x:Key="winBorderColor1">#07bffc</Color>
     <Color x:Key="winBorderColor2">#0185d8</Color>
     <Color x:Key="winBorderColor3">#005fa1</Color>
-
+    
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleFontColor1">#373735</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor2">#005fa1</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor3">#75ddff</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor4">#D75596</SolidColorBrush>
 
+    
+    
     <!--Button Colors-->
     <SolidColorBrush x:Key="buttonFontColor1">#00C3FA</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor2">#72DEFD</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor3">#A65400</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor4">#D3995F</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor5">#373735</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor6">#EC6925</SolidColorBrush>
 </ResourceDictionary>
