@@ -53,9 +53,10 @@ namespace ServiceTelecom.ViewModels
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                IsViewVisible = false;
                 var work = new WorkView(user);
                 work.Show();
+                IsViewVisible = false;
+                
             }
             else ErrorMessage = "Invalid username or password";
         }
