@@ -23,6 +23,7 @@ namespace ServiceTelecom.View
         readonly UserModel _user;
         public WorkView(UserModel user)
         {
+            _user = user;
             InitializeComponent();
         }
 
