@@ -17,6 +17,7 @@
     <SolidColorBrush x:Key="titleFontColor2">#005fa1</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor3">#75ddff</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor4">#D75596</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor5">#0D0C0C</SolidColorBrush>
 
     
     
