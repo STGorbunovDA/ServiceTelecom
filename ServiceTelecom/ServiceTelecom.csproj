@@ -99,16 +99,25 @@
     </Compile>
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
-    <Compile Include="Models\IUserRepository.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Repositories\RepositoryDataBase.cs" />
+    <Compile Include="Infrastructure\IUserRepository.cs" />
+    <Compile Include="Models\UserDBModel.cs" />
+    <Compile Include="Models\UserStatic.cs" />
+    <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="ViewModels\ViewModelCommand.cs" />
+    <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="Infrastructure\ViewModelBase.cs" />
+    <Compile Include="Infrastructure\ViewModelCommand.cs" />
     <Compile Include="ViewModels\WorkViewModel.cs" />
+    <Compile Include="View\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkView.xaml.cs">
       <DependentUpon>WorkView.xaml</DependentUpon>
@@ -129,7 +138,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,11 +195,13 @@
     <Resource Include="Images\pass.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\700561.jpg" />
     <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\gorbunov_12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\photo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
