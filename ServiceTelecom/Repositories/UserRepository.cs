@@ -5,7 +5,10 @@ using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Net;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ServiceTelecom.Repositories
 {
@@ -16,8 +19,10 @@ namespace ServiceTelecom.Repositories
         /// </summary>
         /// <param name="credential"></param>
         /// <returns></returns>
-        public UserModel AuthenticateUser(NetworkCredential credential)
+        public UserModel getAuthorizationUser(NetworkCredential credential)
         {
+            if (!InternetCheck.CheckSkyNET())
+                return null;
             using (MySqlCommand command = new MySqlCommand("usersSelect_1",
                 RepositoryDataBase.GetInstance.GetConnection()))
             {
@@ -44,35 +49,8 @@ namespace ServiceTelecom.Repositories
                 }
             }
         }
+       
 
-        public void Add(UserModel userModel)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Edit(UserModel userModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserModel> GetByAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel GetByUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
