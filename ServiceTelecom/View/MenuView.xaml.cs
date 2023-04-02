@@ -6,17 +6,25 @@ namespace ServiceTelecom.View
 {
     public partial class MenuView : Window
     {
-        readonly UserModel _user;
-        public MenuView(UserModel user)
+        public MenuView()
         {
             InitializeComponent();
-            _user= user;
         }
 
         void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

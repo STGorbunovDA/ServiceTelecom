@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ServiceTelecom.View"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
@@ -43,13 +42,38 @@
                     <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0.50"/>
                 </LinearGradientBrush>
             </Border.Background>
-            
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-               
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnMinimize"
+                            Style="{StaticResource menuButtonStyleOne}"
+                            Content="-"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click" >
+                    </Button>
+                    <Button x:Name="btnClose"
+                            Style="{StaticResource menuButtonStyleThree}"
+                            Content="x"
+                            Grid.Column="2"
+                            Click="btnClose_Click" >
+                    </Button>
+                </Grid>
+                
+              
                 <Border CornerRadius="10,0,0,10"
                         Grid.Column="0">
                     <Border.Background>
@@ -64,59 +88,63 @@
                 </Border>
                 <Border Grid.Column="1" VerticalAlignment="Center">
                     <Image Source="/Images/ST.png" 
-                           Height="100" Width="300"
-                               Margin="0,0,0,0"/>
+                           Height="100" Width="300"/>
                 </Border>
-                <StackPanel Orientation="Vertical"
-                            VerticalAlignment="Center">
-                    <RadioButton Style="{StaticResource menuButton}"
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <RadioButton x:Name="Adminka" Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor4}"
                                      Width="170"
-                                     Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="House" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Админка" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}"
+                                     Command="{Binding Adminka}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="House" Style="{StaticResource menuButtonIcom}"/>
+                                <TextBlock Text="Админка" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <RadioButton Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor6}"
-                                     Width="170"
-                                     Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Institution" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Обучалка" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}"
+                                     Width="170">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Institution" Style="{StaticResource menuButtonIcom}"/>
+                                <TextBlock Text="Обучалка" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <RadioButton Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor7}"
-                                     Width="170"
-                                     Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Database" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="База Excel" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource buttonFontColor9}"
-                                     Width="170"
-                                     Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Бригады" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Style="{StaticResource menuButton}"
+                                     Width="170">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Database" Style="{StaticResource menuButtonIcom}"/>
+                                <TextBlock Text="База Excel" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <RadioButton Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor10}"
-                                     Width="170"
-                                     Margin="0,20,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="HouseUser" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Куратор" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
+                                     Width="170">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcom}"/>
+                                <TextBlock Text="Бригады" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
+                        <RadioButton Style="{StaticResource menuRadioButton}"
+                                     Tag="{StaticResource buttonFontColor9}"
+                                     Width="170">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="HouseUser" Style="{StaticResource menuButtonIcom}"/>
+                                <TextBlock Text="Куратор" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
-            
         </Border>
     </Border>
 
