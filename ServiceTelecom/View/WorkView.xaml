@@ -73,6 +73,12 @@
                             <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
+                    <StackPanel Width="240">
+                        <Image Source="/Images/gorbunov_12.png" 
+                           Height="40" Width="200"
+                               Margin="0,20,0,0"/>
+
+                    </StackPanel>
                 </Border>
                 <Border CornerRadius="0,10,10,0"
                         Grid.Column="2">
