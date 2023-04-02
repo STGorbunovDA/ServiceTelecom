@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.View;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -17,13 +18,16 @@ namespace ServiceTelecom.ViewModels
         private bool CanExecuteAdminkaCommand(object obj)
         {
             bool validData;
-            if (UserModel.Post != "Admin")
+            if (UserStatic.Post != "Admin")
                 validData = false;
             else validData = true;
             return validData;
         }
         private void ExecuteAdminkaCommand(object obj)
         {
+            AdminView admin = new AdminView();
+            admin.Show();
+
             //UserModel user = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
             //if (user != null)
             //{
