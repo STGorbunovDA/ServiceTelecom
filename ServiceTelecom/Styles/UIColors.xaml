@@ -27,5 +27,11 @@
     <SolidColorBrush x:Key="buttonFontColor3">#A65400</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor4">#D3995F</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor5">#373735</SolidColorBrush>
-    <SolidColorBrush x:Key="buttonFontColor6">#EC6925</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor6">#4A60D7</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor7">#007D1C</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor9">#49066E</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor10">#D2D235</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor11">#FCFCFC</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor12">#005fa1</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor13">#0185d8</SolidColorBrush>
 </ResourceDictionary>
