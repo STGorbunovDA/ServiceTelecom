@@ -20,8 +20,8 @@ namespace ServiceTelecom.View
     /// </summary>
     public partial class WorkView : Window
     {
-        readonly UserModel _user;
-        public WorkView(UserModel user)
+        readonly UserStatic _user;
+        public WorkView(UserStatic user)
         {
             _user = user;
             InitializeComponent();

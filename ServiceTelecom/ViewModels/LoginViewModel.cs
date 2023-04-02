@@ -48,7 +48,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            UserModel user = userRepository.getAuthorizationUser(new NetworkCredential(Username, Password));
+            UserStatic user = userRepository.getAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
