@@ -48,13 +48,13 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            UserModel user = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
+            UserModel user = userRepository.getAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                var work = new WorkView(user);
-                work.Show();
+                MenuView menu = new MenuView();
+                menu.Show();
                 IsViewVisible = false;
                 
             }
