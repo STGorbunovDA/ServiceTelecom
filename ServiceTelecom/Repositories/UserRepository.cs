@@ -44,10 +44,12 @@ namespace ServiceTelecom.Repositories
                         RegistryKey helloKey = currentUserKey.CreateSubKey("SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                         helloKey.SetValue("Login", $"{credential.UserName}");
                         helloKey.Close();
+                        RepositoryDataBase.GetInstance.CloseConnection();
                         return user;
                     }
                     else return null;
                 }
+
             }
         }
 
@@ -59,6 +61,7 @@ namespace ServiceTelecom.Repositories
             using (MySqlCommand command = new MySqlCommand("usersSelectFull_1",
                 RepositoryDataBase.GetInstance.GetConnection()))
             {
+                RepositoryDataBase.GetInstance.OpenConnection();
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows)
@@ -73,6 +76,7 @@ namespace ServiceTelecom.Repositories
                             users.Add(user);
                         }
                         reader.Close();
+                        RepositoryDataBase.GetInstance.CloseConnection();
                         return users;
                     }
                 }
@@ -80,5 +84,22 @@ namespace ServiceTelecom.Repositories
             return null;
         }
 
+        public bool addUserDataBase(string login, string password, string post)
+        {
+            if (!InternetCheck.CheckSkyNET())
+                return false;
+
+            using (MySqlCommand command = new MySqlCommand("usersInsert_2", 
+                RepositoryDataBase.GetInstance.GetConnection()))
+            {
+                RepositoryDataBase.GetInstance.OpenConnection();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue($"loginUser", Encryption.EncryptPlainTextToCipherText(login));
+                command.Parameters.AddWithValue($"passUser", Encryption.EncryptPlainTextToCipherText(password));
+                command.Parameters.AddWithValue($"post", post);
+                if (command.ExecuteNonQuery() == 1) return true;
+                else return false;
+            }
+        }
     }
 }

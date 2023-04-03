@@ -11,6 +11,7 @@ namespace ServiceTelecom.Models
 
         ObservableCollection<UserDBModel> getAllUsersDataBase(ObservableCollection<UserDBModel> users);
 
+        bool addUserDataBase(string login, string password, string post);
 
     }
 }

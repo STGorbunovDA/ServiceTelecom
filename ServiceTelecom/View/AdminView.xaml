@@ -18,6 +18,7 @@
         <viewModel:AdminViewModel/>
     </Window.DataContext>
 
+
     <Border CornerRadius="12">
         <Border CornerRadius="12"
             BorderThickness="1"
@@ -42,7 +43,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -63,7 +64,8 @@
                             Grid.Column="2"
                             Click="btnClose_Click">
                     </Button>
-                    <TextBlock Text="Панель управления доступа пользователей"
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Панель управления доступа пользователей"
                                Foreground="Black"
                                FontSize="16"
                                FontWeight="Medium"
@@ -72,26 +74,31 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Margin="15,0,0,0">
-                        <TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="1"
-                          Direction="500"
-                          Color="Black"
-                          Opacity="0.3"
-                          BlurRadius="5"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth="1"
+                          Direction="1500"
+                          Color="WhiteSmoke"
+                          Opacity="0.5"
+                          BlurRadius="15"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
+
+
                 </Grid>
                 <Grid Grid.Row="1">
                     <DataGrid Name="dataGrid1" 
+                              
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding Users}"
                               SelectedItem="{Binding SelectedUser}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}">
+                              CellStyle="{StaticResource DataGridContentCellCentering}"
+                              >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="id" 
                                                 Binding="{Binding IdBase}" 
-                                                Width="50">
+                                                Width="50" Visibility="Collapsed">
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Логин" 
                                                 Binding="{Binding LoginBase}"
@@ -105,13 +112,161 @@
                             <DataGridTextColumn Header="IsNew" 
                                                 Width="*" 
                                                 Visibility="Collapsed"/>
-                            
+
                         </DataGrid.Columns>
 
                     </DataGrid>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin ="0,20,0,0">
+                            <TextBox x:Name="txbId"
+                                 FontSize="16"
+                             FontFamily="Montserrat"
+                             Foreground="Black"
+                             FontWeight="Bold"
+                             CaretBrush="{StaticResource titleFontColor2}"
+                             BorderBrush="{StaticResource titleFontColor3}"
+                             BorderThickness="0,0,0,4"
+                             Height="32"
+                             Width="100"
+                             IsReadOnly="True"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Margin ="0,0,20,0"
+                             Padding="28,5,5,5"
+                             Text="{Binding Id}"
+                                 Visibility="Collapsed">
+                                <TextBox.Background>
+                                    <ImageBrush ImageSource="/Images/id.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                                </TextBox.Background>
+                            </TextBox>
+
+                            <TextBox x:Name="txbLogin"
+                                 FontSize="16"
+                             FontFamily="Montserrat"
+                             Foreground="Black"
+                             FontWeight="Bold"
+                             CaretBrush="{StaticResource titleFontColor2}"
+                             BorderBrush="{StaticResource titleFontColor3}"
+                             BorderThickness="0,0,0,4"
+                             Height="32"
+                             Width="210"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Margin ="0,0,20,0"
+                             Padding="28,5,5,5"
+                             Text="{Binding Login}">
+                                <TextBox.Background>
+                                    <ImageBrush ImageSource="/Images/login.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                                </TextBox.Background>
+                            </TextBox>
+                            <TextBox x:Name="txbPassword"
+                                 FontSize="16"
+                             FontFamily="Montserrat"
+                             Foreground="Black"
+                             FontWeight="Bold"
+                             CaretBrush="{StaticResource titleFontColor2}"
+                             BorderBrush="{StaticResource titleFontColor3}"
+                             BorderThickness="0,0,0,4"
+                             Height="32"
+                             Width="210"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Margin ="0,0,20,0"
+                             Padding="28,5,5,5"
+                             Text="{Binding Password}">
+                                <TextBox.Background>
+                                    <ImageBrush ImageSource="/Images/pass.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                                </TextBox.Background>
+                            </TextBox>
+                            <ComboBox x:Name="cmbPost"
+                                  FontSize="16"
+                                  FontFamily="Montserrat"
+                                  Foreground="Black"
+                                  FontWeight="Bold"
+                                  Height="32"
+                                  Width="210"
+                                  HorizontalContentAlignment ="Center"
+                                  VerticalContentAlignment="Center"
+                                  Text="{Binding Post}">
+                                <ComboBoxItem Content="Admin"/>
+                                <ComboBoxItem Content="Начальник участка"/>
+                                <ComboBoxItem Content="Инженер"/>
+                                <ComboBoxItem Content="Куратор"/>
+                                <ComboBoxItem Content="Руководитель"/>
+                            </ComboBox>
+
+                        </StackPanel>
+                        
+                        <StackPanel  Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin ="0,10,0,0">
+                            <TextBlock Text="{Binding Message}"
+                               Foreground="DarkBlue"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="15,0,0,0">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="1"
+                          Direction="1500"
+                          Color="WhiteSmoke"
+                          Opacity="0.5"
+                          BlurRadius="15"/>
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin ="0,10,0,0">
+
+                            <Button x:Name="btnAddUserDataBase"
+                            Command="{Binding AddUserDataBase}"
+                            BorderThickness="0"
+                            Content="Добавить"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Margin="0,5,0,0">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="35"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                         
                     </StackPanel>
                 </Grid>
