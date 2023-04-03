@@ -16,10 +16,10 @@ namespace ServiceTelecom.Models
 
         public UserDBModel(int id, string login, string password, string post)
         {
-            IdBase= id;
-            LoginBase= login;
-            PasswordBase= password;
-            PostBase= post;
+            IdBase = id;
+            LoginBase = login;
+            PasswordBase = password;
+            PostBase = post;
         }
 
         public int IdBase { get => _id; set { _id = value; OnPropertyChanged(nameof(IdBase)); } }
