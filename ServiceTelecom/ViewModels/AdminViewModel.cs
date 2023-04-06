@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -11,9 +12,9 @@ namespace ServiceTelecom.ViewModels
 
         private int _id;
         private string _login = string.Empty;
-        private string _password;
-        private string _post;
-        private string _message;
+        private string _password = string.Empty;
+        private string _post = string.Empty;
+        private string _message = string.Empty;
 
         public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Login { get => _login; set { _login = value; OnPropertyChanged(nameof(Login)); } }
@@ -26,17 +27,21 @@ namespace ServiceTelecom.ViewModels
 
         private UserDBModel _user;
         public ICommand AddUserDataBase { get; }
+        public ICommand UpdateUserDataBase { get; }
         public UserDBModel SelectedUser
         {
             get => _user;
-            set 
-            { 
+            set
+            {
                 _user = value;
                 OnPropertyChanged(nameof(SelectedUser));
-                Id = _user.IdBase;
-                Login = _user.LoginBase;
-                Password = _user.PasswordBase;
-                Post = _user.PostBase;
+                if(_user != null)
+                {
+                    Id = _user.IdBase;
+                    Login = _user.LoginBase;
+                    Password = _user.PasswordBase;
+                    Post = _user.PostBase;
+                }  
             }
         }
 
@@ -46,8 +51,11 @@ namespace ServiceTelecom.ViewModels
             Users = new ObservableCollection<UserDBModel>();
             Users = userRepository.GetAllUsersDataBase(Users);
             AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand, CanExecuteAddUserDataBaseCommand);
+            UpdateUserDataBase = new ViewModelCommand(ExecuteUpdateUserDataBaseCommand, CanExecuteUpdateUserDataBaseCommand);
         }
 
+
+        #region AddUserDataBase
         private bool CanExecuteAddUserDataBaseCommand(object obj)
         {
             return true;
@@ -84,5 +92,20 @@ namespace ServiceTelecom.ViewModels
                 Message = "Error adding a user";
             }
         }
+
+        #endregion
+
+        #region UpdateUserDataBase
+        private bool CanExecuteUpdateUserDataBaseCommand(object obj)
+        {
+            return true;
+        }
+
+        private void ExecuteUpdateUserDataBaseCommand(object obj)
+        {
+            Users.Clear();
+            Users = userRepository.GetAllUsersDataBase(Users);
+        }
+        #endregion
     }
 }

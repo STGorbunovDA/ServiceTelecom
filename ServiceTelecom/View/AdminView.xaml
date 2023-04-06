@@ -202,6 +202,13 @@
                             Content="Добавить"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
+                        
+                        <Button x:Name="btnUpdateUserDataBase"
+                            Command="{Binding UpdateUserDataBase}"
+                            Content="Обновить"
+                            Margin="10,5,0,0"
+                            Style="{StaticResource menuButtonStyleAll}">
+                        </Button>
                     </StackPanel>
 
                 </StackPanel>
