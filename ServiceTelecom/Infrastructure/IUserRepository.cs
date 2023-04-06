@@ -7,11 +7,11 @@ namespace ServiceTelecom.Models
 {
     public interface IUserRepository
     {
-        UserStatic getAuthorizationUser(NetworkCredential credential);
+        UserStatic GetAuthorizationUser(NetworkCredential credential);
 
-        ObservableCollection<UserDBModel> getAllUsersDataBase(ObservableCollection<UserDBModel> users);
+        ObservableCollection<UserDBModel> GetAllUsersDataBase(ObservableCollection<UserDBModel> users);
 
-        bool addUserDataBase(string login, string password, string post);
+        bool AddUserDataBase(string login, string password, string post);
 
     }
 }
