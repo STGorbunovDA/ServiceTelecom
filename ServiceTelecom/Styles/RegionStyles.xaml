@@ -2,57 +2,93 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
 
-    <!--#region Style Combobox-->
+    <!--#region Style ComboBox-->
 
- 
+    <Style x:Key="ComboBoxStyle1" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,-3,0,0"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0,3,0,0"/>
+        
+    </Style>
 
     <!--#endregion-->
-    
+    <!--#region Style TextBox-->
+    <Style x:Key="TextBoxStyle1" TargetType="TextBox">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="CaretBrush" Value="{StaticResource titleFontColor2}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource titleFontColor3}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,20,0"/>
+        <Setter Property="Padding" Value="0,5,0,0"/>
+        
+    </Style>
+
+    <!--#endregion-->
+
     <!--#region Style Datagrid-->
-    
+
     <!--Стиль rows Datagrid-->
     <Style x:Key="DataGridContentCellCentering" TargetType="DataGridCell">
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Grid Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" />
+                        <ContentPresenter VerticalAlignment="Center" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor3}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--Стиль DataGrid-->
     <Style x:Key="dataGridStyle" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
-        <Setter Property="HorizontalGridLinesBrush" Value="DarkBlue" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource buttonFontColor3}" />
         <Setter Property="Background" Value="White" />
-        <Setter Property="RowBackground" Value="LightSkyBlue" />
+        <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
         <Setter Property="AlternatingRowBackground" Value="White" />
+        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="RowHeight" Value="32"/>
     </Style>
 
     <!--Стиль для расположения элемента Colums Text DataGrid-->
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Romul"/>
     </Style>
-    
+
     <!--#endregion-->
 
     <!--#region Style Button-->
 
-    <!--Menu Button 1 Style-->
+    <!--Menu Button 1 - x Style-->
     <Style x:Key="menuButtonStyleOne" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
         <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -76,13 +112,13 @@
         </Style.Triggers>
     </Style>
 
-    <!--Menu Button 2 Style-->
+    <!--Menu Button 2  - x Style-->
     <Style x:Key="menuButtonStyleTwo" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
         <Setter Property="Background" Value="{StaticResource buttonFontColor1}"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -108,13 +144,13 @@
         </Style.Triggers>
     </Style>
 
-    <!--Menu Button 3 Style-->
+    <!--Menu Button 3 - x Style-->
     <Style x:Key="menuButtonStyleThree" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
         <Setter Property="Background" Value="{StaticResource buttonFontColor13}"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -139,11 +175,39 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
+    <!--Menu Button All Style-->
+    <Style x:Key="menuButtonStyleAll" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="150" Height="35"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--#endregion-->
 
     <!--#region Style RadioButton-->
-    
+
     <!--Menu RadioButton-->
     <Style x:Key="menuRadioButton" TargetType="RadioButton">
         <!--Normal RadioButton style-->
@@ -169,14 +233,14 @@
             <!--RadioButton Style on hover-->
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Margin" Value="-5,0,0,5"/>
-                <Setter Property="Background" Value="{StaticResource buttonFontColor1}"/>
+                <Setter Property="Background" Value="{StaticResource buttonFontColor15}"/>
                 <Setter Property="Foreground" Value="{StaticResource titleFontColor5}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource buttonFontColor1}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource buttonFontColor15}"/>
             </Trigger>
             <!--Active RadioButton style-->
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Margin" Value="-5,0,0,5"/>
-                <Setter Property="Background" Value="{StaticResource buttonFontColor1}"/>
+                <Setter Property="Background" Value="{StaticResource buttonFontColor15}"/>
                 <Setter Property="Foreground" Value="{StaticResource titleFontColor5}"/>
                 <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
             </Trigger>
@@ -194,12 +258,12 @@
     <!--Menu RadioButton text-->
     <Style x:Key="menuButtonText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontSize" Value="18.5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-    
+
     <!--#endregion-->
-    
+
 </ResourceDictionary>

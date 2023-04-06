@@ -4,6 +4,7 @@
     <!--Background Colors-->
     <Color x:Key="primaryBackColor1">#75ddff</Color>
     <Color x:Key="primaryBackColor2">#69d1fb</Color>
+    <Color x:Key="primaryBackColor3">#B3ECFF</Color>
     <Color x:Key="secondaryBackColor1">#00c6fa</Color>
     <Color x:Key="secondaryBackColor2">#0278ca</Color>
     
@@ -34,4 +35,6 @@
     <SolidColorBrush x:Key="buttonFontColor11">#FCFCFC</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor12">#005fa1</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor13">#0185d8</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor14">#B3ECFF</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor15">#75ddff</SolidColorBrush>
 </ResourceDictionary>
