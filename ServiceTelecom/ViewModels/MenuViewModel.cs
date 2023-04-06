@@ -7,11 +7,12 @@ namespace ServiceTelecom.ViewModels
 {
     internal class MenuViewModel : ViewModelBase
     {
-        private UserRepository userRepository;
+
+        AdminView admin = null;
+
         public ICommand Adminka { get; }
         public MenuViewModel()
         {
-            userRepository = new UserRepository();
             Adminka = new ViewModelCommand(ExecuteAdminkaCommand, CanExecuteAdminkaCommand);
         }
 
@@ -25,17 +26,13 @@ namespace ServiceTelecom.ViewModels
         }
         private void ExecuteAdminkaCommand(object obj)
         {
-            AdminView admin = new AdminView();
-            admin.Show();
-
-            //UserModel user = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
-            //if (user != null)
-            //{
-            //    MenuView menu = new MenuView();
-            //    menu.Show();
-
-            //}
-            //else ErrorMessage = "Invalid username or password";
+            //Application.Current.Windows.OfType<AdminView>().Where(x => x.Name == "admin").FirstOrDefault() != null
+            if (admin == null)
+            {
+                admin = new AdminView();
+                admin.Closed += (sender, args) => admin = null;
+                admin.Show();
+            }
         }
     }
 }
