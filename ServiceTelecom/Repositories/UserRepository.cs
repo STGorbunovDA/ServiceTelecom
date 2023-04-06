@@ -20,7 +20,7 @@ namespace ServiceTelecom.Repositories
         /// </summary>
         /// <param name="credential"></param>
         /// <returns></returns>
-        public UserStatic getAuthorizationUser(NetworkCredential credential)
+        public UserStatic GetAuthorizationUser(NetworkCredential credential)
         {
             if (!InternetCheck.CheckSkyNET())
                 return null;
@@ -53,7 +53,7 @@ namespace ServiceTelecom.Repositories
             }
         }
 
-        public ObservableCollection<UserDBModel> getAllUsersDataBase(ObservableCollection<UserDBModel> users)
+        public ObservableCollection<UserDBModel> GetAllUsersDataBase(ObservableCollection<UserDBModel> users)
         {
             if (!InternetCheck.CheckSkyNET())
                 return null;
@@ -84,7 +84,7 @@ namespace ServiceTelecom.Repositories
             return null;
         }
 
-        public bool addUserDataBase(string login, string password, string post)
+        public bool AddUserDataBase(string login, string password, string post)
         {
             if (!InternetCheck.CheckSkyNET())
                 return false;
