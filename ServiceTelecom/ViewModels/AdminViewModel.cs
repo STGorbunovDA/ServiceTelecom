@@ -1,9 +1,7 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -46,7 +44,7 @@ namespace ServiceTelecom.ViewModels
         {
             userRepository = new UserRepository();
             Users = new ObservableCollection<UserDBModel>();
-            Users = userRepository.getAllUsersDataBase(Users);
+            Users = userRepository.GetAllUsersDataBase(Users);
             AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand, CanExecuteAddUserDataBaseCommand);
         }
 
@@ -74,12 +72,12 @@ namespace ServiceTelecom.ViewModels
                     return;
                 }
             }
-            bool flag = userRepository.addUserDataBase(Login, Password, Post);
+            bool flag = userRepository.AddUserDataBase(Login, Password, Post);
             if (flag)
             {
                 Message = "Successfully adding a user";
                 Users.Clear();
-                Users = userRepository.getAllUsersDataBase(Users);
+                Users = userRepository.GetAllUsersDataBase(Users);
             }
             else
             {
