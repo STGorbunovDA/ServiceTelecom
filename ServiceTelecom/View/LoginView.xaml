@@ -104,14 +104,14 @@
                                Foreground="Black"
                                FontSize="16"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"
+                               FontFamily="Romul"
                                TextWrapping="Wrap"
                                HorizontalAlignment="Left"
                                Margin="0,5,0,0"/>
                     <TextBox x:Name="txbUser"
                              Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              FontSize="22"
-                             FontFamily="Montserrat"
+                             FontFamily="Unbounded Regular"
                              Foreground="Black"
                              FontWeight="Bold"
                              CaretBrush="{StaticResource titleFontColor2}"
@@ -131,7 +131,7 @@
                                Foreground="Black"
                                FontSize="16"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"
+                               FontFamily="Romul"
                                TextWrapping="Wrap"
                                HorizontalAlignment="Left"
                                Margin="0,5,0,0"/>
@@ -153,34 +153,8 @@
 
                     <Button x:Name="btnAuthorization"
                             Command="{Binding LoginCommand}"
-                            BorderThickness="0"
-                            Content="Авторизация"
-                            Foreground="White"
-                            FontSize="16"
-                            FontFamily="Montserrat"
-                            Cursor="Hand"
-                            Grid.Column="1"
-                            Margin="0,5,0,0">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="35"
-                                        CornerRadius="6"
-                                        Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
+                            Style="{StaticResource menuButtonStyleAll}"
+                            Content="Авторизация">
                     </Button>
                 </StackPanel>
             </Grid>
