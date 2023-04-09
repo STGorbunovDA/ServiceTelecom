@@ -1,14 +1,16 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace ServiceTelecom.ViewModels
 {
     internal class AdminViewModel : ViewModelBase
     {
-
         private int _id;
         private string _login = string.Empty;
         private string _password;
@@ -25,33 +27,80 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<UserDBModel> Users { get; set; }
 
         private UserDBModel _user;
+
         public ICommand AddUserDataBase { get; }
+        public ICommand UpdateUsersDataBase { get; }
+        public ICommand DeleteUserDataBase { get; }
         public UserDBModel SelectedUser
         {
             get => _user;
-            set 
-            { 
+            set
+            {
                 _user = value;
                 OnPropertyChanged(nameof(SelectedUser));
-                Id = _user.IdBase;
-                Login = _user.LoginBase;
-                Password = _user.PasswordBase;
-                Post = _user.PostBase;
+                if (_user != null)
+                {
+                    Id = _user.IdBase;
+                    Login = _user.LoginBase;
+                    Password = _user.PasswordBase;
+                    Post = _user.PostBase;
+                }
             }
         }
+
 
         public AdminViewModel()
         {
             userRepository = new UserRepository();
             Users = new ObservableCollection<UserDBModel>();
             Users = userRepository.GetAllUsersDataBase(Users);
-            AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand, CanExecuteAddUserDataBaseCommand);
+            DeleteUserDataBase = new ViewModelCommand(ExecuteDeleteUserDataBaseCommand);
+            AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand);
+            UpdateUsersDataBase = new ViewModelCommand(ExecuteUpdateUserDataBaseCommand);
         }
 
-        private bool CanExecuteAddUserDataBaseCommand(object obj)
+
+        #region DeleteUserDataBase
+
+        private void ExecuteDeleteUserDataBaseCommand(object obj)
         {
-            return true;
+            bool flag = userRepository.DeleteUsersDataBase(_user);
+            if (flag)
+            {
+                Message = "Successfully delete user's";
+                Users.Clear();
+                Users = userRepository.GetAllUsersDataBase(Users);
+            }
+            else
+            {
+                Message = "Error delete user's";
+            }
         }
+
+
+        public void GetAllSelectRowsUsers(DataGrid datagrid)
+        {
+            foreach (UserDBModel user in datagrid.SelectedItems)
+            {
+                bool flag = userRepository.DeleteUsersDataBase(user);
+                if (flag)
+                {
+                    Message = "Successfully delete user's";
+                    Users.Clear();
+                    Users = userRepository.GetAllUsersDataBase(Users);
+                }
+                else
+                {
+                    Message = "Error delete user's";
+                }
+
+            }
+        }
+
+        #endregion
+
+
+        #region AddUserDataBase
 
         private void ExecuteAddUserDataBaseCommand(object obj)
         {
@@ -84,5 +133,17 @@ namespace ServiceTelecom.ViewModels
                 Message = "Error adding a user";
             }
         }
+
+        #endregion
+
+        #region UpdateUserDataBase
+
+        private void ExecuteUpdateUserDataBaseCommand(object obj)
+        {
+            Users.Clear();
+            Users = userRepository.GetAllUsersDataBase(Users);
+        }
+
+        #endregion
     }
 }

@@ -17,7 +17,7 @@
     <Window.DataContext>
         <viewModel:AdminViewModel/>
     </Window.DataContext>
-    
+
     <Border CornerRadius="12"
             BorderThickness="3"
                 Opacity="1">
@@ -73,10 +73,7 @@
                                 HorizontalAlignment="Center">
                     <TextBlock Text="Панель управления доступа пользователей"
                                Foreground="{StaticResource titleFontColor5}"
-                               FontSize="16"
-                               FontWeight="Medium"
-                               FontFamily="Romul"
-                               TextWrapping="Wrap"
+                               Style="{StaticResource messageTextBlockStyle1}"
                                Margin="15,0,0,0">
                         <!--<TextBlock.Effect>
                             <DropShadowEffect ShadowDepth="1"
@@ -112,10 +109,6 @@
                         <DataGridTextColumn Header="Должность" 
                                                 Binding="{Binding PostBase}" 
                                                 Width="*"/>
-                        <DataGridTextColumn Header="IsNew" 
-                                                Width="*" 
-                                                Visibility="Collapsed"/>
-
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -155,7 +148,6 @@
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding Password}">
                         </TextBox>
-
                         <ComboBox x:Name="cmbPost"
                                   Height="32"
                                   Width="220"
@@ -175,13 +167,8 @@
                                 VerticalAlignment="Top"
                                 Margin ="0,10,0,0">
                         <TextBlock Text="{Binding Message}"
-                               Foreground="DarkBlue"
-                               FontSize="16"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
+                               Foreground="{StaticResource buttonFontColor3}"
+                               Style="{StaticResource messageTextBlockStyle1}"
                                Margin="15,0,0,0">
                             <TextBlock.Effect>
                                 <DropShadowEffect ShadowDepth="1"
@@ -200,6 +187,20 @@
                         <Button x:Name="btnAddUserDataBase"
                             Command="{Binding AddUserDataBase}"
                             Content="Добавить"
+                            Style="{StaticResource menuButtonStyleAll}">
+                        </Button>
+
+                        <Button x:Name="btnUpdateUserDataBase"
+                            Command="{Binding UpdateUsersDataBase}"
+                            Content="Обновить"
+                            Margin="10,5,0,0"
+                            Style="{StaticResource menuButtonStyleAll}">
+                        </Button>
+
+                        <Button x:Name="btnDeleteUserDataBase"
+                            Command="{Binding DeleteUserDataBase}"
+                            Content="Удалить"
+                            Margin="10,5,0,0"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
                     </StackPanel>

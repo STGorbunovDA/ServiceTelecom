@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -99,6 +100,34 @@ namespace ServiceTelecom.Repositories
                 command.Parameters.AddWithValue($"post", post);
                 if (command.ExecuteNonQuery() == 1) return true;
                 else return false;
+            }
+        }
+
+        public bool DeleteUsersDataBase(UserDBModel user)
+        {
+            bool flag = false;
+            int dID = Convert.ToInt32(user.IdBase);
+            using (MySqlCommand command = new MySqlCommand("usersDelete_1", 
+                RepositoryDataBase.GetInstance.GetConnection()))
+            {
+                RepositoryDataBase.GetInstance.OpenConnection();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue($"dID", dID);
+                command.ExecuteNonQuery();
+                flag = true;
+            }
+            return flag;
+        }
+        public bool DeleteUserSettingBrigades(UserDBModel user)
+        {
+            using (MySqlCommand command = new MySqlCommand("settingBrigadesUpdate_2", 
+                RepositoryDataBase.GetInstance.GetConnection()))
+            {
+                RepositoryDataBase.GetInstance.OpenConnection();
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue($"loginUser", user.LoginBase);
+                command.ExecuteNonQuery();
+                return true;
             }
         }
     }
