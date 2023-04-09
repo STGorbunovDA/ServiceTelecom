@@ -13,21 +13,15 @@ namespace ServiceTelecom.ViewModels
         public ICommand Adminka { get; }
         public MenuViewModel()
         {
-            Adminka = new ViewModelCommand(ExecuteAdminkaCommand, CanExecuteAdminkaCommand);
+            Adminka = new ViewModelCommand(ExecuteAdminkaCommand);
         }
 
-        private bool CanExecuteAdminkaCommand(object obj)
-        {
-            bool validData;
-            if (UserStatic.Post != "Admin")
-                validData = false;
-            else validData = true;
-            return validData;
-        }
         private void ExecuteAdminkaCommand(object obj)
         {
             //Application.Current.Windows.OfType<AdminView>().Where(x => x.Name == "admin").FirstOrDefault() != null
-            if (admin == null)
+            if (UserStatic.Post != "Admin")
+                return;
+            else if (admin == null)
             {
                 admin = new AdminView();
                 admin.Closed += (sender, args) => admin = null;
