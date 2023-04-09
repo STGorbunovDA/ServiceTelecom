@@ -20,13 +20,16 @@ namespace ServiceTelecom
             StaticConfig.dataBase = ConfigurationSettings.AppSettings["dataBase"];
             StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
-            var loginView = new LoginView();
-            loginView.Show();
-            loginView.IsVisibleChanged += (s, ev) =>
-            {
-                if (loginView.IsVisible == false && loginView.IsLoaded)
-                    loginView.Close();
-            };
+            var adminView = new AdminView();
+            adminView.Show();
+            //var loginView = new LoginView();
+            //loginView.Show();
+            //loginView.IsVisibleChanged += (s, ev) =>
+            //{
+            //    //&& loginView.IsLoaded
+            //    if (loginView.IsVisible == false )
+            //        loginView.Close();
+            //};
         }
     }
 }
