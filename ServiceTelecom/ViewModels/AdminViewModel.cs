@@ -1,20 +1,21 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace ServiceTelecom.ViewModels
 {
     internal class AdminViewModel : ViewModelBase
     {
-
         private int _id;
         private string _login = string.Empty;
-        private string _password = string.Empty;
-        private string _post = string.Empty;
-        private string _message = string.Empty;
+        private string _password;
+        private string _post;
+        private string _message;
 
         public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
         public string Login { get => _login; set { _login = value; OnPropertyChanged(nameof(Login)); } }
@@ -26,8 +27,10 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<UserDBModel> Users { get; set; }
 
         private UserDBModel _user;
+
         public ICommand AddUserDataBase { get; }
-        public ICommand UpdateUserDataBase { get; }
+        public ICommand UpdateUsersDataBase { get; }
+        public ICommand DeleteUserDataBase { get; }
         public UserDBModel SelectedUser
         {
             get => _user;
@@ -35,31 +38,69 @@ namespace ServiceTelecom.ViewModels
             {
                 _user = value;
                 OnPropertyChanged(nameof(SelectedUser));
-                if(_user != null)
+                if (_user != null)
                 {
                     Id = _user.IdBase;
                     Login = _user.LoginBase;
                     Password = _user.PasswordBase;
                     Post = _user.PostBase;
-                }  
+                }
             }
         }
+
 
         public AdminViewModel()
         {
             userRepository = new UserRepository();
             Users = new ObservableCollection<UserDBModel>();
             Users = userRepository.GetAllUsersDataBase(Users);
-            AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand, CanExecuteAddUserDataBaseCommand);
-            UpdateUserDataBase = new ViewModelCommand(ExecuteUpdateUserDataBaseCommand, CanExecuteUpdateUserDataBaseCommand);
+            DeleteUserDataBase = new ViewModelCommand(ExecuteDeleteUserDataBaseCommand);
+            AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand);
+            UpdateUsersDataBase = new ViewModelCommand(ExecuteUpdateUserDataBaseCommand);
         }
+
+
+        #region DeleteUserDataBase
+
+        private void ExecuteDeleteUserDataBaseCommand(object obj)
+        {
+            bool flag = userRepository.DeleteUsersDataBase(_user);
+            if (flag)
+            {
+                Message = "Successfully delete user's";
+                Users.Clear();
+                Users = userRepository.GetAllUsersDataBase(Users);
+            }
+            else
+            {
+                Message = "Error delete user's";
+            }
+        }
+
+
+        public void GetAllSelectRowsUsers(DataGrid datagrid)
+        {
+            foreach (UserDBModel user in datagrid.SelectedItems)
+            {
+                bool flag = userRepository.DeleteUsersDataBase(user);
+                if (flag)
+                {
+                    Message = "Successfully delete user's";
+                    Users.Clear();
+                    Users = userRepository.GetAllUsersDataBase(Users);
+                }
+                else
+                {
+                    Message = "Error delete user's";
+                }
+
+            }
+        }
+
+        #endregion
 
 
         #region AddUserDataBase
-        private bool CanExecuteAddUserDataBaseCommand(object obj)
-        {
-            return true;
-        }
 
         private void ExecuteAddUserDataBaseCommand(object obj)
         {
@@ -96,16 +137,13 @@ namespace ServiceTelecom.ViewModels
         #endregion
 
         #region UpdateUserDataBase
-        private bool CanExecuteUpdateUserDataBaseCommand(object obj)
-        {
-            return true;
-        }
 
         private void ExecuteUpdateUserDataBaseCommand(object obj)
         {
             Users.Clear();
             Users = userRepository.GetAllUsersDataBase(Users);
         }
+
         #endregion
     }
 }

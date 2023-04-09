@@ -1,18 +1,6 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceTelecom.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ServiceTelecom.View
 {
@@ -21,8 +9,10 @@ namespace ServiceTelecom.View
     /// </summary>
     public partial class AdminView : Window
     {
+        //AdminViewModel adminViewModel;
         public AdminView()
         {
+            //adminViewModel = new AdminViewModel();
             InitializeComponent();
         }
 
@@ -41,6 +31,10 @@ namespace ServiceTelecom.View
         {
             Close();
         }
-        
+
+        //private void Delete_Click(object sender, RoutedEventArgs e)
+        //{
+        //    adminViewModel.GetAllSelectRowsUsers(dataGrid1);
+        //}
     }
 }
