@@ -1,7 +1,5 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using System.Collections.Generic;
-using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -31,9 +29,11 @@ namespace ServiceTelecom.ViewModels
         public ICommand AddUserDataBase { get; }
         public ICommand UpdateUsersDataBase { get; }
         public ICommand DeleteUserDataBase { get; }
+        public ICommand AddUsersListCommand { get; }
+
         public UserDBModel SelectedUser
         {
-            get => _user;
+            get=> _user;
             set
             {
                 _user = value;
@@ -64,17 +64,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteUserDataBaseCommand(object obj)
         {
-            bool flag = userRepository.DeleteUsersDataBase(_user);
-            if (flag)
-            {
-                Message = "Successfully delete user's";
-                Users.Clear();
-                Users = userRepository.GetAllUsersDataBase(Users);
-            }
-            else
-            {
-                Message = "Error delete user's";
-            }
+            Users.Clear();
+            Users = userRepository.GetAllUsersDataBase(Users);
         }
 
 
@@ -98,7 +89,6 @@ namespace ServiceTelecom.ViewModels
         }
 
         #endregion
-
 
         #region AddUserDataBase
 

@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ServiceTelecom.View"
         mc:Ignorable="d"
-        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
         Title="MenuView" Height="500" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -75,26 +73,16 @@
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
                                Margin="15,0,0,0">
-                        <!--<TextBlock.Effect>
-                            <DropShadowEffect ShadowDepth="1"
-                          Direction="500"
-                          Color="Gray"
-                          Opacity="0.2"
-                          BlurRadius="5"/>
-                        </TextBlock.Effect>-->
                     </TextBlock>
                 </StackPanel>
-
-
             </Grid>
             <Grid Grid.Row="1">
                 <DataGrid Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
-                              ItemsSource="{Binding Users}"
+                              ItemsSource="{Binding Users, Mode=TwoWay}"
                               SelectedItem="{Binding SelectedUser}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}"
-                              >
+                              CellStyle="{StaticResource DataGridContentCellCentering}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="id" 
                                                 Binding="{Binding IdBase}" 
@@ -110,9 +98,7 @@
                                                 Binding="{Binding PostBase}" 
                                                 Width="*"/>
                     </DataGrid.Columns>
-
                 </DataGrid>
-
             </Grid>
             <Grid Grid.Row="2">
                 <Border Grid.Row="2" VerticalAlignment="Center"
@@ -159,9 +145,7 @@
                             <ComboBoxItem Content="Куратор"/>
                             <ComboBoxItem Content="Руководитель"/>
                         </ComboBox>
-
                     </StackPanel>
-
                     <StackPanel  Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
@@ -183,31 +167,27 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Margin ="0,10,0,0">
-
                         <Button x:Name="btnAddUserDataBase"
                             Command="{Binding AddUserDataBase}"
                             Content="Добавить"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
-
                         <Button x:Name="btnUpdateUserDataBase"
                             Command="{Binding UpdateUsersDataBase}"
                             Content="Обновить"
                             Margin="10,5,0,0"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
-
                         <Button x:Name="btnDeleteUserDataBase"
                             Command="{Binding DeleteUserDataBase}"
+                            Click="Delete_Click"
                             Content="Удалить"
                             Margin="10,5,0,0"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
                     </StackPanel>
-
                 </StackPanel>
             </Grid>
         </Grid>
     </Border>
-
 </Window>
