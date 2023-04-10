@@ -100,7 +100,8 @@
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                     <RadioButton Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor6}"
-                                     Width="170">
+                                     Width="170"
+                                     Command="{Binding Registration}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Institution" Style="{StaticResource menuButtonIcom}"/>
                             <TextBlock Text="Обучалка" Style="{StaticResource menuButtonText}"/>

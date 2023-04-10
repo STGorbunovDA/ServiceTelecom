@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View;
+using System;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -10,10 +11,26 @@ namespace ServiceTelecom.ViewModels
 
         AdminView admin = null;
 
+        StaffRegistrationView staffRegistration = null;
         public ICommand Adminka { get; }
+        public ICommand Registration { get; }
         public MenuViewModel()
         {
             Adminka = new ViewModelCommand(ExecuteAdminkaCommand);
+            Registration = new ViewModelCommand(ExecuteRegistrationCommand);
+        }
+
+        private void ExecuteRegistrationCommand(object obj)
+        {
+            if (UserStatic.Post == "Admin" || UserStatic.Post == "Руководитель")
+            {
+                if (staffRegistration == null)
+                {
+                    staffRegistration = new StaffRegistrationView();
+                    staffRegistration.Closed += (sender, args) => staffRegistration = null;
+                    staffRegistration.Show();
+                }
+            } else return;
         }
 
         private void ExecuteAdminkaCommand(object obj)
