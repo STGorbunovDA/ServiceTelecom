@@ -18,7 +18,7 @@ namespace ServiceTelecom.Models
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        ObservableCollection<UserDBModel> GetAllUsersDataBase(ObservableCollection<UserDBModel> users);
+        ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users);
 
         /// <summary>
         /// Добавление нового пользователя
@@ -34,14 +34,14 @@ namespace ServiceTelecom.Models
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        bool DeleteUsersDataBase(UserDBModel user);
+        bool DeleteUsersDataBase(UserDataBaseModel user);
 
         /// <summary>
         /// Удаление из таблицы с характеристиками бригад
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        bool DeleteUserSettingBrigades(UserDBModel user);
+        bool DeleteUserSettingBrigades(UserDataBaseModel user);
 
         /// <summary>
         /// Изменение характеристик пользователя
@@ -51,6 +51,14 @@ namespace ServiceTelecom.Models
         /// <param name="post"></param>
         /// <returns></returns>
         bool ChangeUserDataBase(int id, string login, string password, string post);
+
+        /// <summary>
+        /// Получение списка зарегестрированных бригад по дороге
+        /// </summary>
+        /// <param name="staffRegistrations"></param>
+        /// <returns></returns>
+        ObservableCollection<StaffRegistrationsDataBaseModel> GetStaffRegistrationDataBase(ObservableCollection<StaffRegistrationsDataBaseModel> staffRegistrations);
+
 
     }
 }
