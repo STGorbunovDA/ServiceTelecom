@@ -80,7 +80,7 @@
                 <DataGrid Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
-                              ItemsSource="{Binding Users, Mode=TwoWay}"
+                              ItemsSource="{Binding Users}"
                               SelectedItem="{Binding SelectedUser}"
                               CellStyle="{StaticResource DataGridContentCellCentering}">
                     <DataGrid.Columns>

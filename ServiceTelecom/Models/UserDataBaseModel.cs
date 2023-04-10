@@ -2,14 +2,14 @@
 
 namespace ServiceTelecom.Models
 {
-    public class UserDBModel : ViewModelBase
+    public class UserDataBaseModel : ViewModelBase
     {
         private int _id;
         private string _login;
         private string _password;
         private string _post;
 
-        public UserDBModel(int id, string login, string password, string post)
+        public UserDataBaseModel(int id, string login, string password, string post)
         {
             IdBase = id;
             LoginBase = login;
