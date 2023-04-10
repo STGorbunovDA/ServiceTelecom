@@ -72,7 +72,7 @@
                     <TextBlock Text="Панель управления доступа пользователей"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
-                               Margin="15,0,0,0">
+                               Margin="30,0,0,0">
                     </TextBlock>
                 </StackPanel>
             </Grid>
@@ -151,7 +151,7 @@
                                 VerticalAlignment="Top"
                                 Margin ="0,10,0,0">
                         <TextBlock Text="{Binding Message}"
-                               Foreground="{StaticResource buttonFontColor3}"
+                               Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
                                Margin="15,0,0,0">
                             <TextBlock.Effect>
@@ -172,17 +172,23 @@
                             Content="Добавить"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
+                        <Button x:Name="btnChangeUserDataBase"
+                            Command="{Binding ChangeUserDataBase}"
+                            Content="Изменить"
+                            Margin="20,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}">
+                        </Button>
                         <Button x:Name="btnUpdateUserDataBase"
                             Command="{Binding UpdateUsersDataBase}"
                             Content="Обновить"
-                            Margin="10,5,0,0"
+                            Margin="20,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
                         <Button x:Name="btnDeleteUserDataBase"
                             Command="{Binding DeleteUserDataBase}"
                             Click="Delete_Click"
                             Content="Удалить"
-                            Margin="10,5,0,0"
+                            Margin="20,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}">
                         </Button>
                     </StackPanel>
