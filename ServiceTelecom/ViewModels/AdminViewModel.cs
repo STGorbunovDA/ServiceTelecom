@@ -23,9 +23,9 @@ namespace ServiceTelecom.ViewModels
         public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
 
         private UserRepository userRepository;
-        public ObservableCollection<UserDBModel> Users { get; set; }
+        public ObservableCollection<UserDataBaseModel> Users { get; set; }
 
-        private UserDBModel _user;
+        private UserDataBaseModel _user;
 
         public ICommand AddUserDataBase { get; }
         public ICommand UpdateUsersDataBase { get; }
@@ -33,7 +33,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand AddUsersListCommand { get; }
         public ICommand ChangeUserDataBase { get; }
 
-        public UserDBModel SelectedUser
+        public UserDataBaseModel SelectedUser
         {
             get=> _user;
             set
@@ -53,7 +53,7 @@ namespace ServiceTelecom.ViewModels
         public AdminViewModel()
         {
             userRepository = new UserRepository();
-            Users = new ObservableCollection<UserDBModel>();
+            Users = new ObservableCollection<UserDataBaseModel>();
             Users = userRepository.GetAllUsersDataBase(Users);
             DeleteUserDataBase = new ViewModelCommand(ExecuteDeleteUserDataBaseCommand);
             AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand);
@@ -98,7 +98,7 @@ namespace ServiceTelecom.ViewModels
 
         public void GetAllSelectRowsUsers(DataGrid datagrid)
         {
-            foreach (UserDBModel user in datagrid.SelectedItems)
+            foreach (UserDataBaseModel user in datagrid.SelectedItems)
             {
                 bool flag = userRepository.DeleteUsersDataBase(user);
                 if (flag)

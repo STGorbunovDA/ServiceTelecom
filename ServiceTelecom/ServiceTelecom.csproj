@@ -116,7 +116,8 @@
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\IUserRepository.cs" />
     <Compile Include="Infrastructure\StaticConfig.cs" />
-    <Compile Include="Models\UserDBModel.cs" />
+    <Compile Include="Models\StaffRegistrationDataBaseModel.cs" />
+    <Compile Include="Models\UserDataBaseModel.cs" />
     <Compile Include="Models\UserStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="Infrastructure\ViewModelBase.cs" />
     <Compile Include="Infrastructure\ViewModelCommand.cs" />
+    <Compile Include="ViewModels\StaffRegistrationViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModel.cs" />
     <Compile Include="View\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
@@ -134,6 +136,9 @@
     </Compile>
     <Compile Include="View\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StaffRegistrationView.xaml.cs">
+      <DependentUpon>StaffRegistrationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkView.xaml.cs">
       <DependentUpon>WorkView.xaml</DependentUpon>
@@ -163,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StaffRegistrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
