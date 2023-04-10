@@ -1,11 +1,10 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using System.Collections.Generic;
-using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -31,9 +30,12 @@ namespace ServiceTelecom.ViewModels
         public ICommand AddUserDataBase { get; }
         public ICommand UpdateUsersDataBase { get; }
         public ICommand DeleteUserDataBase { get; }
+        public ICommand AddUsersListCommand { get; }
+        public ICommand ChangeUserDataBase { get; }
+
         public UserDBModel SelectedUser
         {
-            get => _user;
+            get=> _user;
             set
             {
                 _user = value;
@@ -48,7 +50,6 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-
         public AdminViewModel()
         {
             userRepository = new UserRepository();
@@ -57,14 +58,20 @@ namespace ServiceTelecom.ViewModels
             DeleteUserDataBase = new ViewModelCommand(ExecuteDeleteUserDataBaseCommand);
             AddUserDataBase = new ViewModelCommand(ExecuteAddUserDataBaseCommand);
             UpdateUsersDataBase = new ViewModelCommand(ExecuteUpdateUserDataBaseCommand);
+            ChangeUserDataBase = new ViewModelCommand(ExecuteChangeUserDataBaseCommand);
         }
 
+        #region ChangeUsersDataBase
 
-        #region DeleteUserDataBase
-
-        private void ExecuteDeleteUserDataBaseCommand(object obj)
+        private void ExecuteChangeUserDataBaseCommand(object obj)
         {
-            bool flag = userRepository.DeleteUsersDataBase(_user);
+            if (String.IsNullOrWhiteSpace(Login) && String.IsNullOrWhiteSpace(Password)
+                && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 && Password.Length > 22)
+            {
+                Message = "Error change user's";
+                return;
+            }
+            bool flag = userRepository.ChangeUserDataBase(Id, Login, Password, Post);
             if (flag)
             {
                 Message = "Successfully delete user's";
@@ -75,6 +82,17 @@ namespace ServiceTelecom.ViewModels
             {
                 Message = "Error delete user's";
             }
+
+        }
+
+        #endregion
+
+        #region DeleteUserDataBase
+
+        private void ExecuteDeleteUserDataBaseCommand(object obj)
+        {
+            Users.Clear();
+            Users = userRepository.GetAllUsersDataBase(Users);
         }
 
 
@@ -98,7 +116,6 @@ namespace ServiceTelecom.ViewModels
         }
 
         #endregion
-
 
         #region AddUserDataBase
 

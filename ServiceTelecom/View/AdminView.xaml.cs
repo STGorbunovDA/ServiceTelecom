@@ -1,18 +1,17 @@
 ﻿using ServiceTelecom.ViewModels;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View
 {
-    /// <summary>
-    /// Логика взаимодействия для AdminView.xaml
-    /// </summary>
     public partial class AdminView : Window
     {
-        //AdminViewModel adminViewModel;
+        AdminViewModel adminViewModel;
+
         public AdminView()
         {
-            //adminViewModel = new AdminViewModel();
+            adminViewModel = new AdminViewModel();
             InitializeComponent();
         }
 
@@ -32,9 +31,10 @@ namespace ServiceTelecom.View
             Close();
         }
 
-        //private void Delete_Click(object sender, RoutedEventArgs e)
-        //{
-        //    adminViewModel.GetAllSelectRowsUsers(dataGrid1);
-        //}
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            adminViewModel.GetAllSelectRowsUsers(dataGrid1);
+            adminViewModel = null;
+        }
     }
 }

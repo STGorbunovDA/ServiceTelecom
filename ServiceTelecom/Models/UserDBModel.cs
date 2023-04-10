@@ -1,9 +1,4 @@
 ﻿using ServiceTelecom.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceTelecom.Models
 {
@@ -26,5 +21,6 @@ namespace ServiceTelecom.Models
         public string LoginBase { get => _login; set { _login = value; OnPropertyChanged(nameof(LoginBase)); } }
         public string PasswordBase { get => _password; set { _password = value; OnPropertyChanged(nameof(PasswordBase)); } }
         public string PostBase { get => _post; set { _post = value; OnPropertyChanged(nameof(PostBase)); } }
+        
     }
 }

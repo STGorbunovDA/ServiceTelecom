@@ -43,5 +43,14 @@ namespace ServiceTelecom.Models
         /// <returns></returns>
         bool DeleteUserSettingBrigades(UserDBModel user);
 
+        /// <summary>
+        /// Изменение характеристик пользователя
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        bool ChangeUserDataBase(int id, string login, string password, string post);
+
     }
 }
