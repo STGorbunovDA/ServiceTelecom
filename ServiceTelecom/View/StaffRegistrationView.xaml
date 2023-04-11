@@ -118,6 +118,76 @@
                     <Image Source="/Images/abstract2.png" 
                            Height="150" Width="1366"/>
                 </Border>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Margin ="0,20,0,0">
+                        <TextBox x:Name="txbId"
+                                 Visibility="Collapsed"
+                                 Height="32"
+                                 Width="100"
+                                 IsReadOnly="True"
+                            Style="{StaticResource TextBoxStyle1}"
+                            Text="{Binding Id}">
+                        </TextBox>
+                        <ComboBox x:Name="cmbStaffRegistration"
+                                  Height="32"
+                                  Width="220"
+                                  Margin="20,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding SectionForemanCollection}"
+                                  Text="{Binding SectionForeman}">
+                        </ComboBox>
+                        <ComboBox x:Name="cmbEngineer"
+                                  Height="32"
+                                  Width="220"
+                                  Margin="0,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding EngineerCollection}"
+                                  Text="{Binding Engineer}">
+                        </ComboBox>
+                        <ComboBox x:Name="cmbCurator"
+                                  Height="32"
+                                  Width="220"
+                                  Margin="0,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding CuratorCollection}"
+                                  Text="{Binding Curator}">
+                        </ComboBox>
+                        <ComboBox x:Name="cmbRadioCommunicationDirectorate"
+                                  Height="32"
+                                  Width="220"
+                                  Margin="0,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding RadioCommunicationDirectorateCollection}"
+                                  Text="{Binding RadioCommunicationDirectorate}">
+                        </ComboBox>
+                        <ComboBox x:Name="cmbRoad"
+                                  Height="32"
+                                  Width="270"
+                                  Margin="0,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  Text="{Binding Road}">
+                            <ComboBoxItem Content="Восточно-Сибирская ЖД"/>
+                            <ComboBoxItem Content="Горьковская ЖД"/>
+                            <ComboBoxItem Content="Дальневосточная ЖД"/>
+                            <ComboBoxItem Content="Забайкальская ЖД"/>
+                            <ComboBoxItem Content="Западно-Сибирская ЖД"/>
+                            <ComboBoxItem Content="Калининградская ЖД"/>
+                            <ComboBoxItem Content="Красноярская ЖД"/>
+                            <ComboBoxItem Content="Куйбышевская ЖД"/>
+                            <ComboBoxItem Content="Московская ЖД"/>
+                            <ComboBoxItem Content="Октябрьская ЖД"/>
+                            <ComboBoxItem Content="Приволжская ЖД"/>
+                            <ComboBoxItem Content="Сахалинская ЖД"/>
+                            <ComboBoxItem Content="Свердловская ЖД"/>
+                            <ComboBoxItem Content="Северо-Кавказская ЖД"/>
+                            <ComboBoxItem Content="Юго-Восточная ЖД"/>
+                            <ComboBoxItem Content="Южно-Уральская ЖД"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
