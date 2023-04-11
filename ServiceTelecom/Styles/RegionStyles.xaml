@@ -14,7 +14,7 @@
         <Setter Property="IsEditable" Value="True"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center" />
         <Setter Property="Padding" Value="0,3,0,0"/>
-        
+        <Setter Property="SelectedIndex" Value="0"/>
     </Style>
 
     <!--#endregion-->
