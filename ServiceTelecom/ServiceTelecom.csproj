@@ -114,12 +114,14 @@
     </Compile>
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
-    <Compile Include="Infrastructure\IUserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Infrastructure\StaticConfig.cs" />
     <Compile Include="Models\StaffRegistrationDataBaseModel.cs" />
     <Compile Include="Models\UserDataBaseModel.cs" />
-    <Compile Include="Models\UserStatic.cs" />
+    <Compile Include="Infrastructure\UserStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
+    <Compile Include="Repositories\StaffRegistrationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -248,6 +250,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\abstract2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@ namespace ServiceTelecom.Infrastructure
 {
     class Encryption
     {
-        private const string SecurityKey = "ServiceTelecomGorbunov2015";
+        private const string SecurityKey = "ServiceTelecomGorbunov2015";//TODO убрать кодовое слово в отдельный файл!
         /// <summary>
         /// Шифруем
         /// </summary>

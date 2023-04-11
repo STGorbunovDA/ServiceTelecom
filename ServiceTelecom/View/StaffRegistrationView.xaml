@@ -115,8 +115,8 @@
             <Grid Grid.Row="2">
                 <Border Grid.Row="2" VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-                    <Image Source="/Images/abstract3.png" 
-                           Height="2500" Width="1400"/>
+                    <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="1366"/>
                 </Border>
             </Grid>
         </Grid>
