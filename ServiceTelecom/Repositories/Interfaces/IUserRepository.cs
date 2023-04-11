@@ -52,12 +52,7 @@ namespace ServiceTelecom.Models
         /// <returns></returns>
         bool ChangeUserDataBase(int id, string login, string password, string post);
 
-        /// <summary>
-        /// Получение списка зарегестрированных бригад по дороге
-        /// </summary>
-        /// <param name="staffRegistrations"></param>
-        /// <returns></returns>
-        ObservableCollection<StaffRegistrationsDataBaseModel> GetStaffRegistrationDataBase(ObservableCollection<StaffRegistrationsDataBaseModel> staffRegistrations);
+       
 
 
     }

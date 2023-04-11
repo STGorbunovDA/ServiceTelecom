@@ -1,13 +1,4 @@
-﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ServiceTelecom.Models
+﻿namespace ServiceTelecom.Models
 {
     public class UserStatic
     {
