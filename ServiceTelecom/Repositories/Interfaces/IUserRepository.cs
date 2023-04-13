@@ -34,14 +34,7 @@ namespace ServiceTelecom.Models
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        bool DeleteUsersDataBase(UserDataBaseModel user);
-
-        /// <summary>
-        /// Удаление из таблицы с характеристиками бригад
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        bool DeleteUserSettingBrigades(UserDataBaseModel user);
+        void DeleteUsersDataBase(UserDataBaseModel user);
 
         /// <summary>
         /// Изменение характеристик пользователя
