@@ -34,7 +34,6 @@ namespace ServiceTelecom.View
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             adminViewModel.GetAllSelectRowsUsers(dataGrid1);
-            adminViewModel = null;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace ServiceTelecom.ViewModels
 
         public UserDataBaseModel SelectedUser
         {
-            get=> _user;
+            get => _user;
             set
             {
                 _user = value;
@@ -78,10 +78,7 @@ namespace ServiceTelecom.ViewModels
                 Users.Clear();
                 Users = userRepository.GetAllUsersDataBase(Users);
             }
-            else
-            {
-                Message = "Error delete user's";
-            }
+            else Message = "Error delete user's";
 
         }
 
@@ -99,20 +96,7 @@ namespace ServiceTelecom.ViewModels
         public void GetAllSelectRowsUsers(DataGrid datagrid)
         {
             foreach (UserDataBaseModel user in datagrid.SelectedItems)
-            {
-                bool flag = userRepository.DeleteUsersDataBase(user);
-                if (flag)
-                {
-                    Message = "Successfully delete user's";
-                    Users.Clear();
-                    Users = userRepository.GetAllUsersDataBase(Users);
-                }
-                else
-                {
-                    Message = "Error delete user's";
-                }
-
-            }
+                userRepository.DeleteUsersDataBase(user);
         }
 
         #endregion
@@ -145,10 +129,7 @@ namespace ServiceTelecom.ViewModels
                 Users.Clear();
                 Users = userRepository.GetAllUsersDataBase(Users);
             }
-            else
-            {
-                Message = "Error adding a user";
-            }
+            else Message = "Error adding a user";
         }
 
         #endregion
