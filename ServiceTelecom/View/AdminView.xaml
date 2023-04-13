@@ -144,6 +144,7 @@
                             <ComboBoxItem Content="Инженер"/>
                             <ComboBoxItem Content="Куратор"/>
                             <ComboBoxItem Content="Руководитель"/>
+                            <ComboBoxItem Content="Дирекция связи"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel  Orientation="Horizontal"

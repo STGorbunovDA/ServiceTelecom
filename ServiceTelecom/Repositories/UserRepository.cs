@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Net;
+using System.Windows;
 
 namespace ServiceTelecom.Repositories
 {
@@ -48,7 +49,6 @@ namespace ServiceTelecom.Repositories
 
         }
  
-
         public ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users)
         {
             try
@@ -77,9 +77,9 @@ namespace ServiceTelecom.Repositories
                         }
                     }
                 }
-                return null;
+                return users;
             }
-            catch (Exception) { return null; }
+            catch (Exception) { return users; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
 
 
@@ -107,13 +107,12 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool DeleteUsersDataBase(UserDataBaseModel user)
+        public void DeleteUsersDataBase(UserDataBaseModel user)
         {
-            bool flag = false;
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return flag;
+                    return;
                 int dID = Convert.ToInt32(user.IdBase);
                 using (MySqlCommand command = new MySqlCommand("usersDelete_1",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -122,31 +121,10 @@ namespace ServiceTelecom.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"dID", dID);
                     command.ExecuteNonQuery();
-                    flag = DeleteUserSettingBrigades(user);// удаление из характеристик бригад
-                }
-                return flag;
-            }
-            catch (Exception) { return flag; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
-
-        public bool DeleteUserSettingBrigades(UserDataBaseModel user)
-        {
-            try
-            {
-                using (MySqlCommand command = new MySqlCommand("settingBrigadesUpdate_2",
-                RepositoryDataBase.GetInstance.GetConnection()))
-                {
-                    RepositoryDataBase.GetInstance.OpenConnection();
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"loginUser", user.LoginBase);
-                    command.ExecuteNonQuery();
-                    return true;
                 }
             }
-            catch (Exception) { return false; }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-
         }
 
         public bool ChangeUserDataBase(int id, string login, string password, string post)
@@ -173,5 +151,7 @@ namespace ServiceTelecom.Repositories
             catch (Exception) { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        
     }
 }

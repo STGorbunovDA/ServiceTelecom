@@ -22,12 +22,13 @@ namespace ServiceTelecom
 
             var staffRegistrationView = new StaffRegistrationView();
             staffRegistrationView.Show();
+
             //var loginView = new LoginView();
             //loginView.Show();
+
             //loginView.IsVisibleChanged += (s, ev) =>
             //{
-            //    //&& loginView.IsLoaded
-            //    if (loginView.IsVisible == false )
+            //    if (loginView.IsVisible == false && loginView.IsLoaded)
             //        loginView.Close();
             //};
         }
