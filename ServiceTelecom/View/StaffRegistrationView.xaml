@@ -205,23 +205,9 @@
                                   Width="270"
                                   Margin="0,0,20,0"
                                   Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding RoadCollections}"
                                   Text="{Binding Road}">
-                                <ComboBoxItem Content="Восточно-Сибирская ЖД"/>
-                                <ComboBoxItem Content="Горьковская ЖД"/>
-                                <ComboBoxItem Content="Дальневосточная ЖД"/>
-                                <ComboBoxItem Content="Забайкальская ЖД"/>
-                                <ComboBoxItem Content="Западно-Сибирская ЖД"/>
-                                <ComboBoxItem Content="Калининградская ЖД"/>
-                                <ComboBoxItem Content="Красноярская ЖД"/>
-                                <ComboBoxItem Content="Куйбышевская ЖД"/>
-                                <ComboBoxItem Content="Московская ЖД"/>
-                                <ComboBoxItem Content="Октябрьская ЖД"/>
-                                <ComboBoxItem Content="Приволжская ЖД"/>
-                                <ComboBoxItem Content="Сахалинская ЖД"/>
-                                <ComboBoxItem Content="Свердловская ЖД"/>
-                                <ComboBoxItem Content="Северо-Кавказская ЖД"/>
-                                <ComboBoxItem Content="Юго-Восточная ЖД"/>
-                                <ComboBoxItem Content="Южно-Уральская ЖД"/>
+                               
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
