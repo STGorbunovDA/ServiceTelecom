@@ -18,7 +18,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return staffRegistrations;
-                using (MySqlCommand command = new MySqlCommand("settingBrigadesSelect_5",
+                using (MySqlCommand command = new MySqlCommand("GetStaffRegistrationsDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -58,7 +58,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("settingBrigadesInsert_1",
+                using (MySqlCommand command = new MySqlCommand("AddStaffRegistrationDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -85,7 +85,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("settingBrigadesUpdate_1",
+                using (MySqlCommand command = new MySqlCommand("ChangeStaffRegistrationDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -113,7 +113,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return;
-                using (MySqlCommand command = new MySqlCommand("settingBrigadesDelete_1",
+                using (MySqlCommand command = new MySqlCommand("DeleteStaffRegistrationsDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -123,6 +123,36 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public ObservableCollection<string> GetRoadDataBase(ObservableCollection<string> roadCollections)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return roadCollections;
+
+                using (MySqlCommand command = new MySqlCommand("GetRoadDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {   
+                                roadCollections.Add(reader.GetString(0));
+                            }
+                            reader.Close();
+                            return roadCollections;
+                        }
+                    }
+                }
+                return roadCollections;
+            }
+            catch { return roadCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
