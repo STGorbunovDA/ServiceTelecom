@@ -3,6 +3,7 @@ using ServiceTelecom.Repositories;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -35,8 +36,8 @@ namespace ServiceTelecom.ViewModels
         private StaffRegistrationRepository staffRegistrationRepository;
 
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
-
         public ObservableCollection<StaffRegistrationsDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        public ObservableCollection<string> RoadCollections { get; } 
         public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
         public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
         public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
@@ -74,11 +75,14 @@ namespace ServiceTelecom.ViewModels
             userRepository = new UserRepository();
             Users = new ObservableCollection<UserDataBaseModel>();
             staffRegistrationRepository = new StaffRegistrationRepository();
+            RoadCollections = new ObservableCollection<string>();
             SectionForemanCollection = new ObservableCollection<string>();
             EngineerCollection = new ObservableCollection<string>();
             CuratorCollection = new ObservableCollection<string>();
             RadioCommunicationDirectorateCollection = new ObservableCollection<string>();
             StaffRegistrations = new ObservableCollection<StaffRegistrationsDataBaseModel>();
+
+            RoadCollections = staffRegistrationRepository.GetRoadDataBase(RoadCollections);
             GetStaffRegistrationsForUpdate();
             AddStaffRegistrationDataBase = new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
             ChangeStaffRegistrationDataBase = new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
@@ -94,8 +98,6 @@ namespace ServiceTelecom.ViewModels
         }
 
         #endregion
-
-
 
         #region DeleteStaffRegistrationDataBase
 
