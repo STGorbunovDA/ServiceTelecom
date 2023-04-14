@@ -18,7 +18,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return null;
-                using (MySqlCommand command = new MySqlCommand("usersSelect_1",
+                using (MySqlCommand command = new MySqlCommand("GetAuthorizationUser",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -55,7 +55,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return null;
-                using (MySqlCommand command = new MySqlCommand("usersSelectFull_1",
+                using (MySqlCommand command = new MySqlCommand("GetAllUsersDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -91,7 +91,7 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("usersInsert_2",
+                using (MySqlCommand command = new MySqlCommand("AddUserDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -114,7 +114,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return;
                 int dID = Convert.ToInt32(user.IdBase);
-                using (MySqlCommand command = new MySqlCommand("usersDelete_1",
+                using (MySqlCommand command = new MySqlCommand("DeleteUsersDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -135,7 +135,7 @@ namespace ServiceTelecom.Repositories
                     return false;
                 string loginUser = Encryption.EncryptPlainTextToCipherText(login);
                 string passUser = Encryption.EncryptPlainTextToCipherText(password);
-                using (MySqlCommand command = new MySqlCommand("usersUpdate_1",
+                using (MySqlCommand command = new MySqlCommand("ChangeUserDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
