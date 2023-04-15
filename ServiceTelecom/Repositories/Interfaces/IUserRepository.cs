@@ -50,14 +50,17 @@ namespace ServiceTelecom.Models
         /// Запись времени захода пользователя в Базу данных
         /// </summary>
         /// <param name="user"></param>
-        bool SetDateTimeUserDataBase(UserStatic user);
+        bool SetDateTimeUserDataBase(string user);
 
         /// <summary>
         /// Получаем время захода пользователя из Базы данных
         /// </summary>
         /// <param name="user"></param>
-        DateTime GetDateTimeUserDataBase(UserStatic user, DateTime date);
-
-
+        DateTime GetDateTimeUserDataBase(string user, DateTime date);
+        /// <summary>
+        /// Запись времени выхода пользователя в Базу данных
+        /// </summary>
+        /// <param name="user"></param>
+        bool SetDateTimeExitUserDataBase(string user);
     }
 }

@@ -152,7 +152,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
        
-        public bool SetDateTimeUserDataBase(UserStatic user)
+        public bool SetDateTimeUserDataBase(string user)
         {
             if (!InternetCheck.CheckSkyNET())
                 return false;
@@ -182,7 +182,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }   
         }
        
-        public DateTime GetDateTimeUserDataBase(UserStatic user, DateTime date)
+        public DateTime GetDateTimeUserDataBase(string user, DateTime date)
         {
             try
             {
@@ -205,6 +205,44 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
             
             
+        }
+
+        public bool SetDateTimeExitUserDataBase(string user)
+        {
+            if (!InternetCheck.CheckSkyNET())
+                return false;
+
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите закрыть программу?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.OK)
+            {
+                try
+                {
+                    DateTime date = DateTime.Now;
+                    string exitDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                    DateTime getDateTimeFromDataBase = GetDateTimeUserDataBase(user, date);
+
+                    if (getDateTimeFromDataBase == DateTime.MinValue) return false;
+
+                    if (date.ToString("yyyy-MM-dd") == getDateTimeFromDataBase.ToString("yyyy-MM-dd"))
+                    {
+                        using (MySqlCommand command = new MySqlCommand("SetDateTimeExitUserDataBase", 
+                            RepositoryDataBase.GetInstance.GetConnection()))
+                        {
+                            RepositoryDataBase.GetInstance.OpenConnection();
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue($"dateTimeExit", exitDate);
+                            command.Parameters.AddWithValue($"userLogin", user);
+                            command.Parameters.AddWithValue($"dateTimeInput", getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
+                            if (command.ExecuteNonQuery() == 1) return true;
+                            else return false;
+                        }
+                    }
+                    else return true;
+                }
+                catch { return false; }
+                finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+            }
+            else return false;               
         }
     }
 }
