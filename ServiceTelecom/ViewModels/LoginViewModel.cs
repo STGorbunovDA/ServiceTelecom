@@ -53,10 +53,16 @@ namespace ServiceTelecom.ViewModels
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                MenuView menu = new MenuView();
-                menu.Show();
-                IsViewVisible = false;
-                
+
+                bool flag = userRepository.SetDateTimeUserDataBase(user);
+                if (flag)
+                {
+                    MenuView menu = new MenuView();
+                    menu.Show();
+                    IsViewVisible = false;
+                }
+                else ErrorMessage = "Invalid set dateTime User DataBase";
+
             }
             else ErrorMessage = "Invalid username or password";
         }

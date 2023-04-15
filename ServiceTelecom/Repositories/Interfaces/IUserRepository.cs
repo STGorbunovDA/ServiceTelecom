@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 
@@ -45,7 +46,17 @@ namespace ServiceTelecom.Models
         /// <returns></returns>
         bool ChangeUserDataBase(int id, string login, string password, string post);
 
-       
+        /// <summary>
+        /// Запись времени захода пользователя в Базу данных
+        /// </summary>
+        /// <param name="user"></param>
+        bool SetDateTimeUserDataBase(UserStatic user);
+
+        /// <summary>
+        /// Получаем время захода пользователя из Базы данных
+        /// </summary>
+        /// <param name="user"></param>
+        DateTime GetDateTimeUserDataBase(UserStatic user, DateTime date);
 
 
     }
