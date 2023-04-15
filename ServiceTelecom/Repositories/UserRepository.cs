@@ -151,7 +151,60 @@ namespace ServiceTelecom.Repositories
             catch (Exception) { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+       
+        public bool SetDateTimeUserDataBase(UserStatic user)
+        {
+            if (!InternetCheck.CheckSkyNET())
+                return false;
+            try
+            {
+                DateTime date = DateTime.Now;
+                string entryDate = date.ToString("yyyy-MM-dd HH:mm:ss");
+                DateTime getDateTimeFromDataBase = GetDateTimeUserDataBase(user, date);
 
-        
+                if (getDateTimeFromDataBase == DateTime.MinValue) return false;
+
+                if (date.ToString("yyyy-MM-dd") != getDateTimeFromDataBase.ToString("yyyy-MM-dd"))
+                {
+                    using (MySqlCommand command = new MySqlCommand("SetDateTimeUserDataBase", RepositoryDataBase.GetInstance.GetConnection()))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue($"user", user);
+                        command.Parameters.AddWithValue($"dateTimeInput", entryDate);
+                        RepositoryDataBase.GetInstance.OpenConnection();
+                        if (command.ExecuteNonQuery() == 1) return true;
+                        else return false;
+                    }
+                }
+                else return true;
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }   
+        }
+       
+        public DateTime GetDateTimeUserDataBase(UserStatic user, DateTime date)
+        {
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand("GetDateTimeUserDataBase", RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"userLogin", user);
+                    command.Parameters.AddWithValue($"date", date.ToString("yyyy-MM-dd"));
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return Convert.ToDateTime(table.Rows[table.Rows.Count - 1].ItemArray[0]);
+                        else return DateTime.MaxValue;
+                    }
+                }
+            }
+            catch{ return DateTime.MinValue; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+            
+            
+        }
     }
 }
