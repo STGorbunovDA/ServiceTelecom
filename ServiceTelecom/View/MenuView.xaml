@@ -61,13 +61,13 @@
                             Style="{StaticResource menuButtonStyleOne}"
                             Content="-"
                             Grid.Column="1"
-                            Click="btnMinimize_Click" >
+                            Click="BtnMinimize_Click" >
                 </Button>
                 <Button x:Name="btnClose"
                             Style="{StaticResource menuButtonStyleThree}"
                             Content="x"
                             Grid.Column="2"
-                            Click="btnClose_Click" >
+                            Click="BtnClose_Click" >
                 </Button>
             </Grid>
             <Border CornerRadius="10,0,0,10"

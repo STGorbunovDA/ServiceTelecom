@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
 using System.Windows;
 using System.Windows.Input;
 
@@ -6,8 +7,10 @@ namespace ServiceTelecom.View
 {
     public partial class MenuView : Window
     {
+        UserRepository userRepository;
         public MenuView()
         {
+            userRepository = new UserRepository();
             InitializeComponent();
         }
 
@@ -17,14 +20,20 @@ namespace ServiceTelecom.View
                 DragMove();
         }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (userRepository.SetDateTimeExitUserDataBase(UserStatic.Login))
+                Close();
+
+            //else
+            //{
+            //    MessageBox.Show($"Ошибка записи времени выхода из программы user: {UserStatic.Login}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
     }
 }
