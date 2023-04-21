@@ -1,9 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.View;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -35,6 +34,8 @@ namespace ServiceTelecom.ViewModels
         private UserRepository userRepository;
         private StaffRegistrationRepository staffRegistrationRepository;
 
+        ReportCardView reportCard = null;
+
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
         public ObservableCollection<StaffRegistrationsDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
         public ObservableCollection<string> RoadCollections { get; } 
@@ -47,6 +48,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand ChangeStaffRegistrationDataBase { get; }
         public ICommand DeleteStaffRegistrationDataBase { get; }
         public ICommand UpdateStaffRegistrationDataBase { get; }
+        public ICommand ReportCard { get; }
 
         private StaffRegistrationsDataBaseModel _staffRegistration;
 
@@ -88,7 +90,22 @@ namespace ServiceTelecom.ViewModels
             ChangeStaffRegistrationDataBase = new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
             DeleteStaffRegistrationDataBase = new ViewModelCommand(ExecuteDeleteStaffRegistrationDataBaseCommand);
             UpdateStaffRegistrationDataBase = new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
+            ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
         }
+
+        #region открываем табель сотрудников
+
+        private void ExecuteReportCardDataBaseCommand(object obj)
+        {
+            if (reportCard == null)
+            {
+                reportCard = new ReportCardView();
+                reportCard.Closed += (sender, args) => reportCard = null;
+                reportCard.Show();
+            }
+        }
+
+        #endregion
 
         #region UpdateStaffRegistrationDataBase
 
@@ -153,9 +170,7 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-        /// <summary>
-        /// Проверка ввода значений пользователя
-        /// </summary>
+        /// <summary> Проверка ввода значений пользователя </summary>
         private bool CheckingUserInputValues()
         {
             if (string.IsNullOrWhiteSpace(SectionForeman) || string.IsNullOrWhiteSpace(Engineer) ||
@@ -179,9 +194,7 @@ namespace ServiceTelecom.ViewModels
             return true;
         }
 
-        /// <summary>
-        /// Получаем данные о регистрации персонала для Обновления
-        /// </summary>
+        /// <summary> Получаем данные о регистрации персонала для Обновления </summary>
         private void GetStaffRegistrationsForUpdate()
         {
             if (StaffRegistrations.Count != 0|| Users.Count != 0 || SectionForemanCollection.Count != 0 
