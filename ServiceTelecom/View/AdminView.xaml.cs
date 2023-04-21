@@ -1,6 +1,5 @@
 ﻿using ServiceTelecom.ViewModels;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View

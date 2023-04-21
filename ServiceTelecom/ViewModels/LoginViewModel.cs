@@ -48,15 +48,15 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            UserStatic user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
+            UserModel user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                bool flag = userRepository.SetDateTimeUserDataBase(UserStatic.Login);
+                bool flag = userRepository.SetDateTimeUserDataBase(user.Login);
                 if (flag)
                 {
-                    MenuView menu = new MenuView();
+                    MenuView menu = new MenuView(user);
                     menu.Show();
                     IsViewVisible = false;
                 }

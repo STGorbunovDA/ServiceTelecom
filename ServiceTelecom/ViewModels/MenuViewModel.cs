@@ -10,6 +10,7 @@ namespace ServiceTelecom.ViewModels
         AdminView admin = null;
 
         StaffRegistrationView staffRegistration = null;
+
         public ICommand Adminka { get; }
         public ICommand Registration { get; }
         public MenuViewModel()
@@ -20,7 +21,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteRegistrationCommand(object obj)
         {
-            if (UserStatic.Post == "Admin" || UserStatic.Post == "Руководитель")
+            if (UserModel.Post == "Admin" || UserModel.Post == "Руководитель")
             {
                 if (staffRegistration == null)
                 {
@@ -34,7 +35,7 @@ namespace ServiceTelecom.ViewModels
         private void ExecuteAdminkaCommand(object obj)
         {
             //Application.Current.Windows.OfType<AdminView>().Where(x => x.Name == "admin").FirstOrDefault() != null
-            if (UserStatic.Post != "Admin")
+            if (UserModel.Post != "Admin")
                 return;
             else if (admin == null)
             {
