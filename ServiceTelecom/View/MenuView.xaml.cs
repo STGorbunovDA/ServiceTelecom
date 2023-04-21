@@ -8,10 +8,12 @@ namespace ServiceTelecom.View
     public partial class MenuView : Window
     {
         UserRepository userRepository;
-        public MenuView()
+        UserModel _user;
+        public MenuView(UserModel user)
         {
             userRepository = new UserRepository();
             InitializeComponent();
+            _user = user;
         }
 
         void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -27,7 +29,7 @@ namespace ServiceTelecom.View
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            if (userRepository.SetDateTimeExitUserDataBase(UserStatic.Login))
+            if (userRepository.SetDateTimeExitUserDataBase(_user.Login))
                 Close();
 
             //else

@@ -12,7 +12,7 @@ namespace ServiceTelecom.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public UserStatic GetAuthorizationUser(NetworkCredential credential)
+        public UserModel GetAuthorizationUser(NetworkCredential credential)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ServiceTelecom.Repositories
                         adapter.Fill(table);
                         if (table.Rows.Count == 1)
                         {
-                            UserStatic user = new UserStatic(
+                            UserModel user = new UserModel(
                                 table.Rows[0].ItemArray[0].ToString(),
                                 table.Rows[0].ItemArray[2].ToString());
                             RegistryKey currentUserKey = Registry.CurrentUser;
@@ -232,7 +232,7 @@ namespace ServiceTelecom.Repositories
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue($"dateTimeExit", exitDate);
                             command.Parameters.AddWithValue($"userLogin", user);
-                            command.Parameters.AddWithValue($"dateTimeInput", getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
+                            command.Parameters.AddWithValue($"dateTimeInputApp", getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
                             if (command.ExecuteNonQuery() == 1) return true;
                             else return false;
                         }
