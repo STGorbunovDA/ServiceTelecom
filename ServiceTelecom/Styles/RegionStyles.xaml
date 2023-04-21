@@ -155,7 +155,6 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,0,0,0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -165,7 +164,7 @@
                         <ContentPresenter 
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
-                            Margin="0,-2,0,0"/>
+                            Margin="0,-1,0,0"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -173,6 +172,33 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource buttonFontColor2}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Menu Button 4 - x Style-->
+    <Style x:Key="menuButtonStyleFour" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
