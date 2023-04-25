@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View;
-using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -12,6 +11,20 @@ namespace ServiceTelecom.ViewModels
 {
     internal class StaffRegistrationViewModel : ViewModelBase
     {
+        private UserRepository userRepository;
+        private StaffRegistrationRepository staffRegistrationRepository;
+        private StaffRegistrationsDataBaseModel _staffRegistration;
+        ReportCardView reportCard = null;
+
+        public ObservableCollection<UserDataBaseModel> Users { get; set; }
+        public ObservableCollection<StaffRegistrationsDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        public ObservableCollection<string> RoadCollections { get; }
+        public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
+        public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
+        public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
+        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
+
+
         private int _id;
         private string _sectionForeman;
         private string _engineer;
@@ -30,27 +43,12 @@ namespace ServiceTelecom.ViewModels
         public string Attorney { get => _attorney; set { _attorney = value; OnPropertyChanged(nameof(Attorney)); } }
         public string NumberPrintDocument { get => _numberPrintDocument; set { _numberPrintDocument = value; OnPropertyChanged(nameof(NumberPrintDocument)); } }
         public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
-
-        private UserRepository userRepository;
-        private StaffRegistrationRepository staffRegistrationRepository;
-
-        ReportCardView reportCard = null;
-
-        public ObservableCollection<UserDataBaseModel> Users { get; set; }
-        public ObservableCollection<StaffRegistrationsDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
-        public ObservableCollection<string> RoadCollections { get; } 
-        public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
-        public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
-        public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
-        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
-
+   
         public ICommand AddStaffRegistrationDataBase { get; }
         public ICommand ChangeStaffRegistrationDataBase { get; }
         public ICommand DeleteStaffRegistrationDataBase { get; }
         public ICommand UpdateStaffRegistrationDataBase { get; }
         public ICommand ReportCard { get; }
-
-        private StaffRegistrationsDataBaseModel _staffRegistration;
 
         public StaffRegistrationsDataBaseModel SelectedStaffRegistration
         {
@@ -197,7 +195,7 @@ namespace ServiceTelecom.ViewModels
         /// <summary> Получаем данные о регистрации персонала для Обновления </summary>
         private void GetStaffRegistrationsForUpdate()
         {
-            if (StaffRegistrations.Count != 0|| Users.Count != 0 || SectionForemanCollection.Count != 0 
+            if (StaffRegistrations.Count != 0 || Users.Count != 0 || SectionForemanCollection.Count != 0 
                 || EngineerCollection.Count != 0 || CuratorCollection.Count != 0 
                 || RadioCommunicationDirectorateCollection.Count != 0)
             {
