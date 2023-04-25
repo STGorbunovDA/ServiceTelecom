@@ -39,12 +39,11 @@ namespace ServiceTelecom.Repositories
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(7)));
                                 staffRegistrations.Add(staffRegistration);
                             }
-                            reader.Close();
-                            return staffRegistrations;
                         }
+                        reader.Close();
+                        return staffRegistrations;
                     }
                 }
-                return staffRegistrations;
             }
             catch (Exception) { return staffRegistrations; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
