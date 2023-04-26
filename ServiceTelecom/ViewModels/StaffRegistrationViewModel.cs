@@ -25,6 +25,18 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
 
 
+        private int _theIndexSectionForemanCollection;
+        public int TheIndexSectionForemanCollection { get => _theIndexSectionForemanCollection; set { _theIndexSectionForemanCollection = value; OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } }
+
+        private int _theIndexEngineerCollection;
+        public int TheIndexEngineerCollection { get => _theIndexEngineerCollection; set { _theIndexEngineerCollection = value; OnPropertyChanged(nameof(TheIndexEngineerCollection)); } }
+
+        private int _theIndexCuratorCollection;
+        public int TheIndexCuratorCollection { get => _theIndexCuratorCollection; set { _theIndexCuratorCollection = value; OnPropertyChanged(nameof(TheIndexCuratorCollection)); } }
+
+        private int _theIndexRadioCommunicationDirectorateCollection;
+        public int TheIndexRadioCommunicationDirectorateCollection { get => _theIndexRadioCommunicationDirectorateCollection; set { _theIndexRadioCommunicationDirectorateCollection = value; OnPropertyChanged(nameof(TheIndexRadioCommunicationDirectorateCollection)); } }
+
         private int _id;
         private string _sectionForeman;
         private string _engineer;
@@ -43,7 +55,11 @@ namespace ServiceTelecom.ViewModels
         public string Attorney { get => _attorney; set { _attorney = value; OnPropertyChanged(nameof(Attorney)); } }
         public string NumberPrintDocument { get => _numberPrintDocument; set { _numberPrintDocument = value; OnPropertyChanged(nameof(NumberPrintDocument)); } }
         public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
-   
+
+
+        
+
+
         public ICommand AddStaffRegistrationDataBase { get; }
         public ICommand ChangeStaffRegistrationDataBase { get; }
         public ICommand DeleteStaffRegistrationDataBase { get; }
@@ -199,6 +215,11 @@ namespace ServiceTelecom.ViewModels
                 || EngineerCollection.Count != 0 || CuratorCollection.Count != 0 
                 || RadioCommunicationDirectorateCollection.Count != 0)
             {
+                TheIndexSectionForemanCollection = -1;
+                TheIndexEngineerCollection = -1;
+                TheIndexCuratorCollection = -1;
+                TheIndexRadioCommunicationDirectorateCollection = -1;
+
                 StaffRegistrations.Clear();
                 Users.Clear();
                 SectionForemanCollection.Clear();
@@ -221,6 +242,11 @@ namespace ServiceTelecom.ViewModels
             if (EngineerCollection.Count == 0) MessageBox.Show("Зарегистрируйте Инженера");
             if (CuratorCollection.Count == 0) MessageBox.Show("Зарегистрируйте Куратора");
             if (RadioCommunicationDirectorateCollection.Count == 0) MessageBox.Show("Зарегистрируйте представителя Дирекции связи");
+
+            TheIndexSectionForemanCollection = 0;
+            TheIndexEngineerCollection = 0;
+            TheIndexCuratorCollection = 0;
+            TheIndexRadioCommunicationDirectorateCollection = 0;
         }
     }
 }
