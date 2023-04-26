@@ -1,11 +1,10 @@
 ﻿using System;
-using Controls = System.Windows.Controls;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Forms;
+using Forms = System.Windows.Forms;
+using ServiceTelecom.Models;
+using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -26,47 +25,42 @@ namespace ServiceTelecom.Infrastructure
                 return Class;
             }
         }
-        //internal void ReportCardSaveCSV(Controls.DataGrid dataGridView1)
-        //{
-        //    DateTime dateTime = DateTime.Now;
-        //    string dateTimeString = dateTime.ToString("dd.MM.yyyy");
-        //    SaveFileDialog sfd = new SaveFileDialog();
-        //    sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
-        //    sfd.FileName = $"Табель сотрудников_{dateTimeString}";
 
-        //    if (sfd.ShowDialog() == DialogResult.OK)
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Unicode))
-        //        {
-        //            string note = string.Empty;
-        //            note += $"Работник\tДата входа\tДата выхода\tВремя нахождения";
-        //            sw.WriteLine(note);
-        //            for (int i = 0; i < dataGridView1.; i++)
-        //            {
-        //                for (int j = 0; j < dataGridView1.ColumnCount; j++)
-        //                {
-        //                    Regex re = new Regex(Environment.NewLine);
-        //                    string value = dataGridView1.Rows[i].Cells[j].Value.ToString();
-        //                    value = re.Replace(value, " ");
-        //                    if (dataGridView1.Columns[j].HeaderText.ToString() == "№")
-        //                    {
 
-        //                    }
-        //                    else if (dataGridView1.Columns[j].HeaderText.ToString() == "Время нахождения")
-        //                    {
-        //                        sw.Write(value);
-        //                    }
-        //                    else if (dataGridView1.Columns[j].HeaderText.ToString() == "Модификатор")
-        //                    {
+        #region выгрузка ReportCardSaveCSV
 
-        //                    }
-        //                    else sw.Write(value + "\t");
-        //                }
-        //                sw.WriteLine();
-        //            }
-        //        }
-        //        MessageBox.Show("Файл успешно сохранен!");
-        //    }
-        //}
+        public void ReportCardSaveCSV(ObservableCollection<ReportCardsDataBaseModel> reportCards)
+        {
+            DateTime dateTime = DateTime.Now;
+            string dateTimeString = dateTime.ToString("dd.MM.yyyy");
+            Forms.SaveFileDialog sfd = new Forms.SaveFileDialog();
+            sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            sfd.FileName = $"Табель сотрудников_{dateTimeString}";
+            if (sfd.ShowDialog() == Forms.DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Unicode))
+                {
+                    string note = string.Empty;
+                    note += $"Работник,Дата входа,Дата выхода,Время нахождения";
+                    sw.WriteLine(note);
+
+                    for (int i = 0; i < reportCards.Count; i++)
+                    {
+                        string value = reportCards[i].User.ToString() + "," 
+                            + reportCards[i].DateTimeInput.ToString() + "," +
+                            reportCards[i].DateTimeExit.ToString() + "," +
+                            reportCards[i].TimeCount.ToString();
+                        sw.Write(value);
+                        sw.WriteLine();
+                    }
+                    
+                }
+                MessageBox.Show("Файл успешно сохранен!");
+            }
+        }
+
+        #endregion
+
+
     }
 }
