@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ServiceTelecom.View"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
         Title="MenuView" Height="600" Width="1000"
@@ -109,46 +108,64 @@
                     <Image Source="/Images/abstract2.png" 
                            Height="150" Width="1000"/>
                 </Border>
+
                 <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Margin ="0,30,0,0">
-                    <ComboBox x:Name="cmbDateTimeInput"
-                                  Height="35"
-                                  Width="180"
-                                  Margin="20,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding DateTimeInputCollections}"
-                                  Text="{Binding DateTimeInput}">
-                    </ComboBox>
+                    <Button x:Name="chkCmbUser"
+                            Command="{Binding GetReportCardsAtCmbUser}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" Cursor="Hand">
+                    </Button>
                     <ComboBox x:Name="cmbUser"
                                   Height="35"
                                   Width="200"
-                                  Margin="20,0,20,0"
+                                  Margin="5,0,5,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding Users}"
+                                  SelectedIndex="{Binding TheIndexUsersCollection, Mode=TwoWay}"
+                                  SelectedItem = "{Binding SelectedItemCmbUser, Mode=TwoWay}"
                                   Text="{Binding User}">
                     </ComboBox>
+                    <Button x:Name="chkCmbDateTimeInput"
+                            Command="{Binding GetReportCardsAtCmbDateTimeInput}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" Cursor="Hand">
+                    </Button>
+                    <ComboBox x:Name="cmbDateTimeInput"
+                                  Height="35"
+                                  Width="180"
+                                  Margin="5,0,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding DateTimeInputCollections}"
+                                  SelectedIndex="{Binding TheIndexDateTimeInputCollection, Mode=TwoWay}"
+                                  SelectedItem = "{Binding SelectedItemDateTimeInput , Mode=TwoWay}"
+                                  Text="{Binding DateTimeInput}">
+                    </ComboBox>
+
                     <Button x:Name="btnUpdateReportCardsDataBase"
                             Command="{Binding UpdateReportCardsDataBase}"
                             Content="Обновить"
-                            Margin ="10,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" Cursor="Hand">
+                            Margin ="5,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
                     </Button>
                     <Button x:Name="btnSaveReportCardsDataBase"
-                            Command="{Binding SaveReportCardsDataBase}"
+                            Command="{Binding SaveReportCards}"
                             Content="Сохранить"
-                            Margin ="10,0,0,0"
+                            Margin ="5,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" Cursor="Hand">
                     </Button>
                     <Button x:Name="btnDeleteReportCardsDataBase"
-                                Command="{Binding DeleteReportCardsDataBase}"
-                                Click="BtnDeleteReportCardsDataBase_Click"
+                            Command="{Binding DeleteReportCardsDataBase}"
+                            Click="BtnDeleteReportCardsDataBase_Click"
                             Content="Удалить"
-                            Margin ="10,0,10,0"
+                            Margin ="5,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" Cursor="Hand">
                     </Button>
-                    
                 </StackPanel>
             </Grid>
         </Grid>
