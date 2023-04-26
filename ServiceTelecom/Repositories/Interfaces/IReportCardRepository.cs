@@ -25,16 +25,28 @@ namespace ServiceTelecom.Repositories.Interfaces
         ObservableCollection<string> GetDateTimeInputCollectionsDataBase(ObservableCollection<string> dateTimeInputCollections);
 
         /// <summary>
-        /// Получение пользователей табеля
-        /// </summary>
-        /// <param name="users"></param>
-        /// <returns></returns>
-        ObservableCollection<string> GetAllUsersReportCardsDataBase(ObservableCollection<string> users);
-
-        /// <summary>
         /// Удаление строки табеля сотрудника
         /// </summary>
         /// <param name="idReportCards"></param>
         void DeleteReportCardsDataBase(int idReportCards);
+
+        /// <summary>
+        /// Получение табеля по выбранному user
+        /// </summary>
+        /// <param name="reportCards"></param>
+        /// <param name="cmbUser"></param>
+        /// <returns></returns>
+        ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards, string cmbUser);
+
+        /// <summary>
+        /// Получение Табеля по дате входа
+        /// </summary>
+        /// <param name="reportCards"></param>
+        /// <param name="selectedItemCmbUser"></param>
+        /// <returns></returns>
+        ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards,
+            string selectedItemCmbUser);
     }
 }
