@@ -116,6 +116,7 @@
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
+    <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
