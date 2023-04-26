@@ -5,8 +5,6 @@ using System.Net;
 using System.Security;
 using System.Windows.Input;
 using ServiceTelecom.View;
-using System.Threading;
-using System.Security.Principal;
 
 namespace ServiceTelecom.ViewModels
 {

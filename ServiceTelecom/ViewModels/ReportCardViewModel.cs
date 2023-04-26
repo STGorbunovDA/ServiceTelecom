@@ -10,6 +10,7 @@ namespace ServiceTelecom.ViewModels
     internal class ReportCardViewModel : ViewModelBase
     {
         private ReportCardRepository reportCardRepository;
+
         private ReportCardsDataBaseModel _reportCard;
         public ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
         public ObservableCollection<string> DateTimeInputCollections { get; set; }
@@ -47,12 +48,10 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-
         public ICommand UpdateReportCardsDataBase { get; }
         public ICommand DeleteReportCardsDataBase { get; }
         public ICommand SaveReportCards { get; }
         public ICommand GetReportCardsAtCmbUser { get; }
-
         public ICommand GetReportCardsAtCmbDateTimeInput { get; }
 
         public ReportCardViewModel()
