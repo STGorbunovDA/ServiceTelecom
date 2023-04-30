@@ -15,10 +15,10 @@ namespace ServiceTelecom
         protected void ApplicationStart(object sender, StartupEventArgs e)
         {
             //TODO  разобраться с конфигом
-            StaticConfig.userName = ConfigurationSettings.AppSettings["userName"];
-            StaticConfig.password = ConfigurationSettings.AppSettings["password"];
-            StaticConfig.dataBase = ConfigurationSettings.AppSettings["dataBase"];
-            StaticConfig.word = ConfigurationSettings.AppSettings["word"];
+            //StaticConfig.userName = ConfigurationSettings.AppSettings["userName"];
+            //StaticConfig.password = ConfigurationSettings.AppSettings["password"];
+            //StaticConfig.dataBase = ConfigurationSettings.AppSettings["dataBase"];
+            //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
             var tutorialEngineerView = new TutorialEngineerView();
             tutorialEngineerView.Show();
