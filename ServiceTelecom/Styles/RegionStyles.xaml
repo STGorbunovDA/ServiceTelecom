@@ -60,7 +60,7 @@
         </Style.Triggers>
     </Style>
 
-    <!--Стиль DataGrid-->
+    <!--1 Стиль DataGrid-->
     <Style x:Key="dataGridStyle" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
@@ -70,13 +70,27 @@
         <Setter Property="AlternatingRowBackground" Value="White" />
         <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="RowHeight" Value="32"/>
+    </Style>
+
+    <!--2 Стиль DataGrid-->
+    <Style x:Key="dataGridStyle2" TargetType="DataGrid">
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="Margin" Value="1,0,1,0" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource buttonFontColor3}" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
+        <Setter Property="AlternatingRowBackground" Value="White" />
+        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="RowHeight" Value="200"/>
+
     </Style>
 
     <!--Стиль для расположения элемента Colums Text DataGrid-->
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Romul"/>
+        
     </Style>
 
     <!--#endregion-->
