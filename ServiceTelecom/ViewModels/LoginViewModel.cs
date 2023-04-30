@@ -51,7 +51,7 @@ namespace ServiceTelecom.ViewModels
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                bool flag = userRepository.SetDateTimeUserDataBase(user.Login);
+                bool flag = userRepository.SetDateTimeUserDataBase(UserModel.Login);
                 if (flag)
                 {
                     MenuView menu = new MenuView(user);

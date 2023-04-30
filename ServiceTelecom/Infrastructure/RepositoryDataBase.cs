@@ -23,9 +23,9 @@ namespace ServiceTelecom.Repositories
         }
         //TODO измерить время авторизации
         readonly MySqlConnection connection = new MySqlConnection($"server=31.31.198.62;port=3306;" +
-            $"username={Encryption.DecryptCipherTextToPlainText(StaticConfig.userName)};" +
-            $"password={Encryption.DecryptCipherTextToPlainText(StaticConfig.password)};" +
-            $"database={Encryption.DecryptCipherTextToPlainText(StaticConfig.dataBase)};" +
+            $"username={Encryption.DecryptCipherTextToPlainText("vKGbDdqaoW8UbfKI44/flQ==")};" +
+            $"password={Encryption.DecryptCipherTextToPlainText("fuB1hXCQ1pYUBw+qqevUc7uqOmtN19aQ")};" +
+            $"database={Encryption.DecryptCipherTextToPlainText("vKGbDdqaoW+93a+IIGwtEvH5h0BsY+fx")};" +
             $"charset=utf8");
         public MySqlConnection GetConnection()
         {
