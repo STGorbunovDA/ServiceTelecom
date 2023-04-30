@@ -80,7 +80,7 @@
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding ReportCards}"
-                              SelectedItem="{Binding SelectedReportCardViewModel}"
+                              SelectedItem="{Binding SelectedReportCardDataBaseMode}"
                               CellStyle="{StaticResource DataGridContentCellCentering}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 

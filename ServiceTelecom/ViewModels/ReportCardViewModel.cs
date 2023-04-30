@@ -33,13 +33,13 @@ namespace ServiceTelecom.ViewModels
         private int _theIndexDateTimeInputCollection;
         public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; set { _theIndexDateTimeInputCollection = value; OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } }
         
-        public ReportCardsDataBaseModel SelectedReportCardViewModel
+        public ReportCardsDataBaseModel SelectedReportCardDataBaseMode
         {
             get => _reportCard;
             set
             {
                 _reportCard = value;
-                OnPropertyChanged(nameof(SelectedReportCardViewModel));
+                OnPropertyChanged(nameof(SelectedReportCardDataBaseMode));
                 if (_reportCard != null)
                 {
                     User = _reportCard.User;
