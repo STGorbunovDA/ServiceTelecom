@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ServiceTelecom.View"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
-        Title="MenuView" Height="600" Width="900"
+        Title="MenuView" Height="700" Width="1366"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -84,6 +84,45 @@
                                Margin="150,0,0,0">
                     </TextBlock>
                 </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DataGrid Name="dataGrid1" 
+                              Style="{StaticResource dataGridStyle2}"
+                              ColumnHeaderStyle="{StaticResource dataGridCentAl}"
+                              ItemsSource="{Binding TutorialsEngineer}"
+                              SelectedItem="{Binding SelectedTutorialEngineerViewModel}"
+                              CellStyle="{StaticResource DataGridContentCellCentering}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock" x:Key="WrapText">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" 
+                                                Binding="{Binding IdTutorialEngineer}" 
+                                                Width="50" Visibility="Collapsed">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Модель" 
+                                                Binding="{Binding Model}"
+                                                Width="200" />
+                        <DataGridTextColumn Header="Неисправность" 
+                                                Binding="{Binding Problem}" 
+                                                Width="200"/>
+                        <DataGridTextColumn Header="Описание" 
+                                                Binding="{Binding Info}" 
+                                                Width="*"
+                                                TextElement.FontSize ="12"
+                                                ElementStyle="{StaticResource WrapText}"/>
+                        <DataGridTextColumn Header="Виды работ" 
+                                                Binding="{Binding Actions}" 
+                                                Width="*"
+                                                TextElement.FontSize ="12"
+                                                ElementStyle="{StaticResource WrapText}"/>
+                        <DataGridTextColumn Header="Автор"
+                                                Binding="{Binding Author}" 
+                                                Width="200"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </Border>
