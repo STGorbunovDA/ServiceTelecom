@@ -2,6 +2,7 @@
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -25,14 +26,14 @@ namespace ServiceTelecom.ViewModels
         public string SelectedItemCmbUser { get => _user; set { _user = value; OnPropertyChanged(nameof(SelectedItemCmbUser)); } }
         public string SelectedItemDateTimeInput { get => _dateTimeInput; set { _dateTimeInput = value; OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } }
 
-        
+
         private int _theIndexUsersCollection;
         public int TheIndexUsersCollection { get => _theIndexUsersCollection; set { _theIndexUsersCollection = value; OnPropertyChanged(nameof(TheIndexUsersCollection)); } }
 
-        
+
         private int _theIndexDateTimeInputCollection;
         public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; set { _theIndexDateTimeInputCollection = value; OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } }
-        
+
         public ReportCardsDataBaseModel SelectedReportCardDataBaseMode
         {
             get => _reportCard;
@@ -139,7 +140,11 @@ namespace ServiceTelecom.ViewModels
             DateTimeInputCollections = reportCardRepository.GetDateTimeInputCollectionsDataBase(DateTimeInputCollections);
 
             foreach (var item in ReportCards)
-                Users.Add(item.User.ToString());
+            {
+                string searchUser = Users.FirstOrDefault(s => s == item.User);
+                if (searchUser == null)
+                    Users.Add(item.User.ToString());
+            }
             TheIndexUsersCollection = 0;
             TheIndexDateTimeInputCollection = 0;
 
