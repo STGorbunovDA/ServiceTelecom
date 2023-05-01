@@ -178,6 +178,13 @@
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
+                    <Button x:Name="btnSaveTutorialsEngineerDataBase"
+                            Command="{Binding SaveTutorialsEngineerDataBase}"
+                            Content="Сохранить"
+                            Margin ="5,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>

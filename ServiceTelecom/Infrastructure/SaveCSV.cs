@@ -41,19 +41,51 @@ namespace ServiceTelecom.Infrastructure
                 using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Unicode))
                 {
                     string note = string.Empty;
-                    note += $"Работник,Дата входа,Дата выхода,Время нахождения";
+                    note += $"Работник;Дата входа;Дата выхода;Время нахождения";
                     sw.WriteLine(note);
 
                     for (int i = 0; i < reportCards.Count; i++)
                     {
-                        string value = reportCards[i].User.ToString() + "," 
-                            + reportCards[i].DateTimeInput.ToString() + "," +
-                            reportCards[i].DateTimeExit.ToString() + "," +
+                        string value = reportCards[i].User.ToString() + ";" 
+                            + reportCards[i].DateTimeInput.ToString() + ";" +
+                            reportCards[i].DateTimeExit.ToString() + ";" +
                             reportCards[i].TimeCount.ToString();
                         sw.Write(value);
                         sw.WriteLine();
                     }
                     
+                }
+                MessageBox.Show("Файл успешно сохранен!");
+            }
+        }
+
+        public void TutorialsEngineerSaveCSV(ObservableCollection<TutorialEngineerDataBaseModel> 
+            tutorialsEngineer)
+        {
+            DateTime dateTime = DateTime.Now;
+            string dateTimeString = dateTime.ToString("dd.MM.yyyy");
+            Forms.SaveFileDialog sfd = new Forms.SaveFileDialog();
+            sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            sfd.FileName = $"Методичка_инженера_{dateTimeString}";
+            if (sfd.ShowDialog() == Forms.DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Unicode))
+                {
+                    string note = string.Empty;
+                    note += $"Модель;Неисправность;Описание;Виды работ;Автор";
+                    sw.WriteLine(note);
+
+                    for (int i = 0; i < tutorialsEngineer.Count; i++)
+                    {
+                        string value = tutorialsEngineer[i].Model.ToString() + ";"
+                            + tutorialsEngineer[i].Problem.ToString() + ";" +
+                            tutorialsEngineer[i].Info.ToString() + ";" +
+                            tutorialsEngineer[i].Actions.ToString() + ";" +
+                            tutorialsEngineer[i].Author.ToString();
+                        sw.Write(value);
+                        sw.WriteLine();
+                    }
+
                 }
                 MessageBox.Show("Файл успешно сохранен!");
             }
