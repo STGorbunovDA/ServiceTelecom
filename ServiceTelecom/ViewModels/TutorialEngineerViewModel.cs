@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
 using System.Collections.ObjectModel;
@@ -118,8 +119,8 @@ namespace ServiceTelecom.ViewModels
         }
 
         public ICommand GetBySearchInfo { get; }
-
         public ICommand UpdateTutorialsEngineerDataBase { get; }
+        public ICommand SaveTutorialsEngineerDataBase { get; }
 
         public TutorialEngineerViewModel()
         {
@@ -129,9 +130,20 @@ namespace ServiceTelecom.ViewModels
             UserChoice = new ObservableCollection<string>();
             GetBySearchInfo = new ViewModelCommand(ExecuteGetBySearchInfoDataBaseCommand);
             UpdateTutorialsEngineerDataBase = new ViewModelCommand(ExecuteUpdateTutorialsEngineerDataBaseCommand);
+            SaveTutorialsEngineerDataBase = new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
             GetTutorialsEngineerForUpdate();
         }
 
+
+
+        #region SaveTutorialsEngineerDataBase
+
+        private void ExecuteSaveTutorialsEngineerDataBaseCommand(object obj)
+        {
+            SaveCSV.GetInstance.TutorialsEngineerSaveCSV(TutorialsEngineer);
+        }
+
+        #endregion
 
 
         #region UpdateTutorialsEngineerDataBase
