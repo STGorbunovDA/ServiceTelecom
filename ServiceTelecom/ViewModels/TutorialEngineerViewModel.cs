@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -121,6 +120,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand GetBySearchInfo { get; }
         public ICommand UpdateTutorialsEngineerDataBase { get; }
         public ICommand SaveTutorialsEngineerDataBase { get; }
+        public ICommand AddTutorialsEngineerDataBase { get; }
 
         public TutorialEngineerViewModel()
         {
@@ -131,10 +131,25 @@ namespace ServiceTelecom.ViewModels
             GetBySearchInfo = new ViewModelCommand(ExecuteGetBySearchInfoDataBaseCommand);
             UpdateTutorialsEngineerDataBase = new ViewModelCommand(ExecuteUpdateTutorialsEngineerDataBaseCommand);
             SaveTutorialsEngineerDataBase = new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
+            AddTutorialsEngineerDataBase = new ViewModelCommand(ExecuteAddTutorialsEngineerDataBaseCommand);
             GetTutorialsEngineerForUpdate();
         }
 
 
+
+        #region AddTutorialsEngineerDataBase
+
+        private void ExecuteAddTutorialsEngineerDataBaseCommand(object obj)
+        {
+            //if (reportCard == null)
+            //{
+            //    reportCard = new ReportCardView();
+            //    reportCard.Closed += (sender, args) => reportCard = null;
+            //    reportCard.Show();
+            //}
+        }
+
+        #endregion
 
         #region SaveTutorialsEngineerDataBase
 
@@ -144,7 +159,6 @@ namespace ServiceTelecom.ViewModels
         }
 
         #endregion
-
 
         #region UpdateTutorialsEngineerDataBase
 
@@ -170,7 +184,7 @@ namespace ServiceTelecom.ViewModels
                 TutorialsEngineer.Clear();
 
             foreach (var item in TemporaryTutorialsEngineer)
-                TutorialsEngineer.Add(item);           
+                TutorialsEngineer.Add(item);
         }
 
         #endregion
