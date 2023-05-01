@@ -219,7 +219,6 @@
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding RoadCollections}"
                                   Text="{Binding Road}">
-
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
