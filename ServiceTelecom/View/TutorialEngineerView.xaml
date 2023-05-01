@@ -89,7 +89,7 @@
                 <DataGrid Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle2}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
-                              ItemsSource="{Binding TutorialsEngineer}"
+                              ItemsSource="{Binding TutorialsEngineer, Mode=TwoWay}"
                               SelectedItem="{Binding SelectedTutorialEngineerViewModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering}">
                     <DataGrid.Resources>
@@ -99,30 +99,86 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
-                                                Binding="{Binding IdTutorialEngineer}" 
+                                                Binding="{Binding IdTutorialEngineer, Mode=TwoWay}" 
                                                 Width="50" Visibility="Collapsed">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Модель" 
-                                                Binding="{Binding Model}"
+                                                Binding="{Binding Model, Mode=TwoWay}"
                                                 Width="200" />
                         <DataGridTextColumn Header="Неисправность" 
-                                                Binding="{Binding Problem}" 
+                                                Binding="{Binding Problem, Mode=TwoWay}" 
                                                 Width="200"/>
                         <DataGridTextColumn Header="Описание" 
-                                                Binding="{Binding Info}" 
+                                                Binding="{Binding Info, Mode=TwoWay}" 
                                                 Width="*"
                                                 TextElement.FontSize ="12"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Виды работ" 
-                                                Binding="{Binding Actions}" 
+                                                Binding="{Binding Actions, Mode=TwoWay}" 
                                                 Width="*"
                                                 TextElement.FontSize ="12"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Автор"
-                                                Binding="{Binding Author}" 
+                                                Binding="{Binding Author, Mode=TwoWay}" 
                                                 Width="200"/>
                     </DataGrid.Columns>
                 </DataGrid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="1360"/>
+                </Border>
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                    <ComboBox x:Name="cmbChoiceBySearch"
+                                  Height="35"
+                                  Width="200"
+                                  Margin="5,0,5,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  SelectedIndex = "{Binding TheIndexCmbChoiceBySearchCollection, Mode=TwoWay}" >
+                        <ComboBoxItem Content="Поиск"/>
+                        <ComboBoxItem Content="Неисправность"/>
+                        <ComboBoxItem Content="Автор"/>
+                        <ComboBoxItem Content="Модель"/>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbUserChoice"
+                                  Height="35"
+                                  Width="200"
+                                  Margin="5,0,5,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding UserChoice}"
+                                  SelectedIndex="{Binding TheIndexUserChoiceCollection, Mode=TwoWay}"
+                                  Text="{Binding UserChoice}"
+                                  Visibility="{Binding CmbUserChoiceVisibility}">
+                    </ComboBox>
+                    <Button x:Name="chkTxbSearchInfo"
+                            Command="{Binding GetBySearchInfo}"
+                            Content="✔"
+                            Margin ="0,0,5,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand"
+                            Visibility="{Binding TxbSearchInfoVisibility}">
+                    </Button>
+                    <TextBox x:Name="txbSearchInfo"
+                             FontSize="16"
+                             Height="38"
+                             Width="200"
+                             Margin="0,4,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Visibility="{Binding TxbSearchInfoVisibility}"
+                             Text="{Binding TxbSearchInfoText}">
+                    </TextBox>
+                    <Button x:Name="btnUpdateTutorialsEngineerDataBase"
+                            Command="{Binding UpdateTutorialsEngineerDataBase}"
+                            Content="Обновить"
+                            Margin ="5,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
