@@ -89,7 +89,7 @@
                 <DataGrid Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle2}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
-                              ItemsSource="{Binding TutorialsEngineer, Mode=TwoWay}"
+                              ItemsSource="{Binding TutorialsEngineer}"
                               SelectedItem="{Binding SelectedTutorialEngineerViewModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering}">
                     <DataGrid.Resources>
@@ -99,27 +99,27 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
-                                                Binding="{Binding IdTutorialEngineer, Mode=TwoWay}" 
+                                                Binding="{Binding IdTutorialEngineer}" 
                                                 Width="50" Visibility="Collapsed">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Модель" 
-                                                Binding="{Binding Model, Mode=TwoWay}"
+                                                Binding="{Binding Model}"
                                                 Width="200" />
                         <DataGridTextColumn Header="Неисправность" 
-                                                Binding="{Binding Problem, Mode=TwoWay}" 
+                                                Binding="{Binding Problem}" 
                                                 Width="200"/>
                         <DataGridTextColumn Header="Описание" 
-                                                Binding="{Binding Info, Mode=TwoWay}" 
+                                                Binding="{Binding Info}" 
                                                 Width="*"
                                                 TextElement.FontSize ="12"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Виды работ" 
-                                                Binding="{Binding Actions, Mode=TwoWay}" 
+                                                Binding="{Binding Actions}" 
                                                 Width="*"
                                                 TextElement.FontSize ="12"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Автор"
-                                                Binding="{Binding Author, Mode=TwoWay}" 
+                                                Binding="{Binding Author}" 
                                                 Width="200"/>
                     </DataGrid.Columns>
                 </DataGrid>
