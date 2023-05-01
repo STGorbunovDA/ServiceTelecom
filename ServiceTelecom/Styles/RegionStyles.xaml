@@ -70,6 +70,7 @@
         <Setter Property="AlternatingRowBackground" Value="White" />
         <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="RowHeight" Value="35"/>
     </Style>
 
     <!--2 Стиль DataGrid-->
@@ -83,7 +84,6 @@
         <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="RowHeight" Value="200"/>
-
     </Style>
 
     <!--Стиль для расположения элемента Colums Text DataGrid-->
