@@ -125,34 +125,6 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public ObservableCollection<string> GetRoadDataBase(ObservableCollection<string> roadCollections)
-        {
-            try
-            {
-                if (!InternetCheck.CheckSkyNET())
-                    return roadCollections;
-
-                using (MySqlCommand command = new MySqlCommand("GetRoadDataBase",
-                    RepositoryDataBase.GetInstance.GetConnection()))
-                {
-                    RepositoryDataBase.GetInstance.OpenConnection();
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {   
-                                roadCollections.Add(reader.GetString(0));
-                            }
-                            reader.Close();
-                            return roadCollections;
-                        }
-                    }
-                }
-                return roadCollections;
-            }
-            catch { return roadCollections; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
+        
     }
 }
