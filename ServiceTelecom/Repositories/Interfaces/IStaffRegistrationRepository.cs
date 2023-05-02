@@ -25,6 +25,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         bool AddStaffRegistrationDataBase(string sectionForeman, string engineer, string attorney,
            string road, string numberPrintDocument, string curator, string radioCommunicationDirectorate);
+        
         /// <summary>
         /// Изменение характеристик бригад
         /// </summary>
