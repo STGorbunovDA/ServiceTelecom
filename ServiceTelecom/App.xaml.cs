@@ -3,6 +3,8 @@ using System.Windows;
 using System.Configuration;
 using System;
 using ServiceTelecom.Infrastructure;
+using ServiceTelecom.View.TutorialEngineerViewPackage;
+using ServiceTelecom.View.Base;
 
 namespace ServiceTelecom
 {
@@ -20,17 +22,20 @@ namespace ServiceTelecom
             //StaticConfig.dataBase = ConfigurationSettings.AppSettings["dataBase"];
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
-            //var tutorialEngineerView = new TutorialEngineerView();
-            //tutorialEngineerView.Show();
+            var addModelRadiostantionView = new AddModelRadiostantionView();
+            addModelRadiostantionView.Show();
 
-            var loginView = new LoginView();
-            loginView.Show();
+            //var addTutorialEngineerView = new AddTutorialEngineerView();
+            //addTutorialEngineerView.Show();
 
-            loginView.IsVisibleChanged += (s, ev) =>
-            {
-                if (loginView.IsVisible == false && loginView.IsLoaded)
-                    loginView.Close();
-            };
+            //var loginView = new LoginView();
+            //loginView.Show();
+
+            //loginView.IsVisibleChanged += (s, ev) =>
+            //{
+            //    if (loginView.IsVisible == false && loginView.IsLoaded)
+            //        loginView.Close();
+            //};
         }
     }
 }

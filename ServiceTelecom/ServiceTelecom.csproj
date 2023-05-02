@@ -135,7 +135,10 @@
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
+    <Compile Include="Repositories\Base\ModelDataBase.cs" />
+    <Compile Include="Repositories\Interfaces\IModelDataBase.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRoadDataBase.cs" />
     <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITutorialEngineerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
@@ -144,17 +147,23 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\ReportCardRepository.cs" />
+    <Compile Include="Repositories\Base\RoadDataBase.cs" />
     <Compile Include="Repositories\StaffRegistrationRepository.cs" />
     <Compile Include="Repositories\TutorialEngineerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="ViewModels\AdminViewModel\AdminViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel\LoginViewModel.cs" />
-    <Compile Include="ViewModels\MenuViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
+    <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelCommand.cs" />
-    <Compile Include="ViewModels\StaffRegistrationViewModel\ReportCardViewModel.cs" />
-    <Compile Include="ViewModels\StaffRegistrationViewModel\StaffRegistrationViewModel.cs" />
-    <Compile Include="ViewModels\TutorialEngineerViewModel\TutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\StaffRegistrationViewModelPackage\ReportCardViewModel.cs" />
+    <Compile Include="ViewModels\StaffRegistrationViewModelPackage\StaffRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\TutorialEngineerViewModelPackage\AddTutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
+    <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
+      <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Base\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\UIColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\AddModelRadiostantionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
