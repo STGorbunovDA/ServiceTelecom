@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.View.TutorialEngineerViewPackage;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -10,7 +11,7 @@ namespace ServiceTelecom.ViewModels
     {
         TutorialEngineerRepository tutorialEngineerRepository;
         TutorialEngineerDataBaseModel _tutorialEngineer;
-
+        AddTutorialEngineerView addTutorial = null;
         public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
 
         public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
@@ -141,12 +142,12 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteAddTutorialsEngineerDataBaseCommand(object obj)
         {
-            //if (reportCard == null)
-            //{
-            //    reportCard = new ReportCardView();
-            //    reportCard.Closed += (sender, args) => reportCard = null;
-            //    reportCard.Show();
-            //}
+            if (addTutorial == null)
+            {
+                addTutorial = new AddTutorialEngineerView();
+                addTutorial.Closed += (sender, args) => addTutorial = null;
+                addTutorial.Show();
+            }
         }
 
         #endregion

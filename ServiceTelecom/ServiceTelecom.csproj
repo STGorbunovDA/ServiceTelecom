@@ -147,14 +147,14 @@
     <Compile Include="Repositories\StaffRegistrationRepository.cs" />
     <Compile Include="Repositories\TutorialEngineerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="ViewModels\AdminViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MenuViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelCommand.cs" />
-    <Compile Include="ViewModels\ReportCardViewModel.cs" />
-    <Compile Include="ViewModels\StaffRegistrationViewModel.cs" />
-    <Compile Include="ViewModels\TutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\StaffRegistrationViewModel\ReportCardViewModel.cs" />
+    <Compile Include="ViewModels\StaffRegistrationViewModel\StaffRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\TutorialEngineerViewModel\TutorialEngineerViewModel.cs" />
     <Compile Include="View\Base\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
@@ -164,13 +164,16 @@
     <Compile Include="View\Base\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StaffRegistrationView\ReportCardView.xaml.cs">
+    <Compile Include="View\StaffRegistrationViewPackage\ReportCardView.xaml.cs">
       <DependentUpon>ReportCardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StaffRegistrationView\StaffRegistrationView.xaml.cs">
+    <Compile Include="View\StaffRegistrationViewPackage\StaffRegistrationView.xaml.cs">
       <DependentUpon>StaffRegistrationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TutorialEngineerView\TutorialEngineerView.xaml.cs">
+    <Compile Include="View\TutorialEngineerViewPackage\AddTutorialEngineerView.xaml.cs">
+      <DependentUpon>AddTutorialEngineerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml.cs">
       <DependentUpon>TutorialEngineerView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
@@ -201,15 +204,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StaffRegistrationView\ReportCardView.xaml">
+    <Page Include="View\StaffRegistrationViewPackage\ReportCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StaffRegistrationView\StaffRegistrationView.xaml">
+    <Page Include="View\StaffRegistrationViewPackage\StaffRegistrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TutorialEngineerView\TutorialEngineerView.xaml">
+    <Page Include="View\TutorialEngineerViewPackage\AddTutorialEngineerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
