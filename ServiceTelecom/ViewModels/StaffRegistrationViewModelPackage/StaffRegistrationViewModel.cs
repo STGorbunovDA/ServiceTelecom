@@ -14,6 +14,7 @@ namespace ServiceTelecom.ViewModels
         private UserRepository userRepository;
         private StaffRegistrationRepository staffRegistrationRepository;
         private StaffRegistrationsDataBaseModel _staffRegistration;
+        private RoadDataBase _roadDataBase;
         ReportCardView reportCard = null;
 
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
@@ -97,8 +98,8 @@ namespace ServiceTelecom.ViewModels
             CuratorCollection = new ObservableCollection<string>();
             RadioCommunicationDirectorateCollection = new ObservableCollection<string>();
             StaffRegistrations = new ObservableCollection<StaffRegistrationsDataBaseModel>();
-
-            RoadCollections = staffRegistrationRepository.GetRoadDataBase(RoadCollections);
+            _roadDataBase = new RoadDataBase();
+            RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
             GetStaffRegistrationsForUpdate();
             AddStaffRegistrationDataBase = new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
             ChangeStaffRegistrationDataBase = new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
