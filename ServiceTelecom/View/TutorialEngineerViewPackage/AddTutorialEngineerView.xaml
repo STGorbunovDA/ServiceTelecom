@@ -3,10 +3,102 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ServiceTelecom.View.TutorialEngineerViewPackage"
         mc:Ignorable="d"
-        Title="AddTutorialEngineerView" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage"
+        Title="MenuView" Height="500" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+    <Window.DataContext>
+        <viewModel:AddTutorialEngineerViewModel/>
+    </Window.DataContext>
+    <Border CornerRadius="12"
+            BorderThickness="3"
+                Opacity="1">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.25"/>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="0.50"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.25"/>
+                <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0.50"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" VerticalAlignment="Center"
+                    HorizontalAlignment="Left">
+                <Image Source="/Images/logo.png" 
+                           Height="40" Width="40"
+                       Margin="5,2,0,0"/>
+            </Border>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnMinimize"
+                            Style="{StaticResource menuButtonStyleOne}"
+                            Content="-"
+                            Grid.Column="2"
+                            Click="BtnMinimize_Click" 
+                            Cursor="Hand">
+                </Button>
+                <Button x:Name="btnClose"
+                            Style="{StaticResource menuButtonStyleThree}"
+                            Content="x"
+                            Grid.Column="3"
+                            Click="BtnClose_Click">
+                </Button>
+                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <TextBlock Text="Добавить инструкцию"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="210,0,0,0">
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                    <Button x:Name="btnAddModelDataBase"
+                            Command="{Binding AddModelDataBase}"
+                            Content="➕"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                    </Button>
+                    <ComboBox x:Name="cmbModel"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="5,0,20,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding ModelCollections}"
+                                  Text="{Binding Model}">
+                    </ComboBox>
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
+    </Border>
 </Window>
