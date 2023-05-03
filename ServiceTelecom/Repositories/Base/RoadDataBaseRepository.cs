@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class RoadDataBase : IRoadDataBase
+    internal class RoadDataBaseRepository : IRoadDataBase
     {
         public ObservableCollection<string> GetRoadDataBase(ObservableCollection<string> roadCollections)
         {
@@ -24,7 +24,8 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                roadCollections.Add(reader.GetString(0));
+                                roadCollections.Add(
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(0)));
                             }
                             reader.Close();
                             return roadCollections;
