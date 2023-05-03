@@ -10,7 +10,7 @@ namespace ServiceTelecom.Repositories.Base
     internal class ModelDataBaseRepository : IModelRadiostantionDataBaseModel
     {
         public ObservableCollection<ModelRadiostantionDataBaseModel> 
-            GetModelDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)
+            GetModelRadiostantionDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)
         {
             try
             {
