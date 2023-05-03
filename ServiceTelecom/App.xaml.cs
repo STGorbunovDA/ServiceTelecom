@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System;
-using ServiceTelecom.View.TutorialEngineerViewPackage;
+using ServiceTelecom.View;
 
 namespace ServiceTelecom
 {
@@ -19,17 +19,17 @@ namespace ServiceTelecom
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
 
-            var addTutorialEngineerView = new AddTutorialEngineerView();
-            addTutorialEngineerView.Show();
+            //var addTutorialEngineerView = new AddTutorialEngineerView();
+            //addTutorialEngineerView.Show();
 
-            //var loginView = new LoginView();
-            //loginView.Show();
+            var loginView = new LoginView();
+            loginView.Show();
 
-            //loginView.IsVisibleChanged += (s, ev) =>
-            //{
-            //    if (loginView.IsVisible == false && loginView.IsLoaded)
-            //        loginView.Close();
-            //};
+            loginView.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginView.IsVisible == false && loginView.IsLoaded)
+                    loginView.Close();
+            };
         }
     }
 }
