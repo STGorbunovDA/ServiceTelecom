@@ -79,7 +79,7 @@ namespace ServiceTelecom.ViewModels.Base
             TheIndexModelCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelDataBase(ModelCollections);
+            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelCollection = ModelCollections.Count;
         }
     }
