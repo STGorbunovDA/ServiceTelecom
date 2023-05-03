@@ -57,14 +57,14 @@
                             Style="{StaticResource menuButtonStyleOne}"
                             Content="-"
                             Grid.Column="1"
-                            Click="btnMinimize_Click" 
+                            Click="BtnMinimize_Click" 
                             Cursor="Hand">
                 </Button>
                 <Button x:Name="btnClose"
                             Style="{StaticResource menuButtonStyleThree}"
                             Content="x"
                             Grid.Column="2"
-                            Click="btnClose_Click">
+                            Click="BtnClose_Click">
                 </Button>
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
@@ -89,6 +89,8 @@
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
                                   ItemsSource="{Binding ModelCollections}"
+                                  SelectedItem="{Binding SelectedModelRadiostantion}"
+                                  SelectedIndex="{Binding TheIndexModelCollection, Mode=TwoWay}"
                                   Text="{Binding Model}">
                         <ComboBox.Resources>
                             <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
