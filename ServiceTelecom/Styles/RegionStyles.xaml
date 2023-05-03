@@ -2,6 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
 
+    <!--#region Style Label-->
+
+    <Style x:Key="LabelStyle1" TargetType="Label">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+        <!--#endregion-->
+    
     <!--#region Style ComboBox-->
 
     <Style x:Key="ComboBoxStyle1" TargetType="ComboBox">
