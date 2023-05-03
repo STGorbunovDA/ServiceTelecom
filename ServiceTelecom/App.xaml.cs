@@ -1,10 +1,6 @@
-﻿using ServiceTelecom.View;
-using System.Windows;
-using System.Configuration;
+﻿using System.Windows;
 using System;
-using ServiceTelecom.Infrastructure;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
-using ServiceTelecom.View.Base;
 
 namespace ServiceTelecom
 {
@@ -22,11 +18,9 @@ namespace ServiceTelecom
             //StaticConfig.dataBase = ConfigurationSettings.AppSettings["dataBase"];
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
-            var addModelRadiostantionView = new AddModelRadiostantionView();
-            addModelRadiostantionView.Show();
 
-            //var addTutorialEngineerView = new AddTutorialEngineerView();
-            //addTutorialEngineerView.Show();
+            var addTutorialEngineerView = new AddTutorialEngineerView();
+            addTutorialEngineerView.Show();
 
             //var loginView = new LoginView();
             //loginView.Show();
