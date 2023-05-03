@@ -133,10 +133,14 @@
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
+    <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
+    <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
-    <Compile Include="Repositories\Base\ModelDataBase.cs" />
-    <Compile Include="Repositories\Interfaces\IModelDataBase.cs" />
+    <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
+    <Compile Include="Repositories\Base\ProblemModelRadiostantionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IModelRadiostantionDataBaseModel.cs" />
+    <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoadDataBase.cs" />
     <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
@@ -147,11 +151,12 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\ReportCardRepository.cs" />
-    <Compile Include="Repositories\Base\RoadDataBase.cs" />
+    <Compile Include="Repositories\Base\RoadDataBaseRepository.cs" />
     <Compile Include="Repositories\StaffRegistrationRepository.cs" />
     <Compile Include="Repositories\TutorialEngineerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
+    <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
@@ -163,6 +168,9 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Base\AddProblemModellRadiostantionView.xaml.cs">
+      <DependentUpon>AddProblemModellRadiostantionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Base\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
@@ -202,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Base\AddModelRadiostantionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\AddProblemModellRadiostantionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
