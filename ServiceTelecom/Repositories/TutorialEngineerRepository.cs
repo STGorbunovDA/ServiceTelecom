@@ -5,6 +5,7 @@ using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace ServiceTelecom.Repositories
 {
@@ -28,9 +29,13 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
+                                string x = Encryption.DecryptCipherTextToPlainText(reader.GetString(5));
                                 TutorialEngineerDataBaseModel tutorialEngineer = new TutorialEngineerDataBaseModel(
-                                    reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
-                                    reader.GetString(3), reader.GetString(4), 
+                                    reader.GetInt32(0),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(2)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(3)), 
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(4)), 
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(5)));
                                 tutorialsEngineer.Add(tutorialEngineer);
                             }
@@ -41,6 +46,44 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch (Exception) { return tutorialsEngineer; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool AddTutorialEngineer(string model, string problem, string info, string actions, string login)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+
+                Regex re = new Regex(Environment.NewLine);
+                info = re.Replace(info, " ");
+                info.Trim();
+
+                Regex re2 = new Regex(Environment.NewLine);
+                actions = re2.Replace(actions, " ");
+                actions.Trim();
+
+                using (MySqlCommand command = new MySqlCommand("AddTutorialEngineer",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"problemUser",
+                        Encryption.EncryptPlainTextToCipherText(problem));
+                    command.Parameters.AddWithValue($"infoUser",
+                        Encryption.EncryptPlainTextToCipherText(info));
+                    command.Parameters.AddWithValue($"actionsUser",
+                        Encryption.EncryptPlainTextToCipherText(actions));
+                    command.Parameters.AddWithValue($"loginUser",
+                        Encryption.EncryptPlainTextToCipherText(login));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
