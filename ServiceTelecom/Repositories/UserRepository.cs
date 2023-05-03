@@ -69,7 +69,7 @@ namespace ServiceTelecom.Repositories
                                     reader.GetInt32(0),
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(2)),
-                                    reader.GetString(3));
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(3)));
                                 users.Add(user);
                             }
                             reader.Close();
@@ -98,7 +98,7 @@ namespace ServiceTelecom.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"loginUser", Encryption.EncryptPlainTextToCipherText(login));
                     command.Parameters.AddWithValue($"passUser", Encryption.EncryptPlainTextToCipherText(password));
-                    command.Parameters.AddWithValue($"post", post);
+                    command.Parameters.AddWithValue($"post", Encryption.EncryptPlainTextToCipherText(post));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -135,6 +135,7 @@ namespace ServiceTelecom.Repositories
                     return false;
                 string loginUser = Encryption.EncryptPlainTextToCipherText(login);
                 string passUser = Encryption.EncryptPlainTextToCipherText(password);
+                string postUser = Encryption.EncryptPlainTextToCipherText(post);
                 using (MySqlCommand command = new MySqlCommand("ChangeUserDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -142,7 +143,7 @@ namespace ServiceTelecom.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"loginUser", loginUser);
                     command.Parameters.AddWithValue($"passUser", passUser);
-                    command.Parameters.AddWithValue($"post", post);
+                    command.Parameters.AddWithValue($"post", postUser);
                     command.Parameters.AddWithValue($"uID", id);
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;

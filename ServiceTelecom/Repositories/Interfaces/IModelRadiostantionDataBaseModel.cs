@@ -11,7 +11,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="modelCollections"></param>
         /// <returns></returns>
         ObservableCollection<ModelRadiostantionDataBaseModel>
-            GetModelDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections);
+            GetModelRadiostantionDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections);
 
         /// <summary>
         /// Добавление моделей радиостанции

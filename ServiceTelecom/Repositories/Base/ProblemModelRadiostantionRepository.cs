@@ -2,8 +2,10 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace ServiceTelecom.Repositories.Base
 {
@@ -49,6 +51,10 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
+
+                Regex re = new Regex(Environment.NewLine);
+                problemUser = re.Replace(problemUser, " ");
+                problemUser.Trim();
 
                 using (MySqlCommand command = new MySqlCommand("AddProblemModelDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))

@@ -190,7 +190,7 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-        /// <summary> Получить всё из БД </summary>
+        /// <summary> Получить методички из БД </summary>
         private void GetTutorialsEngineerForUpdate()
         {
             if (TutorialsEngineer.Count != 0 || UserChoice.Count != 0)
