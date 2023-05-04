@@ -2,7 +2,7 @@
 
 namespace ServiceTelecom.Models
 {
-    internal class TutorialEngineerDataBaseModel : ViewModelBase
+    public class TutorialEngineerDataBaseModel : ViewModelBase
     {
         private int _idTutorialEngineer;
         private string _model;
