@@ -49,7 +49,8 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddTutorialEngineer(string model, string problem, string info, string actions, string login)
+        public bool AddTutorialEngineer(string model, string problem, 
+            string info, string actions, string login)
         {
             try
             {
@@ -69,6 +70,46 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"problemUser",
+                        Encryption.EncryptPlainTextToCipherText(problem));
+                    command.Parameters.AddWithValue($"infoUser",
+                        Encryption.EncryptPlainTextToCipherText(info));
+                    command.Parameters.AddWithValue($"actionsUser",
+                        Encryption.EncryptPlainTextToCipherText(actions));
+                    command.Parameters.AddWithValue($"loginUser",
+                        Encryption.EncryptPlainTextToCipherText(login));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeTutorialEngineer(string id, string model, string problem, 
+            string info, string actions, string login)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+
+                Regex re = new Regex(Environment.NewLine);
+                info = re.Replace(info, " ");
+                info.Trim();
+
+                Regex re2 = new Regex(Environment.NewLine);
+                actions = re2.Replace(actions, " ");
+                actions.Trim();
+
+                using (MySqlCommand command = new MySqlCommand("ChangeTutorialEngineer",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"idUser",Convert.ToInt32(id));
                     command.Parameters.AddWithValue($"modelUser",
                         Encryption.EncryptPlainTextToCipherText(model));
                     command.Parameters.AddWithValue($"problemUser",

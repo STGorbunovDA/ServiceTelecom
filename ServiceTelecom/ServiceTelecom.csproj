@@ -165,6 +165,7 @@
     <Compile Include="ViewModels\StaffRegistrationViewModelPackage\ReportCardViewModel.cs" />
     <Compile Include="ViewModels\StaffRegistrationViewModelPackage\StaffRegistrationViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\AddTutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
@@ -189,6 +190,9 @@
     </Compile>
     <Compile Include="View\TutorialEngineerViewPackage\AddTutorialEngineerView.xaml.cs">
       <DependentUpon>AddTutorialEngineerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TutorialEngineerViewPackage\ChangeTutorialEngineerView.xaml.cs">
+      <DependentUpon>ChangeTutorialEngineerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml.cs">
       <DependentUpon>TutorialEngineerView.xaml</DependentUpon>
@@ -238,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TutorialEngineerViewPackage\AddTutorialEngineerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TutorialEngineerViewPackage\ChangeTutorialEngineerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

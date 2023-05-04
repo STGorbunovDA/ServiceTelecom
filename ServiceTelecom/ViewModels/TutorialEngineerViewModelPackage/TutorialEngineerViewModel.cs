@@ -12,6 +12,7 @@ namespace ServiceTelecom.ViewModels
         TutorialEngineerRepository tutorialEngineerRepository;
         TutorialEngineerDataBaseModel _tutorialEngineer;
         AddTutorialEngineerView addTutorial = null;
+        ChangeTutorialEngineerView changeTutorial = null;
         public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
 
         public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
@@ -122,6 +123,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand UpdateTutorialsEngineerDataBase { get; }
         public ICommand SaveTutorialsEngineerDataBase { get; }
         public ICommand AddTutorialsEngineerDataBase { get; }
+        public ICommand ChangeTutorialsEngineerDataBase { get; }
 
         public TutorialEngineerViewModel()
         {
@@ -133,9 +135,27 @@ namespace ServiceTelecom.ViewModels
             UpdateTutorialsEngineerDataBase = new ViewModelCommand(ExecuteUpdateTutorialsEngineerDataBaseCommand);
             SaveTutorialsEngineerDataBase = new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
             AddTutorialsEngineerDataBase = new ViewModelCommand(ExecuteAddTutorialsEngineerDataBaseCommand);
+            ChangeTutorialsEngineerDataBase = new ViewModelCommand(ExecuteChangeTutorialsEngineerDataBaseCommand);
             GetTutorialsEngineerForUpdate();
         }
 
+
+        #region ChangeTutorialsEngineerDataBase
+
+        private void ExecuteChangeTutorialsEngineerDataBaseCommand(object obj)
+        {
+            if (SelectedTutorialEngineerViewModel == null)
+                return;
+            if (changeTutorial == null)
+            {
+                changeTutorial = new ChangeTutorialEngineerView(SelectedTutorialEngineerViewModel);
+                changeTutorial.Closed += (sender, args) => changeTutorial = null;
+                changeTutorial.Closed += (sender, args) => GetTutorialsEngineerForUpdate();
+                changeTutorial.Show();
+            }
+        }
+
+        #endregion
 
 
         #region AddTutorialsEngineerDataBase
@@ -146,6 +166,7 @@ namespace ServiceTelecom.ViewModels
             {
                 addTutorial = new AddTutorialEngineerView();
                 addTutorial.Closed += (sender, args) => addTutorial = null;
+                addTutorial.Closed += (sender, args) => GetTutorialsEngineerForUpdate();
                 addTutorial.Show();
             }
         }
