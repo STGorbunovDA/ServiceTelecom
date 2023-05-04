@@ -19,8 +19,8 @@ namespace ServiceTelecom
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
 
-            //var tutorialEngineerView = new TutorialEngineerView();
-            //tutorialEngineerView.Show();
+            //var adminView = new AdminView();
+            //adminView.Show();
 
             var loginView = new LoginView();
             loginView.Show();

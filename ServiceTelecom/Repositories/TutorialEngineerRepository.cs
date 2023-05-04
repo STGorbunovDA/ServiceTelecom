@@ -128,23 +128,22 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool DeleteTutorialEngineer(int id)
+        public void DeleteTutorialEngineer(int id)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return false;
+                    return;
                 using (MySqlCommand command = new MySqlCommand("DeleteTutorialEngineer",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"idUser", id);
-                    if (command.ExecuteNonQuery() == 1) return true;
-                    else return false;
+                    command.ExecuteNonQuery();
                 }
             }
-            catch { return false; }
+            catch { }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }

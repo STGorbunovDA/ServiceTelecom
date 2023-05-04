@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -57,10 +58,6 @@ namespace ServiceTelecom.ViewModels
         public string NumberPrintDocument { get => _numberPrintDocument; set { _numberPrintDocument = value; OnPropertyChanged(nameof(NumberPrintDocument)); } }
         public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
 
-
-        
-
-
         public ICommand AddStaffRegistrationDataBase { get; }
         public ICommand ChangeStaffRegistrationDataBase { get; }
         public ICommand DeleteStaffRegistrationDataBase { get; }
@@ -87,6 +84,18 @@ namespace ServiceTelecom.ViewModels
                 }
             }
         }
+
+        private IList _selectedModels = new ArrayList();
+        public IList StaffRegistrationsMulipleSelectedDataGrid
+        {
+            get { return _selectedModels; }
+            set
+            {
+                _selectedModels = value;
+                OnPropertyChanged(nameof(StaffRegistrationsMulipleSelectedDataGrid));
+            }
+        }
+
         public StaffRegistrationViewModel()
         {
             userRepository = new UserRepository();
@@ -135,17 +144,13 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteStaffRegistrationDataBaseCommand(object obj)
         {
-            //staffRegistrationRepository.DeleteStaffRegistrationsDataBase(Id);
+            if (StaffRegistrationsMulipleSelectedDataGrid == null || 
+                StaffRegistrationsMulipleSelectedDataGrid.Count == 0)
+                return;
+            foreach (StaffRegistrationsDataBaseModel staffRegistrations in StaffRegistrationsMulipleSelectedDataGrid)
+                staffRegistrationRepository.DeleteStaffRegistrationsDataBase(staffRegistrations.IdStaffRegistrationBase);
             GetStaffRegistrationsForUpdate();
         }
-
-        internal void GetAllSelectRowsStaffRegistrationsAndDeleteId(DataGrid datagrid)
-        {
-            if (datagrid.SelectedItems.Count > 0)
-                foreach (StaffRegistrationsDataBaseModel _staffRegistration in datagrid.SelectedItems)
-                    staffRegistrationRepository.DeleteStaffRegistrationsDataBase(_staffRegistration.IdStaffRegistrationBase);
-        }
-
         #endregion
 
         #region ChangeStaffRegistrationDataBase

@@ -6,11 +6,9 @@ namespace ServiceTelecom.View
 {
     public partial class AdminView : Window
     {
-        AdminViewModel adminViewModel;
 
         public AdminView()
         {
-            adminViewModel = new AdminViewModel();
             InitializeComponent();
         }
 
@@ -28,11 +26,6 @@ namespace ServiceTelecom.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            adminViewModel.GetAllSelectRowsUsers(dataGrid1);
         }
     }
 }

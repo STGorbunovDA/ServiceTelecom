@@ -4,6 +4,7 @@ using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -117,6 +118,17 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
+        private IList _selectedModels = new ArrayList();
+        public IList TutorialsEngineerMulipleSelectedDataGrid
+        {
+            get { return _selectedModels; }
+            set
+            {
+                _selectedModels = value;
+                OnPropertyChanged(nameof(TutorialsEngineerMulipleSelectedDataGrid));
+            }
+        }
+
         public ICommand GetBySearchInfo { get; }
         public ICommand UpdateTutorialsEngineerDataBase { get; }
         public ICommand SaveTutorialsEngineerDataBase { get; }
@@ -145,16 +157,13 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
         {
-            if (UserModel.Post == "Admin" || UserModel.Post == "Руководитель")
+            if (UserModel.Post == "Admin" || UserModel.Post == "Руководитель" || UserModel.Post == "Куратор")
             {
-                if (SelectedTutorialEngineerViewModel == null)
+                if (TutorialsEngineerMulipleSelectedDataGrid == null || 
+                    TutorialsEngineerMulipleSelectedDataGrid.Count == 0)
                     return;
-                bool flag = tutorialEngineerRepository.DeleteTutorialEngineer(SelectedTutorialEngineerViewModel.IdTutorialEngineer);
-                if (flag)
-                    MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                else
-                    MessageBox.Show("Ошибка изменения инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                foreach (TutorialEngineerDataBaseModel tutorialEngineer in TutorialsEngineerMulipleSelectedDataGrid)
+                    tutorialEngineerRepository.DeleteTutorialEngineer(tutorialEngineer.IdTutorialEngineer);
                 GetTutorialsEngineerForUpdate();
             }
         }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
         Title="MenuView" Height="500" Width="800"
         WindowStyle="None"
@@ -77,12 +78,14 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <DataGrid Name="dataGrid1" 
+                <local:CustomDataGrid x:Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding Users}"
-                              SelectedItem="{Binding SelectedUser}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}">
+                              SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                              CellStyle="{StaticResource DataGridContentCellCentering}"
+                              SelectionMode="Extended"
+                              SelectedItemsList="{Binding UserMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="id" 
                                                 Binding="{Binding IdBase}" 
@@ -98,7 +101,7 @@
                                                 Binding="{Binding PostBase}" 
                                                 Width="*"/>
                     </DataGrid.Columns>
-                </DataGrid>
+                </local:CustomDataGrid>
             </Grid>
             <Grid Grid.Row="2">
                 <Border Grid.Row="2" VerticalAlignment="Center"
@@ -187,10 +190,9 @@
                         </Button>
                         <Button x:Name="btnDeleteUserDataBase"
                             Command="{Binding DeleteUserDataBase}"
-                            Click="Delete_Click"
                             Content="Удалить"
                             Margin="20,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}">
+                            Style="{StaticResource menuButtonStyleAll}" Cursor="Hand">
                         </Button>
                     </StackPanel>
                 </StackPanel>

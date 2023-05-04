@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
         Title="MenuView" Height="700" Width="1366"
         WindowStyle="None"
@@ -85,12 +86,15 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <DataGrid Name="dataGrid1" 
+                <local:CustomDataGrid x:Name="dataGrid1"
                               Style="{StaticResource dataGridStyle2}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding TutorialsEngineer}"
                               SelectedItem="{Binding SelectedTutorialEngineerViewModel}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}">
+                              CellStyle="{StaticResource DataGridContentCellCentering}"
+                              SelectionMode="Extended"
+                              SelectedItemsList="{Binding TutorialsEngineerMulipleSelectedDataGrid, Mode=TwoWay}"        
+                              >
                     <DataGrid.Resources>
                         <Style TargetType="TextBlock" x:Key="WrapText">
                             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -121,7 +125,7 @@
                                                 Binding="{Binding Author}" 
                                                 Width="200"/>
                     </DataGrid.Columns>
-                </DataGrid>
+                </local:CustomDataGrid>
             </Grid>
             <Grid Grid.Row="2">
                 <Border Grid.Row="2" VerticalAlignment="Center"

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System;
+using System.Collections;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -24,6 +25,17 @@ namespace ServiceTelecom.ViewModels
 
         private UserRepository userRepository;
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
+
+        private IList _selectedModels = new ArrayList();
+        public IList UserMulipleSelectedDataGrid
+        {
+            get { return _selectedModels; }
+            set
+            {
+                _selectedModels = value;
+                OnPropertyChanged(nameof(UserMulipleSelectedDataGrid));
+            }
+        }
 
         private UserDataBaseModel _user;
 
@@ -88,15 +100,12 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteUserDataBaseCommand(object obj)
         {
+            if (UserMulipleSelectedDataGrid == null || UserMulipleSelectedDataGrid.Count == 0)
+                return;
+            foreach (UserDataBaseModel user in UserMulipleSelectedDataGrid)
+                userRepository.DeleteUsersDataBase(user);
             Users.Clear();
             Users = userRepository.GetAllUsersDataBase(Users);
-        }
-
-
-        public void GetAllSelectRowsUsers(DataGrid datagrid)
-        {
-            foreach (UserDataBaseModel user in datagrid.SelectedItems)
-                userRepository.DeleteUsersDataBase(user);
         }
 
         #endregion
