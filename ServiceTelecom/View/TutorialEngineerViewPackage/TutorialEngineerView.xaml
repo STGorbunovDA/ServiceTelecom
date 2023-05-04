@@ -38,7 +38,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -135,7 +135,7 @@
                     <ComboBox x:Name="cmbChoiceBySearch"
                                   Height="35"
                                   Width="200"
-                                  Margin="5,0,5,0"
+                                  Margin="10,0,10,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   SelectedIndex = "{Binding TheIndexCmbChoiceBySearchCollection, Mode=TwoWay}" >
                         <ComboBoxItem Content="Поиск"/>
@@ -145,15 +145,15 @@
                     </ComboBox>
                     <ComboBox x:Name="cmbUserChoice"
                                   Height="35"
-                                  Width="200"
-                                  Margin="5,0,5,0"
+                                  Width="300"
+                                  Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding UserChoice}"
                                   SelectedIndex="{Binding TheIndexUserChoiceCollection, Mode=TwoWay}"
                                   Text="{Binding UserChoice}"
                                   Visibility="{Binding CmbUserChoiceVisibility}">
                     </ComboBox>
-                    <Button x:Name="chkTxbSearchInfo"
+                    <Button x:Name="btnTxbSearchInfo"
                             Command="{Binding GetBySearchInfo}"
                             Content="✔"
                             Margin ="0,0,5,0"
@@ -164,7 +164,7 @@
                     <TextBox x:Name="txbSearchInfo"
                              FontSize="16"
                              Height="38"
-                             Width="200"
+                             Width="270"
                              Margin="0,4,0,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Visibility="{Binding TxbSearchInfoVisibility}"
@@ -173,35 +173,35 @@
                     <Button x:Name="btnUpdateTutorialsEngineerDataBase"
                             Command="{Binding UpdateTutorialsEngineerDataBase}"
                             Content="Обновить"
-                            Margin ="5,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnSaveTutorialsEngineerDataBase"
                             Command="{Binding SaveTutorialsEngineerDataBase}"
                             Content="Сохранить"
-                            Margin ="5,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnAddTutorialsEngineerDataBase"
                             Command="{Binding AddTutorialsEngineerDataBase}"
                             Content="Добавить"
-                            Margin ="5,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnChangeTutorialsEngineerDataBase"
                             Command="{Binding ChangeTutorialsEngineerDataBase}"
                             Content="Изменить"
-                            Margin ="5,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnDeleteTutorialsEngineerDataBase"
                             Command="{Binding DeleteTutorialsEngineerDataBase}"
                             Content="Удалить"
-                            Margin ="5,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>

@@ -37,7 +37,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="280"/>
                 <RowDefinition Height="*"/>
@@ -80,6 +81,18 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
+                <TextBlock Text="Модель"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="-385,10,0,0">
+                </TextBlock>
+                <TextBlock Text="Неисправность"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="370,10,0,0">
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="2">
                 <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
@@ -93,7 +106,7 @@
                     <ComboBox x:Name="cmbModel"
                                   Height="35"
                                   Width="270"
-                                  Margin="5,0,20,0"
+                                  Margin="5,0,40,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding ModelCollections}"
                                   SelectedIndex="{Binding TheIndexModelChoiceCollection}"
@@ -102,7 +115,7 @@
                     <ComboBox x:Name="cmbProblem"
                                   Height="35"
                                   Width="270"
-                                  Margin="5,0,5,0"
+                                  Margin="40,0,5,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding ProblemModelCollections}"
                                   SelectedIndex="{Binding TheIndexProblemChoiceCollection}"
@@ -117,19 +130,19 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="3">
                 <TextBlock Text="Описание неисправности"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
-                               Margin="-380,10,0,0">
+                               Margin="-385,10,0,0">
                 </TextBlock>
                 <TextBlock Text="Виды работ"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
-                               Margin="350,10,0,0">
+                               Margin="370,10,0,0">
                 </TextBlock>
             </Grid>
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="4">
                 <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
@@ -138,6 +151,7 @@
                                  Visibility="Visible"
                                  Height="250"
                                  Width="350"
+                            Margin="0,0,30,0"
                             Style="{StaticResource TextBoxStyle2}"
                             Text="{Binding Info}">
                     </TextBox>
@@ -150,7 +164,7 @@
                     </TextBox>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="5">
                 <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
