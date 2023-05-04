@@ -1,8 +1,11 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -111,11 +114,6 @@ namespace ServiceTelecom.ViewModels
             {
                 _tutorialEngineer = value;
                 OnPropertyChanged(nameof(SelectedTutorialEngineerViewModel));
-                //if (_reportCard != null)
-                //{
-                //    User = _reportCard.User;
-
-                //}
             }
         }
 
@@ -124,6 +122,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand SaveTutorialsEngineerDataBase { get; }
         public ICommand AddTutorialsEngineerDataBase { get; }
         public ICommand ChangeTutorialsEngineerDataBase { get; }
+        public ICommand DeleteTutorialsEngineerDataBase { get; }
 
         public TutorialEngineerViewModel()
         {
@@ -136,9 +135,31 @@ namespace ServiceTelecom.ViewModels
             SaveTutorialsEngineerDataBase = new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
             AddTutorialsEngineerDataBase = new ViewModelCommand(ExecuteAddTutorialsEngineerDataBaseCommand);
             ChangeTutorialsEngineerDataBase = new ViewModelCommand(ExecuteChangeTutorialsEngineerDataBaseCommand);
+            DeleteTutorialsEngineerDataBase = new ViewModelCommand(ExecuteDeleteTutorialsEngineerDataBaseCommand);
             GetTutorialsEngineerForUpdate();
         }
 
+
+
+        #region DeleteTutorialsEngineerDataBase
+
+        private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
+        {
+            if (UserModel.Post == "Admin" || UserModel.Post == "Руководитель")
+            {
+                if (SelectedTutorialEngineerViewModel == null)
+                    return;
+                bool flag = tutorialEngineerRepository.DeleteTutorialEngineer(SelectedTutorialEngineerViewModel.IdTutorialEngineer);
+                if (flag)
+                    MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show("Ошибка изменения инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                GetTutorialsEngineerForUpdate();
+            }
+        }
+
+        #endregion
 
         #region ChangeTutorialsEngineerDataBase
 
