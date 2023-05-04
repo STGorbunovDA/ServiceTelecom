@@ -59,7 +59,6 @@
         <Setter Property="BorderBrush" Value="{StaticResource titleFontColor3}"/>
         <Setter Property="BorderThickness" Value="0,0,0,4"/>
         <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,-5,10,0"/>
         <Setter Property="Padding" Value="0,10,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
@@ -345,13 +344,6 @@
         <Style.Triggers>
             <!--RadioButton Style on hover-->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Margin" Value="-5,0,0,5"/>
-                <Setter Property="Background" Value="{StaticResource buttonFontColor15}"/>
-                <Setter Property="Foreground" Value="{StaticResource titleFontColor5}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource buttonFontColor15}"/>
-            </Trigger>
-            <!--Active RadioButton style-->
-            <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Margin" Value="-5,0,0,5"/>
                 <Setter Property="Background" Value="{StaticResource buttonFontColor15}"/>
                 <Setter Property="Foreground" Value="{StaticResource titleFontColor5}"/>
