@@ -1,10 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -108,12 +106,13 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
                 string.IsNullOrWhiteSpace(UserModel.Login))
                 return;
             bool flag = _tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info, Actions, UserModel.Login);
-            if (!flag)
+            if (flag)
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
                 MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
-
 
         #region Clear
 
