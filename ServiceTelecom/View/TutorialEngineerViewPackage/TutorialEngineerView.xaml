@@ -198,6 +198,13 @@
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
+                    <Button x:Name="btnDeleteTutorialsEngineerDataBase"
+                            Command="{Binding DeleteTutorialsEngineerDataBase}"
+                            Content="Удалить"
+                            Margin ="5,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>
