@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
         Title="MenuView" Height="600" Width="1000"
         WindowStyle="None"
@@ -76,12 +77,14 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <DataGrid Name="dataGrid1" 
+                <local:CustomDataGrid x:Name="dataGrid1" 
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding ReportCards}"
                               SelectedItem="{Binding SelectedReportCardDataBaseMode}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}">
+                              CellStyle="{StaticResource DataGridContentCellCentering}"
+                                      SelectionMode="Extended"
+                              SelectedItemsList="{Binding ReportCardsMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdReportCards}" 
@@ -100,7 +103,7 @@
                                                 Binding="{Binding TimeCount}" 
                                                 Width="*"/>
                     </DataGrid.Columns>
-                </DataGrid>
+                </local:CustomDataGrid>
             </Grid>
             <Grid Grid.Row="2">
                 <Border Grid.Row="2" VerticalAlignment="Center"
@@ -161,7 +164,6 @@
                     </Button>
                     <Button x:Name="btnDeleteReportCardsDataBase"
                             Command="{Binding DeleteReportCardsDataBase}"
-                            Click="BtnDeleteReportCardsDataBase_Click"
                             Content="Удалить"
                             Margin ="5,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" Cursor="Hand">

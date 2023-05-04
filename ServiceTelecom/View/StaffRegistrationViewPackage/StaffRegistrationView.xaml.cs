@@ -6,10 +6,8 @@ namespace ServiceTelecom.View
 {
     public partial class StaffRegistrationView : Window
     {
-        StaffRegistrationViewModel staffRegistration;
         public StaffRegistrationView()
         {
-            staffRegistration = new StaffRegistrationViewModel();
             InitializeComponent();
         }
 
@@ -27,11 +25,6 @@ namespace ServiceTelecom.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        private void BtnDeleteStaffRegistrationDataBase_Click(object sender, RoutedEventArgs e)
-        {
-            staffRegistration.GetAllSelectRowsStaffRegistrationsAndDeleteId(dataGrid1);
         }
     }
 }

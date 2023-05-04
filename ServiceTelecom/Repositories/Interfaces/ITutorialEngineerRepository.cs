@@ -36,5 +36,11 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         bool ChangeTutorialEngineer(string id, string model, string problem,
             string info, string actions, string login);
+
+        /// <summary>
+        /// Удаление из БД Инструкции
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteTutorialEngineer(int id);
     }
 }

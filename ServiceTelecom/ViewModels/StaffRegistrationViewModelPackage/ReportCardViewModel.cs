@@ -1,9 +1,9 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -55,6 +55,17 @@ namespace ServiceTelecom.ViewModels
         public ICommand GetReportCardsAtCmbUser { get; }
         public ICommand GetReportCardsAtCmbDateTimeInput { get; }
 
+        private IList _selectedModels = new ArrayList();
+        public IList ReportCardsMulipleSelectedDataGrid
+        {
+            get { return _selectedModels; }
+            set
+            {
+                _selectedModels = value;
+                OnPropertyChanged(nameof(ReportCardsMulipleSelectedDataGrid));
+            }
+        }
+
         public ReportCardViewModel()
         {
             reportCardRepository = new ReportCardRepository();
@@ -104,15 +115,14 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteReportCardsDataBaseCommand(object obj)
         {
+            if (ReportCardsMulipleSelectedDataGrid == null || 
+                ReportCardsMulipleSelectedDataGrid.Count == 0)
+                return;
+            foreach (ReportCardsDataBaseModel reportCard in ReportCardsMulipleSelectedDataGrid)
+                reportCardRepository.DeleteReportCardsDataBase(reportCard.IdReportCards);
             GetStaffReportCardsForUpdate();
         }
 
-        internal void GetAllSelectRowsReportCardsAndDeleteId(DataGrid datagrid)
-        {
-            if (datagrid.SelectedItems.Count > 0)
-                foreach (ReportCardsDataBaseModel _reportCard in datagrid.SelectedItems)
-                    reportCardRepository.DeleteReportCardsDataBase(_reportCard.IdReportCards);
-        }
 
         #endregion
 
