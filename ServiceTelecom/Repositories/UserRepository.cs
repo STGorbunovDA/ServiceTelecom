@@ -12,7 +12,7 @@ namespace ServiceTelecom.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public UserModel GetAuthorizationUser(NetworkCredential credential)
+        public UserModelStatic GetAuthorizationUser(NetworkCredential credential)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ServiceTelecom.Repositories
                         adapter.Fill(table);
                         if (table.Rows.Count == 1)
                         {
-                            UserModel user = new UserModel(
+                            UserModelStatic user = new UserModelStatic(
                                 table.Rows[0].ItemArray[0].ToString(),
                                 table.Rows[0].ItemArray[2].ToString());
                             RegistryKey currentUserKey = Registry.CurrentUser;
