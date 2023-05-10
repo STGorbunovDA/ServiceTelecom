@@ -7,7 +7,7 @@ namespace ServiceTelecom.Models
     public interface IUserRepository
     {
         /// <summary> Получение авторизованного пользователя</summary>
-        UserModelStatic GetAuthorizationUser(NetworkCredential credential);
+        UserModel GetAuthorizationUser(NetworkCredential credential);
 
         /// <summary> Получение списка всех пользователей </summary>
         ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users);

@@ -103,9 +103,9 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         {
             if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions) ||
                 string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) ||
-                string.IsNullOrWhiteSpace(UserModelStatic.Login))
+                string.IsNullOrWhiteSpace(UserModel.Login))
                 return;
-            bool flag = _tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info, Actions, UserModelStatic.Login);
+            bool flag = _tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info, Actions, UserModel.Login);
             if (flag)
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else

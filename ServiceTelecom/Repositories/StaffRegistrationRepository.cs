@@ -11,8 +11,8 @@ namespace ServiceTelecom.Repositories
 {
     internal class StaffRegistrationRepository : IStaffRegistrationRepository
     {
-        public ObservableCollection<StaffRegistrationDataBaseModel>
-        GetStaffRegistrationsDataBase(ObservableCollection<StaffRegistrationDataBaseModel> staffRegistrations)
+        public ObservableCollection<StaffRegistrationsDataBaseModel>
+        GetStaffRegistrationsDataBase(ObservableCollection<StaffRegistrationsDataBaseModel> staffRegistrations)
         {
             try
             {
@@ -28,9 +28,15 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                StaffRegistrationDataBaseModel staffRegistration = new StaffRegistrationDataBaseModel(
-                                    reader.GetInt32(0),reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                                    reader.GetString(4),reader.GetString(5), reader.GetString(6), reader.GetString(7));
+                                StaffRegistrationsDataBaseModel staffRegistration = new StaffRegistrationsDataBaseModel(
+                                    reader.GetInt32(0),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(2)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(3)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(4)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(5)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(6)),
+                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(7)));
                                 staffRegistrations.Add(staffRegistration);
                             }
                         }
@@ -119,44 +125,6 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public ObservableCollection<StaffRegistrationDataBaseModel> 
-            GetStaffRegistrationsDataBasePerLogin(string login, 
-            ObservableCollection<StaffRegistrationDataBaseModel> 
-            staffRegistrationsDataBaseModelCollection)
-        {
-            try
-            {
-                if (!InternetCheck.CheckSkyNET())
-                    return staffRegistrationsDataBaseModelCollection;
-
-                using (MySqlCommand command = new MySqlCommand("GetStaffRegistrationsDataBasePerLogin",
-                    RepositoryDataBase.GetInstance.GetConnection()))
-                {
-                    RepositoryDataBase.GetInstance.OpenConnection();
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"userLogin",
-                        Encryption.EncryptPlainTextToCipherText(login));
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                StaffRegistrationDataBaseModel staffRegistrationsDataBaseModel
-                                    = new StaffRegistrationDataBaseModel(
-                                    reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
-                                    reader.GetString(3), reader.GetString(4), reader.GetString(5),
-                                    reader.GetString(6), reader.GetString(7));
-                                staffRegistrationsDataBaseModelCollection.Add(staffRegistrationsDataBaseModel);
-                            }
-                        }
-                        reader.Close();
-                        return staffRegistrationsDataBaseModelCollection;
-                    }
-                }
-            }
-            catch (Exception) { return staffRegistrationsDataBaseModelCollection; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
+        
     }
 }

@@ -10,7 +10,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// </summary>
         /// <param name="staffRegistrations"></param>
         /// <returns></returns>
-        ObservableCollection<StaffRegistrationDataBaseModel> GetStaffRegistrationsDataBase(ObservableCollection<StaffRegistrationDataBaseModel> staffRegistrations);
+        ObservableCollection<StaffRegistrationsDataBaseModel> GetStaffRegistrationsDataBase(ObservableCollection<StaffRegistrationsDataBaseModel> staffRegistrations);
 
         /// <summary>
         /// Добавление бригады на участок дороги
@@ -48,15 +48,6 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         void DeleteStaffRegistrationsDataBase(int id);
 
-        /// <summary>
-        /// Получение списка бригад по логину
-        /// </summary>
-        /// <param name="login"></param>
-        /// <param name="staffRegistrationsDataBaseModelCollection"></param>
-        /// <returns></returns>
-        ObservableCollection<StaffRegistrationDataBaseModel>
-            GetStaffRegistrationsDataBasePerLogin(string login,
-            ObservableCollection<StaffRegistrationDataBaseModel>
-            staffRegistrationsDataBaseModelCollection);
+
     }
 }

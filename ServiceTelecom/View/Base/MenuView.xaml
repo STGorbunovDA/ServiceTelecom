@@ -111,8 +111,7 @@
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                     <RadioButton Style="{StaticResource menuRadioButton}"
                                      Tag="{StaticResource buttonFontColor7}"
-                                     Width="170"
-                                     Command="{Binding Work}">
+                                     Width="170">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Database" Style="{StaticResource menuButtonIcom}"/>
                             <TextBlock Text="База Excel" Style="{StaticResource menuButtonText}"/>

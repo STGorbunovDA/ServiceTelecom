@@ -1,9 +1,12 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -154,7 +157,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Admin" || UserModelStatic.Post == "Руководитель" || UserModelStatic.Post == "Куратор")
+            if (UserModel.Post == "Admin" || UserModel.Post == "Руководитель" || UserModel.Post == "Куратор")
             {
                 if (TutorialsEngineerMulipleSelectedDataGrid == null || 
                     TutorialsEngineerMulipleSelectedDataGrid.Count == 0)

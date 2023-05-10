@@ -9,7 +9,7 @@ namespace ServiceTelecom.View
     {
         UserRepository userRepository;
         //UserModel _user;
-        public MenuView(UserModelStatic user)
+        public MenuView(UserModel user)
         {
             userRepository = new UserRepository();
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace ServiceTelecom.View
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            if (userRepository.SetDateTimeExitUserDataBase(UserModelStatic.Login))
+            if (userRepository.SetDateTimeExitUserDataBase(UserModel.Login))
                 Close();
 
             //else

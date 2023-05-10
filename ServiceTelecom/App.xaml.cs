@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System;
 using ServiceTelecom.View;
-using ServiceTelecom.View.WorkViewPackage;
 
 namespace ServiceTelecom
 {
@@ -20,8 +19,8 @@ namespace ServiceTelecom
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
 
-            //var workView = new WorkView();
-            //workView.Show();
+            //var adminView = new AdminView();
+            //adminView.Show();
 
             var loginView = new LoginView();
             loginView.Show();
