@@ -14,12 +14,12 @@ namespace ServiceTelecom.ViewModels
     {
         private UserRepository userRepository;
         private StaffRegistrationRepository staffRegistrationRepository;
-        private StaffRegistrationsDataBaseModel _staffRegistration;
+        private StaffRegistrationDataBaseModel _staffRegistration;
         private RoadDataBaseRepository _roadDataBase;
         ReportCardView reportCard = null;
 
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
-        public ObservableCollection<StaffRegistrationsDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        public ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
         public ObservableCollection<string> RoadCollections { get; }
         public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
         public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
@@ -64,7 +64,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand UpdateStaffRegistrationDataBase { get; }
         public ICommand ReportCard { get; }
 
-        public StaffRegistrationsDataBaseModel SelectedStaffRegistration
+        public StaffRegistrationDataBaseModel SelectedStaffRegistration
         {
             get => _staffRegistration;
             set
@@ -106,7 +106,7 @@ namespace ServiceTelecom.ViewModels
             EngineerCollection = new ObservableCollection<string>();
             CuratorCollection = new ObservableCollection<string>();
             RadioCommunicationDirectorateCollection = new ObservableCollection<string>();
-            StaffRegistrations = new ObservableCollection<StaffRegistrationsDataBaseModel>();
+            StaffRegistrations = new ObservableCollection<StaffRegistrationDataBaseModel>();
             _roadDataBase = new RoadDataBaseRepository();
             RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
             GetStaffRegistrationsForUpdate();
@@ -147,7 +147,7 @@ namespace ServiceTelecom.ViewModels
             if (StaffRegistrationsMulipleSelectedDataGrid == null || 
                 StaffRegistrationsMulipleSelectedDataGrid.Count == 0)
                 return;
-            foreach (StaffRegistrationsDataBaseModel staffRegistrations in StaffRegistrationsMulipleSelectedDataGrid)
+            foreach (StaffRegistrationDataBaseModel staffRegistrations in StaffRegistrationsMulipleSelectedDataGrid)
                 staffRegistrationRepository.DeleteStaffRegistrationsDataBase(staffRegistrations.IdStaffRegistrationBase);
             GetStaffRegistrationsForUpdate();
         }

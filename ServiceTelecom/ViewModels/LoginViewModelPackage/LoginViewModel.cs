@@ -46,12 +46,12 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            UserModel user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
+            UserModelStatic user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
                 //Thread.CurrentPrincipal = new GenericPrincipal(
                 //    new GenericIdentity(user.Post), null);
-                bool flag = userRepository.SetDateTimeUserDataBase(UserModel.Login);
+                bool flag = userRepository.SetDateTimeUserDataBase(UserModelStatic.Login);
                 if (flag)
                 {
                     MenuView menu = new MenuView(user);
