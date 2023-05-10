@@ -136,6 +136,7 @@
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
+    <Compile Include="Models\RadiostationForDocumentsDataBaseModel.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
@@ -149,7 +150,7 @@
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Models\StaffRegistrationDataBaseModel.cs" />
     <Compile Include="Models\UserDataBaseModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserModelStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\ReportCardRepository.cs" />
     <Compile Include="Repositories\Base\RoadDataBaseRepository.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\AddTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
     </Compile>
@@ -197,6 +199,9 @@
     </Compile>
     <Compile Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml.cs">
       <DependentUpon>TutorialEngineerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\WorkView.xaml.cs">
+      <DependentUpon>WorkView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
@@ -251,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\WorkView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

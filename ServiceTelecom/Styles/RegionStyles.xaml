@@ -128,7 +128,20 @@
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="RowHeight" Value="200"/>
     </Style>
-
+    
+    <!--3 Стиль DataGrid-->
+    <Style x:Key="dataGridStyle3" TargetType="DataGrid">
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="Margin" Value="1,0,1,0" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource buttonFontColor3}" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
+        <Setter Property="AlternatingRowBackground" Value="White" />
+        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="RowHeight" Value="45"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
+    </Style>
     <!--Стиль для расположения элемента Colums Text DataGrid-->
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
