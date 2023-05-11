@@ -38,7 +38,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="120"/>
+                <RowDefinition Height="140"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
@@ -81,16 +81,17 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical"
+                <StackPanel Grid.Column="0" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                     <ComboBox x:Name="cmbRoad"
                                   Height="35"
                                   Width="270"
-                                  Margin="0,0,0,5"
+                                  Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding RoadCollections}"
                                   SelectedItem="{Binding SelectedItemUserChoiceRoadCollection, Mode=TwoWay}"
@@ -102,11 +103,43 @@
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding CityCollections}"
-                                  
                                   Text="{Binding City}">
                     </ComboBox>
+                    <TextBox x:Name="txbSearchInfo"
+                             FontSize="16"
+                             Height="38"
+                             Width="270"
+                             Margin="0,5,0,0"
+                             IsReadOnly="True"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding SerialNumber}">
+                    </TextBox>
                 </StackPanel>
-                    
+                <StackPanel Grid.Column="1" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                    <Button x:Name="btnAddRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRadiostationForDocumentInDataBase}"
+                            Content="Добавить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnChangeRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeRadiostationForDocumentInDataBase}"
+                            Content="Изменить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
+                            Command="{Binding SaveRadiostationForDocumentInDataBase}"
+                            Content="Сохранить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                </StackPanel>    
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
@@ -114,7 +147,7 @@
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
                               SelectedItem="{Binding SelectedRadiostationForDocumentsDataBaseModel}"
-                              CellStyle="{StaticResource DataGridContentCellCentering}"
+                              CellStyle="{StaticResource DataGridContentCellCentering2}"
                               SelectionMode="Extended"
                               SelectedItemsList="{Binding RadiostationsForDocumentsMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Resources>
@@ -129,13 +162,13 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Полигон" 
                                                 Binding="{Binding Poligon}"
-                                                Width="120" />
+                                                Width="100" />
                         <DataGridTextColumn Header="Предприятие" 
                                                 Binding="{Binding Company}" 
-                                                Width="160"/>
+                                                Width="180"/>
                         <DataGridTextColumn Header="Станция" 
                                                 Binding="{Binding Location}" 
-                                                Width="160"
+                                                Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Модель" 
                                                 Binding="{Binding Model}" 
@@ -146,31 +179,31 @@
                                                 Width="200"/>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
-                                                Width="180"
+                                                Width="350"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Сетевой"
                                                 Binding="{Binding NetworkNumber}" 
-                                                Width="180"
+                                                Width="350"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Дата ТО"
                                                 Binding="{Binding DateMaintenance}" 
                                                 Width="120"/>
-                        <DataGridTextColumn Header="Номер Акта ТО"
+                        <DataGridTextColumn Header="№ Акта ТО"
                                                 Binding="{Binding NumberAct}" 
-                                                Width="100"/>
-                        <DataGridTextColumn Header="Номер Акта Ремонта"
+                                                Width="150"/>
+                        <DataGridTextColumn Header="№ Акта Рем."
                                                 Binding="{Binding NumberActRemont}" 
-                                                Width="100"/>
-                        <DataGridTextColumn Header="Категория ремонта"
+                                                Width="150"/>
+                        <DataGridTextColumn Header="Кат."
                                                 Binding="{Binding NumberActRemont}" 
                                                 Width="50"/>
-                        <DataGridTextColumn Header="Город"
-                                                Binding="{Binding City}" 
-                                                Width="150"
+                        <DataGridTextColumn Header="Представитель"
+                                                Binding="{Binding Representative}" 
+                                                Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Примечание"
                                                 Binding="{Binding Comment}" 
-                                                Width="150"
+                                                Width="450"
                                                 ElementStyle="{StaticResource WrapText}"/>
 
                     </DataGrid.Columns>

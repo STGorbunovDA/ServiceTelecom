@@ -21,6 +21,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string _city;
         public string City { get => _city; set { _city = value; OnPropertyChanged(nameof(City)); } }
 
+        private string _serialNumber;
+        public string SerialNumber { get => _serialNumber; set { _serialNumber = value; OnPropertyChanged(nameof(SerialNumber)); } }
+
         //private int _selectedItemUserChoiceRoadCollection;
         //public int SelectedItemUserChoiceRoadCollection
         //{
@@ -63,6 +66,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _radiostationForDocumentsDataBaseModel;
             set
             {
+                SerialNumber = value.SerialNumber;
+
                 _radiostationForDocumentsDataBaseModel = value;
                 OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
             }
