@@ -105,7 +105,27 @@
         </Style.Triggers>
     </Style>
 
+    <!--Стиль rows Datagrid-->
     <Style x:Key="DataGridContentCellCentering2" TargetType="DataGridCell">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor3}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--1 Стиль DataGrid-->
     <Style x:Key="dataGridStyle" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
@@ -114,7 +134,6 @@
         <Setter Property="Background" Value="White" />
         <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
         <Setter Property="AlternatingRowBackground" Value="White" />
-        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="RowHeight" Value="35"/>
     </Style>
@@ -127,7 +146,6 @@
         <Setter Property="Background" Value="White" />
         <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
         <Setter Property="AlternatingRowBackground" Value="White" />
-        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
         <Setter Property="RowHeight" Value="200"/>
     </Style>
@@ -140,16 +158,15 @@
         <Setter Property="Background" Value="White" />
         <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
         <Setter Property="AlternatingRowBackground" Value="White" />
-        <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="RowHeight" Value="105"/>
+        <Setter Property="RowHeight" Value="40"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
     </Style>
+    
     <!--Стиль для расположения элемента Colums Text DataGrid-->
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Romul"/>
-        
     </Style>
 
     <!--#endregion-->
