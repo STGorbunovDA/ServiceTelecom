@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.ViewModels;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.ViewModels;
 
 namespace ServiceTelecom.Models
 {
@@ -10,7 +11,7 @@ namespace ServiceTelecom.Models
         public ModelRadiostantionDataBaseModel(int idBase, string model)
         {
             IdBase = idBase;
-            Model = model;
+            Model = Encryption.DecryptCipherTextToPlainText(model);
         }
 
         public int IdBase { get => _id; set { _id = value; OnPropertyChanged(nameof(IdBase)); } }
