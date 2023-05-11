@@ -29,7 +29,6 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                string x = Encryption.DecryptCipherTextToPlainText(reader.GetString(5));
                                 TutorialEngineerDataBaseModel tutorialEngineer = new TutorialEngineerDataBaseModel(
                                     reader.GetInt32(0),
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
