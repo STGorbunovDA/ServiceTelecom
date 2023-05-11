@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.ViewModels;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.ViewModels;
 using System;
 
 namespace ServiceTelecom.Models
@@ -13,18 +14,18 @@ namespace ServiceTelecom.Models
         private string _serialNumber;
         private string _inventoryNumber;
         private string _networkNumber;
-        private DateTime _dateMaintenance;
+        private string _dateMaintenance;
         private string _numberAct;
         private string _city;
-        private decimal _price;
+        private string _price;
         private string _representative;
         private string _post;
         private string _numberIdentification;
-        private DateTime _dateOfIssuanceOfTheCertificate;
+        private string _dateOfIssuanceOfTheCertificate;
         private string _phoneNumber;
         private string _numberActRemont;
         private string _category;
-        private decimal _priceRemont;
+        private string _priceRemont;
         private string _antenna;
         private string _manipulator;
         private string _battery;
@@ -51,9 +52,9 @@ namespace ServiceTelecom.Models
         public RadiostationForDocumentsDataBaseModel(int idBase, string poligon, 
             string company, string location, string model, string serialNumber, 
             string inventoryNumber, string networkNumber, DateTime dateMaintenance, 
-            string numberAct, string city, decimal price, string representative, 
+            string numberAct, string city, string price, string representative, 
             string post, string numberIdentification, DateTime dateOfIssuanceOfTheCertificate, 
-            string phoneNumber, string numberActRemont, string category, decimal priceRemont, 
+            string phoneNumber, string numberActRemont, string category, string priceRemont, 
             string antenna, string manipulator, string battery, string charger, 
             string completedWorks_1, string completedWorks_2, string completedWorks_3, 
             string completedWorks_4, string completedWorks_5, string completedWorks_6, 
@@ -62,47 +63,47 @@ namespace ServiceTelecom.Models
             string decommissionNumber, string comment, string road, string verifiedRST)
         {
             IdBase = idBase;
-            Poligon = poligon;
-            Company = company;
-            Location = location;
-            Model = model;
-            SerialNumber = serialNumber;
-            InventoryNumber = inventoryNumber;
-            NetworkNumber = networkNumber;
-            DateMaintenance = dateMaintenance;
-            NumberAct = numberAct;
-            City = city;
-            Price = price;
-            Representative = representative;
-            Post = post;
-            NumberIdentification = numberIdentification;
-            DateOfIssuanceOfTheCertificate = dateOfIssuanceOfTheCertificate;
-            PhoneNumber = phoneNumber;
-            NumberActRemont = numberActRemont;
-            Category = category;
-            PriceRemont = priceRemont;
-            Antenna = antenna;
-            Manipulator = manipulator;
-            Battery = battery;
-            Charger = charger;
-            CompletedWorks_1 = completedWorks_1;
-            CompletedWorks_2 = completedWorks_2;
-            CompletedWorks_3 = completedWorks_3;
-            CompletedWorks_4 = completedWorks_4;
-            CompletedWorks_5 = completedWorks_5;
-            CompletedWorks_6 = completedWorks_6;
-            CompletedWorks_7 = completedWorks_7;
-            Parts_1 = parts_1;
-            Parts_2 = parts_2;
-            Parts_3 = parts_3;
-            Parts_4 = parts_4;
-            Parts_5 = parts_5;
-            Parts_6 = parts_6;
-            Parts_7 = parts_7;
-            DecommissionNumber = decommissionNumber;
-            Comment = comment;
-            Road = road;
-            VerifiedRST = verifiedRST;
+            Poligon = Encryption.DecryptCipherTextToPlainText(poligon);
+            Company = Encryption.DecryptCipherTextToPlainText(company);
+            Location = Encryption.DecryptCipherTextToPlainText(location);
+            Model = Encryption.DecryptCipherTextToPlainText(model);
+            SerialNumber = Encryption.DecryptCipherTextToPlainText(serialNumber);
+            InventoryNumber = Encryption.DecryptCipherTextToPlainText(inventoryNumber);
+            NetworkNumber = Encryption.DecryptCipherTextToPlainText(networkNumber);
+            DateMaintenance = dateMaintenance.ToString("dd.MM.yyyy");
+            NumberAct = Encryption.DecryptCipherTextToPlainText(numberAct);
+            City = Encryption.DecryptCipherTextToPlainText(city);
+            Price = Encryption.DecryptCipherTextToPlainText(price);
+            Representative = Encryption.DecryptCipherTextToPlainText(representative);
+            Post = Encryption.DecryptCipherTextToPlainText(post);
+            NumberIdentification = Encryption.DecryptCipherTextToPlainText(numberIdentification);
+            DateOfIssuanceOfTheCertificate = dateOfIssuanceOfTheCertificate.ToString("dd.MM.yyyy");
+            PhoneNumber = Encryption.DecryptCipherTextToPlainText(phoneNumber);
+            NumberActRemont = Encryption.DecryptCipherTextToPlainText(numberActRemont);
+            Category = Encryption.DecryptCipherTextToPlainText(category);
+            PriceRemont = Encryption.DecryptCipherTextToPlainText(priceRemont);
+            Antenna = Encryption.DecryptCipherTextToPlainText(antenna);
+            Manipulator = Encryption.DecryptCipherTextToPlainText(manipulator);
+            Battery = Encryption.DecryptCipherTextToPlainText(battery);
+            Charger = Encryption.DecryptCipherTextToPlainText(charger);
+            CompletedWorks_1 = Encryption.DecryptCipherTextToPlainText(completedWorks_1);
+            CompletedWorks_2 = Encryption.DecryptCipherTextToPlainText(completedWorks_2);
+            CompletedWorks_3 = Encryption.DecryptCipherTextToPlainText(completedWorks_3);
+            CompletedWorks_4 = Encryption.DecryptCipherTextToPlainText(completedWorks_4);
+            CompletedWorks_5 = Encryption.DecryptCipherTextToPlainText(completedWorks_5);
+            CompletedWorks_6 = Encryption.DecryptCipherTextToPlainText(completedWorks_6);
+            CompletedWorks_7 = Encryption.DecryptCipherTextToPlainText(completedWorks_7);
+            Parts_1 = Encryption.DecryptCipherTextToPlainText(parts_1);
+            Parts_2 = Encryption.DecryptCipherTextToPlainText(parts_2);
+            Parts_3 = Encryption.DecryptCipherTextToPlainText(parts_3);
+            Parts_4 = Encryption.DecryptCipherTextToPlainText(parts_4);
+            Parts_5 = Encryption.DecryptCipherTextToPlainText(parts_5);
+            Parts_6 = Encryption.DecryptCipherTextToPlainText(parts_6);
+            Parts_7 = Encryption.DecryptCipherTextToPlainText(parts_7);
+            DecommissionNumber = Encryption.DecryptCipherTextToPlainText(decommissionNumber);
+            Comment = Encryption.DecryptCipherTextToPlainText(comment);
+            Road = Encryption.DecryptCipherTextToPlainText(road);
+            VerifiedRST = Encryption.DecryptCipherTextToPlainText(verifiedRST);
         }
 
         public int IdBase { get => _id; set { _id = value; OnPropertyChanged(nameof(IdBase)); } }
@@ -113,18 +114,18 @@ namespace ServiceTelecom.Models
         public string SerialNumber { get => _serialNumber; set { _serialNumber = value; OnPropertyChanged(nameof(SerialNumber)); } }
         public string InventoryNumber { get => _inventoryNumber; set { _inventoryNumber = value; OnPropertyChanged(nameof(InventoryNumber)); } }
         public string NetworkNumber { get => _networkNumber; set { _networkNumber = value; OnPropertyChanged(nameof(NetworkNumber)); } }
-        public DateTime DateMaintenance { get => _dateMaintenance; set { _dateMaintenance = value; OnPropertyChanged(nameof(DateMaintenance)); } }
+        public string DateMaintenance { get => _dateMaintenance; set { _dateMaintenance = value; OnPropertyChanged(nameof(DateMaintenance)); } }
         public string NumberAct { get => _numberAct; set { _numberAct = value; OnPropertyChanged(nameof(NumberAct)); } }
         public string City { get => _city; set { _city = value; OnPropertyChanged(nameof(City)); } }
-        public decimal Price { get => _price; set { _price = value; OnPropertyChanged(nameof(Price)); } }
+        public string Price { get => _price; set { _price = value; OnPropertyChanged(nameof(Price)); } }
         public string Representative { get => _representative; set { _representative = value; OnPropertyChanged(nameof(Representative)); } }
         public string Post { get => _post; set { _post = value; OnPropertyChanged(nameof(Post)); } }
         public string NumberIdentification { get => _numberIdentification; set { _numberIdentification = value; OnPropertyChanged(nameof(NumberIdentification)); } }
-        public DateTime DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
+        public string DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
         public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
         public string NumberActRemont { get => _numberActRemont; set { _numberActRemont = value; OnPropertyChanged(nameof(NumberActRemont)); } }
         public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); } }
-        public decimal PriceRemont { get => _priceRemont; set { _priceRemont = value; OnPropertyChanged(nameof(PriceRemont)); } }
+        public string PriceRemont { get => _priceRemont; set { _priceRemont = value; OnPropertyChanged(nameof(PriceRemont)); } }
         public string Antenna { get => _antenna; set { _antenna = value; OnPropertyChanged(nameof(Antenna)); } }
         public string Manipulator { get => _manipulator; set { _manipulator = value; OnPropertyChanged(nameof(Manipulator)); } }
         public string Battery { get => _battery; set { _battery = value; OnPropertyChanged(nameof(Battery)); } }

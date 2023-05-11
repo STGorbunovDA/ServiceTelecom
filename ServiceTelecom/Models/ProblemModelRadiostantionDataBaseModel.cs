@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.ViewModels;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.ViewModels;
 
 
 namespace ServiceTelecom.Models
@@ -14,7 +15,7 @@ namespace ServiceTelecom.Models
         public ProblemModelRadiostantionDataBaseModel(int idBase, string problem)
         {
             IdBase = idBase;
-            Problem = problem;
+            Problem = Encryption.DecryptCipherTextToPlainText(problem);
         }
 
 

@@ -1,10 +1,7 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View;
 using ServiceTelecom.View.WorkViewPackage;
-using ServiceTelecom.ViewModels.WorkViewModelPackage;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 

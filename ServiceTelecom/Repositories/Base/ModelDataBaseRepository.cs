@@ -28,7 +28,7 @@ namespace ServiceTelecom.Repositories.Base
                             while (reader.Read())
                             {
                                 ModelRadiostantionDataBaseModel modelRadiostantion = new ModelRadiostantionDataBaseModel
-                                    (reader.GetInt32(0), Encryption.DecryptCipherTextToPlainText(reader.GetString(1)));
+                                    (reader.GetInt32(0), reader.GetString(1));
                                 modelCollections.Add(modelRadiostantion);
                             }
                             reader.Close();

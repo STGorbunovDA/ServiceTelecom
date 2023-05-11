@@ -14,6 +14,8 @@ namespace ServiceTelecom.Infrastructure
         /// <returns></returns>
         public static string EncryptPlainTextToCipherText(string PlainText)
         {
+            if (string.IsNullOrWhiteSpace(PlainText))
+                return string.Empty;
             // Getting the bytes of Input String.
             byte[] toEncryptedArray = UTF8Encoding.UTF8.GetBytes(PlainText);
 
@@ -44,6 +46,8 @@ namespace ServiceTelecom.Infrastructure
         /// <returns></returns>
         public static string DecryptCipherTextToPlainText(string CipherText)
         {
+            if (string.IsNullOrWhiteSpace(CipherText))
+                return string.Empty;
             byte[] toEncryptArray = Convert.FromBase64String(CipherText);
             MD5CryptoServiceProvider objMD5CryptoService = new MD5CryptoServiceProvider();
 
