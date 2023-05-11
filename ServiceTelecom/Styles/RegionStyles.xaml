@@ -30,6 +30,8 @@
         <Setter Property="SelectedIndex" Value="0"/>
     </Style>
 
+    
+
     <!--#endregion-->
 
     <!--#region Style ComboBox Выпадающий-->
@@ -139,7 +141,7 @@
         <Setter Property="AlternatingRowBackground" Value="White" />
         <!--<Setter Property="Se" Value="{StaticResource buttonFontColor3}"/>-->
         <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="RowHeight" Value="45"/>
+        <Setter Property="RowHeight" Value="105"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
     </Style>
     <!--Стиль для расположения элемента Colums Text DataGrid-->
