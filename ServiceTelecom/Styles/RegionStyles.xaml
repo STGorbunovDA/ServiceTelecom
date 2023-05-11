@@ -105,6 +105,7 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DataGridContentCellCentering2" TargetType="DataGridCell">
     <!--1 Стиль DataGrid-->
     <Style x:Key="dataGridStyle" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
