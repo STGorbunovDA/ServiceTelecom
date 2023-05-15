@@ -1,15 +1,23 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.View;
+using ServiceTelecom.View.WorkViewPackage;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class WorkViewModel : ViewModelBase
     {
+        AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
+
         private WorkRepository _workRepository;
         private RoadDataBaseRepository _roadDataBase;
+
+        public ICommand AddRadiostationForDocumentInDataBase { get; }
 
         public ObservableCollection<string> RoadCollections { get; set; }
         public ObservableCollection<string> CityCollections { get; set; }
@@ -23,6 +31,39 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private string _serialNumber;
         public string SerialNumber { get => _serialNumber; set { _serialNumber = value; OnPropertyChanged(nameof(SerialNumber)); } }
+
+        private string _representative;
+        public string Representative { get => _representative; set { _representative = value; OnPropertyChanged(nameof(Representative)); } }
+
+        private string _numberIdentification;
+        public string NumberIdentification { get => _numberIdentification; set { _numberIdentification = value; OnPropertyChanged(nameof(NumberIdentification)); } }
+
+        private string _phoneNumber;
+        public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
+
+        private string _post;
+        public string Post { get => _post; set { _post = value; OnPropertyChanged(nameof(Post)); } }
+        
+        private string _dateOfIssuanceOfTheCertificate;
+        public string DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
+
+        private string _poligon;
+        public string Poligon { get => _poligon; set { _poligon = value; OnPropertyChanged(nameof(Poligon)); } }
+
+        private string _company;
+        public string Company { get => _company; set { _company = value; OnPropertyChanged(nameof(Company)); } }
+
+        private string _location;
+        public string Location { get => _location; set { _location = value; OnPropertyChanged(nameof(Location)); } }
+
+        private string _model;
+        public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
+
+        private string _inventoryNumber;
+        public string InventoryNumber { get => _inventoryNumber; set { _inventoryNumber = value; OnPropertyChanged(nameof(InventoryNumber)); } }
+
+        private string _networkNumber;
+        public string NetworkNumber { get => _networkNumber; set { _networkNumber = value; OnPropertyChanged(nameof(NetworkNumber)); } }
 
         //private int _selectedItemUserChoiceRoadCollection;
         //public int SelectedItemUserChoiceRoadCollection
@@ -67,7 +108,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 SerialNumber = value.SerialNumber;
-
+                Representative = value.Representative;
+                NumberIdentification = value.NumberIdentification;
                 _radiostationForDocumentsDataBaseModel = value;
                 OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
             }
@@ -90,10 +132,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
             CityCollections = new ObservableCollection<string>();
+            AddRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
             GetRadiostationsForDocumentsCollection();
         }
 
+        #region AddRadiostationForDocumentInDataBase
 
+        private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+
+            if (addRadiostationForDocumentInDataBaseView == null)
+            {
+                addRadiostationForDocumentInDataBaseView = new AddRadiostationForDocumentInDataBaseView(Road, City);
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) => addRadiostationForDocumentInDataBaseView = null;
+                addRadiostationForDocumentInDataBaseView.Show();
+            }
+        }
+
+        #endregion
 
         private void GetRadiostationsForDocumentsCollection()
         {

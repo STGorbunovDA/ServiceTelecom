@@ -158,8 +158,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
-                                                Width="50" Visibility="Collapsed">
-                        </DataGridTextColumn>
+                                                Width="50" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Полигон" 
                                                 Binding="{Binding Poligon}"
                                                 Width="100" />
@@ -205,7 +204,33 @@
                                                 Binding="{Binding Comment}" 
                                                 Width="450"
                                                 ElementStyle="{StaticResource WrapText}"/>
-
+                        <DataGridTextColumn Header="Номер удостоверения" 
+                                                Binding="{Binding NumberIdentification}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Номер телефона" 
+                                                Binding="{Binding PhoneNumber}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Должность" 
+                                                Binding="{Binding Post}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Дата выдачи удостоверения" 
+                                                Binding="{Binding DateOfIssuanceOfTheCertificate}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Примечание" 
+                                                Binding="{Binding Comment}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Полигон" 
+                                                Binding="{Binding Poligon}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Полигон" 
+                                                Binding="{Binding Company}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Станция" 
+                                                Binding="{Binding Location}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Модель" 
+                                                Binding="{Binding Model}" 
+                                                Width="50" Visibility="Collapsed"/>
                     </DataGrid.Columns>
                 </local:CustomDataGrid>
             </Grid>
