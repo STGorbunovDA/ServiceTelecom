@@ -422,15 +422,24 @@
         <Setter Property="FontFamily" Value="Romul"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+
+    <Style x:Key="messageTextBlockStyle3" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
     <!--#endregion-->
 
+    <!--#region Style DatePickerStyle-->
     
     <Style x:Key="DatePickerStyle1" TargetType="{x:Type DatePicker}">
         <Setter Property="Foreground" Value="#FF333333"/>
         <Setter Property="IsTodayHighlighted" Value="True"/>
         <Setter Property="SelectedDateFormat" Value="Short"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="BorderBrush">
             <Setter.Value>
                 <LinearGradientBrush EndPoint=".5,0" StartPoint=".5,1">
@@ -444,7 +453,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -656,7 +665,7 @@
                                             Text="{Binding Source={x:Static system:DateTime.Now}, StringFormat=dd}" 
                                             HorizontalAlignment="Center" 
                                             VerticalAlignment="Center" FontSize="18" 
-                                            FontFamily="Arial Bold" />
+                                            FontFamily="Arial Bold"/>
                                             <Ellipse Grid.ColumnSpan="4" 
                                             Fill="#FFFFFFFF" HorizontalAlignment="Center" 
                                             Height="3" StrokeThickness="0" 
@@ -719,5 +728,63 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--#endregion-->
 
+    <!--#region Style CheckBoxStyle-->
+
+    <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="SkyBlue" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="Border"
+                                    Width="30"
+                                    Height="30"
+                                    Background="White"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    ClipToBounds="True">
+                                <Path x:Name="CheckMark"
+                                      Width="14"
+                                      Height="14"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M27.903015,0L32,4.0970465 12.369019,23.728029 11.685974,24.520998 0,14.441042 3.7819824,10.054994 11.330017,16.567019z"
+                                      Fill="#0abceb"
+                                      Stretch="Fill"
+                                      Stroke="#0abceb"
+                                      StrokeEndLineCap="Round"
+                                      StrokeStartLineCap="Round"
+                                      StrokeThickness="1" />
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="5,0,0,0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True" />
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="BorderBrush" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter TargetName="CheckMark" Property="Stroke" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#endregion-->
 </ResourceDictionary>
