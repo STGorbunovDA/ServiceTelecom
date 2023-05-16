@@ -161,7 +161,7 @@
                                                 Width="50" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Полигон" 
                                                 Binding="{Binding Poligon}"
-                                                Width="100" />
+                                                Width="100"/>
                         <DataGridTextColumn Header="Предприятие" 
                                                 Binding="{Binding Company}" 
                                                 Width="180"/>
@@ -228,8 +228,20 @@
                         <DataGridTextColumn Header="Станция" 
                                                 Binding="{Binding Location}" 
                                                 Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Модель" 
-                                                Binding="{Binding Model}" 
+                        <DataGridTextColumn Header="Прайс" 
+                                                Binding="{Binding Price}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Манипулятор" 
+                                                Binding="{Binding Manipulator}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Антенна" 
+                                                Binding="{Binding Antenna}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="АКБ" 
+                                                Binding="{Binding Battery}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Зарядное устройство" 
+                                                Binding="{Binding Charger}" 
                                                 Width="50" Visibility="Collapsed"/>
                     </DataGrid.Columns>
                 </local:CustomDataGrid>

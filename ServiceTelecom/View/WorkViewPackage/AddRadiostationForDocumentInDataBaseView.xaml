@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="MenuView" Height="700" Width="900"
+        Title="MenuView" Height="600" Width="900"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -38,9 +38,9 @@
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="470"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -51,17 +51,35 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
+                <TextBox x:Name="txbNumberAct"
+                             Grid.Column="1"
+                             FontSize="16"
+                             Height="40"
+                             Width="165"
+                             Margin="0,5,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding NumberAct, Mode=TwoWay}">
+                </TextBox>
+                <DatePicker
+                            Grid.Column="2"
+                            Name="datePickerDateMaintenance" 
+                            Style="{StaticResource DatePickerStyle1}"
+                            Height="36"
+                            Margin="0,5,0,4"
+                            Width="165"
+                            Text="{Binding DateMaintenance, Mode=TwoWay}">
+                </DatePicker>
                 <TextBlock x:Name="txtRoad"
                            Grid.Column="2"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle1}"
-                           Margin="0,0,0,0"
+                           Text="{Binding Road, Mode=TwoWay}"
                            Visibility="Collapsed">
                 </TextBlock>
                 <Button x:Name="btnMinimize"
@@ -79,15 +97,15 @@
                 </Button>
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
-                    <TextBlock Text="Добавление радиостанции"
+                                HorizontalAlignment="Left">
+                    <TextBlock Text="Добавление РСТ"
                                Foreground="{StaticResource titleFontColor5}"
-                               Style="{StaticResource messageTextBlockStyle1}"
-                               Margin="280,0,0,0">
+                               Style="{StaticResource messageTextBlockStyle3}"
+                               Margin="60,0,0,0">
                     </TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="1" >
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -97,18 +115,18 @@
                                 HorizontalAlignment="Center">
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Left"
                                 Margin="0,0,10,0">
                         <TextBlock x:Name="txBlockRepresentative"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
                            Margin="10,0,10,0"
-                           Text="Представитель ФИО:" Height="20">
+                           Text="Предст. ФИО:" Height="20">
                         </TextBlock>
                         <TextBox x:Name="txbRepresentative"
                              FontSize="16"
                              Height="40"
-                             Width="220"
+                             Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding Representative, Mode=TwoWay}">
@@ -116,45 +134,35 @@
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,-4,0">
+                                HorizontalAlignment="Left"
+                                Margin="18,10,0,0">
                         <TextBlock x:Name="txBlockNumberIdentification"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
-                           Text="№ Удостоверения:" Height="20">
+                           Margin="0,0,10,0"
+                           Text="№ УдостОВ.:" Height="20">
                         </TextBlock>
                         <TextBox x:Name="txbNumberIdentification"
                              FontSize="16"
                              Height="40"
-                             Width="220"
-                             Margin="0,0,0,0"
+                             Width="100"
+                             Margin="0,0,9,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding NumberIdentification, Mode=TwoWay}">
                         </TextBox>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,-50,0">
-                        <TextBlock x:Name="txBlockDateOfIssuanceOfTheCertificate"
-                           Foreground="{StaticResource titleFontColor5}"
-                           Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
-                           Text="Дата выдачи:" Height="20">
-                        </TextBlock>
                         <DatePicker
                             Name="datePickerDateOfIssuanceOfTheCertificate" 
                             Style="{StaticResource DatePickerStyle1}"
-                            Height="40"
-                            Width="220"
+                            Height="36"
+                            Margin="0,0,0,4"
+                            Width="165"
                             Text="{Binding DateOfIssuanceOfTheCertificate, Mode=TwoWay}">
                         </DatePicker>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,-62,0">
+                                HorizontalAlignment="Left"
+                                Margin="5,10,0,0">
                         <TextBlock x:Name="txBlockPhoneNumber"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -164,7 +172,7 @@
                         <TextBox x:Name="txbPhoneNumber"
                              FontSize="16"
                              Height="40"
-                             Width="220"
+                             Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding PhoneNumber, Mode=TwoWay}">
@@ -172,8 +180,8 @@
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,10,0">
+                                HorizontalAlignment="Left"
+                                Margin="3,10,10,0">
                         <TextBlock x:Name="txBlockPost"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -182,28 +190,27 @@
                         </TextBlock>
                         <TextBox x:Name="txbPost"
                              FontSize="16"
-                             Height="130"
-                             Width="290"
+                             Height="133"
+                             Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
                              Text="{Binding Post, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
-
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,10,0">
+                                HorizontalAlignment="Left"
+                                Margin="8,10,10,0">
                         <TextBlock x:Name="txBlockComment"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
                            Margin="10,0,10,0"
-                           Text="Примечание:" Height="20">
+                           Text="Справочно:" Height="20">
                         </TextBlock>
                         <TextBox x:Name="txbComment"
                              FontSize="16"
-                             Height="130"
-                             Width="290"
+                             Height="132"
+                             Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
                              Text="{Binding Comment, Mode=TwoWay}">
@@ -306,8 +313,7 @@
                                   Margin="0,0,10,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding ModelCollections}"
-                                  SelectedItem="{Binding SelectedModelRadiostantion}"
-                                  SelectedIndex="{Binding TheIndexModelCollection, Mode=TwoWay}"
+                                  SelectedIndex="{Binding TheIndexModelChoiceCollection, Mode=TwoWay}"
                                   Text="{Binding Model}">
                             <ComboBox.Resources>
                                 <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
@@ -380,25 +386,90 @@
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,-50,0">
-                        <TextBlock x:Name="txBlockDateMaintenance"
+                                HorizontalAlignment="Left"
+                                Margin="13,10,0,0">
+                        <TextBlock x:Name="txBlockPrice"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
-                           Text="Дата ТО:" Height="20">
-                        </TextBlock>
-                        <DatePicker
-                            Name="datePickerDateMaintenance" 
-                            Style="{StaticResource DatePickerStyle1}"
-                            Height="40"
-                            Width="220"
-                            Text="{Binding DateMaintenance, Mode=TwoWay}">
-                        </DatePicker>
+                           Margin="7,-6,10,0"
+                           Text="Цена ТО:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxPrice"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked = "{Binding CheckBoxPriceViewModel}"/>
+                        <TextBox x:Name="txbPrice"
+                             FontSize="16"
+                             Height="40"
+                             Width="80"
+                             Style="{StaticResource TextBoxStyle2}"
+                             IsReadOnly="True"
+                             Text="{Binding Price, Mode=TwoWay}"
+                             Margin="0,0,5,0">
+                        </TextBox>
+                        <TextBlock x:Name="txBlockBattery"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="7,0,10,0"
+                           Text="АКБ:" Height="20"/>
+                        <TextBox x:Name="txbBattery"
+                             FontSize="16"
+                             Height="40"
+                             Width="150"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Battery, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="10,10,4,0">
+                        <TextBlock x:Name="txBlockManipulator"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="17,0,10,0"
+                           Text="МАН.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxManipulator"
+                            Style="{StaticResource CheckBoxStyle1}"/>
+                        <TextBlock x:Name="txBlockAntenna"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="Антенна:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxAntenna"
+                            Style="{StaticResource CheckBoxStyle1}"/>
+                        <TextBlock x:Name="txBlockCharger"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="З.У.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxCharger"
+                            Style="{StaticResource CheckBoxStyle1}"/>
+                        <TextBlock x:Name="txBlockRemont"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="В Рем.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxRemont"
+                            Style="{StaticResource CheckBoxStyle1}"/>
+                        
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
+            <Grid Grid.Row="2">
+                <Button x:Name="btnAddTutorialsEngineerDataBase"
+                            Command="{Binding AddTutorialsEngineerDataBase}"
+                            Content="Добавить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                </Button>
+            </Grid>
         </Grid>
     </Border>
 </Window>

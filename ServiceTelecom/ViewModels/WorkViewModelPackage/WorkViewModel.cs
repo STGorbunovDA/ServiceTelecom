@@ -7,6 +7,9 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
+using System.Windows.Shapes;
+using System.Xml.Linq;
+using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -43,7 +46,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private string _post;
         public string Post { get => _post; set { _post = value; OnPropertyChanged(nameof(Post)); } }
-        
+
         private string _dateOfIssuanceOfTheCertificate;
         public string DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
 
@@ -64,6 +67,30 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private string _networkNumber;
         public string NetworkNumber { get => _networkNumber; set { _networkNumber = value; OnPropertyChanged(nameof(NetworkNumber)); } }
+
+        private string _dateMaintenance;
+        public string DateMaintenance { get => _dateMaintenance; set { _dateMaintenance = value; OnPropertyChanged(nameof(DateMaintenance)); } }
+
+        private string _comment;
+        public string Comment { get => _comment; set { _comment = value; OnPropertyChanged(nameof(Comment)); } }
+
+        private string _price;
+        public string Price { get => _price; set { _price = value; OnPropertyChanged(nameof(Price)); } }
+
+        private string _numberAct;
+        public string NumberAct { get => _numberAct; set { _numberAct = value; OnPropertyChanged(nameof(NumberAct)); } }
+
+        private string _manipulator;
+        public string Manipulator { get => _manipulator; set { _manipulator = value; OnPropertyChanged(nameof(Manipulator)); } }
+
+        private string _antenna;
+        public string Antenna { get => _antenna; set { _antenna = value; OnPropertyChanged(nameof(Antenna)); } }
+
+        private string _battery;
+        public string Battery { get => _battery; set { _battery = value; OnPropertyChanged(nameof(Battery)); } }
+
+        private string _charger;
+        public string Charger { get => _charger; set { _charger = value; OnPropertyChanged(nameof(Charger)); } }
 
         //private int _selectedItemUserChoiceRoadCollection;
         //public int SelectedItemUserChoiceRoadCollection
@@ -110,6 +137,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 SerialNumber = value.SerialNumber;
                 Representative = value.Representative;
                 NumberIdentification = value.NumberIdentification;
+                PhoneNumber = value.PhoneNumber;
+                Post = value.Post;
+                DateOfIssuanceOfTheCertificate = value.DateOfIssuanceOfTheCertificate;
+                Poligon = value.Poligon;
+                Company = value.Company;
+                Location = value.Location;
+                Model = value.Model;
+                InventoryNumber = value.InventoryNumber;
+                NetworkNumber = value.NetworkNumber;
+                DateMaintenance = value.DateMaintenance;
+                Comment = value.Comment;
+                Price = value.Price;
+                NumberAct = value.NumberAct;
+                Manipulator = value.Manipulator;
+                Antenna = value.Antenna;
+                Battery = value.Battery;
+                Charger = value.Charger;
                 _radiostationForDocumentsDataBaseModel = value;
                 OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
             }
@@ -140,10 +184,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
         {
-
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                addRadiostationForDocumentInDataBaseView = new AddRadiostationForDocumentInDataBaseView(Road, City);
+                if (SerialNumber == null)
+                {
+                    addRadiostationForDocumentInDataBaseView =
+                    new AddRadiostationForDocumentInDataBaseView();
+                }
+                else
+                {
+                    addRadiostationForDocumentInDataBaseView =
+                    new AddRadiostationForDocumentInDataBaseView(Road, City, SerialNumber,
+                    Representative, NumberIdentification, PhoneNumber, Post,
+                    DateOfIssuanceOfTheCertificate, Poligon, Company, Location, Model,
+                    InventoryNumber, NetworkNumber, DateMaintenance, Comment, Price,
+                    NumberAct, Manipulator, Antenna, Battery, Charger);
+                }   
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) => addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Show();
             }
