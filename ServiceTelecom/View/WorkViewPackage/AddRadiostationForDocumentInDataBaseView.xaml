@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="MenuView" Height="630" Width="900"
+        Title="MenuView" Height="600" Width="900"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -39,7 +39,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="500"/>
+                <RowDefinition Height="470"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -190,7 +190,7 @@
                         </TextBlock>
                         <TextBox x:Name="txbPost"
                              FontSize="16"
-                             Height="156"
+                             Height="133"
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
@@ -209,7 +209,7 @@
                         </TextBlock>
                         <TextBox x:Name="txbComment"
                              FontSize="16"
-                             Height="157"
+                             Height="132"
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
@@ -387,15 +387,16 @@
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
-                                Margin="18,10,0,0">
-                        <TextBlock x:Name="txBlockAnalog"
+                                Margin="13,10,0,0">
+                        <TextBlock x:Name="txBlockPrice"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,-6,10,0"
-                           Text="Аналог." Height="20"/>
+                           Margin="7,-6,10,0"
+                           Text="Цена ТО:" Height="20"/>
                         <CheckBox 
-                            Name="CheckBoxAnalog"
-                            Style="{StaticResource CheckBoxStyle1}"/>
+                            Name="CheckBoxPrice"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked = "{Binding CheckBoxPriceViewModel}"/>
                         <TextBox x:Name="txbPrice"
                              FontSize="16"
                              Height="40"
@@ -405,22 +406,19 @@
                              Text="{Binding Price, Mode=TwoWay}"
                              Margin="0,0,5,0">
                         </TextBox>
-                        <CheckBox 
-                            Name="CheckBoxDigital"
-                            Style="{StaticResource CheckBoxStyle1}"/>
-                        <TextBlock x:Name="txBlockDigital"
+                        <TextBlock x:Name="txBlockBattery"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,-6,10,0"
-                           Text="Цифр." Height="20"/>
-                        <CheckBox 
-                            Name="CheckBoxRemont"
-                            Style="{StaticResource CheckBoxStyle1}"/>
-                        <TextBlock x:Name="txBlockRemont"
-                           Foreground="{StaticResource titleFontColor5}"
-                           Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,-7,10,0"
-                           Text="Рем." Height="20"/>
+                           Margin="7,0,10,0"
+                           Text="АКБ:" Height="20"/>
+                        <TextBox x:Name="txbBattery"
+                             FontSize="16"
+                             Height="40"
+                             Width="150"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Battery, Mode=TwoWay}">
+                        </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
@@ -429,15 +427,15 @@
                         <TextBlock x:Name="txBlockManipulator"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="16,0,10,0"
-                           Text="Манипулятор:" Height="20"/>
+                           Margin="17,0,10,0"
+                           Text="МАН.:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxManipulator"
                             Style="{StaticResource CheckBoxStyle1}"/>
                         <TextBlock x:Name="txBlockAntenna"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
+                           Margin="5,0,10,0"
                            Text="Антенна:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxAntenna"
@@ -445,29 +443,20 @@
                         <TextBlock x:Name="txBlockCharger"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
-                           Text="З.У." Height="20"/>
+                           Margin="5,0,10,0"
+                           Text="З.У.:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxCharger"
                             Style="{StaticResource CheckBoxStyle1}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                Margin="0,10,10,0">
-                        <TextBlock x:Name="txBlockBattery"
+                        <TextBlock x:Name="txBlockRemont"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
-                           Text="№ АКБ:" Height="20"/>
-                        <TextBox x:Name="txbBattery"
-                             FontSize="16"
-                             Height="40"
-                             Width="258"
-                             Margin="0,0,0,0"
-                             Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Battery, Mode=TwoWay}">
-                        </TextBox>
+                           Margin="5,0,10,0"
+                           Text="В Рем.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxRemont"
+                            Style="{StaticResource CheckBoxStyle1}"/>
+                        
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -477,7 +466,7 @@
                             Content="Добавить"
                             Margin ="10,0,15,0"
                             Style="{StaticResource menuButtonStyleAll}" 
-                        HorizontalAlignment="Right"    
+                        HorizontalAlignment="Center"    
                         Cursor="Hand">
                 </Button>
             </Grid>

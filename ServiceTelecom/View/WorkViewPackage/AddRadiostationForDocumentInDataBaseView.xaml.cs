@@ -38,16 +38,8 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = dateMaintenance;
             txbComment.Text = comment;
             txbPrice.Text = price;
-            if (price == "1411.18")
-            {
-                CheckBoxAnalog.IsChecked = true;
-                CheckBoxDigital.IsChecked = false;
-            }
-            else
-            {
-                CheckBoxAnalog.IsChecked = false;
-                CheckBoxDigital.IsChecked = true;
-            }
+            if (price == "1411.18") CheckBoxPrice.IsChecked = true;
+            else CheckBoxPrice.IsChecked = false;    
             txbNumberAct.Text = numberAct;
             if(manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;

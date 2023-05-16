@@ -17,6 +17,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string _model;
         public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
 
+        private string _price;
+        public string Price { get => _price; set { _price = value; OnPropertyChanged(nameof(Price)); } }
+
+        private bool _сheckBoxPriceViewModel;
+        public bool CheckBoxPriceViewModel
+        {
+            get => _сheckBoxPriceViewModel;
+            set
+            {
+                if (value == true)
+                    Price = "1411.18";
+                else Price = "1919.57";
+                _сheckBoxPriceViewModel = value; OnPropertyChanged(nameof(CheckBoxPriceViewModel));
+            }
+        }
+
+       
+
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
