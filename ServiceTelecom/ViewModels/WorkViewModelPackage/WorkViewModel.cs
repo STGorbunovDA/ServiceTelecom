@@ -135,25 +135,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 SerialNumber = value.SerialNumber;
-                Representative = value.Representative;
-                NumberIdentification = value.NumberIdentification;
-                PhoneNumber = value.PhoneNumber;
-                Post = value.Post;
-                DateOfIssuanceOfTheCertificate = value.DateOfIssuanceOfTheCertificate;
-                Poligon = value.Poligon;
-                Company = value.Company;
-                Location = value.Location;
-                Model = value.Model;
-                InventoryNumber = value.InventoryNumber;
-                NetworkNumber = value.NetworkNumber;
-                DateMaintenance = value.DateMaintenance;
-                Comment = value.Comment;
-                Price = value.Price;
-                NumberAct = value.NumberAct;
-                Manipulator = value.Manipulator;
-                Antenna = value.Antenna;
-                Battery = value.Battery;
-                Charger = value.Charger;
                 _radiostationForDocumentsDataBaseModel = value;
                 OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
             }
@@ -186,7 +167,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SerialNumber == null)
+                if (SelectedRadiostationForDocumentsDataBaseModel.SerialNumber == null)
                 {
                     addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView();
@@ -194,11 +175,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 else
                 {
                     addRadiostationForDocumentInDataBaseView =
-                    new AddRadiostationForDocumentInDataBaseView(Road, City, SerialNumber,
-                    Representative, NumberIdentification, PhoneNumber, Post,
-                    DateOfIssuanceOfTheCertificate, Poligon, Company, Location, Model,
-                    InventoryNumber, NetworkNumber, DateMaintenance, Comment, Price,
-                    NumberAct, Manipulator, Antenna, Battery, Charger);
+                    new AddRadiostationForDocumentInDataBaseView(SelectedRadiostationForDocumentsDataBaseModel);
                 }   
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) => addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Show();
