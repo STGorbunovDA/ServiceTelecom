@@ -2,7 +2,9 @@
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
+using System;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -105,6 +107,15 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
                 string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) ||
                 string.IsNullOrWhiteSpace(UserModelStatic.Login))
                 return;
+
+            Regex re = new Regex(Environment.NewLine);
+            Info = re.Replace(Info, " ");
+            Info.Trim();
+
+            Regex re2 = new Regex(Environment.NewLine);
+            Actions = re2.Replace(Actions, " ");
+            Actions.Trim();
+
             bool flag = _tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info, Actions, UserModelStatic.Login);
             if (flag)
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);

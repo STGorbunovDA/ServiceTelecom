@@ -184,7 +184,6 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-
         #region AddTutorialsEngineerDataBase
 
         private void ExecuteAddTutorialsEngineerDataBaseCommand(object obj)
