@@ -48,6 +48,14 @@
                            Height="40" Width="40"
                        Margin="5,2,0,0"/>
             </Border>
+            <Grid Grid.Row="2">
+                <Border VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                        Margin="0,-20,0,0">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="100" Width="890"/>
+                </Border>
+            </Grid>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -64,7 +72,7 @@
                              Width="165"
                              Margin="0,5,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding NumberAct, Mode=TwoWay}">
+                             Text="{Binding NumberAct, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 </TextBox>
                 <DatePicker
                             Grid.Column="2"
@@ -73,13 +81,13 @@
                             Height="36"
                             Margin="0,5,0,4"
                             Width="165"
-                            Text="{Binding DateMaintenance, Mode=TwoWay}">
+                            Text="{Binding DateMaintenance, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 </DatePicker>
                 <TextBlock x:Name="txtRoad"
                            Grid.Column="2"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle1}"
-                           Text="{Binding Road, Mode=TwoWay}"
+                           Text="{Binding Road, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                            Visibility="Collapsed">
                 </TextBlock>
                 <Button x:Name="btnMinimize"
@@ -129,7 +137,7 @@
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Representative, Mode=TwoWay}">
+                             Text="{Binding Representative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -148,7 +156,7 @@
                              Width="100"
                              Margin="0,0,9,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding NumberIdentification, Mode=TwoWay}">
+                             Text="{Binding NumberIdentification, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                         <DatePicker
                             Name="datePickerDateOfIssuanceOfTheCertificate" 
@@ -156,7 +164,7 @@
                             Height="36"
                             Margin="0,0,0,4"
                             Width="165"
-                            Text="{Binding DateOfIssuanceOfTheCertificate, Mode=TwoWay}">
+                            Text="{Binding DateOfIssuanceOfTheCertificate, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </DatePicker>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -175,7 +183,7 @@
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding PhoneNumber, Mode=TwoWay}">
+                             Text="{Binding PhoneNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -194,7 +202,7 @@
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
-                             Text="{Binding Post, Mode=TwoWay}">
+                             Text="{Binding Post, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -213,7 +221,7 @@
                              Width="270"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle2}"
-                             Text="{Binding Comment, Mode=TwoWay}">
+                             Text="{Binding Comment, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                 </StackPanel>
@@ -236,7 +244,7 @@
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding City, Mode=TwoWay}">
+                             Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -255,7 +263,7 @@
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Location, Mode=TwoWay}">
+                             Text="{Binding Location, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -274,7 +282,7 @@
                              Width="111"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Poligon, Mode=TwoWay}">
+                             Text="{Binding Poligon, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                         <TextBlock x:Name="txBlockCompany"
                            Foreground="{StaticResource titleFontColor5}"
@@ -288,7 +296,7 @@
                              Width="158"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Company, Mode=TwoWay}">
+                             Text="{Binding Company, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -314,7 +322,7 @@
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding ModelCollections}"
                                   SelectedIndex="{Binding TheIndexModelChoiceCollection, Mode=TwoWay}"
-                                  Text="{Binding Model}">
+                                  Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             <ComboBox.Resources>
                                 <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
                             </ComboBox.Resources>
@@ -343,7 +351,7 @@
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding SerialNumber, Mode=TwoWay}">
+                             Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -362,7 +370,7 @@
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding InventoryNumber, Mode=TwoWay}">
+                             Text="{Binding InventoryNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -381,7 +389,7 @@
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding NetworkNumber, Mode=TwoWay}">
+                             Text="{Binding NetworkNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -403,7 +411,7 @@
                              Width="80"
                              Style="{StaticResource TextBoxStyle2}"
                              IsReadOnly="True"
-                             Text="{Binding Price, Mode=TwoWay}"
+                             Text="{Binding Price, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              Margin="0,0,5,0">
                         </TextBox>
                         <TextBlock x:Name="txBlockBattery"
@@ -417,7 +425,7 @@
                              Width="150"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding Battery, Mode=TwoWay}">
+                             Text="{Binding Battery, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
@@ -431,7 +439,8 @@
                            Text="МАН.:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxManipulator"
-                            Style="{StaticResource CheckBoxStyle1}"/>
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxManipulatorViewModel}"/>
                         <TextBlock x:Name="txBlockAntenna"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -439,7 +448,8 @@
                            Text="Антенна:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxAntenna"
-                            Style="{StaticResource CheckBoxStyle1}"/>
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxAntennaViewModel}"/>
                         <TextBlock x:Name="txBlockCharger"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -447,7 +457,8 @@
                            Text="З.У.:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxCharger"
-                            Style="{StaticResource CheckBoxStyle1}"/>
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxChargerViewModel}"/>
                         <TextBlock x:Name="txBlockRemont"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -455,14 +466,14 @@
                            Text="В Рем.:" Height="20"/>
                         <CheckBox 
                             Name="CheckBoxRemont"
-                            Style="{StaticResource CheckBoxStyle1}"/>
-                        
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxRemontViewModel}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
                 <Button x:Name="btnAddTutorialsEngineerDataBase"
-                            Command="{Binding AddTutorialsEngineerDataBase}"
+                            Command="{Binding AddRadiostationForDocumentInDataBase}"
                             Content="Добавить"
                             Margin ="10,0,15,0"
                             Style="{StaticResource menuButtonStyleAll}" 

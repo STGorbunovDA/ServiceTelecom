@@ -55,15 +55,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
-                Regex re = new Regex(Environment.NewLine);
-                info = re.Replace(info, " ");
-                info.Trim();
-
-                Regex re2 = new Regex(Environment.NewLine);
-                actions = re2.Replace(actions, " ");
-                actions.Trim();
-
                 using (MySqlCommand command = new MySqlCommand("AddTutorialEngineer",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -94,14 +85,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
-                Regex re = new Regex(Environment.NewLine);
-                info = re.Replace(info, " ");
-                info.Trim();
-
-                Regex re2 = new Regex(Environment.NewLine);
-                actions = re2.Replace(actions, " ");
-                actions.Trim();
 
                 using (MySqlCommand command = new MySqlCommand("ChangeTutorialEngineer",
                     RepositoryDataBase.GetInstance.GetConnection()))

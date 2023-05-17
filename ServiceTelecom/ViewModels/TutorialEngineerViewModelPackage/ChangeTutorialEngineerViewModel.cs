@@ -5,6 +5,8 @@ using ServiceTelecom.View.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using System.Text.RegularExpressions;
+using System;
 
 namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 {
@@ -28,11 +30,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private string _problem;
         public string Problem { get => _problem; set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
 
-        private string _info;
-        public string Info { get => _info; set { _info = value; OnPropertyChanged(nameof(Info)); } }
-
-        private string _actions;
-        public string Actions { get => _actions; set { _actions = value; OnPropertyChanged(nameof(Actions)); } }
+        public string Info { get; set; }
+        public string Actions { get; set ; }
 
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
@@ -89,6 +88,15 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
                 string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) ||
                 string.IsNullOrWhiteSpace(UserModelStatic.Login))
                 return;
+
+            Regex re = new Regex(Environment.NewLine);
+            Info = re.Replace(Info, " ");
+            Info.Trim();
+
+            Regex re2 = new Regex(Environment.NewLine);
+            Actions = re2.Replace(Actions, " ");
+            Actions.Trim();
+
             bool flag = _tutorialEngineerRepository.ChangeTutorialEngineer(IdText, Model, Problem, Info, Actions, UserModelStatic.Login);
             if (flag)
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
