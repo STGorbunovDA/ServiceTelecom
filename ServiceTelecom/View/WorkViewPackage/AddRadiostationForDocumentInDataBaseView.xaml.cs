@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ServiceTelecom.Models;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,43 +13,39 @@ namespace ServiceTelecom.View.WorkViewPackage
             InitializeComponent();
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
+            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
         }
-        public AddRadiostationForDocumentInDataBaseView(string road, string city, 
-            string serialNumber, string representative, string numberIdentification, 
-            string phoneNumber, string post, string dateOfIssuanceOfTheCertificate, 
-            string poligon, string company, string location, string model, 
-            string inventoryNumber, string networkNumber, string dateMaintenance, 
-            string comment, string price, string numberAct, string manipulator, 
-            string antenna, string battery, string charger)
+        public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
             InitializeComponent();
-            txtRoad.Text = road;
-            txbCity.Text = city;
-            txbSerialNumber.Text = serialNumber;
-            txbRepresentative.Text = representative;
-            txbNumberIdentification.Text = numberIdentification;
-            txbPhoneNumber.Text = phoneNumber;
-            txbPost.Text = post;
-            datePickerDateOfIssuanceOfTheCertificate.Text = dateOfIssuanceOfTheCertificate;
-            txbPoligon.Text = poligon;
-            txbCompany.Text = company;
-            txbLocation.Text = location;
-            cmbModel.Text = model;
-            txbInventoryNumber.Text = inventoryNumber;
-            txbNetworkNumber.Text = networkNumber;
-            datePickerDateMaintenance.Text = dateMaintenance;
-            txbComment.Text = comment;
-            txbPrice.Text = price;
-            if (price == "1411.18") CheckBoxPrice.IsChecked = true;
-            else CheckBoxPrice.IsChecked = false;    
-            txbNumberAct.Text = numberAct;
-            if(manipulator == "1")
+            txbNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.NumberAct;
+            txtRoad.Text = selectedRadiostationForDocumentsDataBaseModel.Road;
+            txbCity.Text = selectedRadiostationForDocumentsDataBaseModel.City;
+            txbSerialNumber.Text = selectedRadiostationForDocumentsDataBaseModel.SerialNumber;
+            txbRepresentative.Text = selectedRadiostationForDocumentsDataBaseModel.Representative;
+            txbNumberIdentification.Text = selectedRadiostationForDocumentsDataBaseModel.NumberIdentification;
+            txbPhoneNumber.Text = selectedRadiostationForDocumentsDataBaseModel.PhoneNumber;
+            txbPost.Text = selectedRadiostationForDocumentsDataBaseModel.Post;
+            datePickerDateOfIssuanceOfTheCertificate.Text = selectedRadiostationForDocumentsDataBaseModel.DateOfIssuanceOfTheCertificate;
+            txbPoligon.Text = selectedRadiostationForDocumentsDataBaseModel.Poligon;
+            txbCompany.Text = selectedRadiostationForDocumentsDataBaseModel.Company;
+            txbLocation.Text = selectedRadiostationForDocumentsDataBaseModel.Location;
+            cmbModel.Text = selectedRadiostationForDocumentsDataBaseModel.Model;
+            txbInventoryNumber.Text = selectedRadiostationForDocumentsDataBaseModel.InventoryNumber;
+            txbNetworkNumber.Text = selectedRadiostationForDocumentsDataBaseModel.NetworkNumber;
+            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
+            txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
+            if (txbPrice.Text == "1411.18") CheckBoxPrice.IsChecked = true;
+            else CheckBoxPrice.IsChecked = false;
+            if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;
-            if(antenna == "1")
+            if (selectedRadiostationForDocumentsDataBaseModel.Antenna == "1")
                 CheckBoxAntenna.IsChecked = true;
-            if(charger == "1")
+            if (selectedRadiostationForDocumentsDataBaseModel.Charger == "1")
                 CheckBoxCharger.IsChecked = true;
-            txbBattery.Text = battery;
+            txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
