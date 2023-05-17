@@ -85,6 +85,14 @@
                     </TextBlock>
                 </StackPanel>
             </Grid>
+            <Grid Grid.Row="5">
+                <Border VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                        Margin="0,-20,0,0">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="200" Width="900"/>
+                </Border>
+            </Grid>
             <Grid Grid.Row="1">
                 <TextBlock Text="Модель"
                                Foreground="{StaticResource titleFontColor5}"
@@ -157,14 +165,14 @@
                                  Width="350"
                             Margin="0,0,30,0"
                             Style="{StaticResource TextBoxStyle2}"
-                            Text="{Binding Info}">
+                            Text="{Binding Info, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
                     <TextBox x:Name="txbActions"
                                  Visibility="Visible"
                                  Height="250"
                                  Width="350"
                             Style="{StaticResource TextBoxStyle2}"
-                            Text="{Binding Actions}">
+                            Text="{Binding Actions, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
                 </StackPanel>
             </Grid>
