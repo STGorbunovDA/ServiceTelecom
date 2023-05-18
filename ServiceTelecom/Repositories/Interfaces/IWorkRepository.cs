@@ -68,6 +68,12 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         bool CheckSerialNumberForDocumentInDataBase(string road, string serialNumber);
 
-        
+        /// <summary>
+        /// Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="numberAct"></param>
+        /// <returns></returns>
+        bool CheckNumberActOverTwentyForDocumentInDataBase(string road, string city, string numberAct);
     }
 }

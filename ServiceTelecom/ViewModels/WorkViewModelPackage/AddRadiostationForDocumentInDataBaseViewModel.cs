@@ -126,7 +126,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            DateMaintenance = Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
+            string dateMaintenanceDataBase = Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
             if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate, @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
@@ -134,7 +134,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            DateOfIssuanceOfTheCertificate = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
+            string dateOfIssuanceOfTheCertificateDataBase = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
             if (String.IsNullOrWhiteSpace(Representative))
             {
@@ -506,10 +506,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }  
-
+            }
+            if (_workRepository.CheckNumberActOverTwentyForDocumentInDataBase(Road, City, NumberAct))
+            {
+                MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. Создайте другой номер акта", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (_workRepository.AddRadiostationForDocumentInDataBase(Road, NumberAct,
-                DateMaintenance, Representative, NumberIdentification, DateOfIssuanceOfTheCertificate,
+                dateMaintenanceDataBase, Representative, NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
                 PhoneNumber, Post, Comment, City, Location, Poligon, Company, Model, SerialNumber,
                 InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
