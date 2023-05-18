@@ -37,8 +37,12 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
-            if (txbPrice.Text == "1411.18") CheckBoxPrice.IsChecked = true;
-            else CheckBoxPrice.IsChecked = false;
+            if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
+            else
+            {
+                txbPrice.Text = UserModelStatic.priceDigital;
+                CheckBoxPrice.IsChecked = false;
+            }
             if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;
             if (selectedRadiostationForDocumentsDataBaseModel.Antenna == "1")

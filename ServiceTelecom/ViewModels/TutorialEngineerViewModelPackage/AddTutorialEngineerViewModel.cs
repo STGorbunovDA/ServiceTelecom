@@ -116,8 +116,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             Actions = re2.Replace(Actions, " ");
             Actions.Trim();
 
-            bool flag = _tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info, Actions, UserModelStatic.Login);
-            if (flag)
+            if (_tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info,
+                Actions, UserModelStatic.Login))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);

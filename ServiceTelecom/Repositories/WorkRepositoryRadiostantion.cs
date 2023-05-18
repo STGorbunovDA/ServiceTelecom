@@ -1,14 +1,17 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Net;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class WorkRepository : IWorkRepository
+    internal class WorkRepositoryRadiostantion : IWorkRepositoryRadiostantion, 
+        ISearchBySerialNumberInDatabaseRadiostantion
     {
         public ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
             ObservableCollection<string> cityCollections)
@@ -48,7 +51,8 @@ namespace ServiceTelecom.Repositories
 
 
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            GetRadiostationsForDocumentsCollection(ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            GetRadiostationsForDocumentsCollection(
+            ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city)
         {
             try
@@ -56,7 +60,8 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsForDocumentsCollection;
 
-                using (MySqlCommand command = new MySqlCommand("GetRadiostationsForDocumentsCollection",
+                using (MySqlCommand command = new MySqlCommand(
+                    "GetRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -69,7 +74,9 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModels = new RadiostationForDocumentsDataBaseModel(
+                                RadiostationForDocumentsDataBaseModel 
+                                    radiostationForDocumentsDataBaseModels = 
+                                    new RadiostationForDocumentsDataBaseModel(
                                     reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                                     reader.GetString(3), reader.GetString(4), reader.GetString(5),
                                     reader.GetString(6), reader.GetString(7), reader.GetDateTime(8),
@@ -84,7 +91,8 @@ namespace ServiceTelecom.Repositories
                                     reader.GetString(33), reader.GetString(34), reader.GetString(35),
                                     reader.GetString(36), reader.GetString(37), reader.GetString(38),
                                     reader.GetString(39), reader.GetString(40), reader.GetString(41));
-                                radiostationsForDocumentsCollection.Add(radiostationForDocumentsDataBaseModels);
+                                radiostationsForDocumentsCollection.Add(
+                                    radiostationForDocumentsDataBaseModels);
                             }
                         }
                         reader.Close();
@@ -96,19 +104,20 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddRadiostationForDocumentInDataBase(string road, string numberAct, 
-            string dateMaintenance, string representative, string numberIdentification, 
-            string dateOfIssuanceOfTheCertificate, string phoneNumber, string post, 
-            string comment, string city, string location, string poligon, string company, 
-            string model, string serialNumber, string inventoryNumber, string networkNumber, 
-            string price, string battery, string manipulator, string antenna, string charger, 
+        public bool AddRadiostationForDocumentInDataBase(string road, string numberAct,
+            string dateMaintenance, string representative, string numberIdentification,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber, string post,
+            string comment, string city, string location, string poligon, string company,
+            string model, string serialNumber, string inventoryNumber, string networkNumber,
+            string price, string battery, string manipulator, string antenna, string charger,
             string remont)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("AddRadiostationForDocumentInDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "AddRadiostationForDocumentInDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -166,5 +175,127 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public bool CheckSerialNumberForDocumentInDataBaseRadiostantion(
+            string road, string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckSerialNumberForDocumentInDataBaseRadiostantion",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));                 
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return true;
+                        else return false;
+                    }
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool CheckNumberActOverTwentyForDocumentInDataBase(
+            string road,string city, string numberAct)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckNumberActOverTwentyForDocumentInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"numberActUser",
+                        Encryption.EncryptPlainTextToCipherText(numberAct));
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 19) return true;
+                        else return false;
+                    }
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> 
+            SearchBySerialNumberInDatabase(string road, 
+            string city, string serialNumber, 
+            ObservableCollection<RadiostationForDocumentsDataBaseModel> 
+            radiostationsForDocumentsCollection)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return radiostationsForDocumentsCollection;
+                using (MySqlCommand command = new MySqlCommand
+                    ("SearchBySerialNumberForFeaturesAdditionsFromTheDatabase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                RadiostationForDocumentsDataBaseModel 
+                                    radiostationForDocumentsDataBaseModels = 
+                                    new RadiostationForDocumentsDataBaseModel(
+                                    reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                                    reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                                    reader.GetString(6), reader.GetString(7), reader.GetDateTime(8),
+                                    reader.GetString(9), reader.GetString(10), reader.GetString(11),
+                                    reader.GetString(12), reader.GetString(13), reader.GetString(14),
+                                    reader.GetDateTime(15), reader.GetString(16), reader.GetString(17),
+                                    reader.GetString(18), reader.GetString(19), reader.GetString(20),
+                                    reader.GetString(21), reader.GetString(22), reader.GetString(23),
+                                    reader.GetString(24), reader.GetString(25), reader.GetString(26),
+                                    reader.GetString(27), reader.GetString(28), reader.GetString(29),
+                                    reader.GetString(30), reader.GetString(31), reader.GetString(32),
+                                    reader.GetString(33), reader.GetString(34), reader.GetString(35),
+                                    reader.GetString(36), reader.GetString(37), reader.GetString(38),
+                                    reader.GetString(39), reader.GetString(40), reader.GetString(41));
+                                radiostationsForDocumentsCollection.Add(
+                                    radiostationForDocumentsDataBaseModels);
+                            }
+                        }
+                        reader.Close();
+                        return radiostationsForDocumentsCollection;
+                    }
+                }
+            }
+            catch { return radiostationsForDocumentsCollection; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        
     }
 }

@@ -5,6 +5,15 @@ namespace ServiceTelecom.Models
 {
     public class UserModelStatic
     {
+        public const string priceAnalog = "1411.18";
+        public const string priceDigital = "1919.57";
+        public const string InRemontTechnicalServices = "ремонт";
+        public const string PassedTechnicalServices = "прошла проверку";
+        public const string InWorkTechnicalServices = "В работе";
+        
+        public const string UnitMeasureForCheckBox = "1";
+        
+
         //TODO решить проблему StaffRegistrationsDataBaseModelCollection
         public static ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrationsDataBaseModelCollection { get; set; }
         public static string Login { get; private set; }

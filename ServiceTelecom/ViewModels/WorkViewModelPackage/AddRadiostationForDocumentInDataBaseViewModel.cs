@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
@@ -15,36 +14,199 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        private WorkRepository _workRepository;
+        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
 
         public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
 
-        public string Road { get; set; }
-        public string NumberAct { get; set; }
-        public string DateMaintenance { get; set; }
-        public string Representative { get; set; }
-        public string NumberIdentification { get; set; }
-        public string DateOfIssuanceOfTheCertificate { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Post { get; set; }
-        public string Comment { get; set; }
-        public string City { get; set; }
-        public string Location { get; set; }
-        public string Poligon { get; set; }
-        public string Company { get; set; }
-        public string Model { get; set; }
-        public string SerialNumber { get; set; }
-        public string InventoryNumber { get; set; }
-        public string NetworkNumber { get; set; }
-        public string Price { get; set; }
-        public string Battery { get; set; }
+        private string _road;
+        public string Road
+        {
+            get => _road;
+            set
+            {
+                _road = value; OnPropertyChanged(nameof(Road));
+            }
+        }
+        private string _numberAct;
+        public string NumberAct
+        {
+            get => _numberAct;
+            set
+            {
+                _numberAct = value; OnPropertyChanged(nameof(NumberAct));
+            }
+        }
+        private string _dateMaintenance;
+        public string DateMaintenance
+        {
+            get => _dateMaintenance;
+            set
+            {
+                _dateMaintenance = value; OnPropertyChanged(nameof(DateMaintenance));
+            }
+        }
+        private string _representative;
+        public string Representative
+        {
+            get => _representative;
+            set
+            {
+                _representative = value; OnPropertyChanged(nameof(Representative));
+            }
+        }
+        private string _numberIdentification;
+        public string NumberIdentification
+        {
+            get => _numberIdentification;
+            set
+            {
+                _numberIdentification = value; OnPropertyChanged(nameof(NumberIdentification));
+            }
+        }
+        private string _dateOfIssuanceOfTheCertificate;
+        public string DateOfIssuanceOfTheCertificate
+        {
+            get => _dateOfIssuanceOfTheCertificate;
+            set
+            {
+                _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate));
+            }
+        }
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber));
+            }
+        }
+        private string _post;
+        public string Post
+        {
+            get => _post;
+            set
+            {
+                _post = value; OnPropertyChanged(nameof(Post));
+            }
+        }
+        private string _comment;
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                _comment = value; OnPropertyChanged(nameof(Comment));
+            }
+        }
+        private string _city;
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value; OnPropertyChanged(nameof(City));
+            }
+        }
+        private string _location;
+        public string Location
+        {
+            get => _location;
+            set
+            {
+                _location = value; OnPropertyChanged(nameof(Location));
+            }
+        }
+        private string _poligon;
+        public string Poligon
+        {
+            get => _poligon;
+            set
+            {
+                _poligon = value; OnPropertyChanged(nameof(Poligon));
+            }
+        }
+        private string _company;
+        public string Company
+        {
+            get => _company;
+            set
+            {
+                _company = value; OnPropertyChanged(nameof(Company));
+            }
+        }
+        private string _model;
+        public string Model
+        {
+            get => _model;
+            set
+            {
+                _model = value; OnPropertyChanged(nameof(Model));
+            }
+        }
+        private string _serialNumber;
+        public string SerialNumber
+        {
+            get => _serialNumber;
+            set
+            {
+                _serialNumber = value; OnPropertyChanged(nameof(SerialNumber));
+            }
+        }
+        private string _inventoryNumber;
+        public string InventoryNumber
+        {
+            get => _inventoryNumber;
+            set
+            {
+                _inventoryNumber = value; OnPropertyChanged(nameof(InventoryNumber));
+            }
+        }
+        private string _networkNumber;
+        public string NetworkNumber
+        {
+            get => _networkNumber;
+            set
+            {
+                _networkNumber = value; OnPropertyChanged(nameof(NetworkNumber));
+            }
+        }
+
+        private string _price;
+        public string Price
+        {
+            get => _price;
+            set
+            {
+                _price = value; OnPropertyChanged(nameof(Price));
+            }
+        }
+        private bool _checkBoxRemontViewModel;
+        public bool CheckBoxRemontViewModel
+        {
+            get => _checkBoxRemontViewModel;
+            set
+            {
+                _checkBoxRemontViewModel = value; OnPropertyChanged(nameof(CheckBoxRemontViewModel));
+            }
+        }
+        private string _battery;
+        public string Battery
+        {
+            get => _battery;
+            set
+            {
+                _battery = value; OnPropertyChanged(nameof(Battery));
+            }
+        }
         public bool CheckBoxManipulatorViewModel { get; set; }
         private string Manipulator { get; set; }
         public bool CheckBoxAntennaViewModel { get; set; }
         private string Antenna { get; set; }
         public bool CheckBoxChargerViewModel { get; set; }
         private string Charger { get; set; }
-        public bool CheckBoxRemontViewModel { get; set; }
         private string Remont { get; set; }
 
         private bool _сheckBoxPriceViewModel;
@@ -54,8 +216,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 if (value == true)
-                    Price = "1411.18";
-                else Price = "1919.57";
+                    Price = UserModelStatic.priceAnalog;
+                else Price = UserModelStatic.priceDigital;
                 _сheckBoxPriceViewModel = value; OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
         }
@@ -74,18 +236,82 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         public ICommand AddModelDataBase { get; }
-
         public ICommand AddRadiostationForDocumentInDataBase { get; }
+        public ICommand SearchBySerialNumberForFeaturesAdditionsFromTheDatabase { get; }
+        public ICommand SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase { get; }
+
 
         public AddRadiostationForDocumentInDataBaseViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
+            RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
-            _workRepository = new WorkRepository();
+            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             AddRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
+            SearchBySerialNumberForFeaturesAdditionsFromTheDatabase = 
+                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+            SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase = 
+                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
             GetModelDataBase();
         }
+
+        #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
+
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand(object obj)
+        {
+            ///
+        }
+
+        #endregion
+
+        #region ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand
+
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(SerialNumber))
+                return;
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+
+            RadiostationsForDocumentsCollection =
+            _workRepositoryRadiostantion.SearchBySerialNumberInDatabase(
+                Road, City, SerialNumber, RadiostationsForDocumentsCollection);
+
+            if (RadiostationsForDocumentsCollection.Count != 0)
+            {
+                foreach (var item in RadiostationsForDocumentsCollection)
+                {
+                    InventoryNumber = item.InventoryNumber;
+                    NetworkNumber = item.NetworkNumber;
+                    City = item.City;
+                    Location = item.Location;
+                    Poligon = item.Poligon;
+                    Company = item.Company;
+                    Model = item.Model;
+                    Comment = item.Comment;
+                    Battery= item.Battery;
+                    Price = item.Price;
+
+                    if (Price == UserModelStatic.priceAnalog)
+                        CheckBoxPriceViewModel = true;
+                    else CheckBoxPriceViewModel = false;
+                    if (item.VerifiedRST == UserModelStatic.InRemontTechnicalServices)
+                        CheckBoxRemontViewModel = true;
+                    if (item.Manipulator == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxManipulatorViewModel = true;
+                    if (item.Antenna == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxAntennaViewModel = true;
+                    if (item.Charger == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxChargerViewModel = true;
+                }
+            }
+
+
+        }
+
+        #endregion
 
         #region AddRadiostationForDocumentInDataBase
 
@@ -117,7 +343,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            DateMaintenance = Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
+            string dateMaintenanceDataBase = Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
             if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate, @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
@@ -125,7 +351,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            DateOfIssuanceOfTheCertificate = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
+            string dateOfIssuanceOfTheCertificateDataBase = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
             if (String.IsNullOrWhiteSpace(Representative))
             {
@@ -476,31 +702,58 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
 
             if (CheckBoxManipulatorViewModel)
-                Manipulator = "1";
+                Manipulator = UserModelStatic.UnitMeasureForCheckBox;
             else Manipulator = "-";
 
             if (CheckBoxAntennaViewModel)
-                Antenna = "1";
+                Antenna = UserModelStatic.UnitMeasureForCheckBox;
             else Antenna = "-";
 
             if (CheckBoxChargerViewModel)
-                Charger = "1";
+                Charger = UserModelStatic.UnitMeasureForCheckBox;
             else Charger = "-";
 
             if (CheckBoxRemontViewModel)
-                Remont = "ремонт";
+                Remont = UserModelStatic.InRemontTechnicalServices;
             else Remont = "-";
 
             #endregion
 
-            bool flag = _workRepository.AddRadiostationForDocumentInDataBase(Road, NumberAct, 
-                DateMaintenance, Representative, NumberIdentification, DateOfIssuanceOfTheCertificate, 
-                PhoneNumber, Post, Comment, City, Location, Poligon, Company, Model, SerialNumber, 
-                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont);
-            if (flag)
+            if (_workRepositoryRadiostantion.CheckSerialNumberForDocumentInDataBaseRadiostantion(Road, SerialNumber))
+            {
+                MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (_workRepositoryRadiostantion.CheckNumberActOverTwentyForDocumentInDataBase(Road, City, NumberAct))
+            {
+                MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. Создайте другой номер акта",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!_workRepositoryRadiostantionFull.CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
+                Road, SerialNumber))
+            {
+                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(Road, NumberAct,
+                dateMaintenanceDataBase, Representative, NumberIdentification,
+                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
+                Poligon, Company, Model, SerialNumber,
+                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+                {
+
+                }
+                else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            if (_workRepositoryRadiostantion.AddRadiostationForDocumentInDataBase(Road, NumberAct,
+                dateMaintenanceDataBase, Representative, NumberIdentification,
+                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
+                Poligon, Company, Model, SerialNumber,
+                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления радиостанции", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
         }
 
         #endregion

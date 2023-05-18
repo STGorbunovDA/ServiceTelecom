@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface IWorkRepository
+    public interface IWorkRepositoryRadiostantion
     {
         /// <summary>
         /// Загрузка всех радиостанций по дороге и городу
@@ -25,7 +25,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             ObservableCollection<string> cityCollections);
 
         /// <summary>
-        /// Добавление радиостанции
+        /// Добавление радиостанции в radiostantion рабочую БД
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
@@ -58,6 +58,24 @@ namespace ServiceTelecom.Repositories.Interfaces
             string model, string serialNumber, string inventoryNumber, string networkNumber,
             string price, string battery, string manipulator, string antenna, string charger,
             string remont);
+
+        /// <summary>
+        /// Проверка нахождения радиостанции по дороге и городу
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <returns></returns>
+        bool CheckSerialNumberForDocumentInDataBaseRadiostantion(string road, string serialNumber);
+
+        /// <summary>
+        /// Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="numberAct"></param>
+        /// <returns></returns>
+        bool CheckNumberActOverTwentyForDocumentInDataBase(string road, string city, string numberAct);
+
 
     }
 }
