@@ -59,5 +59,15 @@ namespace ServiceTelecom.Repositories.Interfaces
             string price, string battery, string manipulator, string antenna, string charger,
             string remont);
 
+        /// <summary>
+        /// Проверка нахождения радиостанции по дороге и городу
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <returns></returns>
+        bool CheckSerialNumberForDocumentInDataBase(string road, string serialNumber);
+
+        
     }
 }

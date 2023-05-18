@@ -36,7 +36,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public string SerialNumber { get; set; }
         public string InventoryNumber { get; set; }
         public string NetworkNumber { get; set; }
-        public string Price { get; set; }
+
+        private string _price;
+        public string Price
+        {
+            get => _price;
+            set
+            {
+                _price = value; OnPropertyChanged(nameof(Price));
+            }
+        }
         public string Battery { get; set; }
         public bool CheckBoxManipulatorViewModel { get; set; }
         private string Manipulator { get; set; }
@@ -54,8 +63,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 if (value == true)
-                    Price = "1411.18";
-                else Price = "1919.57";
+                    Price = UserModelStatic.priceAnalog;
+                else Price = UserModelStatic.priceDigital;
                 _сheckBoxPriceViewModel = value; OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
         }
@@ -493,11 +502,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
-            bool flag = _workRepository.AddRadiostationForDocumentInDataBase(Road, NumberAct, 
-                DateMaintenance, Representative, NumberIdentification, DateOfIssuanceOfTheCertificate, 
-                PhoneNumber, Post, Comment, City, Location, Poligon, Company, Model, SerialNumber, 
-                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont);
-            if (flag)
+            if (_workRepository.CheckSerialNumberForDocumentInDataBase(Road, SerialNumber))
+            {
+                MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }  
+
+            if (_workRepository.AddRadiostationForDocumentInDataBase(Road, NumberAct,
+                DateMaintenance, Representative, NumberIdentification, DateOfIssuanceOfTheCertificate,
+                PhoneNumber, Post, Comment, City, Location, Poligon, Company, Model, SerialNumber,
+                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);

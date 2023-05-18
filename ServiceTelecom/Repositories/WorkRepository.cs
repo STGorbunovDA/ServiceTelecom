@@ -1,10 +1,12 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Net;
 
 namespace ServiceTelecom.Repositories
 {
@@ -96,12 +98,12 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddRadiostationForDocumentInDataBase(string road, string numberAct, 
-            string dateMaintenance, string representative, string numberIdentification, 
-            string dateOfIssuanceOfTheCertificate, string phoneNumber, string post, 
-            string comment, string city, string location, string poligon, string company, 
-            string model, string serialNumber, string inventoryNumber, string networkNumber, 
-            string price, string battery, string manipulator, string antenna, string charger, 
+        public bool AddRadiostationForDocumentInDataBase(string road, string numberAct,
+            string dateMaintenance, string representative, string numberIdentification,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber, string post,
+            string comment, string city, string location, string poligon, string company,
+            string model, string serialNumber, string inventoryNumber, string networkNumber,
+            string price, string battery, string manipulator, string antenna, string charger,
             string remont)
         {
             try
@@ -166,5 +168,35 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public bool CheckSerialNumberForDocumentInDataBase(string road, string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand("CheckSerialNumberForDocumentInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));                 
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return true;
+                        else return false;
+                    }
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        
     }
 }
