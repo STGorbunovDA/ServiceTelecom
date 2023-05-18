@@ -1,14 +1,12 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -16,13 +14,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        private WorkRepository _workRepository;
+        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
 
         public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
         public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
 
         private string _road;
-        public string Road 
+        public string Road
         {
             get => _road;
             set
@@ -31,7 +30,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _numberAct;
-        public string NumberAct 
+        public string NumberAct
         {
             get => _numberAct;
             set
@@ -40,7 +39,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _dateMaintenance;
-        public string DateMaintenance 
+        public string DateMaintenance
         {
             get => _dateMaintenance;
             set
@@ -49,7 +48,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _representative;
-        public string Representative 
+        public string Representative
         {
             get => _representative;
             set
@@ -58,7 +57,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _numberIdentification;
-        public string NumberIdentification 
+        public string NumberIdentification
         {
             get => _numberIdentification;
             set
@@ -67,7 +66,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _dateOfIssuanceOfTheCertificate;
-        public string DateOfIssuanceOfTheCertificate 
+        public string DateOfIssuanceOfTheCertificate
         {
             get => _dateOfIssuanceOfTheCertificate;
             set
@@ -76,7 +75,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _phoneNumber;
-        public string PhoneNumber 
+        public string PhoneNumber
         {
             get => _phoneNumber;
             set
@@ -85,7 +84,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _post;
-        public string Post 
+        public string Post
         {
             get => _post;
             set
@@ -94,7 +93,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _comment;
-        public string Comment 
+        public string Comment
         {
             get => _comment;
             set
@@ -103,7 +102,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _city;
-        public string City 
+        public string City
         {
             get => _city;
             set
@@ -112,7 +111,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _location;
-        public string Location 
+        public string Location
         {
             get => _location;
             set
@@ -121,7 +120,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _poligon;
-        public string Poligon 
+        public string Poligon
         {
             get => _poligon;
             set
@@ -139,7 +138,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _model;
-        public string Model 
+        public string Model
         {
             get => _model;
             set
@@ -148,7 +147,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _serialNumber;
-        public string SerialNumber 
+        public string SerialNumber
         {
             get => _serialNumber;
             set
@@ -157,7 +156,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _inventoryNumber;
-        public string InventoryNumber 
+        public string InventoryNumber
         {
             get => _inventoryNumber;
             set
@@ -166,7 +165,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
         private string _networkNumber;
-        public string NetworkNumber 
+        public string NetworkNumber
         {
             get => _networkNumber;
             set
@@ -193,8 +192,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _checkBoxRemontViewModel = value; OnPropertyChanged(nameof(CheckBoxRemontViewModel));
             }
         }
-
-        public string Battery { get; set; }
+        private string _battery;
+        public string Battery
+        {
+            get => _battery;
+            set
+            {
+                _battery = value; OnPropertyChanged(nameof(Battery));
+            }
+        }
         public bool CheckBoxManipulatorViewModel { get; set; }
         private string Manipulator { get; set; }
         public bool CheckBoxAntennaViewModel { get; set; }
@@ -232,6 +238,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddModelDataBase { get; }
         public ICommand AddRadiostationForDocumentInDataBase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsFromTheDatabase { get; }
+        public ICommand SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase { get; }
 
 
         public AddRadiostationForDocumentInDataBaseViewModel()
@@ -239,12 +246,27 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
-            _workRepository = new WorkRepository();
+            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             AddRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
-            SearchBySerialNumberForFeaturesAdditionsFromTheDatabase = new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+            SearchBySerialNumberForFeaturesAdditionsFromTheDatabase = 
+                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+            SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase = 
+                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
             GetModelDataBase();
         }
+
+        #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
+
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand(object obj)
+        {
+            ///
+        }
+
+        #endregion
+
+        #region ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand
 
         private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
         {
@@ -253,9 +275,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
 
-                RadiostationsForDocumentsCollection =
-                _workRepository.SearchBySerialNumberInDatabase(
-                    Road, City, SerialNumber, RadiostationsForDocumentsCollection);
+            RadiostationsForDocumentsCollection =
+            _workRepositoryRadiostantion.SearchBySerialNumberInDatabase(
+                Road, City, SerialNumber, RadiostationsForDocumentsCollection);
 
             if (RadiostationsForDocumentsCollection.Count != 0)
             {
@@ -263,14 +285,33 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     InventoryNumber = item.InventoryNumber;
                     NetworkNumber = item.NetworkNumber;
+                    City = item.City;
+                    Location = item.Location;
+                    Poligon = item.Poligon;
+                    Company = item.Company;
+                    Model = item.Model;
                     Comment = item.Comment;
+                    Battery= item.Battery;
+                    Price = item.Price;
+
+                    if (Price == UserModelStatic.priceAnalog)
+                        CheckBoxPriceViewModel = true;
+                    else CheckBoxPriceViewModel = false;
                     if (item.VerifiedRST == UserModelStatic.InRemontTechnicalServices)
                         CheckBoxRemontViewModel = true;
+                    if (item.Manipulator == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxManipulatorViewModel = true;
+                    if (item.Antenna == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxAntennaViewModel = true;
+                    if (item.Charger == UserModelStatic.UnitMeasureForCheckBox)
+                        CheckBoxChargerViewModel = true;
                 }
             }
-                
+
 
         }
+
+        #endregion
 
         #region AddRadiostationForDocumentInDataBase
 
@@ -678,23 +719,41 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
-            if (_workRepository.CheckSerialNumberForDocumentInDataBase(Road, SerialNumber))
+            if (_workRepositoryRadiostantion.CheckSerialNumberForDocumentInDataBaseRadiostantion(Road, SerialNumber))
             {
-                MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepository.CheckNumberActOverTwentyForDocumentInDataBase(Road, City, NumberAct))
+            if (_workRepositoryRadiostantion.CheckNumberActOverTwentyForDocumentInDataBase(Road, City, NumberAct))
             {
-                MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. Создайте другой номер акта", "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. Создайте другой номер акта",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepository.AddRadiostationForDocumentInDataBase(Road, NumberAct,
-                dateMaintenanceDataBase, Representative, NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
-                PhoneNumber, Post, Comment, City, Location, Poligon, Company, Model, SerialNumber,
+            if (!_workRepositoryRadiostantionFull.CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
+                Road, SerialNumber))
+            {
+                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(Road, NumberAct,
+                dateMaintenanceDataBase, Representative, NumberIdentification,
+                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
+                Poligon, Company, Model, SerialNumber,
+                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+                {
+
+                }
+                else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            if (_workRepositoryRadiostantion.AddRadiostationForDocumentInDataBase(Road, NumberAct,
+                dateMaintenanceDataBase, Representative, NumberIdentification,
+                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
+                Poligon, Company, Model, SerialNumber,
                 InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления радиостанции", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
         }
 
         #endregion

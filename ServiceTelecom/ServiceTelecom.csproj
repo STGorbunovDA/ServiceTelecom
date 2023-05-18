@@ -145,7 +145,7 @@
     <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoadDataBase.cs" />
-    <Compile Include="Repositories\Interfaces\ISearchBySerialNumberInDatabase.cs" />
+    <Compile Include="Repositories\Interfaces\ISearchBySerialNumberInDatabaseRadiostantion.cs" />
     <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITutorialEngineerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
@@ -153,13 +153,15 @@
     <Compile Include="Models\UserDataBaseModel.cs" />
     <Compile Include="Models\UserModelStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
-    <Compile Include="Repositories\Interfaces\IWorkRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IWorkRepositoryRadiostantion.cs" />
+    <Compile Include="Repositories\Interfaces\IWorkRepositoryRadiostantionFull.cs" />
     <Compile Include="Repositories\ReportCardRepository.cs" />
     <Compile Include="Repositories\Base\RoadDataBaseRepository.cs" />
     <Compile Include="Repositories\StaffRegistrationRepository.cs" />
     <Compile Include="Repositories\TutorialEngineerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\WorkRepository.cs" />
+    <Compile Include="Repositories\WorkRepositoryRadiostantion.cs" />
+    <Compile Include="Repositories\WorkRepositoryRadiostantionFull.cs" />
     <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
