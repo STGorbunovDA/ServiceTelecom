@@ -5,6 +5,8 @@ namespace ServiceTelecom.Models
 {
     public class UserModelStatic
     {
+        public const string priceAnalog = "1411.18";
+        public const string priceDigital = "1919.57";
         //TODO решить проблему StaffRegistrationsDataBaseModelCollection
         public static ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrationsDataBaseModelCollection { get; set; }
         public static string Login { get; private set; }
