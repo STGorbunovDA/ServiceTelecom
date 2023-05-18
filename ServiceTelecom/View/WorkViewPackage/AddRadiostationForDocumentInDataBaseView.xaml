@@ -337,8 +337,8 @@
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                Margin="0,10,10,0">
+                                HorizontalAlignment="Left"
+                                Margin="31,10,10,0">
                         <TextBlock x:Name="txBlockSerialNumber"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -348,11 +348,18 @@
                         <TextBox x:Name="txbSerialNumber"
                              FontSize="16"
                              Height="40"
-                             Width="320"
-                             Margin="0,0,0,0"
+                             Width="269"
+                             Margin="0,0,10,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
+                        <Button x:Name="btnTxbSearchSerialNumberFeaturesFromTheDatabase"
+                            Command="{Binding SearchBySerialNumberForFeaturesAdditionsFromTheDatabase}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"

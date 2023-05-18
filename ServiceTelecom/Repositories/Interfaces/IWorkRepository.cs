@@ -75,5 +75,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="numberAct"></param>
         /// <returns></returns>
         bool CheckNumberActOverTwentyForDocumentInDataBase(string road, string city, string numberAct);
+
+
     }
 }
