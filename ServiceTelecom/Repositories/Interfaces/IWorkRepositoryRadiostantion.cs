@@ -25,7 +25,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             ObservableCollection<string> cityCollections);
 
         /// <summary>
-        /// Добавление радиостанции
+        /// Добавление радиостанции в radiostantion рабочую БД
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
