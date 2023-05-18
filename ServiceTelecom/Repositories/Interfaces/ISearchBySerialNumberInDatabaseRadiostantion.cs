@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface ISearchBySerialNumberInDatabase
+    public interface ISearchBySerialNumberInDatabaseRadiostantion
     {
         /// <summary>
         /// Поиск радиостанции в БД по дороге, городу и заводскому номеру

@@ -17,7 +17,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
 
-        private WorkRepository _workRepository;
+        private WorkRepositoryRadiostantion _workRepository;
         private RoadDataBaseRepository _roadDataBase;
 
         public ICommand AddRadiostationForDocumentInDataBase { get; }
@@ -153,7 +153,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public WorkViewModel()
         {
-            _workRepository = new WorkRepository();
+            _workRepository = new WorkRepositoryRadiostantion();
             RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
             CityCollections = new ObservableCollection<string>();

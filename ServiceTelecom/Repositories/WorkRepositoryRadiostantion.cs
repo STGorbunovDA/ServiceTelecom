@@ -10,7 +10,8 @@ using System.Net;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class WorkRepository : IWorkRepository, ISearchBySerialNumberInDatabase
+    internal class WorkRepositoryRadiostantion : IWorkRepositoryRadiostantion, 
+        ISearchBySerialNumberInDatabaseRadiostantion
     {
         public ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
             ObservableCollection<string> cityCollections)
@@ -50,7 +51,8 @@ namespace ServiceTelecom.Repositories
 
 
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            GetRadiostationsForDocumentsCollection(ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            GetRadiostationsForDocumentsCollection(
+            ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city)
         {
             try
@@ -58,7 +60,8 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsForDocumentsCollection;
 
-                using (MySqlCommand command = new MySqlCommand("GetRadiostationsForDocumentsCollection",
+                using (MySqlCommand command = new MySqlCommand(
+                    "GetRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -71,7 +74,9 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModels = new RadiostationForDocumentsDataBaseModel(
+                                RadiostationForDocumentsDataBaseModel 
+                                    radiostationForDocumentsDataBaseModels = 
+                                    new RadiostationForDocumentsDataBaseModel(
                                     reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                                     reader.GetString(3), reader.GetString(4), reader.GetString(5),
                                     reader.GetString(6), reader.GetString(7), reader.GetDateTime(8),
@@ -86,7 +91,8 @@ namespace ServiceTelecom.Repositories
                                     reader.GetString(33), reader.GetString(34), reader.GetString(35),
                                     reader.GetString(36), reader.GetString(37), reader.GetString(38),
                                     reader.GetString(39), reader.GetString(40), reader.GetString(41));
-                                radiostationsForDocumentsCollection.Add(radiostationForDocumentsDataBaseModels);
+                                radiostationsForDocumentsCollection.Add(
+                                    radiostationForDocumentsDataBaseModels);
                             }
                         }
                         reader.Close();
@@ -110,7 +116,8 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("AddRadiostationForDocumentInDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "AddRadiostationForDocumentInDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -169,13 +176,15 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool CheckSerialNumberForDocumentInDataBase(string road, string serialNumber)
+        public bool CheckSerialNumberForDocumentInDataBaseRadiostantion(
+            string road, string serialNumber)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("CheckSerialNumberForDocumentInDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckSerialNumberForDocumentInDataBaseRadiostantion",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -197,13 +206,15 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool CheckNumberActOverTwentyForDocumentInDataBase(string road,string city, string numberAct)
+        public bool CheckNumberActOverTwentyForDocumentInDataBase(
+            string road,string city, string numberAct)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("CheckNumberActOverTwentyForDocumentInDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckNumberActOverTwentyForDocumentInDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -255,7 +266,9 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModels = new RadiostationForDocumentsDataBaseModel(
+                                RadiostationForDocumentsDataBaseModel 
+                                    radiostationForDocumentsDataBaseModels = 
+                                    new RadiostationForDocumentsDataBaseModel(
                                     reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                                     reader.GetString(3), reader.GetString(4), reader.GetString(5),
                                     reader.GetString(6), reader.GetString(7), reader.GetDateTime(8),
@@ -270,7 +283,8 @@ namespace ServiceTelecom.Repositories
                                     reader.GetString(33), reader.GetString(34), reader.GetString(35),
                                     reader.GetString(36), reader.GetString(37), reader.GetString(38),
                                     reader.GetString(39), reader.GetString(40), reader.GetString(41));
-                                radiostationsForDocumentsCollection.Add(radiostationForDocumentsDataBaseModels);
+                                radiostationsForDocumentsCollection.Add(
+                                    radiostationForDocumentsDataBaseModels);
                             }
                         }
                         reader.Close();
@@ -281,5 +295,7 @@ namespace ServiceTelecom.Repositories
             catch { return radiostationsForDocumentsCollection; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        
     }
 }

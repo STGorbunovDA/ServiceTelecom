@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface IWorkRepository
+    public interface IWorkRepositoryRadiostantion
     {
         /// <summary>
         /// Загрузка всех радиостанций по дороге и городу
@@ -66,7 +66,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="city"></param>
         /// <param name="serialNumber"></param>
         /// <returns></returns>
-        bool CheckSerialNumberForDocumentInDataBase(string road, string serialNumber);
+        bool CheckSerialNumberForDocumentInDataBaseRadiostantion(string road, string serialNumber);
 
         /// <summary>
         /// Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel
