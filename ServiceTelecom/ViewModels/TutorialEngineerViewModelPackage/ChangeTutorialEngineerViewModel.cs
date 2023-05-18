@@ -23,7 +23,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 
         private string _idText;
         public string IdText { get => _idText; set { _idText = value; OnPropertyChanged(nameof(IdText)); } }
-        
+
         private string _model;
         public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
 
@@ -31,7 +31,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         public string Problem { get => _problem; set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
 
         public string Info { get; set; }
-        public string Actions { get; set ; }
+        public string Actions { get; set; }
 
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
@@ -97,8 +97,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             Actions = re2.Replace(Actions, " ");
             Actions.Trim();
 
-            bool flag = _tutorialEngineerRepository.ChangeTutorialEngineer(IdText, Model, Problem, Info, Actions, UserModelStatic.Login);
-            if (flag)
+            if (_tutorialEngineerRepository.ChangeTutorialEngineer(IdText, Model, Problem,
+                Info, Actions, UserModelStatic.Login))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Ошибка изменения инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
