@@ -16,4 +16,484 @@
     <Window.DataContext>
         <viewModel:ChangeRadiostationForDocumentInDataBaseViewModel/>
     </Window.DataContext>
+    <Border CornerRadius="12"
+            BorderThickness="3"
+                Opacity="1">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.25"/>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="0.50"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.25"/>
+                <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0.50"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="470"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" VerticalAlignment="Center"
+                    HorizontalAlignment="Left">
+                <Image Source="/Images/logo.png" 
+                           Height="40" Width="40"
+                       Margin="5,2,0,0"/>
+            </Border>
+            <Grid Grid.Row="2">
+                <Border VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                        Margin="0,-20,0,0">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="100" Width="890"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="txbNumberAct"
+                             Grid.Column="1"
+                             FontSize="16"
+                             Height="40"
+                             Width="165"
+                             Margin="0,5,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding NumberAct, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                </TextBox>
+                <DatePicker
+                            Grid.Column="2"
+                            Name="datePickerDateMaintenance" 
+                            Style="{StaticResource DatePickerStyle1}"
+                            Height="36"
+                            Margin="0,5,0,4"
+                            Width="165"
+                            Text="{Binding DateMaintenance, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                </DatePicker>
+                <TextBlock x:Name="txtRoad"
+                           Grid.Column="2"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle1}"
+                           Text="{Binding Road, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Visibility="Collapsed">
+                </TextBlock>
+                <Button x:Name="btnMinimize"
+                            Style="{StaticResource menuButtonStyleOne}"
+                            Content="-"
+                            Grid.Column="3"
+                            Click="BtnMinimize_Click" 
+                            Cursor="Hand">
+                </Button>
+                <Button x:Name="btnClose"
+                            Style="{StaticResource menuButtonStyleThree}"
+                            Content="x"
+                            Grid.Column="4"
+                            Click="BtnClose_Click">
+                </Button>
+                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                    <TextBlock Text="Добавление РСТ"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle3}"
+                               Margin="60,0,0,0">
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,0,10,0">
+                        <TextBlock x:Name="txBlockRepresentative"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Предст. ФИО:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbRepresentative"
+                             FontSize="16"
+                             Height="40"
+                             Width="223"
+                             Margin="0,0,5,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Representative, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <Button x:Name="btnTxbSearchSerialNumberFeaturesRepresentativeFromTheDatabase"
+                            Command="{Binding SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="18,10,0,0">
+                        <TextBlock x:Name="txBlockNumberIdentification"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="0,0,10,0"
+                           Text="№ УдостОВ.:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbNumberIdentification"
+                             FontSize="16"
+                             Height="40"
+                             Width="100"
+                             Margin="0,0,9,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding NumberIdentification, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <DatePicker
+                            Name="datePickerDateOfIssuanceOfTheCertificate" 
+                            Style="{StaticResource DatePickerStyle1}"
+                            Height="36"
+                            Margin="0,0,0,4"
+                            Width="165"
+                            Text="{Binding DateOfIssuanceOfTheCertificate, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </DatePicker>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="5,10,0,0">
+                        <TextBlock x:Name="txBlockPhoneNumber"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="№ телефона:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbPhoneNumber"
+                             FontSize="16"
+                             Height="40"
+                             Width="270"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding PhoneNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="3,10,10,0">
+                        <TextBlock x:Name="txBlockPost"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Должность:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbPost"
+                             FontSize="16"
+                             Height="133"
+                             Width="270"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle2}"
+                             Text="{Binding Post, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="8,10,10,0">
+                        <TextBlock x:Name="txBlockComment"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Справочно:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbComment"
+                             FontSize="16"
+                             Height="132"
+                             Width="270"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle2}"
+                             Text="{Binding Comment, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,10,0">
+                        <TextBlock x:Name="txBlockCity"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Город:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbCity"
+                             FontSize="16"
+                             Height="40"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,10,0">
+                        <TextBlock x:Name="txBlockLocation"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Станция:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbLocation"
+                             FontSize="16"
+                             Height="40"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Location, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,10,0">
+                        <TextBlock x:Name="txBlockPoligon"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="РЦС:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbPoligon"
+                             FontSize="16"
+                             Height="40"
+                             Width="111"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Poligon, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <TextBlock x:Name="txBlockCompany"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="ПП:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbCompany"
+                             FontSize="16"
+                             Height="40"
+                             Width="158"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Company, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,10,0">
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,10,0">
+                        <TextBlock x:Name="txBlockModel"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="0,0,10,0"
+                           Text="Модель:" Height="20">
+                        </TextBlock>
+                        <ComboBox x:Name="cmbModel"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="0,0,10,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding ModelCollections}"
+                                  SelectedIndex="{Binding TheIndexModelChoiceCollection, Mode=TwoWay}"
+                                  Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            <ComboBox.Resources>
+                                <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+                            </ComboBox.Resources>
+                        </ComboBox>
+                        <Button x:Name="btnAddModelDataBase"
+                            Command="{Binding AddModelDataBase}"
+                            Content="➕"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="31,10,10,0">
+                        <TextBlock x:Name="txBlockSerialNumber"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Зав. №:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbSerialNumber"
+                             FontSize="16"
+                             Height="40"
+                             Width="269"
+                             Margin="0,0,10,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                        <Button x:Name="btnTxbSearchSerialNumberFeaturesFromTheDatabase"
+                            Command="{Binding SearchBySerialNumberForFeaturesAdditionsFromTheDatabase}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,10,0">
+                        <TextBlock x:Name="txBlockInventoryNumber"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Инвент.:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbInventoryNumber"
+                             FontSize="16"
+                             Height="40"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding InventoryNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,10,0">
+                        <TextBlock x:Name="txBlockNetworkNumber"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="10,0,10,0"
+                           Text="Сетевой:" Height="20">
+                        </TextBlock>
+                        <TextBox x:Name="txbNetworkNumber"
+                             FontSize="16"
+                             Height="40"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding NetworkNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="13,10,0,0">
+                        <TextBlock x:Name="txBlockPrice"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="7,-6,10,0"
+                           Text="Цена ТО:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxPrice"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked = "{Binding CheckBoxPriceViewModel}"/>
+                        <TextBox x:Name="txbPrice"
+                             FontSize="16"
+                             Height="40"
+                             Width="80"
+                             Style="{StaticResource TextBoxStyle2}"
+                             IsReadOnly="True"
+                             Text="{Binding Price, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Margin="0,0,5,0">
+                        </TextBox>
+                        <TextBlock x:Name="txBlockBattery"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="7,0,10,0"
+                           Text="АКБ:" Height="20"/>
+                        <TextBox x:Name="txbBattery"
+                             FontSize="16"
+                             Height="40"
+                             Width="150"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding Battery, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="10,10,4,0">
+                        <TextBlock x:Name="txBlockManipulator"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="17,0,10,0"
+                           Text="МАН.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxManipulator"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxManipulatorViewModel}"/>
+                        <TextBlock x:Name="txBlockAntenna"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="Антенна:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxAntenna"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxAntennaViewModel}"/>
+                        <TextBlock x:Name="txBlockCharger"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="З.У.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxCharger"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxChargerViewModel}"/>
+                        <TextBlock x:Name="txBlockRemont"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="5,0,10,0"
+                           Text="В Рем.:" Height="20"/>
+                        <CheckBox 
+                            Name="CheckBoxRemont"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxRemontViewModel}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Button x:Name="btnAddTutorialsEngineerDataBase"
+                            Command="{Binding AddRadiostationForDocumentInDataBase}"
+                            Content="Добавить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

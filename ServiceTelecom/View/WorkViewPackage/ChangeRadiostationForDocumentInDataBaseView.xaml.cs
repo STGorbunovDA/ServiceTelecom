@@ -1,33 +1,55 @@
 ﻿using ServiceTelecom.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ServiceTelecom.View.WorkViewPackage
 {
-    /// <summary>
-    /// Логика взаимодействия для ChangeRadiostationForDocumentInDataBaseView.xaml
-    /// </summary>
     public partial class ChangeRadiostationForDocumentInDataBaseView : Window
     {
         public ChangeRadiostationForDocumentInDataBaseView()
         {
             InitializeComponent();
+            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
+            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
         }
 
         public ChangeRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
-            SelectedRadiostationForDocumentsDataBaseModel = selectedRadiostationForDocumentsDataBaseModel;
+            InitializeComponent();
+            txbNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.NumberAct;
+            txtRoad.Text = selectedRadiostationForDocumentsDataBaseModel.Road;
+            txbCity.Text = selectedRadiostationForDocumentsDataBaseModel.City;
+            txbSerialNumber.Text = selectedRadiostationForDocumentsDataBaseModel.SerialNumber;
+            txbRepresentative.Text = selectedRadiostationForDocumentsDataBaseModel.Representative;
+            txbNumberIdentification.Text = selectedRadiostationForDocumentsDataBaseModel.NumberIdentification;
+            txbPhoneNumber.Text = selectedRadiostationForDocumentsDataBaseModel.PhoneNumber;
+            txbPost.Text = selectedRadiostationForDocumentsDataBaseModel.Post;
+            datePickerDateOfIssuanceOfTheCertificate.Text = selectedRadiostationForDocumentsDataBaseModel.DateOfIssuanceOfTheCertificate;
+            txbPoligon.Text = selectedRadiostationForDocumentsDataBaseModel.Poligon;
+            txbCompany.Text = selectedRadiostationForDocumentsDataBaseModel.Company;
+            txbLocation.Text = selectedRadiostationForDocumentsDataBaseModel.Location;
+            cmbModel.Text = selectedRadiostationForDocumentsDataBaseModel.Model;
+            txbInventoryNumber.Text = selectedRadiostationForDocumentsDataBaseModel.InventoryNumber;
+            txbNetworkNumber.Text = selectedRadiostationForDocumentsDataBaseModel.NetworkNumber;
+            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
+            txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
+            if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
+            else
+            {
+                txbPrice.Text = UserModelStatic.priceDigital;
+                CheckBoxPrice.IsChecked = false;
+            }
+            if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
+                CheckBoxManipulator.IsChecked = true;
+            if (selectedRadiostationForDocumentsDataBaseModel.Antenna == "1")
+                CheckBoxAntenna.IsChecked = true;
+            if (selectedRadiostationForDocumentsDataBaseModel.Charger == "1")
+                CheckBoxCharger.IsChecked = true;
+            txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
         }
 
         public RadiostationForDocumentsDataBaseModel SelectedRadiostationForDocumentsDataBaseModel { get; }
@@ -36,6 +58,16 @@ namespace ServiceTelecom.View.WorkViewPackage
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
+        }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
