@@ -105,7 +105,7 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <TextBlock Text="Добавление РСТ"
+                    <TextBlock Text="Изменение РСТ"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="60,0,0,0">

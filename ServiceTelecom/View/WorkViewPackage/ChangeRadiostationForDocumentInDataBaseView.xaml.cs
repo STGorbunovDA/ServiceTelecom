@@ -1,5 +1,4 @@
 ﻿using ServiceTelecom.Models;
-using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -7,15 +6,6 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class ChangeRadiostationForDocumentInDataBaseView : Window
     {
-        public ChangeRadiostationForDocumentInDataBaseView()
-        {
-            InitializeComponent();
-            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
-            datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
-            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
-                txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
-        }
-
         public ChangeRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
             InitializeComponent();
@@ -34,7 +24,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             cmbModel.Text = selectedRadiostationForDocumentsDataBaseModel.Model;
             txbInventoryNumber.Text = selectedRadiostationForDocumentsDataBaseModel.InventoryNumber;
             txbNetworkNumber.Text = selectedRadiostationForDocumentsDataBaseModel.NetworkNumber;
-            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            datePickerDateMaintenance.Text = selectedRadiostationForDocumentsDataBaseModel.DateMaintenance;
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
             if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
