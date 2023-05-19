@@ -159,13 +159,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public WorkViewModel()
         {
             _workRepository = new WorkRepositoryRadiostantion();
-            RadiostationsForDocumentsCollection = 
+            RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
             CityCollections = new ObservableCollection<string>();
-            AddRadiostationForDocumentInDataBase = 
+            AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
-            ChangeRadiostationForDocumentInDataBase = 
+            ChangeRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
@@ -177,25 +177,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (changeRadiostationForDocumentInDataBaseView == null)
-            {
-                if (SelectedRadiostationForDocumentsDataBaseModel.SerialNumber == null)
-                {
-                    changeRadiostationForDocumentInDataBaseView =
-                    new ChangeRadiostationForDocumentInDataBaseView();
-                }
-                else
-                {
-                    changeRadiostationForDocumentInDataBaseView =
-                    new ChangeRadiostationForDocumentInDataBaseView(
-                        SelectedRadiostationForDocumentsDataBaseModel);
-                }
-                changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                changeRadiostationForDocumentInDataBaseView = null;
-                changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetRadiostationsForDocumentsCollection();
-                changeRadiostationForDocumentInDataBaseView.Show();
-            }
+            if (changeRadiostationForDocumentInDataBaseView != null)
+                return;
+            if (SelectedRadiostationForDocumentsDataBaseModel == null)
+                return;
+
+            changeRadiostationForDocumentInDataBaseView =
+            new ChangeRadiostationForDocumentInDataBaseView(
+                SelectedRadiostationForDocumentsDataBaseModel);
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            changeRadiostationForDocumentInDataBaseView = null;
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRadiostationsForDocumentsCollection();
+            changeRadiostationForDocumentInDataBaseView.Show();
+
         }
 
         #endregion
@@ -207,7 +202,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostationForDocumentsDataBaseModel.SerialNumber == null)
+                if (SelectedRadiostationForDocumentsDataBaseModel == null)
                 {
                     addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView();
@@ -218,7 +213,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     new AddRadiostationForDocumentInDataBaseView(
                         SelectedRadiostationForDocumentsDataBaseModel);
                 }
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) => 
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 GetRadiostationsForDocumentsCollection();
