@@ -357,6 +357,7 @@
                              Width="269"
                              Margin="0,0,10,0"
                              Style="{StaticResource TextBoxStyle1}"
+                             IsReadOnly="True"
                              Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                         <Button x:Name="btnTxbSearchSerialNumberFeaturesFromTheDatabase"
@@ -485,14 +486,36 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
-                <Button x:Name="btnAddTutorialsEngineerDataBase"
-                            Command="{Binding AddRadiostationForDocumentInDataBase}"
-                            Content="Добавить"
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <Button Grid.Column="0" x:Name="btnChangeByNumberActRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeByNumberActRadiostationForDocumentInDataBase}"
+                            Content="Изменить в Акте"
                             Margin ="10,0,15,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
+                            Style="{StaticResource menuButtonStyleChange}" 
                         HorizontalAlignment="Center"    
                         Cursor="Hand">
-                </Button>
+                    </Button>
+                    <Button Grid.Column="0" x:Name="btnChangeByCompanyRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeByNumberActRadiostationForDocumentInDataBase}"
+                            Content="Изменить у ПП"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleChange}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button Grid.Column="1" x:Name="btnChangeRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeRadiostationForDocumentInDataBase}"
+                            Content="Изменить РСТ"
+                            Margin ="130,0,15,0"
+                            Style="{StaticResource menuButtonStyleChange}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                </StackPanel>
+                
+               
             </Grid>
         </Grid>
     </Border>

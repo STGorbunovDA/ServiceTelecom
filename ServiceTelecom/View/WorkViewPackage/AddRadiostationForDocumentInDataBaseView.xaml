@@ -485,7 +485,7 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
-                <Button x:Name="btnAddTutorialsEngineerDataBase"
+                <Button x:Name="btnAddRadiostationForDocumentInDataBase"
                             Command="{Binding AddRadiostationForDocumentInDataBase}"
                             Content="Добавить"
                             Margin ="10,0,15,0"
