@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface ISearchBySerialNumberInDatabaseRadiostantion
+    public interface ISearchBySerialNumberInDatabaseRadiostantionFull
     {
         /// <summary>
         /// Поиск радиостанции в БД по дороге, городу и заводскому номеру
@@ -19,7 +19,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="radiostationsForDocumentsCollection"></param>
         /// <returns></returns>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            SearchBySerialNumberInDatabase(string road,
+            SearchBySerialNumberInDatabaseCharacteristics(string road,
             string city, string serialNumber,
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection);
