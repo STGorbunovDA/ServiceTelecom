@@ -69,7 +69,7 @@
                                 HorizontalAlignment="Center">
                     <Button x:Name="btnTxbChangeNumberActBySerialNumberFromTheDatabase"    
                         Command="{Binding ChangeNumberActBySerialNumberFromTheDatabase}"
-                            Content="ED"
+                            Content="✎"
                             Margin ="5,0,10,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
                             Cursor="Hand">
@@ -496,22 +496,29 @@
                     </StackPanel>
                     <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                Margin="0,10,10,0">
+                                HorizontalAlignment="Left"
+                                 Margin="9,10,0,0">
                         <TextBlock x:Name="txBlockDecommissionNumberAct"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="10,0,10,0"
+                           Margin="10,0,0,0"
                            Text="Спис. №:" Height="20">
                         </TextBlock>
                         <TextBox x:Name="txbDecommissionNumberAct"
                              FontSize="16"
                              Height="40"
-                             Width="320"
-                             Margin="0,0,0,0"
+                             Width="269"
+                             Margin="10,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding DecommissionNumberAct, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
+                        <Button x:Name="btnTxbChangeDecommissionNumberActBySerialNumberFromTheDatabase"    
+                        Command="{Binding ChangeDecommissionNumberActBySerialNumberFromTheDatabase}"
+                            Content="✎"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
