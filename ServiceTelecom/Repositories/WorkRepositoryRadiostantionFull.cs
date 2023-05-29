@@ -2,6 +2,7 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
@@ -237,6 +238,35 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(charger));
                     command.Parameters.AddWithValue($"remontUser",
                         Encryption.EncryptPlainTextToCipherText(remont));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull(
+            string road, string city, string serialNumber, string decommissionNumberAct)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"decommissionNumberActUser",
+                        Encryption.EncryptPlainTextToCipherText(decommissionNumberAct));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

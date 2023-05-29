@@ -27,6 +27,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = selectedRadiostationForDocumentsDataBaseModel.DateMaintenance;
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
+            txbDecommissionNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct;
             if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
             else
             {
@@ -40,6 +41,9 @@ namespace ServiceTelecom.View.WorkViewPackage
             if (selectedRadiostationForDocumentsDataBaseModel.Charger == "1")
                 CheckBoxCharger.IsChecked = true;
             txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
+            if (string.IsNullOrWhiteSpace(selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct))
+                txbDecommissionNumberAct.IsReadOnly = true;
+            
         }
 
         public RadiostationForDocumentsDataBaseModel SelectedRadiostationForDocumentsDataBaseModel { get; }

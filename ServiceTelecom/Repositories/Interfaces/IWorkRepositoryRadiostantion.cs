@@ -25,7 +25,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             ObservableCollection<string> cityCollections);
 
         /// <summary>
-        /// Добавление радиостанции в radiostantion рабочую БД
+        /// Добавление радиостанции в radiostantion рабочую таблицу
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
@@ -76,6 +76,26 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         bool CheckNumberActOverTwentyForDocumentInDataBase(string road, string city, string numberAct);
 
+        /// <summary>
+        /// Изменить номер акта в рабочей таблице
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="numberAct"></param>
+        /// <returns></returns>
+        bool ChangeNumberActBySerialNumberFromTheDatabase(string road,
+            string city, string serialNumber, string numberAct);
 
+        /// <summary>
+        /// Изменить номер акта списания в radiostantion (рабочая таблица)
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="decommissionNumberAct"></param>
+        /// <returns></returns>
+        bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion(
+            string road, string city, string serialNumber, string decommissionNumberAct);
     }
 }

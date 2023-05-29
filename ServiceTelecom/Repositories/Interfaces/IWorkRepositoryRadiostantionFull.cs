@@ -6,7 +6,7 @@ namespace ServiceTelecom.Repositories.Interfaces
     public interface IWorkRepositoryRadiostantionFull
     {
         /// <summary>
-        /// Проверка наличия радиостанции в общей БД всех радиостанций
+        /// Проверка наличия радиостанции в общей таблице всех радиостанций
         /// </summary>
         /// <param name="road"></param>
         /// <param name="serialNumber"></param>
@@ -14,7 +14,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool CheckSerialNumberForDocumentInDataBaseRadiostantionFull(string road, string serialNumber);
 
         /// <summary>
-        /// Метод изменения радиостанции в radiostantionFull(общей БД)
+        /// Метод изменения радиостанции в radiostantionFull(общей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
@@ -50,7 +50,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string antenna, string charger, string remont);
 
         /// <summary>
-        /// Метод добавления радиостанции в radiostantionFull(общей БД)
+        /// Метод добавления радиостанции в radiostantionFull(общей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
@@ -85,5 +85,16 @@ namespace ServiceTelecom.Repositories.Interfaces
             string inventoryNumber, string networkNumber, string price,
             string battery, string manipulator, string antenna, string charger,
             string remont);
+
+        /// <summary>
+        /// Изменить номер акта списания в radiostantionFull (общая таблица)
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="decommissionNumberAct"></param>
+        /// <returns></returns>
+        bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull(
+            string road, string city, string serialNumber, string decommissionNumberAct);
     }
 }
