@@ -17,9 +17,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel> 
-            RadiostationsForDocumentsCollection { get; set; }
+
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            RadiostationsForDocumentsCollection
+        { get; set; }
 
         private string _road;
         public string Road
@@ -27,7 +28,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _road;
             set
             {
-                _road = value; 
+                _road = value;
                 OnPropertyChanged(nameof(Road));
             }
         }
@@ -37,7 +38,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _numberAct;
             set
             {
-                _numberAct = value; 
+                _numberAct = value;
                 OnPropertyChanged(nameof(NumberAct));
             }
         }
@@ -47,7 +48,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _dateMaintenance;
             set
             {
-                _dateMaintenance = value; 
+                _dateMaintenance = value;
                 OnPropertyChanged(nameof(DateMaintenance));
             }
         }
@@ -57,7 +58,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _representative;
             set
             {
-                _representative = value; 
+                _representative = value;
                 OnPropertyChanged(nameof(Representative));
             }
         }
@@ -67,7 +68,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _numberIdentification;
             set
             {
-                _numberIdentification = value; 
+                _numberIdentification = value;
                 OnPropertyChanged(nameof(NumberIdentification));
             }
         }
@@ -87,7 +88,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _phoneNumber;
             set
             {
-                _phoneNumber = value; 
+                _phoneNumber = value;
                 OnPropertyChanged(nameof(PhoneNumber));
             }
         }
@@ -97,7 +98,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _post;
             set
             {
-                _post = value; 
+                _post = value;
                 OnPropertyChanged(nameof(Post));
             }
         }
@@ -107,7 +108,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _comment;
             set
             {
-                _comment = value; 
+                _comment = value;
                 OnPropertyChanged(nameof(Comment));
             }
         }
@@ -117,7 +118,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _city;
             set
             {
-                _city = value; 
+                _city = value;
                 OnPropertyChanged(nameof(City));
             }
         }
@@ -127,7 +128,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _location;
             set
             {
-                _location = value; 
+                _location = value;
                 OnPropertyChanged(nameof(Location));
             }
         }
@@ -137,7 +138,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _poligon;
             set
             {
-                _poligon = value; 
+                _poligon = value;
                 OnPropertyChanged(nameof(Poligon));
             }
         }
@@ -147,7 +148,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _company;
             set
             {
-                _company = value; 
+                _company = value;
                 OnPropertyChanged(nameof(Company));
             }
         }
@@ -157,7 +158,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _model;
             set
             {
-                _model = value; 
+                _model = value;
                 OnPropertyChanged(nameof(Model));
             }
         }
@@ -167,7 +168,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _serialNumber;
             set
             {
-                _serialNumber = value; 
+                _serialNumber = value;
                 OnPropertyChanged(nameof(SerialNumber));
             }
         }
@@ -177,7 +178,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _inventoryNumber;
             set
             {
-                _inventoryNumber = value; 
+                _inventoryNumber = value;
                 OnPropertyChanged(nameof(InventoryNumber));
             }
         }
@@ -187,7 +188,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _networkNumber;
             set
             {
-                _networkNumber = value; 
+                _networkNumber = value;
                 OnPropertyChanged(nameof(NetworkNumber));
             }
         }
@@ -198,7 +199,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _price;
             set
             {
-                _price = value; 
+                _price = value;
                 OnPropertyChanged(nameof(Price));
             }
         }
@@ -208,7 +209,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _checkBoxRemontViewModel;
             set
             {
-                _checkBoxRemontViewModel = value; 
+                _checkBoxRemontViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxRemontViewModel));
             }
         }
@@ -218,23 +219,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _battery;
             set
             {
-                _battery = value; 
+                _battery = value;
                 OnPropertyChanged(nameof(Battery));
             }
         }
         private bool _checkBoxManipulatorViewModel;
-        public bool CheckBoxManipulatorViewModel 
+        public bool CheckBoxManipulatorViewModel
         {
             get => _checkBoxManipulatorViewModel;
             set
             {
-                _checkBoxManipulatorViewModel = value; 
+                _checkBoxManipulatorViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxManipulatorViewModel));
             }
         }
 
         private bool _checkBoxAntennaViewModel;
-        public bool CheckBoxAntennaViewModel 
+        public bool CheckBoxAntennaViewModel
         {
 
             get => _checkBoxAntennaViewModel;
@@ -246,7 +247,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         private bool _checkBoxChargerViewModel;
-        public bool CheckBoxChargerViewModel 
+        public bool CheckBoxChargerViewModel
         {
             get => _checkBoxChargerViewModel;
             set
@@ -255,7 +256,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(CheckBoxChargerViewModel));
             }
         }
-        
+
 
         private bool _сheckBoxPriceViewModel;
         public bool CheckBoxPriceViewModel
@@ -266,7 +267,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (value == true)
                     Price = UserModelStatic.priceAnalog;
                 else Price = UserModelStatic.priceDigital;
-                _сheckBoxPriceViewModel = value; 
+                _сheckBoxPriceViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
         }
@@ -280,7 +281,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
-            get => _theIndexModelChoiceCollection;   
+            get => _theIndexModelChoiceCollection;
             set
             {
                 _theIndexModelChoiceCollection = value;
@@ -295,17 +296,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public AddRadiostationForDocumentInDataBaseViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            RadiostationsForDocumentsCollection = 
+            RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
-            AddRadiostationForDocumentInDataBase = 
+            AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
-            SearchBySerialNumberForFeaturesAdditionsFromTheDatabase = 
+            SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
                 new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
-            SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase = 
+            SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase =
                 new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
             GetModelDataBase();
         }
@@ -332,7 +333,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     PhoneNumber = item.PhoneNumber;
                     Post = item.Post;
                 }
-            }    
+            }
 
         }
 
@@ -363,7 +364,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Company = item.Company;
                     Model = item.Model;
                     Comment = item.Comment;
-                    Battery= item.Battery;
+                    Battery = item.Battery;
                     Price = item.Price;
 
                     if (Price == UserModelStatic.priceAnalog)
@@ -381,7 +382,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else
             {
-                InventoryNumber = String.Empty; 
+                InventoryNumber = String.Empty;
                 NetworkNumber = String.Empty;
                 Comment = String.Empty;
                 Battery = String.Empty;
@@ -820,9 +821,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
                 Poligon, Company, Model, SerialNumber,
                 InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
-                {
-
-                }
+                {}
+                else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            else
+            {
+                if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(Road, NumberAct,
+               dateMaintenanceDataBase, Representative, NumberIdentification,
+               dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
+               Poligon, Company, Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+               {}
                 else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
