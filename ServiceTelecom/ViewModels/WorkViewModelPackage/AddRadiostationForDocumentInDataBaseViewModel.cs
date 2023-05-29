@@ -12,14 +12,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        AddModelRadiostantionView addModelRadiostantion = null;
-        private ModelDataBaseRepository _modelDataBase;
+        
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+
+        AddModelRadiostantionView addModelRadiostantion = null;
+        private ModelDataBaseRepository _modelDataBase;
         public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
 
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationsForDocumentsCollection
+            RadiostationForDocumentsCollection
         { get; set; }
 
         private string _road;
@@ -296,7 +298,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public AddRadiostationForDocumentInDataBaseViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            RadiostationsForDocumentsCollection =
+            RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -317,15 +319,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
-            if (RadiostationsForDocumentsCollection.Count != 0)
-                RadiostationsForDocumentsCollection.Clear();
+            if (RadiostationForDocumentsCollection.Count != 0)
+                RadiostationForDocumentsCollection.Clear();
 
-            RadiostationsForDocumentsCollection =
+            RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationsForDocumentsCollection);
-            if (RadiostationsForDocumentsCollection.Count != 0)
+                Road, City, SerialNumber, RadiostationForDocumentsCollection);
+            if (RadiostationForDocumentsCollection.Count != 0)
             {
-                foreach (var item in RadiostationsForDocumentsCollection)
+                foreach (var item in RadiostationForDocumentsCollection)
                 {
                     Representative = item.Representative;
                     NumberIdentification = item.NumberIdentification;
@@ -345,16 +347,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
-            if (RadiostationsForDocumentsCollection.Count != 0)
-                RadiostationsForDocumentsCollection.Clear();
+            if (RadiostationForDocumentsCollection.Count != 0)
+                RadiostationForDocumentsCollection.Clear();
 
-            RadiostationsForDocumentsCollection =
+            RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationsForDocumentsCollection);
+                Road, City, SerialNumber, RadiostationForDocumentsCollection);
 
-            if (RadiostationsForDocumentsCollection.Count != 0)
+            if (RadiostationForDocumentsCollection.Count != 0)
             {
-                foreach (var item in RadiostationsForDocumentsCollection)
+                foreach (var item in RadiostationForDocumentsCollection)
                 {
                     InventoryNumber = item.InventoryNumber;
                     NetworkNumber = item.NetworkNumber;
