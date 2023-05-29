@@ -821,7 +821,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
                 Poligon, Company, Model, SerialNumber,
                 InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
-                {}
+                { }
                 else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
@@ -831,7 +831,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                dateMaintenanceDataBase, Representative, NumberIdentification,
                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
                Poligon, Company, Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
-               {}
+                { }
                 else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
