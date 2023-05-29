@@ -1,4 +1,7 @@
-﻿namespace ServiceTelecom.Repositories.Interfaces
+﻿using ServiceTelecom.Models;
+using System.Collections.ObjectModel;
+
+namespace ServiceTelecom.Repositories.Interfaces
 {
     public interface IWorkRepositoryRadiostantionFull
     {
