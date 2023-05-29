@@ -320,7 +320,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RadiostationsForDocumentsCollection.Clear();
 
             RadiostationsForDocumentsCollection =
-            _workRepositoryRadiostantion.SearchBySerialNumberInDatabase(
+            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
                 Road, City, SerialNumber, RadiostationsForDocumentsCollection);
             if (RadiostationsForDocumentsCollection.Count != 0)
             {
@@ -348,7 +348,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RadiostationsForDocumentsCollection.Clear();
 
             RadiostationsForDocumentsCollection =
-            _workRepositoryRadiostantion.SearchBySerialNumberInDatabase(
+            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
                 Road, City, SerialNumber, RadiostationsForDocumentsCollection);
 
             if (RadiostationsForDocumentsCollection.Count != 0)

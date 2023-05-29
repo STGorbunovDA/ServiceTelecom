@@ -145,7 +145,7 @@
     <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoadDataBase.cs" />
-    <Compile Include="Repositories\Interfaces\ISearchBySerialNumberInDatabaseRadiostantion.cs" />
+    <Compile Include="Repositories\Interfaces\ISearchBySerialNumberInDatabaseRadiostantionFull.cs" />
     <Compile Include="Repositories\Interfaces\IStaffRegistrationRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITutorialEngineerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />

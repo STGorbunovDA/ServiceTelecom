@@ -1,16 +1,9 @@
-﻿using Org.BouncyCastle.Asn1.Crmf;
-using ServiceTelecom.Models;
+﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.View;
 using ServiceTelecom.View.WorkViewPackage;
-using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
