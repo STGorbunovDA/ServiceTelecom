@@ -1,5 +1,9 @@
-﻿using ServiceTelecom.Repositories;
+﻿using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.View.Base;
 using System;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -9,7 +13,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class ChangeRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        
+
+        AddModelRadiostantionView addModelRadiostantion = null;
+        private ModelDataBaseRepository _modelDataBase;
+        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+
+
         private string _city;
         public string City
         {
@@ -50,14 +59,56 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(SerialNumber));
             }
         }
+        private string _model;
+        public string Model
+        {
+            get => _model;
+            set
+            {
+                _model = value;
+                OnPropertyChanged(nameof(Model));
+            }
+        }
+
+        private int _theIndexModelChoiceCollection;
+        public int TheIndexModelChoiceCollection
+        {
+            get => _theIndexModelChoiceCollection;
+            set
+            {
+                _theIndexModelChoiceCollection = value;
+                OnPropertyChanged(nameof(TheIndexModelChoiceCollection));
+            }
+        }
 
         public ICommand ChangeNumberActBySerialNumberFromTheDatabase { get; }
+        public ICommand AddModelDataBase { get; }
 
         public ChangeRadiostationForDocumentInDataBaseViewModel()
         {
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _modelDataBase = new ModelDataBaseRepository();
+            ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
+            AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             ChangeNumberActBySerialNumberFromTheDatabase = new ViewModelCommand(ExecuteChangeNumberActBySerialNumberFromTheDatabaseCommand);
         }
+
+
+
+        #region ExecuteAddModelDataBaseCommand
+
+        private void ExecuteAddModelDataBaseCommand(object obj)
+        {
+            if (addModelRadiostantion == null)
+            {
+                addModelRadiostantion = new AddModelRadiostantionView();
+                addModelRadiostantion.Closed += (sender, args) => addModelRadiostantion = null;
+                addModelRadiostantion.Closed += (sender, args) => GetModelDataBase();
+                addModelRadiostantion.Show();
+            }
+        }
+
+        #endregion
 
         #region ChangeNumberActBySerialNumberFromTheDatabase
 
@@ -83,5 +134,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         #endregion
+
+        private void GetModelDataBase()
+        {
+            TheIndexModelChoiceCollection = -1;
+            if (ModelCollections.Count != 0)
+                ModelCollections.Clear();
+            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
+            TheIndexModelChoiceCollection = ModelCollections.Count - 1;
+        }
     }
 }
