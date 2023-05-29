@@ -296,7 +296,7 @@
 
     <!--Menu Button Style-->
     
-    <Style x:Key="menuButtonStyleChange" TargetType="Button">
+    <Style x:Key="menuButtonStyleFive" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="16"/>
