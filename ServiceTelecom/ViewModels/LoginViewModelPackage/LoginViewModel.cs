@@ -18,10 +18,14 @@ namespace ServiceTelecom.ViewModels
 
         private UserRepository userRepository;
 
-        public string Username { get => _username; set { _username = value; OnPropertyChanged(nameof(Username)); } }
-        public SecureString Password { get => _password; set { _password = value; OnPropertyChanged(nameof(Password)); } }
-        public string ErrorMessage { get => _errorMessage; set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); } }
-        public bool IsViewVisible { get => _isViewVisible; set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
+        public string Username { get => _username; 
+            set { _username = value; OnPropertyChanged(nameof(Username)); } }
+        public SecureString Password { get => _password; 
+            set { _password = value; OnPropertyChanged(nameof(Password)); } }
+        public string ErrorMessage { get => _errorMessage; 
+            set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); } }
+        public bool IsViewVisible { get => _isViewVisible; 
+            set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); } }
 
         public ICommand LoginCommand { get; }
         public ICommand ShowPasswordCommand { get; }
@@ -49,8 +53,6 @@ namespace ServiceTelecom.ViewModels
             UserModelStatic user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
-                //Thread.CurrentPrincipal = new GenericPrincipal(
-                //    new GenericIdentity(user.Post), null);
                 bool flag = userRepository.SetDateTimeUserDataBase(UserModelStatic.Login);
                 if (flag)
                 {
@@ -67,13 +69,16 @@ namespace ServiceTelecom.ViewModels
         /// <summary>Получаем если есть логин из реестра</summary>
         private void GetRegistry()
         {
+            //TODO вынести в интерфейс
             try
             {
-                RegistryKey reg1 = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
+                RegistryKey reg1 = Registry.CurrentUser.OpenSubKey(
+                    $"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                 if (reg1 != null)
                 {
                     RegistryKey currentUserKey = Registry.CurrentUser;
-                    RegistryKey helloKey = currentUserKey.OpenSubKey($"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
                     Username = helloKey.GetValue("Login").ToString();
                 }
             }

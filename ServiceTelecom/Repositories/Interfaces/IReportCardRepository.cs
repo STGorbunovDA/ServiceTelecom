@@ -5,43 +5,25 @@ namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IReportCardRepository
     {
-        /// <summary>
-        /// Получение табеля сотрудников
-        /// </summary>
-        /// <param name="reportCards"></param>
-        /// <returns></returns>
-       ObservableCollection<ReportCardsDataBaseModel> GetReportCardsDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards);
-        
-        /// <summary>
-        /// Получение общих дат входа пользователей программы
-        /// </summary>
-        /// <param name="dateTimeInputCollections"></param>
-        /// <returns></returns>
-        ObservableCollection<string> GetDateTimeInputCollectionsDataBase(ObservableCollection<string> dateTimeInputCollections);
+        /// <summary> Получение табеля сотрудников</summary>
+        ObservableCollection<ReportCardsDataBaseModel> GetReportCardsDataBase(
+            ObservableCollection<ReportCardsDataBaseModel> reportCards);
 
-        /// <summary>
-        /// Удаление строки табеля сотрудника
-        /// </summary>
-        /// <param name="idReportCards"></param>
+        /// <summary> Получение общих дат входа пользователей программы </summary>
+        ObservableCollection<string> GetDateTimeInputCollectionsDataBase(
+            ObservableCollection<string> dateTimeInputCollections);
+
+        /// <summary> Удаление строки табеля сотрудника </summary>
         void DeleteReportCardsDataBase(int idReportCards);
 
-        /// <summary>
-        /// Получение табеля по выбранному user
-        /// </summary>
-        /// <param name="reportCards"></param>
-        /// <param name="cmbUser"></param>
-        /// <returns></returns>
-        ObservableCollection<ReportCardsDataBaseModel>
-            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards, string cmbUser);
+        /// <summary> Получение табеля по выбранному user </summary>
+        ObservableCollection<ReportCardsDataBaseModel> GetReportCardsAtCmbUserDataBase(
+            ObservableCollection<ReportCardsDataBaseModel> reportCards, string cmbUser);
 
-        /// <summary>
-        /// Получение Табеля по дате входа
-        /// </summary>
-        /// <param name="reportCards"></param>
-        /// <param name="selectedItemCmbUser"></param>
-        /// <returns></returns>
+        /// <summary> Получение Табеля по дате входа </summary>
         ObservableCollection<ReportCardsDataBaseModel>
-            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards,
+            GetReportCardsAtCmbDateTimeInput(
+            ObservableCollection<ReportCardsDataBaseModel> reportCards,
             string selectedItemCmbUser);
     }
 }

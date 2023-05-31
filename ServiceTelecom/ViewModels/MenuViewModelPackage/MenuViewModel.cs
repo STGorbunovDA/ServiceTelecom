@@ -41,7 +41,8 @@ namespace ServiceTelecom.ViewModels
                UserModelStatic.Post == "Дирекция связи")
             {
                 UserModelStatic.StaffRegistrationsDataBaseModelCollection =
-                    staffRegistrationRepository.GetStaffRegistrationsDataBasePerLogin(UserModelStatic.Login,
+                    staffRegistrationRepository.GetStaffRegistrationsDataBasePerLogin(
+                        UserModelStatic.Login,
                     UserModelStatic.StaffRegistrationsDataBaseModelCollection);
                 if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
                 {

@@ -3,44 +3,22 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    interface ITutorialEngineerRepository
+    internal interface ITutorialEngineerRepository
     {
-        /// <summary>
-        /// Получение обучебных данных (неисправностей) радиостанций из БД
-        /// </summary>
-        /// <param name="tutorialsEngineer"></param>
-        /// <returns></returns>
+        /// <summary> Получение обучебных данных (неисправностей) радиостанций из БД </summary>
         ObservableCollection<TutorialEngineerDataBaseModel>
             GetTutorialsEngineerDataBase(ObservableCollection<TutorialEngineerDataBaseModel>
             tutorialsEngineer);
 
-        /// <summary>
-        /// Добавление инструкции по неисправности радиостанции
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="problem"></param>
-        /// <param name="info"></param>
-        /// <param name="actions"></param>
-        /// <param name="login"></param>
-        /// <returns></returns>
-        bool AddTutorialEngineer(string model, string problem, string info, string actions, string login);
+        /// <summary> Добавление инструкции по неисправности радиостанции </summary>
+        bool AddTutorialEngineer(string model, string problem, 
+            string info, string actions, string login);
 
-        /// <summary>
-        /// Изменение инструкции по неисправности радиостанции
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="problem"></param>
-        /// <param name="info"></param>
-        /// <param name="actions"></param>
-        /// <param name="login"></param>
-        /// <returns></returns>
+        /// <summary> Изменение инструкции по неисправности радиостанции </summary>
         bool ChangeTutorialEngineer(string id, string model, string problem,
             string info, string actions, string login);
 
-        /// <summary>
-        /// Удаление из БД Инструкции
-        /// </summary>
-        /// <param name="id"></param>
+        /// <summary> Удаление из БД Инструкции </summary>
         void DeleteTutorialEngineer(int id);
     }
 }

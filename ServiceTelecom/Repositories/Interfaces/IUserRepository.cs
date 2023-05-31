@@ -4,13 +4,14 @@ using System.Net;
 
 namespace ServiceTelecom.Models
 {
-    public interface IUserRepository
+    internal interface IUserRepository
     {
         /// <summary> Получение авторизованного пользователя</summary>
         UserModelStatic GetAuthorizationUser(NetworkCredential credential);
 
         /// <summary> Получение списка всех пользователей </summary>
-        ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users);
+        ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(
+            ObservableCollection<UserDataBaseModel> users);
 
         /// <summary> Добавление нового пользователя </summary>
         bool AddUserDataBase(string login, string password, string post);

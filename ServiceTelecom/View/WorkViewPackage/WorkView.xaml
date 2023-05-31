@@ -159,7 +159,7 @@
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
-                            Command="{Binding SaveRadiostationForDocumentInDataBase}"
+                            Command="{Binding SaveCollectionRadiostationsForDocument}"
                             Content="Сохранить"
                             Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 

@@ -11,13 +11,20 @@ namespace ServiceTelecom.ViewModels.Base
     {
         private ProblemModelRadiostantionRepository _problemModelRadiostantionDataBase;
         private ProblemModelRadiostantionDataBaseModel _problemModelRadiostantion;
-        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
+        private ObservableCollection<ProblemModelRadiostantionDataBaseModel> 
+            ProblemModelCollections { get; set; }
         
         private string _problem;
-        public string Problem { get => _problem; set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
+        public string Problem { get => _problem; 
+            set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
 
         private int _theIndexProblemModelCollection;
-        public int TheIndexProblemModelCollection { get => _theIndexProblemModelCollection; set { _theIndexProblemModelCollection = value; OnPropertyChanged(nameof(TheIndexProblemModelCollection)); } }
+        public int TheIndexProblemModelCollection 
+        { get => _theIndexProblemModelCollection; 
+            set { _theIndexProblemModelCollection = value; 
+                OnPropertyChanged(nameof(TheIndexProblemModelCollection)); 
+            } 
+        }
 
         public ICommand AddProblemModelDataBase { get; }
         public ICommand DeleteProblemModelDataBase { get; }
@@ -25,7 +32,8 @@ namespace ServiceTelecom.ViewModels.Base
         public ProblemModelRadiostantionDataBaseModel SelectedProblemModelRadiostantion
         {
             get => _problemModelRadiostantion;
-            set { _problemModelRadiostantion = value; OnPropertyChanged(nameof(SelectedProblemModelRadiostantion)); }
+            set { _problemModelRadiostantion = value; 
+                OnPropertyChanged(nameof(SelectedProblemModelRadiostantion)); }
         }
         public AddModelProblemRadiostantionViewModel()
         {
@@ -35,7 +43,6 @@ namespace ServiceTelecom.ViewModels.Base
             AddProblemModelDataBase = new ViewModelCommand(ExecuteAddProblemModelDataBaseCommand);
             DeleteProblemModelDataBase = new ViewModelCommand(ExecuteDeleteProblemModelDataBaseCommand);
         }
-
 
         #region DeleteProblemModelDataBase
 
@@ -55,7 +62,6 @@ namespace ServiceTelecom.ViewModels.Base
 
         #endregion
 
-
         #region AddProblemModelDataBase
 
         private void ExecuteAddProblemModelDataBaseCommand(object obj)
@@ -63,18 +69,12 @@ namespace ServiceTelecom.ViewModels.Base
             var result = ProblemModelCollections.FirstOrDefault(s => s.Problem == Problem);
             if (result != null)
                 return;
-
             bool flag = _problemModelRadiostantionDataBase.AddProblemModelDataBase(Problem);
-            if (flag)
-            {
-                GetProblemModelDataBaseForUpdate();
-                //MessageBox.Show("Модель успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            if (flag) GetProblemModelDataBaseForUpdate();
             else MessageBox.Show("Ошибка добавления модели", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
-
 
         private void GetProblemModelDataBaseForUpdate()
         {

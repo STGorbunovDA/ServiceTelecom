@@ -18,28 +18,51 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private ProblemModelRadiostantionRepository _problemModelRadiostantion;
         private TutorialEngineerRepository _tutorialEngineerRepository;
 
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
+        private ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        private ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
 
         private string _model;
-        public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
+        public string Model
+        {
+            get => _model;
+            set
+            {
+                _model = value;
+                OnPropertyChanged(nameof(Model));
+            }
+        }
 
         private string _problem;
-        public string Problem { get => _problem; set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
+        public string Problem
+        {
+            get => _problem;
+            set { _problem = value; OnPropertyChanged(nameof(Problem)); }
+        }
 
         private string _info;
-        public string Info { get => _info; set { _info = value; OnPropertyChanged(nameof(Info)); } }
+        public string Info
+        {
+            get => _info; set
+            {
+                _info = value;
+                OnPropertyChanged(nameof(Info));
+            }
+        }
 
         private string _actions;
-        public string Actions { get => _actions; set { _actions = value; OnPropertyChanged(nameof(Actions)); } }
+        public string Actions
+        {
+            get => _actions; set
+            {
+                _actions = value;
+                OnPropertyChanged(nameof(Actions));
+            }
+        }
 
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
-            get
-            {
-                return _theIndexModelChoiceCollection;
-            }
+            get => _theIndexModelChoiceCollection;
             set
             {
                 _theIndexModelChoiceCollection = value;
@@ -50,10 +73,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private int _theIndexProblemChoiceCollection;
         public int TheIndexProblemChoiceCollection
         {
-            get
-            {
-                return _theIndexProblemChoiceCollection;
-            }
+            get => _theIndexProblemChoiceCollection;
             set
             {
                 _theIndexProblemChoiceCollection = value;
@@ -69,7 +89,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         public AddTutorialEngineerViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            ProblemModelCollections = new ObservableCollection<ProblemModelRadiostantionDataBaseModel>();
+            ProblemModelCollections = 
+                new ObservableCollection<ProblemModelRadiostantionDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
             _problemModelRadiostantion = new ProblemModelRadiostantionRepository();
             _tutorialEngineerRepository = new TutorialEngineerRepository();
@@ -86,7 +107,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             TheIndexModelChoiceCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
+            ModelCollections = 
+                _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
 
@@ -95,7 +117,9 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             TheIndexProblemChoiceCollection = -1;
             if (ProblemModelCollections.Count != 0)
                 ProblemModelCollections.Clear();
-            ProblemModelCollections = _problemModelRadiostantion.GetProblemModelRadiostantionDataBase(ProblemModelCollections);
+            ProblemModelCollections = 
+                _problemModelRadiostantion.GetProblemModelRadiostantionDataBase(
+                    ProblemModelCollections);
             TheIndexProblemChoiceCollection = ProblemModelCollections.Count - 1;
         }
 
@@ -103,9 +127,9 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 
         private void ExecuteAddTutorialEngineerCommand(object obj)
         {
-            if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions) ||
-                string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) ||
-                string.IsNullOrWhiteSpace(UserModelStatic.Login))
+            if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions) 
+                ||string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) 
+                ||string.IsNullOrWhiteSpace(UserModelStatic.Login))
                 return;
 
             Regex re = new Regex(Environment.NewLine);
@@ -118,9 +142,11 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 
             if (_tutorialEngineerRepository.AddTutorialEngineer(Model, Problem, Info,
                 Actions, UserModelStatic.Login))
-                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, 
+                    MessageBoxImage.Information);
             else
-                MessageBox.Show("Ошибка добавления инструкции", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления инструкции", "Отмена", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
@@ -142,8 +168,10 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             if (addProblemModelRadiostantion == null)
             {
                 addProblemModelRadiostantion = new AddProblemModelDataBaseView();
-                addProblemModelRadiostantion.Closed += (sender, args) => addProblemModelRadiostantion = null;
-                addProblemModelRadiostantion.Closed += (sender, args) => GetProblemModelRadiostantion();
+                addProblemModelRadiostantion.Closed += (sender, args) => 
+                addProblemModelRadiostantion = null;
+                addProblemModelRadiostantion.Closed += (sender, args) => 
+                GetProblemModelRadiostantion();
                 addProblemModelRadiostantion.Show();
             }
         }
@@ -157,14 +185,14 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             if (addModelRadiostantion == null)
             {
                 addModelRadiostantion = new AddModelRadiostantionView();
-                addModelRadiostantion.Closed += (sender, args) => addModelRadiostantion = null;
-                addModelRadiostantion.Closed += (sender, args) => GetModelDataBase();
+                addModelRadiostantion.Closed += (sender, args) => 
+                addModelRadiostantion = null;
+                addModelRadiostantion.Closed += (sender, args) => 
+                GetModelDataBase();
                 addModelRadiostantion.Show();
             }
         }
 
         #endregion
-
-
     }
 }

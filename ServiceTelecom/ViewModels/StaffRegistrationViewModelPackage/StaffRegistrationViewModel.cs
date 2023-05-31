@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
-using DataGrid = System.Windows.Controls.DataGrid;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -18,14 +17,13 @@ namespace ServiceTelecom.ViewModels
         private RoadDataBaseRepository _roadDataBase;
         ReportCardView reportCard = null;
 
-        public ObservableCollection<UserDataBaseModel> Users { get; set; }
-        public ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
-        public ObservableCollection<string> RoadCollections { get; }
-        public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
-        public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
-        public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
-        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
-
+        private ObservableCollection<UserDataBaseModel> Users { get; set; }
+        private ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        private ObservableCollection<string> RoadCollections { get; }
+        private ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
+        private ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
+        private ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
+        private ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
 
         private int _theIndexSectionForemanCollection;
         public int TheIndexSectionForemanCollection { get => _theIndexSectionForemanCollection; set { _theIndexSectionForemanCollection = value; OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } }
@@ -49,14 +47,46 @@ namespace ServiceTelecom.ViewModels
         private string _numberPrintDocument;
         private string _message;
         public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
-        public string SectionForeman { get => _sectionForeman; set { _sectionForeman = value; OnPropertyChanged(nameof(SectionForeman)); } }
-        public string Engineer { get => _engineer; set { _engineer = value; OnPropertyChanged(nameof(Engineer)); } }
-        public string Road { get => _road; set { _road = value; OnPropertyChanged(nameof(Road)); } }
-        public string Curator { get => _curator; set { _curator = value; OnPropertyChanged(nameof(Curator)); } }
-        public string RadioCommunicationDirectorate { get => _radioCommunicationDirectorate; set { _radioCommunicationDirectorate = value; OnPropertyChanged(nameof(RadioCommunicationDirectorate)); } }
-        public string Attorney { get => _attorney; set { _attorney = value; OnPropertyChanged(nameof(Attorney)); } }
-        public string NumberPrintDocument { get => _numberPrintDocument; set { _numberPrintDocument = value; OnPropertyChanged(nameof(NumberPrintDocument)); } }
-        public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
+        public string SectionForeman { 
+            get => _sectionForeman; 
+            set { _sectionForeman = value; 
+                OnPropertyChanged(nameof(SectionForeman)); } 
+        }
+        public string Engineer { 
+            get => _engineer; 
+            set { _engineer = value; 
+                OnPropertyChanged(nameof(Engineer)); } 
+        }
+        public string Road { 
+            get => _road; 
+            set { _road = value; 
+                OnPropertyChanged(nameof(Road)); } 
+        }
+        public string Curator { 
+            get => _curator; 
+            set { _curator = value; 
+                OnPropertyChanged(nameof(Curator)); } 
+        }
+        public string RadioCommunicationDirectorate { 
+            get => _radioCommunicationDirectorate; 
+            set { _radioCommunicationDirectorate = value; 
+                OnPropertyChanged(nameof(RadioCommunicationDirectorate)); } 
+        }
+        public string Attorney { 
+            get => _attorney; 
+            set { _attorney = value; 
+                OnPropertyChanged(nameof(Attorney)); } 
+        }
+        public string NumberPrintDocument { 
+            get => _numberPrintDocument; 
+            set { _numberPrintDocument = value; 
+                OnPropertyChanged(nameof(NumberPrintDocument)); } 
+        }
+        public string Message { 
+            get => _message; 
+            set { _message = value; 
+                OnPropertyChanged(nameof(Message)); } 
+        }
 
         public ICommand AddStaffRegistrationDataBase { get; }
         public ICommand ChangeStaffRegistrationDataBase { get; }
@@ -78,7 +108,8 @@ namespace ServiceTelecom.ViewModels
                     Engineer = _staffRegistration.EngineerBase;
                     Road = _staffRegistration.RoadBase;
                     Curator = _staffRegistration.CuratorBase;
-                    RadioCommunicationDirectorate = _staffRegistration.RadioCommunicationDirectorateBase;
+                    RadioCommunicationDirectorate = 
+                        _staffRegistration.RadioCommunicationDirectorateBase;
                     Attorney = _staffRegistration.AttorneyBase;
                     NumberPrintDocument = _staffRegistration.NumberPrintDocumentBase;
                 }
@@ -147,8 +178,10 @@ namespace ServiceTelecom.ViewModels
             if (StaffRegistrationsMulipleSelectedDataGrid == null || 
                 StaffRegistrationsMulipleSelectedDataGrid.Count == 0)
                 return;
-            foreach (StaffRegistrationDataBaseModel staffRegistrations in StaffRegistrationsMulipleSelectedDataGrid)
-                staffRegistrationRepository.DeleteStaffRegistrationsDataBase(staffRegistrations.IdStaffRegistrationBase);
+            foreach (StaffRegistrationDataBaseModel staffRegistrations 
+                in StaffRegistrationsMulipleSelectedDataGrid)
+                staffRegistrationRepository.DeleteStaffRegistrationsDataBase(
+                    staffRegistrations.IdStaffRegistrationBase);
             GetStaffRegistrationsForUpdate();
         }
         #endregion
@@ -159,8 +192,9 @@ namespace ServiceTelecom.ViewModels
         {
             bool flag = false;
             if (CheckingUserInputValues())
-                flag = staffRegistrationRepository.ChangeStaffRegistrationDataBase(Id, SectionForeman, Engineer,
-                Attorney, Road, NumberPrintDocument, Curator, RadioCommunicationDirectorate);
+                flag = staffRegistrationRepository.ChangeStaffRegistrationDataBase(
+                    Id, SectionForeman, Engineer, Attorney, Road, 
+                    NumberPrintDocument, Curator, RadioCommunicationDirectorate);
             if (flag)
             {
                 Message = "Successfully Change Registration Brigades Staff";
@@ -177,15 +211,15 @@ namespace ServiceTelecom.ViewModels
         {
             bool flag = false;
             if (CheckingUserInputValues())
-                flag = staffRegistrationRepository.AddStaffRegistrationDataBase(SectionForeman, Engineer,
-                Attorney, Road, NumberPrintDocument, Curator, RadioCommunicationDirectorate);
+                flag = staffRegistrationRepository.AddStaffRegistrationDataBase(
+                    SectionForeman, Engineer, Attorney, Road, NumberPrintDocument, 
+                    Curator, RadioCommunicationDirectorate);
             if (flag)
             {
                 Message = "Successfully Add Registration Brigades Staff";
                 GetStaffRegistrationsForUpdate();
             }
             else Message = "Error Add Registration Brigades Staff";
-
         }
 
         #endregion
@@ -193,20 +227,25 @@ namespace ServiceTelecom.ViewModels
         /// <summary> Проверка ввода значений пользователя </summary>
         private bool CheckingUserInputValues()
         {
-            if (string.IsNullOrWhiteSpace(SectionForeman) || string.IsNullOrWhiteSpace(Engineer) ||
-                string.IsNullOrWhiteSpace(Curator) || string.IsNullOrWhiteSpace(RadioCommunicationDirectorate)
-                || string.IsNullOrWhiteSpace(Attorney) || string.IsNullOrWhiteSpace(NumberPrintDocument))
+            if (string.IsNullOrWhiteSpace(SectionForeman) 
+                || string.IsNullOrWhiteSpace(Engineer) 
+                || string.IsNullOrWhiteSpace(Curator) 
+                || string.IsNullOrWhiteSpace(RadioCommunicationDirectorate)
+                || string.IsNullOrWhiteSpace(Attorney) 
+                || string.IsNullOrWhiteSpace(NumberPrintDocument))
                 return false;
             if (!Regex.IsMatch(Attorney, @"^[0-9]{1,}[\/][0-9]{1,}[\s][о][т][\s][0-9]{2,2}[\.][0-9]{2,2}[\.][2][0][0-9]{2,2}[\s][г][о][д][а]$"))
             {
-                MessageBox.Show("Введите корректно \"Доверенность\"\n P.s. Пример: 53/53 от 10.01.2023 года", "Отмена",
+                MessageBox.Show("Введите корректно \"Доверенность\"\n" +
+                    "P.s. Пример: 53/53 от 10.01.2023 года", "Отмена",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Attorney = "53/53 от 10.01.2023 года";
                 return false;
             }
             if (!Regex.IsMatch(NumberPrintDocument, @"^[0-9]{2,}$"))
             {
-                MessageBox.Show("Введите корректно \"№ печати\"\n P.s. Пример: 53", "Отмена",
+                MessageBox.Show("Введите корректно \"№ печати\"\n" +
+                    "P.s. Пример: 53", "Отмена",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 NumberPrintDocument = "53";
                 return false;
@@ -217,7 +256,8 @@ namespace ServiceTelecom.ViewModels
         /// <summary> Получаем данные о регистрации персонала для Обновления </summary>
         private void GetStaffRegistrationsForUpdate()
         {
-            if (StaffRegistrations.Count != 0 || Users.Count != 0 || SectionForemanCollection.Count != 0 
+            if (StaffRegistrations.Count != 0 || Users.Count != 0 
+                || SectionForemanCollection.Count != 0 
                 || EngineerCollection.Count != 0 || CuratorCollection.Count != 0 
                 || RadioCommunicationDirectorateCollection.Count != 0)
             {
@@ -234,20 +274,30 @@ namespace ServiceTelecom.ViewModels
                 RadioCommunicationDirectorateCollection.Clear();
             }
             
-            StaffRegistrations = staffRegistrationRepository.GetStaffRegistrationsDataBase(StaffRegistrations);
+            StaffRegistrations = 
+                staffRegistrationRepository.GetStaffRegistrationsDataBase(
+                    StaffRegistrations);
             Users = userRepository.GetAllUsersDataBase(Users);
             foreach (var item in Users)
             {
                 if (item == null) return;
-                if (item.PostBase == "Начальник участка") SectionForemanCollection.Add(item.LoginBase);
-                else if (item.PostBase == "Инженер") EngineerCollection.Add(item.LoginBase);
-                else if (item.PostBase == "Куратор") CuratorCollection.Add(item.LoginBase);
-                else if (item.PostBase == "Дирекция связи") RadioCommunicationDirectorateCollection.Add(item.LoginBase);
+                if (item.PostBase == "Начальник участка") 
+                    SectionForemanCollection.Add(item.LoginBase);
+                else if (item.PostBase == "Инженер") 
+                    EngineerCollection.Add(item.LoginBase);
+                else if (item.PostBase == "Куратор") 
+                    CuratorCollection.Add(item.LoginBase);
+                else if (item.PostBase == "Дирекция связи") 
+                    RadioCommunicationDirectorateCollection.Add(item.LoginBase);
             }
-            if (SectionForemanCollection.Count == 0) MessageBox.Show("Зарегистрируйте Начальника участка");
-            if (EngineerCollection.Count == 0) MessageBox.Show("Зарегистрируйте Инженера");
-            if (CuratorCollection.Count == 0) MessageBox.Show("Зарегистрируйте Куратора");
-            if (RadioCommunicationDirectorateCollection.Count == 0) MessageBox.Show("Зарегистрируйте представителя Дирекции связи");
+            if (SectionForemanCollection.Count == 0) 
+                MessageBox.Show("Зарегистрируйте Начальника участка");
+            if (EngineerCollection.Count == 0) 
+                MessageBox.Show("Зарегистрируйте Инженера");
+            if (CuratorCollection.Count == 0) 
+                MessageBox.Show("Зарегистрируйте Куратора");
+            if (RadioCommunicationDirectorateCollection.Count == 0) 
+                MessageBox.Show("Зарегистрируйте представителя Дирекции связи");
 
             TheIndexSectionForemanCollection = 0;
             TheIndexEngineerCollection = 0;

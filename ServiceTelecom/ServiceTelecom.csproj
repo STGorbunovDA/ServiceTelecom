@@ -132,6 +132,9 @@
     </Compile>
     <Compile Include="Infrastructure\CustomDataGrid.cs" />
     <Compile Include="Infrastructure\Encryption.cs" />
+    <Compile Include="Infrastructure\Interfaces\IReportCardSaveCSV.cs" />
+    <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
+    <Compile Include="Infrastructure\Interfaces\ITutorialsEngineerSave.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />

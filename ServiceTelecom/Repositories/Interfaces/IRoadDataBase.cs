@@ -2,8 +2,10 @@
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface IRoadDataBase
+    internal interface IRoadDataBase
     {
-        ObservableCollection<string> GetRoadDataBase(ObservableCollection<string> roadCollections);
+        /// <summary> Получение дорог из БД</summary>
+        ObservableCollection<string> GetRoadDataBase(
+            ObservableCollection<string> roadCollections);
     }
 }

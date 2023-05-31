@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
@@ -164,8 +165,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ICommand AddRadiostationForDocumentInDataBase { get; }
         public ICommand ChangeRadiostationForDocumentInDataBase { get; }
-
+        public ICommand UpdateRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteRadiostationForDocumentInDataBase { get; }
+        public ICommand SaveCollectionRadiostationsForDocument { get; }
 
         public WorkViewModel()
         {
@@ -180,9 +182,34 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             DeleteRadiostationForDocumentInDataBase =
                  new ViewModelCommand(ExecuteDeleteRadiostationForDocumentInDataBaseCommand);
+            UpdateRadiostationForDocumentInDataBase =
+                 new ViewModelCommand(ExecuteUpdateRadiostationForDocumentInDataBaseCommand);
+            SaveCollectionRadiostationsForDocument =
+                new ViewModelCommand(ExecuteSaveCollectionRadiostationsForDocumentCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
+
+
+        #region SaveCollectionRadiostationsForDocument
+
+        private void ExecuteSaveCollectionRadiostationsForDocumentCommand(object obj)
+        {
+            SaveCSV.GetInstance.SaveRadiostationsFull(City, RadiostationsForDocumentsCollection);
+        }
+
+        #endregion
+
+
+        #region UpdateRadiostationForDocumentInDataBase
+
+        private void ExecuteUpdateRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            GetRadiostationsForDocumentsCollection();
+            GetRowAfterAddingRadiostantionInDataGrid();
+        }
+
+        #endregion
 
         #region DeleteRadiostationForDocumentInDataBase
 
@@ -193,7 +220,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
-            foreach (RadiostationForDocumentsDataBaseModel 
+            foreach (RadiostationForDocumentsDataBaseModel
                 radiostationForDocumentsDataBaseModel in RadiostationsForDocumentsMulipleSelectedDataGrid)
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
@@ -259,7 +286,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         #endregion
- 
+
         #region Загрузка в контролы View Дорогу и Города
 
         private void LoadingForControlsWorkView()
