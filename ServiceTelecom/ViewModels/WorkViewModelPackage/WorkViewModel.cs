@@ -1,26 +1,19 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.View;
 using ServiceTelecom.View.WorkViewPackage;
-using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class WorkViewModel : ViewModelBase
     {
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
+        ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
 
         private WorkRepositoryRadiostantion _workRepository;
         private RoadDataBaseRepository _roadDataBase;
-
-        public ICommand AddRadiostationForDocumentInDataBase { get; }
 
         public ObservableCollection<string> RoadCollections { get; set; }
         public ObservableCollection<string> CityCollections { get; set; }
@@ -134,6 +127,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _radiostationForDocumentsDataBaseModel;
             set
             {
+                if (value == null)
+                    return;
                 SerialNumber = value.SerialNumber;
                 _radiostationForDocumentsDataBaseModel = value;
                 OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
@@ -151,15 +146,48 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
+        public ICommand AddRadiostationForDocumentInDataBase { get; }
+        public ICommand ChangeRadiostationForDocumentInDataBase { get; }
+
         public WorkViewModel()
         {
             _workRepository = new WorkRepositoryRadiostantion();
-            RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+            RadiostationsForDocumentsCollection =
+                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
             CityCollections = new ObservableCollection<string>();
-            AddRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
+            AddRadiostationForDocumentInDataBase =
+                new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
+            ChangeRadiostationForDocumentInDataBase =
+                new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
+            LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
+
+
+
+        #region ChangeRadiostationForDocumentInDataBase
+
+        private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            if (changeRadiostationForDocumentInDataBaseView != null)
+                return;
+            if (SelectedRadiostationForDocumentsDataBaseModel == null)
+                return;
+
+            changeRadiostationForDocumentInDataBaseView =
+            new ChangeRadiostationForDocumentInDataBaseView(
+                SelectedRadiostationForDocumentsDataBaseModel);
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            changeRadiostationForDocumentInDataBaseView = null;
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRadiostationsForDocumentsCollection();
+            changeRadiostationForDocumentInDataBaseView.Show();
+
+        }
+
+        #endregion
+
 
         #region AddRadiostationForDocumentInDataBase
 
@@ -167,7 +195,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostationForDocumentsDataBaseModel.SerialNumber == null)
+                if (SelectedRadiostationForDocumentsDataBaseModel == null)
                 {
                     addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView();
@@ -175,16 +203,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 else
                 {
                     addRadiostationForDocumentInDataBaseView =
-                    new AddRadiostationForDocumentInDataBaseView(SelectedRadiostationForDocumentsDataBaseModel);
-                }   
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) => addRadiostationForDocumentInDataBaseView = null;
+                    new AddRadiostationForDocumentInDataBaseView(
+                        SelectedRadiostationForDocumentsDataBaseModel);
+                }
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                addRadiostationForDocumentInDataBaseView = null;
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                GetRadiostationsForDocumentsCollection();
                 addRadiostationForDocumentInDataBaseView.Show();
             }
         }
 
         #endregion
 
-        private void GetRadiostationsForDocumentsCollection()
+        /// <summary>
+        /// Загрузка в контролы View Дорогу и Города
+        /// </summary>
+        private void LoadingForControlsWorkView()
         {
             if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
             {
@@ -195,9 +230,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     RoadCollections.Add(item.RoadBase);
 
             CityCollections = _workRepository.GetCityAlongRoadForCityCollection(RoadCollections[0].ToString(), CityCollections);
-            if (CityCollections.Count != 0)
-                RadiostationsForDocumentsCollection = _workRepository.GetRadiostationsForDocumentsCollection(
-                    RadiostationsForDocumentsCollection, RoadCollections[0].ToString(), CityCollections[0].ToString());
+        }
+
+        /// <summary>
+        /// Получаем радиостанции для документов из рабочей БД
+        /// </summary>
+        private void GetRadiostationsForDocumentsCollection()
+        {
+            if (CityCollections.Count == 0)
+                return;
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+            RadiostationsForDocumentsCollection =
+                _workRepository.GetRadiostationsForDocumentsCollection(
+                RadiostationsForDocumentsCollection, RoadCollections[0].ToString(),
+                CityCollections[0].ToString());
         }
     }
 }

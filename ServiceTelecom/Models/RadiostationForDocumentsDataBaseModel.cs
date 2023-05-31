@@ -100,7 +100,7 @@ namespace ServiceTelecom.Models
             Parts_5 = Encryption.DecryptCipherTextToPlainText(parts_5);
             Parts_6 = Encryption.DecryptCipherTextToPlainText(parts_6);
             Parts_7 = Encryption.DecryptCipherTextToPlainText(parts_7);
-            DecommissionNumber = Encryption.DecryptCipherTextToPlainText(decommissionNumber);
+            DecommissionNumberAct = Encryption.DecryptCipherTextToPlainText(decommissionNumber);
             Comment = Encryption.DecryptCipherTextToPlainText(comment);
             Road = Encryption.DecryptCipherTextToPlainText(road);
             VerifiedRST = Encryption.DecryptCipherTextToPlainText(verifiedRST);
@@ -144,7 +144,7 @@ namespace ServiceTelecom.Models
         public string Parts_5 { get => _parts_5; set { _parts_5 = value; OnPropertyChanged(nameof(Parts_5)); } }
         public string Parts_6 { get => _parts_6; set { _parts_6 = value; OnPropertyChanged(nameof(Parts_6)); } }
         public string Parts_7 { get => _parts_7; set { _parts_7 = value; OnPropertyChanged(nameof(Parts_7)); } }
-        public string DecommissionNumber { get => _decommissionNumber; set { _decommissionNumber = value; OnPropertyChanged(nameof(DecommissionNumber)); } }
+        public string DecommissionNumberAct { get => _decommissionNumber; set { _decommissionNumber = value; OnPropertyChanged(nameof(DecommissionNumberAct)); } }
         public string Comment { get => _comment; set { _comment = value; OnPropertyChanged(nameof(Comment)); } }
         public string Road { get => _road; set { _road = value; OnPropertyChanged(nameof(Road)); } }
         public string VerifiedRST { get => _verifiedRST; set { _verifiedRST = value; OnPropertyChanged(nameof(VerifiedRST)); } }

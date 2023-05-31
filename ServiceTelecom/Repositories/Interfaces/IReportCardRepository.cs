@@ -10,7 +10,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// </summary>
         /// <param name="reportCards"></param>
         /// <returns></returns>
-        ObservableCollection<ReportCardsDataBaseModel> GetReportCardsDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards);
+       ObservableCollection<ReportCardsDataBaseModel> GetReportCardsDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards);
         
         /// <summary>
         /// Получение общих дат входа пользователей программы

@@ -10,17 +10,18 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
-    internal class AddRadiostationForDocumentInDataBaseViewModel : ViewModelBase
+    internal class ChangeRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
 
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> 
+            ModelCollections { get; set; }
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> 
+            RadiostationForDocumentsCollection { get; set; }
 
         #region свойства
 
@@ -279,7 +280,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string Charger { get; set; }
         private string Remont { get; set; }
 
+        private string _decommissionNumberAct;
+        public string DecommissionNumberAct
+        {
+            get => _decommissionNumberAct;
+            set
+            {
+                _decommissionNumberAct = value;
+                OnPropertyChanged(nameof(DecommissionNumberAct));
+            }
+        }
+
         #endregion
+
 
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
@@ -291,28 +304,246 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(TheIndexModelChoiceCollection));
             }
         }
+
+        public ICommand ChangeNumberActBySerialNumberInDataBase { get; }
         public ICommand AddModelDataBase { get; }
-        public ICommand AddRadiostationForDocumentInDataBase { get; }
+        public ICommand ChangeDecommissionNumberActBySerialNumberInDataBase { get; }
+        public ICommand ChangeRadiostationForDocumentInDataBase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsFromTheDatabase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase { get; }
+        public ICommand ChangeByNumberActRepresentativeForDocumentInDataBase { get; }
+        public ICommand ChangeByCompanyRepresentativeForDocumentInDataBase { get; }
 
-        public AddRadiostationForDocumentInDataBaseViewModel()
+        public ChangeRadiostationForDocumentInDataBaseViewModel()
         {
-            ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            RadiostationForDocumentsCollection =
-                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            _modelDataBase = new ModelDataBaseRepository();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _modelDataBase = new ModelDataBaseRepository();
+            RadiostationForDocumentsCollection =
+                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+            ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
-            AddRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
+            ChangeNumberActBySerialNumberInDataBase = new ViewModelCommand(ExecuteChangeNumberActBySerialNumberInDataBaseCommand);
+            ChangeDecommissionNumberActBySerialNumberInDataBase = new ViewModelCommand(ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand);
+            ChangeRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
-                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+                    new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
             SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase =
                 new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
-            GetModelDataBase();
+            ChangeByNumberActRepresentativeForDocumentInDataBase =
+                new ViewModelCommand(ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand);
+            ChangeByCompanyRepresentativeForDocumentInDataBase =
+                new ViewModelCommand(ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand);
         }
+
+
+        #region ChangeByCompanyRepresentativeForDocumentInDataBase
+
+        private void ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand(object obj)
+        {
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show($"У радиостанции \"{SerialNumber}\" есть списание {DecommissionNumberAct}", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            #region проверка контролов Representative
+
+            if (String.IsNullOrWhiteSpace(Company))
+            {
+                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate, @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            string dateOfIssuanceOfTheCertificateDataBase = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
+
+            if (String.IsNullOrWhiteSpace(Representative))
+            {
+                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванов И.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванова-Сидорова Я.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (String.IsNullOrWhiteSpace(NumberIdentification))
+            {
+                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
+            {
+                if (MessageBox.Show("Поле \"№ Удостоверения\" введено некорректно желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+            }
+            if (String.IsNullOrWhiteSpace(Post))
+            {
+                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            Regex re = new Regex(Environment.NewLine);
+            Post = re.Replace(Post, " ");
+            Post.Trim();
+
+            #endregion
+
+            if (_workRepositoryRadiostantionFull.
+                ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
+                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+            { }
+            else
+                MessageBox.Show($"Ошибка изменения представителя предприятия по текущему {Company} предприятию в radiostantionFull", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.
+                ChangeByCompanyRepresentativeForDocumentInDataBase(
+                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show($"Ошибка изменения представителя Предприятия по текущему {Company} предприятию", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+        }
+
+        #endregion
+
+        #region ChangeByNumberActRepresentativeForDocumentInDataBase
+
+        private void ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand(object obj)
+        {
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show($"У радиостанции \"{SerialNumber}\" есть списание {DecommissionNumberAct}", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            #region проверка контролов Representative
+
+            if (String.IsNullOrWhiteSpace(NumberAct))
+            {
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberAct, @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate, @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            string dateOfIssuanceOfTheCertificateDataBase = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
+
+            if (String.IsNullOrWhiteSpace(Representative))
+            {
+                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванов И.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванова-Сидорова Я.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (String.IsNullOrWhiteSpace(NumberIdentification))
+            {
+                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
+            {
+                if (MessageBox.Show("Поле \"№ Удостоверения\" введено некорректно желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+            }
+            if (String.IsNullOrWhiteSpace(Post))
+            {
+                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            Regex re = new Regex(Environment.NewLine);
+            Post = re.Replace(Post, " ");
+            Post.Trim();
+
+            #endregion
+
+            if (_workRepositoryRadiostantionFull.
+                ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
+                Road, City, NumberAct, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+            { }
+            else
+                MessageBox.Show($"Ошибка изменения представителя Предприятия по данному № {NumberAct} акта в radiostantionFull", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.
+                ChangeByNumberActRepresentativeForDocumentInDataBase(
+                Road, City, NumberAct, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show($"Ошибка изменения представителя Предприятия по данному № {NumberAct} акта", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+        }
+
+        #endregion
 
         #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
 
@@ -337,7 +568,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Post = item.Post;
                 }
             }
-
         }
 
         #endregion
@@ -398,10 +628,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region AddRadiostationForDocumentInDataBase
+        #region ChangeRadiostationForDocumentInDataBase
 
-        private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
+        private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show($"У радиостанции \"{SerialNumber}\" есть списание {DecommissionNumberAct}", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
             #region Проверка ввода контролов
 
             if (String.IsNullOrWhiteSpace(NumberAct))
@@ -530,12 +770,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (String.IsNullOrWhiteSpace(Company))
             {
                 MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(SerialNumber))
-            {
-                MessageBox.Show("Поле \"Заводской №\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -804,51 +1038,59 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
-            if (_workRepositoryRadiostantion.CheckSerialNumberForDocumentInDataBaseRadiostantion(Road, SerialNumber))
-            {
-                if (MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (_workRepositoryRadiostantion.CheckNumberActOverTwentyForDocumentInDataBase(Road, City, NumberAct))
-            {
-                MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. Создайте другой номер акта",
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!_workRepositoryRadiostantionFull.CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
-                Road, SerialNumber))
-            {
-                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(
-                    Road, NumberAct, dateMaintenanceDataBase, Representative, 
-                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase, 
-                    PhoneNumber, Post, Comment, City, Location, Poligon, Company, 
-                    Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, 
+            if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(
+                    Road, NumberAct, dateMaintenanceDataBase, Representative,
+                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
+                    PhoneNumber, Post, Comment, City, Location, Poligon, Company,
+                    Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
                     Manipulator, Antenna, Charger, Remont))
-                { }
-                else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-            else
-            {
-                if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(
-                    Road, NumberAct, dateMaintenanceDataBase, Representative, 
-                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase, 
-                    PhoneNumber, Post, Comment, City, Location, Poligon, Company, 
-                    Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, 
-                    Manipulator, Antenna, Charger, Remont))
-                { }
-                else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-            if (_workRepositoryRadiostantion.AddRadiostationForDocumentInDataBase(Road, NumberAct,
-                dateMaintenanceDataBase, Representative, NumberIdentification,
-                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
-                Poligon, Company, Model, SerialNumber,
-                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+            { }
+            else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
+                MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.ChangeRadiostationForDocumentInDataBase(
+                Road, NumberAct, dateMaintenanceDataBase, Representative, 
+                NumberIdentification,dateOfIssuanceOfTheCertificateDataBase, 
+                PhoneNumber, Post, Comment, City, Location, Poligon, Company, 
+                Model, SerialNumber,InventoryNumber, NetworkNumber, Price, Battery, 
+                Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show("Ошибка добавления радиостанции", "Отмена", MessageBoxButton.OK,
+                MessageBox.Show("Ошибка изменения радиостанции", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+        }
+
+        #endregion
+
+        #region ChangeDecommissionNumberActBySerialNumberInDataBase
+
+        private void ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show("Поле \"№ акта списания\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if (!Regex.IsMatch(DecommissionNumberAct, @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ акта списания\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (_workRepositoryRadiostantionFull.ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(Road, City, SerialNumber, DecommissionNumberAct))
+            { }
+            else
+                MessageBox.Show("Ошибка изменения номера акта списания радиостанции в общей таблице(radiostantionFull)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            if (_workRepositoryRadiostantion.ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(Road, City, SerialNumber, DecommissionNumberAct))
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Ошибка изменения номера акта списания радиостанции", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
         }
 
@@ -865,6 +1107,49 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 addModelRadiostantion.Closed += (sender, args) => GetModelDataBase();
                 addModelRadiostantion.Show();
             }
+        }
+
+        #endregion
+
+        #region ChangeNumberActBySerialNumberInDataBase
+
+        private void ExecuteChangeNumberActBySerialNumberInDataBaseCommand(object obj)
+        {
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show($"У радиостанции \"{SerialNumber}\" " +
+                    $"есть списание {DecommissionNumberAct}", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if (String.IsNullOrWhiteSpace(NumberAct))
+            {
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberAct, @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (_workRepositoryRadiostantionFull.ChangeNumberActBySerialNumberInDBRadiostationFull(Road, City, SerialNumber, NumberAct))
+            { }
+            else
+                MessageBox.Show("Ошибка изменения номера акта радиостанции в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDataBase(Road, City, SerialNumber, NumberAct))
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Ошибка изменения номера акта радиостанции", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
         }
 
         #endregion

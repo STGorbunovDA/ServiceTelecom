@@ -1,26 +1,12 @@
-﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.Models;
-using System;
+﻿using ServiceTelecom.Models;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage
 {
-    public partial class AddRadiostationForDocumentInDataBaseView : Window
+    public partial class ChangeRadiostationForDocumentInDataBaseView : Window
     {
-        public AddRadiostationForDocumentInDataBaseView()
-        {
-            InitializeComponent();
-            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
-            datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
-            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
-            {
-                txtRoad.Text = item.RoadBase;
-                txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
-            }
-                
-        }
-        public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
+        public ChangeRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
             InitializeComponent();
             txbNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.NumberAct;
@@ -38,9 +24,10 @@ namespace ServiceTelecom.View.WorkViewPackage
             cmbModel.Text = selectedRadiostationForDocumentsDataBaseModel.Model;
             txbInventoryNumber.Text = selectedRadiostationForDocumentsDataBaseModel.InventoryNumber;
             txbNetworkNumber.Text = selectedRadiostationForDocumentsDataBaseModel.NetworkNumber;
-            datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
+            datePickerDateMaintenance.Text = selectedRadiostationForDocumentsDataBaseModel.DateMaintenance;
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
+            txbDecommissionNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct;
             if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
             else
             {
@@ -54,7 +41,12 @@ namespace ServiceTelecom.View.WorkViewPackage
             if (selectedRadiostationForDocumentsDataBaseModel.Charger == "1")
                 CheckBoxCharger.IsChecked = true;
             txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
+            if (string.IsNullOrWhiteSpace(selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct))
+                txbDecommissionNumberAct.IsReadOnly = true;
+            
         }
+
+        public RadiostationForDocumentsDataBaseModel SelectedRadiostationForDocumentsDataBaseModel { get; }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
