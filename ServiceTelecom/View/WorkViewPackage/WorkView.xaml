@@ -148,6 +148,7 @@
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
                               SelectedItem="{Binding SelectedRadiostationForDocumentsDataBaseModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
+                              SelectedIndex="{Binding SelectedIndexRadiostantionDataGrid}"
                               SelectionMode="Extended"
                               SelectedItemsList="{Binding RadiostationsForDocumentsMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Resources>

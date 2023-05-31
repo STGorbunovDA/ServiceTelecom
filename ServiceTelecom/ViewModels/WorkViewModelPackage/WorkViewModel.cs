@@ -9,6 +9,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class WorkViewModel : ViewModelBase
     {
+        /// <summary> для сохранения индекса выделенной строки </summary>
+        private int TEMPORARY_INDEX_DATAGRID = 0; 
+
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
         ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
 
@@ -18,6 +21,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ObservableCollection<string> RoadCollections { get; set; }
         public ObservableCollection<string> CityCollections { get; set; }
         public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
+
+        private int _selectedIndexRadiostantionDataGrid;
+        public int SelectedIndexRadiostantionDataGrid
+        {
+            get => _selectedIndexRadiostantionDataGrid;
+            set
+            {
+                _selectedIndexRadiostantionDataGrid = value;
+                OnPropertyChanged(nameof(SelectedIndexRadiostantionDataGrid));
+            }
+        }
 
         private string _road;
         public string Road { get => _road; set { _road = value; OnPropertyChanged(nameof(Road)); } }
@@ -174,7 +188,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (SelectedRadiostationForDocumentsDataBaseModel == null)
                 return;
-
             changeRadiostationForDocumentInDataBaseView =
             new ChangeRadiostationForDocumentInDataBaseView(
                 SelectedRadiostationForDocumentsDataBaseModel);
@@ -182,12 +195,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             changeRadiostationForDocumentInDataBaseView = null;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection();
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
             changeRadiostationForDocumentInDataBaseView.Show();
 
         }
 
         #endregion
-
 
         #region AddRadiostationForDocumentInDataBase
 
@@ -210,6 +225,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 GetRadiostationsForDocumentsCollection();
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                GetRowAfterAddingRadiostantionInDataGrid();
                 addRadiostationForDocumentInDataBaseView.Show();
             }
         }
@@ -232,9 +249,27 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             CityCollections = _workRepository.GetCityAlongRoadForCityCollection(RoadCollections[0].ToString(), CityCollections);
         }
 
-        /// <summary>
-        /// Получаем радиостанции для документов из рабочей БД
-        /// </summary>
+
+        #region Получаем строку DataGrid после добавления радиостанции
+
+        private void GetRowAfterAddingRadiostantionInDataGrid()
+        {
+            SelectedIndexRadiostantionDataGrid = RadiostationsForDocumentsCollection.Count - 1;
+        }
+
+        #endregion
+
+        #region Получаем выбранную-выделенную строку DataGrid после изменения радиостанции
+
+        private void GetRowAfterChangeRadiostantionInDataGrid(int temporaryIndexDataGrid)
+        {
+            SelectedIndexRadiostantionDataGrid = temporaryIndexDataGrid;
+        }
+
+        #endregion
+
+        #region Получаем радиостанции для документов из рабочей БД
+
         private void GetRadiostationsForDocumentsCollection()
         {
             if (CityCollections.Count == 0)
@@ -245,6 +280,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _workRepository.GetRadiostationsForDocumentsCollection(
                 RadiostationsForDocumentsCollection, RoadCollections[0].ToString(),
                 CityCollections[0].ToString());
+
         }
+
+        #endregion
     }
 }
