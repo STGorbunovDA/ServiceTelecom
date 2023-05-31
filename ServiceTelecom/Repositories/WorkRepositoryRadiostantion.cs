@@ -328,7 +328,46 @@ namespace ServiceTelecom.Repositories
                     if (command.ExecuteNonQuery() > 0) return true;
                     else return false;
                 }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
 
+        public bool ChangeByCompanyRepresentativeForDocumentInDataBase(
+            string road, string city, string company, 
+            string dateOfIssuanceOfTheCertificateDataBase, 
+            string representative, string numberIdentification, 
+            string post, string phoneNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeByCompanyRepresentativeForDocumentInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                       Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"companyUser",
+                       Encryption.EncryptPlainTextToCipherText(company));
+                    command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
+                       dateOfIssuanceOfTheCertificateDataBase);
+                    command.Parameters.AddWithValue($"representativeUser",
+                           Encryption.EncryptPlainTextToCipherText(representative));
+                    command.Parameters.AddWithValue($"numberIdentificationUser",
+                           Encryption.EncryptPlainTextToCipherText(numberIdentification));
+                    command.Parameters.AddWithValue($"postUser",
+                           Encryption.EncryptPlainTextToCipherText(post));
+                    command.Parameters.AddWithValue($"phoneNumberUser",
+                           Encryption.EncryptPlainTextToCipherText(phoneNumber));
+                    if (command.ExecuteNonQuery() > 0) return true;
+                    else return false;
+                }
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

@@ -310,6 +310,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand SearchBySerialNumberForFeaturesAdditionsFromTheDatabase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase { get; }
         public ICommand ChangeByNumberActRepresentativeForDocumentInDataBase { get; }
+        public ICommand ChangeByCompanyRepresentativeForDocumentInDataBase { get; }
 
         public ChangeRadiostationForDocumentInDataBaseViewModel()
         {
@@ -329,8 +330,102 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
             ChangeByNumberActRepresentativeForDocumentInDataBase =
                 new ViewModelCommand(ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand);
+            ChangeByCompanyRepresentativeForDocumentInDataBase =
+                new ViewModelCommand(ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand);
         }
 
+
+        #region ChangeByCompanyRepresentativeForDocumentInDataBase
+
+        private void ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand(object obj)
+        {
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show($"У радиостанции \"{SerialNumber}\" есть списание {DecommissionNumberAct}", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            #region проверка контролов Representative
+
+            if (String.IsNullOrWhiteSpace(Company))
+            {
+                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate, @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            string dateOfIssuanceOfTheCertificateDataBase = Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
+
+            if (String.IsNullOrWhiteSpace(Representative))
+            {
+                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванов И.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (Representative.Contains("-"))
+            {
+                if (!Regex.IsMatch(Representative, @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
+                {
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" пример Иванова-Сидорова Я.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (String.IsNullOrWhiteSpace(NumberIdentification))
+            {
+                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
+            {
+                if (MessageBox.Show("Поле \"№ Удостоверения\" введено некорректно желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+            }
+            if (String.IsNullOrWhiteSpace(Post))
+            {
+                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            Regex re = new Regex(Environment.NewLine);
+            Post = re.Replace(Post, " ");
+            Post.Trim();
+
+            #endregion
+
+            if (_workRepositoryRadiostantion.
+                ChangeByCompanyRepresentativeForDocumentInDataBase(
+                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show($"Ошибка изменения представителя Предприятия по текущему {Company} предприятию", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+        }
+
+        #endregion
 
 
         #region ChangeByNumberActRepresentativeForDocumentInDataBase
