@@ -16,7 +16,8 @@ namespace ServiceTelecom.ViewModels
             //_canExecuteAction = null;
         }
 
-        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
+        public ViewModelCommand(Action<object> executeAction, 
+            Predicate<object> canExecuteAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;

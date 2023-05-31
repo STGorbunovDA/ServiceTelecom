@@ -13,26 +13,38 @@ namespace ServiceTelecom.ViewModels
         private ReportCardRepository reportCardRepository;
 
         private ReportCardsDataBaseModel _reportCard;
-        public ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
-        public ObservableCollection<string> DateTimeInputCollections { get; set; }
-        public ObservableCollection<string> Users { get; set; }
+        private ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
+        private ObservableCollection<string> DateTimeInputCollections { get; set; }
+        private ObservableCollection<string> Users { get; set; }
 
         private string _user;
         private string _dateTimeInput;
 
-        public string User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
-        public string DateTimeInput { get => _dateTimeInput; set { _dateTimeInput = value; OnPropertyChanged(nameof(DateTimeInput)); } }
+        public string User { get => _user; 
+            set { _user = value; 
+                OnPropertyChanged(nameof(User)); } }
+        public string DateTimeInput { get => _dateTimeInput; 
+            set { _dateTimeInput = value; 
+                OnPropertyChanged(nameof(DateTimeInput)); } }
 
-        public string SelectedItemCmbUser { get => _user; set { _user = value; OnPropertyChanged(nameof(SelectedItemCmbUser)); } }
-        public string SelectedItemDateTimeInput { get => _dateTimeInput; set { _dateTimeInput = value; OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } }
+        public string SelectedItemCmbUser { get => _user; 
+            set { _user = value; 
+                OnPropertyChanged(nameof(SelectedItemCmbUser)); } }
+        public string SelectedItemDateTimeInput { get => _dateTimeInput; 
+            set { _dateTimeInput = value; 
+                OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } }
 
 
         private int _theIndexUsersCollection;
-        public int TheIndexUsersCollection { get => _theIndexUsersCollection; set { _theIndexUsersCollection = value; OnPropertyChanged(nameof(TheIndexUsersCollection)); } }
+        public int TheIndexUsersCollection { get => _theIndexUsersCollection; 
+            set { _theIndexUsersCollection = value; 
+                OnPropertyChanged(nameof(TheIndexUsersCollection)); } }
 
 
         private int _theIndexDateTimeInputCollection;
-        public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; set { _theIndexDateTimeInputCollection = value; OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } }
+        public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; 
+            set { _theIndexDateTimeInputCollection = value; 
+                OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } }
 
         public ReportCardsDataBaseModel SelectedReportCardDataBaseMode
         {
@@ -44,7 +56,8 @@ namespace ServiceTelecom.ViewModels
                 if (_reportCard != null)
                 {
                     User = _reportCard.User;
-                    DateTimeInput = _reportCard.DateTimeInput.Remove(_reportCard.DateTimeInput.IndexOf(" "));
+                    DateTimeInput = _reportCard.DateTimeInput.Remove(
+                        _reportCard.DateTimeInput.IndexOf(" "));
                 }
             }
         }
@@ -73,21 +86,25 @@ namespace ServiceTelecom.ViewModels
             DateTimeInputCollections = new ObservableCollection<string>();
             Users = new ObservableCollection<string>();
             GetStaffReportCardsForUpdate();
-            UpdateReportCardsDataBase = new ViewModelCommand(ExecuteUpdateReportCardsDataBaseCommand);
-            DeleteReportCardsDataBase = new ViewModelCommand(ExecuteDeleteReportCardsDataBaseCommand);
-            SaveReportCards = new ViewModelCommand(ExecuteSaveReportCardsCommand);
-            GetReportCardsAtCmbUser = new ViewModelCommand(ExecuteGetReportCardsAtCmbUserCommand);
-            GetReportCardsAtCmbDateTimeInput = new ViewModelCommand(ExecuteGetReportCardsAtCmbDateTimeInputCommand);
+            UpdateReportCardsDataBase = 
+                new ViewModelCommand(ExecuteUpdateReportCardsDataBaseCommand);
+            DeleteReportCardsDataBase =
+                new ViewModelCommand(ExecuteDeleteReportCardsDataBaseCommand);
+            SaveReportCards = 
+                new ViewModelCommand(ExecuteSaveReportCardsCommand);
+            GetReportCardsAtCmbUser = 
+                new ViewModelCommand(ExecuteGetReportCardsAtCmbUserCommand);
+            GetReportCardsAtCmbDateTimeInput = 
+                new ViewModelCommand(ExecuteGetReportCardsAtCmbDateTimeInputCommand);
         }
-
-
 
         #region GetReportCardsAtCmbDateTimeInput
 
         private void ExecuteGetReportCardsAtCmbDateTimeInputCommand(object obj)
         {
             ReportCards.Clear();
-            ReportCards = reportCardRepository.GetReportCardsAtCmbDateTimeInput(ReportCards, SelectedItemDateTimeInput);
+            ReportCards = reportCardRepository.GetReportCardsAtCmbDateTimeInput(
+                ReportCards, SelectedItemDateTimeInput);
         }
 
         #endregion
@@ -97,7 +114,8 @@ namespace ServiceTelecom.ViewModels
         private void ExecuteGetReportCardsAtCmbUserCommand(object obj)
         {
             ReportCards.Clear();
-            ReportCards = reportCardRepository.GetReportCardsAtCmbUserDataBase(ReportCards, SelectedItemCmbUser);
+            ReportCards = reportCardRepository.GetReportCardsAtCmbUserDataBase(
+                ReportCards, SelectedItemCmbUser);
         }
 
         #endregion
@@ -106,7 +124,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteSaveReportCardsCommand(object obj)
         {
-            SaveCSV.GetInstance.ReportCardSaveCSV(ReportCards);
+            SaveCSV.GetInstance.SaveReportCard(ReportCards);
         }
 
         #endregion
@@ -138,7 +156,8 @@ namespace ServiceTelecom.ViewModels
         /// <summary> Получить всё из БД </summary>
         private void GetStaffReportCardsForUpdate()
         {
-            if (ReportCards.Count != 0 || DateTimeInputCollections.Count != 0 || Users.Count != 0)
+            if (ReportCards.Count != 0 || DateTimeInputCollections.Count != 0 
+                || Users.Count != 0)
             {
                 TheIndexUsersCollection = -1;
                 TheIndexDateTimeInputCollection = -1;
@@ -147,7 +166,9 @@ namespace ServiceTelecom.ViewModels
                 Users.Clear();
             }
             ReportCards = reportCardRepository.GetReportCardsDataBase(ReportCards);
-            DateTimeInputCollections = reportCardRepository.GetDateTimeInputCollectionsDataBase(DateTimeInputCollections);
+            DateTimeInputCollections = 
+                reportCardRepository.GetDateTimeInputCollectionsDataBase(
+                    DateTimeInputCollections);
 
             foreach (var item in ReportCards)
             {
@@ -157,7 +178,6 @@ namespace ServiceTelecom.ViewModels
             }
             TheIndexUsersCollection = 0;
             TheIndexDateTimeInputCollection = 0;
-
         }
     }
 }

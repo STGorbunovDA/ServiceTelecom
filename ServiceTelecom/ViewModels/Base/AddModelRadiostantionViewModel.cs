@@ -11,10 +11,11 @@ namespace ServiceTelecom.ViewModels.Base
     {
         private ModelRadiostantionDataBaseModel _modelRadiostantion;
         private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        private ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
 
         private string _model;
-        public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
+        public string Model { get => _model; 
+            set { _model = value; OnPropertyChanged(nameof(Model)); } }
 
         private int _theIndexModelCollection;
         public int TheIndexModelCollection { get => _theIndexModelCollection; set { _theIndexModelCollection = value; OnPropertyChanged(nameof(TheIndexModelCollection)); } }
@@ -44,8 +45,6 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             bool flag = _modelDataBase.DeleteModelDataBase(Model);
             if (flag) GetModelDataBaseForUpdate();
-            //MessageBox.Show("Модель успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-
             else
             {
                 Model = string.Empty;
@@ -62,13 +61,9 @@ namespace ServiceTelecom.ViewModels.Base
             var result = ModelCollections.FirstOrDefault(s => s.Model == Model);
             if (result != null)
                 return;
-
             bool flag = _modelDataBase.AddModelDataBase(Model);
-            if (flag)
-            {
-                GetModelDataBaseForUpdate();
-                //MessageBox.Show("Модель успешно добавлена", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            if (flag) GetModelDataBaseForUpdate();
+            
             else MessageBox.Show("Ошибка добавления модели", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 

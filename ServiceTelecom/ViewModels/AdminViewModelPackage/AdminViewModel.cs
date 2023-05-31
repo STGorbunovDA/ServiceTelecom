@@ -18,13 +18,17 @@ namespace ServiceTelecom.ViewModels
         private string _message;
 
         public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
-        public string Login { get => _login; set { _login = value; OnPropertyChanged(nameof(Login)); } }
-        public string Password { get => _password; set { _password = value; OnPropertyChanged(nameof(Password)); } }
-        public string Post { get => _post; set { _post = value; OnPropertyChanged(nameof(Post)); } }
-        public string Message { get => _message; set { _message = value; OnPropertyChanged(nameof(Message)); } }
+        public string Login { get => _login; 
+            set { _login = value; OnPropertyChanged(nameof(Login)); } }
+        public string Password { get => _password; 
+            set { _password = value; OnPropertyChanged(nameof(Password)); } }
+        public string Post { get => _post; 
+            set { _post = value; OnPropertyChanged(nameof(Post)); } }
+        public string Message { get => _message; 
+            set { _message = value; OnPropertyChanged(nameof(Message)); } }
 
         private UserRepository userRepository;
-        public ObservableCollection<UserDataBaseModel> Users { get; set; }
+        private ObservableCollection<UserDataBaseModel> Users { get; set; }
 
         private IList _selectedModels = new ArrayList();
         public IList UserMulipleSelectedDataGrid

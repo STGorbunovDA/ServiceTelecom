@@ -14,11 +14,9 @@ namespace ServiceTelecom.ViewModels
         TutorialEngineerDataBaseModel _tutorialEngineer;
         AddTutorialEngineerView addTutorial = null;
         ChangeTutorialEngineerView changeTutorial = null;
-        public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
-
-        public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
-
-        public ObservableCollection<string> UserChoice { get; set; }
+        private ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
+        private ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
+        private ObservableCollection<string> UserChoice { get; set; }
 
         private int _idTutorialEngineer;
         private string _model;
@@ -26,33 +24,69 @@ namespace ServiceTelecom.ViewModels
         private string _info;
         private string _actions;
         private string _author;
-        public int IdTutorialEngineer { get => _idTutorialEngineer; set { _idTutorialEngineer = value; OnPropertyChanged(nameof(IdTutorialEngineer)); } }
-        public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
-        public string Problem { get => _problem; set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
-        public string Info { get => _info; set { _info = value; OnPropertyChanged(nameof(Info)); } }
-        public string Actions { get => _actions; set { _actions = value; OnPropertyChanged(nameof(Actions)); } }
-        public string Author { get => _author; set { _author = value; OnPropertyChanged(nameof(Author)); } }
+        public int IdTutorialEngineer { 
+            get => _idTutorialEngineer; 
+            set { _idTutorialEngineer = value; 
+                OnPropertyChanged(nameof(IdTutorialEngineer)); } 
+        }
+        public string Model { 
+            get => _model; 
+            set { _model = value; 
+                OnPropertyChanged(nameof(Model)); } 
+        }
+        public string Problem { 
+            get => _problem; 
+            set { _problem = value; 
+                OnPropertyChanged(nameof(Problem)); } 
+        }
+        public string Info { 
+            get => _info; 
+            set { _info = value; 
+                OnPropertyChanged(nameof(Info)); } 
+        }
+        public string Actions { 
+            get => _actions; 
+            set { _actions = value; OnPropertyChanged(nameof(Actions)); } 
+        }
+        public string Author { 
+            get => _author; 
+            set { _author = value; 
+                OnPropertyChanged(nameof(Author)); } 
+        }
 
         private string _cmbUserChoiceVisibility;
-        public string CmbUserChoiceVisibility { get => _cmbUserChoiceVisibility; set { _cmbUserChoiceVisibility = value; OnPropertyChanged(nameof(CmbUserChoiceVisibility)); } }
+        public string CmbUserChoiceVisibility { 
+            get => _cmbUserChoiceVisibility; 
+            set { _cmbUserChoiceVisibility = value; 
+                OnPropertyChanged(nameof(CmbUserChoiceVisibility)); } 
+        }
 
         private string _txbSearchInfoVisibility;
-        public string TxbSearchInfoVisibility { get => _txbSearchInfoVisibility; set { _txbSearchInfoVisibility = value; OnPropertyChanged(nameof(TxbSearchInfoVisibility)); } }
+        public string TxbSearchInfoVisibility { 
+            get => _txbSearchInfoVisibility; 
+            set { _txbSearchInfoVisibility = value; 
+                OnPropertyChanged(nameof(TxbSearchInfoVisibility)); } 
+        }
 
         private string _selectedItemcmbUserChoice;
-        public string SelectedItemcmbUserChoice { get => _selectedItemcmbUserChoice; set { _selectedItemcmbUserChoice = value; OnPropertyChanged(nameof(SelectedItemcmbUserChoice)); } }
+        public string SelectedItemcmbUserChoice { 
+            get => _selectedItemcmbUserChoice; 
+            set { _selectedItemcmbUserChoice = value; 
+                OnPropertyChanged(nameof(SelectedItemcmbUserChoice)); } 
+        }
 
         private string _txbSearchInfoText;
-        public string TxbSearchInfoText { get => _txbSearchInfoText; set { _txbSearchInfoText = value; OnPropertyChanged(nameof(TxbSearchInfoText)); } }
+        public string TxbSearchInfoText { 
+            get => _txbSearchInfoText; 
+            set { _txbSearchInfoText = value; 
+                OnPropertyChanged(nameof(TxbSearchInfoText)); } 
+        }
 
 
         private int _theIndexUserChoiceCollection;
         public int TheIndexUserChoiceCollection
         {
-            get
-            {
-                return _theIndexUserChoiceCollection;
-            }
+            get => _theIndexUserChoiceCollection;
             set
             {
                 _theIndexUserChoiceCollection = value;
@@ -118,7 +152,7 @@ namespace ServiceTelecom.ViewModels
         private IList _selectedModels = new ArrayList();
         public IList TutorialsEngineerMulipleSelectedDataGrid
         {
-            get { return _selectedModels; }
+            get => _selectedModels;
             set
             {
                 _selectedModels = value;
@@ -137,18 +171,23 @@ namespace ServiceTelecom.ViewModels
         {
             tutorialEngineerRepository = new TutorialEngineerRepository();
             TutorialsEngineer = new ObservableCollection<TutorialEngineerDataBaseModel>();
-            TemporaryTutorialsEngineer = new ObservableCollection<TutorialEngineerDataBaseModel>();
+            TemporaryTutorialsEngineer = 
+                new ObservableCollection<TutorialEngineerDataBaseModel>();
             UserChoice = new ObservableCollection<string>();
-            GetBySearchInfo = new ViewModelCommand(ExecuteGetBySearchInfoDataBaseCommand);
-            UpdateTutorialsEngineerDataBase = new ViewModelCommand(ExecuteUpdateTutorialsEngineerDataBaseCommand);
-            SaveTutorialsEngineerDataBase = new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
-            AddTutorialsEngineerDataBase = new ViewModelCommand(ExecuteAddTutorialsEngineerDataBaseCommand);
-            ChangeTutorialsEngineerDataBase = new ViewModelCommand(ExecuteChangeTutorialsEngineerDataBaseCommand);
-            DeleteTutorialsEngineerDataBase = new ViewModelCommand(ExecuteDeleteTutorialsEngineerDataBaseCommand);
+            GetBySearchInfo = 
+                new ViewModelCommand(ExecuteGetBySearchInfoDataBaseCommand);
+            UpdateTutorialsEngineerDataBase = 
+                new ViewModelCommand(ExecuteUpdateTutorialsEngineerDataBaseCommand);
+            SaveTutorialsEngineerDataBase = 
+                new ViewModelCommand(ExecuteSaveTutorialsEngineerDataBaseCommand);
+            AddTutorialsEngineerDataBase = 
+                new ViewModelCommand(ExecuteAddTutorialsEngineerDataBaseCommand);
+            ChangeTutorialsEngineerDataBase = 
+                new ViewModelCommand(ExecuteChangeTutorialsEngineerDataBaseCommand);
+            DeleteTutorialsEngineerDataBase = 
+                new ViewModelCommand(ExecuteDeleteTutorialsEngineerDataBaseCommand);
             GetTutorialsEngineerForUpdate();
         }
-
-
 
         #region DeleteTutorialsEngineerDataBase
 
@@ -157,8 +196,10 @@ namespace ServiceTelecom.ViewModels
             if (TutorialsEngineerMulipleSelectedDataGrid == null ||
                 TutorialsEngineerMulipleSelectedDataGrid.Count == 0)
                 return;
-            foreach (TutorialEngineerDataBaseModel tutorialEngineer in TutorialsEngineerMulipleSelectedDataGrid)
-                tutorialEngineerRepository.DeleteTutorialEngineer(tutorialEngineer.IdTutorialEngineer);
+            foreach (TutorialEngineerDataBaseModel tutorialEngineer 
+                in TutorialsEngineerMulipleSelectedDataGrid)
+                tutorialEngineerRepository.DeleteTutorialEngineer(
+                    tutorialEngineer.IdTutorialEngineer);
             GetTutorialsEngineerForUpdate();
         }
 
@@ -172,7 +213,8 @@ namespace ServiceTelecom.ViewModels
                 return;
             if (changeTutorial == null)
             {
-                changeTutorial = new ChangeTutorialEngineerView(SelectedTutorialEngineerViewModel);
+                changeTutorial = new ChangeTutorialEngineerView(
+                    SelectedTutorialEngineerViewModel);
                 changeTutorial.Closed += (sender, args) => changeTutorial = null;
                 changeTutorial.Closed += (sender, args) => GetTutorialsEngineerForUpdate();
                 changeTutorial.Show();
@@ -200,7 +242,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteSaveTutorialsEngineerDataBaseCommand(object obj)
         {
-            SaveCSV.GetInstance.TutorialsEngineerSaveCSV(TutorialsEngineer);
+            SaveCSV.GetInstance.SaveTutorialsEngineer(TutorialsEngineer);
         }
 
         #endregion
@@ -242,7 +284,8 @@ namespace ServiceTelecom.ViewModels
                 TutorialsEngineer.Clear();
                 UserChoice.Clear();
             }
-            TutorialsEngineer = tutorialEngineerRepository.GetTutorialsEngineerDataBase(TutorialsEngineer);
+            TutorialsEngineer = tutorialEngineerRepository.GetTutorialsEngineerDataBase(
+                TutorialsEngineer);
         }
     }
 }
