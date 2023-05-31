@@ -154,15 +154,12 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Admin" || UserModelStatic.Post == "Руководитель" || UserModelStatic.Post == "Куратор")
-            {
-                if (TutorialsEngineerMulipleSelectedDataGrid == null || 
-                    TutorialsEngineerMulipleSelectedDataGrid.Count == 0)
-                    return;
-                foreach (TutorialEngineerDataBaseModel tutorialEngineer in TutorialsEngineerMulipleSelectedDataGrid)
-                    tutorialEngineerRepository.DeleteTutorialEngineer(tutorialEngineer.IdTutorialEngineer);
-                GetTutorialsEngineerForUpdate();
-            }
+            if (TutorialsEngineerMulipleSelectedDataGrid == null ||
+                TutorialsEngineerMulipleSelectedDataGrid.Count == 0)
+                return;
+            foreach (TutorialEngineerDataBaseModel tutorialEngineer in TutorialsEngineerMulipleSelectedDataGrid)
+                tutorialEngineerRepository.DeleteTutorialEngineer(tutorialEngineer.IdTutorialEngineer);
+            GetTutorialsEngineerForUpdate();
         }
 
         #endregion

@@ -180,5 +180,11 @@ namespace ServiceTelecom.Repositories.Interfaces
             string inventoryNumber, string networkNumber, string price,
             string battery, string manipulator, string antenna,
             string charger, string remont);
+
+        /// <summary>
+        /// Удаление радиостанции из radiostantion(рабочей таблицы)
+        /// </summary>
+        /// <param name="idBase"></param>
+        void DeleteRadiostationFromDataBase(int idBase);
     }
 }

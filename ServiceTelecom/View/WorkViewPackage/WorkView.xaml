@@ -83,6 +83,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="290"/>
                     <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
@@ -132,6 +133,31 @@
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
+                    <Button x:Name="btnDeleteRadiostationForDocumentInDataBase"
+                            Command="{Binding DeleteRadiostationForDocumentInDataBase}"
+                            Content="Удалить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                    <Button x:Name="btnAddRemontRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRemontRadiostationForDocumentInDataBase}"
+                            Content="Ремонт"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnUpdateRadiostationForDocumentInDataBase"
+                            Command="{Binding UpdateRadiostationForDocumentInDataBase}"
+                            Content="Обновить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
                     <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
                             Command="{Binding SaveRadiostationForDocumentInDataBase}"
                             Content="Сохранить"
@@ -139,7 +165,7 @@
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
-                </StackPanel>    
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
@@ -148,6 +174,7 @@
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
                               SelectedItem="{Binding SelectedRadiostationForDocumentsDataBaseModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
+                              SelectedIndex="{Binding SelectedIndexRadiostantionDataGrid}"
                               SelectionMode="Extended"
                               SelectedItemsList="{Binding RadiostationsForDocumentsMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Resources>
