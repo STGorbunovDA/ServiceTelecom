@@ -446,5 +446,24 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public void DeleteRadiostationFromDataBase(int idBase)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return;
+                using (MySqlCommand command = new MySqlCommand("DeleteRadiostationFromDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"idUser", idBase);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch { }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }

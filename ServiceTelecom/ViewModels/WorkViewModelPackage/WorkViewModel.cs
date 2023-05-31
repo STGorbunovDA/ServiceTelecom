@@ -1,6 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -10,12 +12,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class WorkViewModel : ViewModelBase
     {
         /// <summary> для сохранения индекса выделенной строки </summary>
-        private int TEMPORARY_INDEX_DATAGRID = 0; 
+        private int TEMPORARY_INDEX_DATAGRID = 0;
 
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
         ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
 
-        private WorkRepositoryRadiostantion _workRepository;
+        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private RoadDataBaseRepository _roadDataBase;
 
         public ObservableCollection<string> RoadCollections { get; set; }
@@ -163,9 +165,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRadiostationForDocumentInDataBase { get; }
         public ICommand ChangeRadiostationForDocumentInDataBase { get; }
 
+        public ICommand DeleteRadiostationForDocumentInDataBase { get; }
+
         public WorkViewModel()
         {
-            _workRepository = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
@@ -174,16 +178,37 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
             ChangeRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
+            DeleteRadiostationForDocumentInDataBase =
+                 new ViewModelCommand(ExecuteDeleteRadiostationForDocumentInDataBaseCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
 
+        #region DeleteRadiostationForDocumentInDataBase
 
+        private void ExecuteDeleteRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
+               RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
+                return;
+            foreach (RadiostationForDocumentsDataBaseModel 
+                radiostationForDocumentsDataBaseModel in RadiostationsForDocumentsMulipleSelectedDataGrid)
+                _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
+                    radiostationForDocumentsDataBaseModel.IdBase);
+            GetRadiostationsForDocumentsCollection();
+            GetRowAfterAddingRadiostantionInDataGrid();
+        }
+
+        #endregion
 
         #region ChangeRadiostationForDocumentInDataBase
 
         private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (changeRadiostationForDocumentInDataBaseView != null)
                 return;
             if (SelectedRadiostationForDocumentsDataBaseModel == null)
@@ -208,6 +233,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (addRadiostationForDocumentInDataBaseView == null)
             {
                 if (SelectedRadiostationForDocumentsDataBaseModel == null)
@@ -232,10 +259,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         #endregion
+ 
+        #region Загрузка в контролы View Дорогу и Города
 
-        /// <summary>
-        /// Загрузка в контролы View Дорогу и Города
-        /// </summary>
         private void LoadingForControlsWorkView()
         {
             if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
@@ -246,11 +272,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
                     RoadCollections.Add(item.RoadBase);
 
-            CityCollections = _workRepository.GetCityAlongRoadForCityCollection(RoadCollections[0].ToString(), CityCollections);
+            CityCollections = _workRepositoryRadiostantion.GetCityAlongRoadForCityCollection(RoadCollections[0].ToString(), CityCollections);
         }
 
+        #endregion
 
-        #region Получаем строку DataGrid после добавления радиостанции
+        #region Получаем крайнюю строку DataGrid после добавления радиостанции
 
         private void GetRowAfterAddingRadiostantionInDataGrid()
         {
@@ -277,7 +304,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
             RadiostationsForDocumentsCollection =
-                _workRepository.GetRadiostationsForDocumentsCollection(
+                _workRepositoryRadiostantion.GetRadiostationsForDocumentsCollection(
                 RadiostationsForDocumentsCollection, RoadCollections[0].ToString(),
                 CityCollections[0].ToString());
 
