@@ -84,7 +84,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="serialNumber"></param>
         /// <param name="numberAct"></param>
         /// <returns></returns>
-        bool ChangeNumberActBySerialNumberFromTheDatabase(string road,
+        bool ChangeNumberActBySerialNumberInDataBase(string road,
             string city, string serialNumber, string numberAct);
 
         /// <summary>

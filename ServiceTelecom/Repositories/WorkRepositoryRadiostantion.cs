@@ -235,7 +235,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool ChangeNumberActBySerialNumberFromTheDatabase(string road,
+        public bool ChangeNumberActBySerialNumberInDataBase(string road,
             string city, string serialNumber, string numberAct)
         {
             try

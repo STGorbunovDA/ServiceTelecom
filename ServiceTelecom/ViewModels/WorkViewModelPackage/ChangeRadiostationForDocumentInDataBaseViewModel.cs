@@ -303,7 +303,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        public ICommand ChangeNumberActBySerialNumberFromTheDatabase { get; }
+        public ICommand ChangeNumberActBySerialNumberInDataBase { get; }
         public ICommand AddModelDataBase { get; }
         public ICommand ChangeDecommissionNumberActBySerialNumberFromTheDatabase { get; }
         public ICommand ChangeRadiostationForDocumentInDataBase { get; }
@@ -321,7 +321,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
-            ChangeNumberActBySerialNumberFromTheDatabase = new ViewModelCommand(ExecuteChangeNumberActBySerialNumberFromTheDatabaseCommand);
+            ChangeNumberActBySerialNumberInDataBase = new ViewModelCommand(ExecuteChangeNumberActBySerialNumberInDataBaseCommand);
             ChangeDecommissionNumberActBySerialNumberFromTheDatabase = new ViewModelCommand(ExecuteChangeDecommissionNumberActBySerialNumberFromTheDatabaseCommand);
             ChangeRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
@@ -1109,9 +1109,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region ChangeNumberActBySerialNumberFromTheDatabase
+        #region ChangeNumberActBySerialNumberInDataBase
 
-        private void ExecuteChangeNumberActBySerialNumberFromTheDatabaseCommand(object obj)
+        private void ExecuteChangeNumberActBySerialNumberInDataBaseCommand(object obj)
         {
             if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
             {
@@ -1136,7 +1136,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberFromTheDatabase(Road, City, SerialNumber, NumberAct))
+
+            if (_workRepositoryRadiostantionFull.ChangeNumberActBySerialNumberInDBRadiostationFull(Road, City, SerialNumber, NumberAct))
+            { }
+            else
+                MessageBox.Show("Ошибка изменения номера акта радиостанции в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDataBase(Road, City, SerialNumber, NumberAct))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Ошибка изменения номера акта радиостанции", "Отмена", MessageBoxButton.OK,

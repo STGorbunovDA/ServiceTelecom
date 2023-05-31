@@ -137,5 +137,15 @@ namespace ServiceTelecom.Repositories.Interfaces
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
+        /// <summary>
+        /// Изменить номер акта в общей таблице
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="serialNumber"></param>
+        /// <param name="numberAct"></param>
+        /// <returns></returns>
+        bool ChangeNumberActBySerialNumberInDBRadiostationFull(
+            string road, string city, string serialNumber, string numberAct);
     }
 }

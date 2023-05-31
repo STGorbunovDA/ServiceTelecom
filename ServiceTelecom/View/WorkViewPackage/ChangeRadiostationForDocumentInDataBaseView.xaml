@@ -68,7 +68,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                     <Button x:Name="btnTxbChangeNumberActBySerialNumberFromTheDatabase"    
-                        Command="{Binding ChangeNumberActBySerialNumberFromTheDatabase}"
+                        Command="{Binding ChangeNumberActBySerialNumberInDataBase}"
                             Content="✎"
                             Margin ="5,0,10,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
