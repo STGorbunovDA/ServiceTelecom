@@ -322,6 +322,33 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="menuButtonStyleSix" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="330" Height="35"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    
 
 
     <!--Menu All Button Style-->
