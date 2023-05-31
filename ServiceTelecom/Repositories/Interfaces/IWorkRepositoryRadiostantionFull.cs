@@ -1,17 +1,15 @@
-﻿using ServiceTelecom.Models;
-using System.Collections.ObjectModel;
-
-namespace ServiceTelecom.Repositories.Interfaces
+﻿namespace ServiceTelecom.Repositories.Interfaces
 {
     public interface IWorkRepositoryRadiostantionFull
     {
         /// <summary>
-        /// Проверка наличия радиостанции в общей таблице всех радиостанций
+        /// Проверка наличия радиостанции в radiostantionFull(общей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="serialNumber"></param>
         /// <returns></returns>
-        bool CheckSerialNumberForDocumentInDataBaseRadiostantionFull(string road, string serialNumber);
+        bool CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
+            string road, string serialNumber);
 
         /// <summary>
         /// Метод изменения радиостанции в radiostantionFull(общей таблице)
@@ -94,7 +92,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="serialNumber"></param>
         /// <param name="decommissionNumberAct"></param>
         /// <returns></returns>
-        bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull(
+        bool ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(
             string road, string city, string serialNumber, string decommissionNumberAct);
 
         /// <summary>
@@ -138,7 +136,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string post, string phoneNumber);
 
         /// <summary>
-        /// Изменить номер акта в общей таблице
+        /// Изменить номер акта в radiostantionFull(общей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="city"></param>

@@ -17,9 +17,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> 
+            ModelCollections { get; set; }
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> 
+            RadiostationForDocumentsCollection { get; set; }
 
         #region свойства
 
@@ -305,7 +307,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ICommand ChangeNumberActBySerialNumberInDataBase { get; }
         public ICommand AddModelDataBase { get; }
-        public ICommand ChangeDecommissionNumberActBySerialNumberFromTheDatabase { get; }
+        public ICommand ChangeDecommissionNumberActBySerialNumberInDataBase { get; }
         public ICommand ChangeRadiostationForDocumentInDataBase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsFromTheDatabase { get; }
         public ICommand SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase { get; }
@@ -322,7 +324,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             ChangeNumberActBySerialNumberInDataBase = new ViewModelCommand(ExecuteChangeNumberActBySerialNumberInDataBaseCommand);
-            ChangeDecommissionNumberActBySerialNumberFromTheDatabase = new ViewModelCommand(ExecuteChangeDecommissionNumberActBySerialNumberFromTheDatabaseCommand);
+            ChangeDecommissionNumberActBySerialNumberInDataBase = new ViewModelCommand(ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand);
             ChangeRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
                     new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
@@ -1060,9 +1062,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region ChangeDecommissionNumberActBySerialNumberFromTheDatabase
+        #region ChangeDecommissionNumberActBySerialNumberInDataBase
 
-        private void ExecuteChangeDecommissionNumberActBySerialNumberFromTheDatabaseCommand(object obj)
+        private void ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
             {
@@ -1080,12 +1082,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepositoryRadiostantionFull.ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull(Road, City, SerialNumber, DecommissionNumberAct))
+            if (_workRepositoryRadiostantionFull.ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(Road, City, SerialNumber, DecommissionNumberAct))
             { }
             else
                 MessageBox.Show("Ошибка изменения номера акта списания радиостанции в общей таблице(radiostantionFull)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
-            if (_workRepositoryRadiostantion.ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion(Road, City, SerialNumber, DecommissionNumberAct))
+            if (_workRepositoryRadiostantion.ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(Road, City, SerialNumber, DecommissionNumberAct))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Ошибка изменения номера акта списания радиостанции", "Отмена", MessageBoxButton.OK,

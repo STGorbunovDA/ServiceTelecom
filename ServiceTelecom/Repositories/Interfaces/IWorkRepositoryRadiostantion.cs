@@ -6,26 +6,27 @@ namespace ServiceTelecom.Repositories.Interfaces
     public interface IWorkRepositoryRadiostantion
     {
         /// <summary>
-        /// Загрузка всех радиостанций по дороге и городу
+        /// Загрузка всех радиостанций по дороге и городу в radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="radiostationsForDocumentsCollection"></param>
         /// <param name="roadCollections"></param>
         /// <returns></returns>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            GetRadiostationsForDocumentsCollection(ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            GetRadiostationsForDocumentsCollection(
+            ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city);
 
         /// <summary>
-        /// Загрузка городов из БД по дороге
+        /// Загрузка городов из БД по дороге из radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="cityCollections"></param>
         /// <returns></returns>
-        ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
-            ObservableCollection<string> cityCollections);
+        ObservableCollection<string> GetCityAlongRoadForCityCollection(
+            string road,ObservableCollection<string> cityCollections);
 
         /// <summary>
-        /// Добавление радиостанции в radiostantion рабочую таблицу
+        /// Добавление радиостанции в в radiostantion(рабочую таблицу)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
@@ -60,24 +61,29 @@ namespace ServiceTelecom.Repositories.Interfaces
             string remont);
 
         /// <summary>
-        /// Проверка нахождения радиостанции по дороге и городу
+        /// Проверка нахождения радиостанции по дороге и городу, в radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="city"></param>
         /// <param name="serialNumber"></param>
         /// <returns></returns>
-        bool CheckSerialNumberForDocumentInDataBaseRadiostantion(string road, string serialNumber);
+        bool CheckSerialNumberForDocumentInDataBaseRadiostantion(
+            string road, string serialNumber);
 
         /// <summary>
-        /// Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel
+        /// Проверка наличия более 20 штук Радиостанций 
+        /// в акте по дороге и городу, нужно 
+        /// для формирования документа Excel
+        /// в radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>
         /// <returns></returns>
-        bool CheckNumberActOverTwentyForDocumentInDataBase(string road, string city, string numberAct);
+        bool CheckNumberActOverTwentyForDocumentInDataBase(
+            string road, string city, string numberAct);
 
         /// <summary>
-        /// Изменить номер акта в рабочей таблице
+        /// Изменить номер акта в radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="city"></param>
@@ -95,7 +101,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <param name="serialNumber"></param>
         /// <param name="decommissionNumberAct"></param>
         /// <returns></returns>
-        bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion(
+        bool ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(
             string road, string city, string serialNumber, string decommissionNumberAct);
 
         /// <summary>
@@ -139,7 +145,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string post, string phoneNumber);
 
         /// <summary>
-        /// Метод изменения радиостанции в radiostantion(текущей таблице)
+        /// Метод изменения радиостанции в radiostantion(рабочей таблице)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="numberAct"></param>

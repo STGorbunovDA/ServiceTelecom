@@ -513,7 +513,7 @@
                              Text="{Binding DecommissionNumberAct, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </TextBox>
                         <Button x:Name="btnTxbChangeDecommissionNumberActBySerialNumberFromTheDatabase"    
-                        Command="{Binding ChangeDecommissionNumberActBySerialNumberFromTheDatabase}"
+                        Command="{Binding ChangeDecommissionNumberActBySerialNumberInDataBase}"
                             Content="✎"
                             Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleCheck}" 

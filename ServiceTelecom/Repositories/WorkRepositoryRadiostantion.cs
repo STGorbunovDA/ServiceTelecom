@@ -264,7 +264,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion(
+        public bool ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(
             string road, string city, string serialNumber, string decommissionNumberAct)
         {
             try
@@ -272,7 +272,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return false;
                 using (MySqlCommand command = new MySqlCommand(
-                    "ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion",
+                    "ChangeDecommissionNumberActBySerialNumberInDBRadiostantion",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();

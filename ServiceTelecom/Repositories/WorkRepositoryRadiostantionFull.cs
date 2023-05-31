@@ -2,7 +2,6 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
@@ -247,7 +246,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull(
+        public bool ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(
             string road, string city, string serialNumber, string decommissionNumberAct)
         {
             try
@@ -255,7 +254,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return false;
                 using (MySqlCommand command = new MySqlCommand(
-                    "ChangeDecommissionNumberActBySerialNumberFromDBRadiostantionFull",
+                    "ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
