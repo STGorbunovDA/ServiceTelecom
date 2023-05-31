@@ -216,6 +216,9 @@
     <Compile Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml.cs">
       <DependentUpon>ChangeRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\WorkViewPackage\SelectingSaveView.xaml.cs">
+      <DependentUpon>SelectingSaveView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WorkViewPackage\WorkView.xaml.cs">
       <DependentUpon>WorkView.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\SelectingSaveView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
