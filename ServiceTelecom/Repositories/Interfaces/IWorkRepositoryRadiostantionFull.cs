@@ -100,7 +100,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary>
         /// метод изменения Представителя предприятия 
         /// и его характеристик удостоверения по акту, городу 
-        /// и дороге текущей radiostantionFull (общая таблица)
+        /// и дороге в radiostantionFull (общая таблица)
         /// </summary>
         /// <param name="road"></param>
         /// <param name="city"></param>
@@ -116,5 +116,26 @@ namespace ServiceTelecom.Repositories.Interfaces
             string dateOfIssuanceOfTheCertificateDataBase,
             string representative, string numberIdentification,
             string post, string phoneNumber);
+
+        /// <summary>
+        /// метод изменения Представителя предприятия 
+        /// и его характеристик удостоверения по предприятию, городу 
+        /// и дороге в radiostantionFull (общая таблица)
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="numberAct"></param>
+        /// <param name="dateOfIssuanceOfTheCertificateDataBase"></param>
+        /// <param name="representative"></param>
+        /// <param name="numberIdentification"></param>
+        /// <param name="post"></param>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        bool ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
+            string road, string city, string company,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
+            string post, string phoneNumber);
+
     }
 }

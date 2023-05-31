@@ -415,6 +415,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
+            if (_workRepositoryRadiostantionFull.
+                ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
+                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
+                Representative, NumberIdentification, Post, PhoneNumber))
+            { }
+            else
+                MessageBox.Show($"Ошибка изменения представителя предприятия по текущему {Company} предприятию в radiostantionFull", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
             if (_workRepositoryRadiostantion.
                 ChangeByCompanyRepresentativeForDocumentInDataBase(
                 Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
