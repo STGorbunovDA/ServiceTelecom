@@ -97,5 +97,25 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <returns></returns>
         bool ChangeDecommissionNumberActBySerialNumberFromDBRadiostantion(
             string road, string city, string serialNumber, string decommissionNumberAct);
+
+        /// <summary>
+        /// метод изменения Представителя предприятия 
+        /// и его характеристик удостоверения по акту, городу 
+        /// и дороге текущей radiostantion (рабочая таблица)
+        /// </summary>
+        /// <param name="road"></param>
+        /// <param name="city"></param>
+        /// <param name="numberAct"></param>
+        /// <param name="dateOfIssuanceOfTheCertificateDataBase"></param>
+        /// <param name="representative"></param>
+        /// <param name="numberIdentification"></param>
+        /// <param name="post"></param>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        bool ChangeByNumberActRepresentativeForDocumentInDataBase(
+            string road, string city, string numberAct,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
+            string post, string phoneNumber);
     }
 }

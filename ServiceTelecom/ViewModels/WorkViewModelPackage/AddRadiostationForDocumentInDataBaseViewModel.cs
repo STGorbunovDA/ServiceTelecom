@@ -767,8 +767,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (InventoryNumber.Contains("\\"))
-                InventoryNumber = InventoryNumber.Replace("\\", "\\\\");
+            //if (InventoryNumber.Contains("\\"))
+            //    InventoryNumber = InventoryNumber.Replace("\\", "\\\\");
 
             if (String.IsNullOrWhiteSpace(NetworkNumber))
             {
@@ -776,8 +776,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (NetworkNumber.Contains("\\"))
-                NetworkNumber = NetworkNumber.Replace("\\", "\\\\");
+            //if (NetworkNumber.Contains("\\"))
+            //    NetworkNumber = NetworkNumber.Replace("\\", "\\\\");
 
             if (String.IsNullOrWhiteSpace(Price))
             {

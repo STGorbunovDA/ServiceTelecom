@@ -543,8 +543,8 @@
                         HorizontalAlignment="Center"    
                         Cursor="Hand">
                     </Button>
-                    <Button Grid.Column="0" x:Name="btnChangeByCompanyRadiostationForDocumentInDataBase"
-                            Command="{Binding ChangeByNumberActRadiostationForDocumentInDataBase}"
+                    <Button Grid.Column="0" x:Name="btnChangeByCompanyRepresentativeForDocumentInDataBase"
+                            Command="{Binding ChangeByCompanyRepresentativeForDocumentInDataBase}"
                             Content="у ПП"
                             Margin ="10,0,15,0"
                             Style="{StaticResource menuButtonStyleFive}" 
