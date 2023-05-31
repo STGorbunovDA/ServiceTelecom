@@ -806,7 +806,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRepositoryRadiostantion.CheckSerialNumberForDocumentInDataBaseRadiostantion(Road, SerialNumber))
             {
-                if (MessageBox.Show("Номер: \"{SerialNumber}\" присутсвует в Базе Данных желаете продолжить?", "Внимание",
+                if (MessageBox.Show($"Номер: \"{SerialNumber}\" присутсвует в Базе Данных желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     return;
             }
@@ -819,23 +819,26 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (!_workRepositoryRadiostantionFull.CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
                 Road, SerialNumber))
             {
-                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(Road, NumberAct,
-                dateMaintenanceDataBase, Representative, NumberIdentification,
-                dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
-                Poligon, Company, Model, SerialNumber,
-                InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(
+                    Road, NumberAct, dateMaintenanceDataBase, Representative, 
+                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase, 
+                    PhoneNumber, Post, Comment, City, Location, Poligon, Company, 
+                    Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, 
+                    Manipulator, Antenna, Charger, Remont))
                 { }
                 else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
             else
             {
-                if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(Road, NumberAct,
-               dateMaintenanceDataBase, Representative, NumberIdentification,
-               dateOfIssuanceOfTheCertificateDataBase, PhoneNumber, Post, Comment, City, Location,
-               Poligon, Company, Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, Manipulator, Antenna, Charger, Remont))
+                if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(
+                    Road, NumberAct, dateMaintenanceDataBase, Representative, 
+                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase, 
+                    PhoneNumber, Post, Comment, City, Location, Poligon, Company, 
+                    Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery, 
+                    Manipulator, Antenna, Charger, Remont))
                 { }
-                else MessageBox.Show("Ошибка добавления радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
+                else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
             if (_workRepositoryRadiostantion.AddRadiostationForDocumentInDataBase(Road, NumberAct,

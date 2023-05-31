@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Models;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -13,7 +14,11 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
             foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+            {
+                txtRoad.Text = item.RoadBase;
                 txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
+            }
+                
         }
         public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
