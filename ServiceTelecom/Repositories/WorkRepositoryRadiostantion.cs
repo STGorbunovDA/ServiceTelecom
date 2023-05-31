@@ -71,8 +71,8 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                RadiostationForDocumentsDataBaseModel 
-                                    radiostationForDocumentsDataBaseModels = 
+                                RadiostationForDocumentsDataBaseModel
+                                    radiostationForDocumentsDataBaseModels =
                                     new RadiostationForDocumentsDataBaseModel(
                                     reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                                     reader.GetString(3), reader.GetString(4), reader.GetString(5),
@@ -189,7 +189,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"roadUser",
                         Encryption.EncryptPlainTextToCipherText(road));
                     command.Parameters.AddWithValue($"serialNumberUser",
-                        Encryption.EncryptPlainTextToCipherText(serialNumber));                 
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
                         DataTable table = new DataTable();
@@ -204,7 +204,7 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool CheckNumberActOverTwentyForDocumentInDataBase(
-            string road,string city, string numberAct)
+            string road, string city, string numberAct)
         {
             try
             {
@@ -235,7 +235,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool ChangeNumberActBySerialNumberFromTheDatabase(string road, 
+        public bool ChangeNumberActBySerialNumberFromTheDatabase(string road,
             string city, string serialNumber, string numberAct)
         {
             try
@@ -288,6 +288,47 @@ namespace ServiceTelecom.Repositories
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeByNumberActRepresentativeForDocumentInDataBase(
+            string road, string city, string numberAct,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
+            string post, string phoneNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeByNumberActRepresentativeForDocumentInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                       Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"numberActUser",
+                       Encryption.EncryptPlainTextToCipherText(numberAct));
+                    command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
+                       dateOfIssuanceOfTheCertificateDataBase);
+                    command.Parameters.AddWithValue($"representativeUser",
+                           Encryption.EncryptPlainTextToCipherText(representative));
+                    command.Parameters.AddWithValue($"numberIdentificationUser",
+                           Encryption.EncryptPlainTextToCipherText(numberIdentification));
+                    command.Parameters.AddWithValue($"postUser",
+                           Encryption.EncryptPlainTextToCipherText(post));
+                    command.Parameters.AddWithValue($"phoneNumberUser",
+                           Encryption.EncryptPlainTextToCipherText(phoneNumber));
+                    if (command.ExecuteNonQuery() > 0) return true;
+                    else return false;
+                }
+
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

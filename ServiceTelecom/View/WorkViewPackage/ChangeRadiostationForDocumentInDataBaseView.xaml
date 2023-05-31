@@ -535,8 +535,8 @@
                            Style="{StaticResource messageTextBlockStyle2}"
                            Margin="47,0,10,0"
                            Text="Изменить:" Height="20"/>
-                    <Button Grid.Column="0" x:Name="btnChangeByNumberActRadiostationForDocumentInDataBase"
-                            Command="{Binding ChangeByNumberActRadiostationForDocumentInDataBase}"
+                    <Button Grid.Column="0" x:Name="btnChangeByNumberActRepresentativeForDocumentInDataBase"
+                            Command="{Binding ChangeByNumberActRepresentativeForDocumentInDataBase}"
                             Content="в Акте"
                             Margin ="25,0,10,0"
                             Style="{StaticResource menuButtonStyleFive}" 
