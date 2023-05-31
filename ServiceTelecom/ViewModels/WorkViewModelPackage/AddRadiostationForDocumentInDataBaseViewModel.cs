@@ -12,7 +12,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        
+
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
 
@@ -20,9 +20,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private ModelDataBaseRepository _modelDataBase;
         public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationForDocumentsCollection
-        { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
+
+        #region свойства
 
         private string _road;
         public string Road
@@ -279,6 +279,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string Charger { get; set; }
         private string Remont { get; set; }
 
+        #endregion
 
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
@@ -341,7 +342,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand
+        #region SearchBySerialNumberForFeaturesAdditionsFromTheDatabase
 
         private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
         {
