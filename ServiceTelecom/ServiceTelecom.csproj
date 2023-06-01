@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationForDocumentInDataBaseViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\AddRepairRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
@@ -213,8 +214,14 @@
     <Compile Include="View\WorkViewPackage\AddRadiostationForDocumentInDataBaseView.xaml.cs">
       <DependentUpon>AddRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\WorkViewPackage\AddRepairRadiostationForDocumentInDataBaseView.xaml.cs">
+      <DependentUpon>AddRepairRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml.cs">
       <DependentUpon>ChangeRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\SelectingSaveView.xaml.cs">
+      <DependentUpon>SelectingSaveView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\WorkView.xaml.cs">
       <DependentUpon>WorkView.xaml</DependentUpon>
@@ -279,7 +286,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\WorkViewPackage\AddRepairRadiostationForDocumentInDataBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\SelectingSaveView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

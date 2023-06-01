@@ -1,9 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
-using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -17,7 +15,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
         ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
-
+        SelectingSaveView selectingSaveView = null; 
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private RoadDataBaseRepository _roadDataBase;
 
@@ -195,7 +193,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSaveCollectionRadiostationsForDocumentCommand(object obj)
         {
-            SaveCSV.GetInstance.SaveRadiostationsFull(City, RadiostationsForDocumentsCollection);
+            if (selectingSaveView == null)
+            {
+                selectingSaveView = new SelectingSaveView(City, RadiostationsForDocumentsCollection);
+                selectingSaveView.Closed += (sender, args) =>selectingSaveView = null;
+                selectingSaveView.Show();
+            }
         }
 
         #endregion
