@@ -17,7 +17,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        private ObservableCollection<ModelRadiostantionDataBaseModel> 
+        internal ObservableCollection<ModelRadiostantionDataBaseModel> 
             ModelCollections { get; set; }
 
         private ObservableCollection<RadiostationForDocumentsDataBaseModel> 
