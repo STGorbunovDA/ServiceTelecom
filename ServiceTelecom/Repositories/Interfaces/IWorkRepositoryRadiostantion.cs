@@ -33,7 +33,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string road, string city, string numberAct);
 
         /// <summary> Изменить номер акта в radiostantion(рабочей таблице) </summary>
-        bool ChangeNumberActBySerialNumberInDataBase(string road,
+        bool ChangeNumberActBySerialNumberInDatabase(string road,
             string city, string serialNumber, string numberAct);
 
         /// <summary> Изменить номер акта списания в radiostantion (рабочая таблица) </summary>
@@ -67,5 +67,13 @@ namespace ServiceTelecom.Repositories.Interfaces
 
         /// <summary> Удаление радиостанции из radiostantion(рабочей таблицы) </summary>
         void DeleteRadiostationFromDataBase(int idBase);
+
+        /// <summary> Проверка ремонта в radiostantion(рабочей таблице) по Заводскому номеру </summary>
+        bool CheckRepairInDBRadiostantionBySerialNumber(
+            string road, string city, string serialNumber);
+
+        /// <summary>Изменение акта ремонта в radiostantion(рабочей таблице) </summary>
+        bool ChangeNumberActRepairBySerialNumberInDataBase(
+            string road, string city, string serialNumber, string numberActRepair);
     }
 }

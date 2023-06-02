@@ -1,11 +1,16 @@
 ﻿using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
+using System;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRepairRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-
+        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         #region свойства
 
         private string _road;
@@ -285,10 +290,59 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        public ICommand ChangeNumberActRepairBySerialNumberInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
-            
+            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            ChangeNumberActRepairBySerialNumberInDataBase =
+                new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
         }
+
+
+        #region ChangeNumberActRepairBySerialNumberInDataBase
+
+        private void ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand(object obj)
+        {
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if (String.IsNullOrWhiteSpace(NumberActRepair))
+            {
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(NumberActRepair,
+                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!_workRepositoryRadiostantion.CheckRepairInDBRadiostantionBySerialNumber(
+                Road, City, SerialNumber))
+                return;
+
+            if (_workRepositoryRadiostantionFull.
+                ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
+                Road, City, SerialNumber, NumberActRepair))
+            { }
+            else
+                MessageBox.Show("Ошибка изменения номера атка ремонта радиостанции " +
+                    "в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.ChangeNumberActRepairBySerialNumberInDataBase(
+                Road, City, SerialNumber, NumberActRepair))
+                MessageBox.Show("Успешно", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Ошибка изменения номера акта радиостанции",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        #endregion
     }
 }

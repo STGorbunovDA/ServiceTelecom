@@ -54,5 +54,9 @@
 
         /// <summary>Получаем наименование объекта из radiostantionFull(общей таблицы) </summary>
         string GetProductNameInDataBase(string serialNumber, string city, string road);
+
+        /// <summary>Изменение акта ремонта в radiostantionFull(общей таблице) </summary>
+        bool ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
+            string road, string city, string serialNumber, string numberActRepair);
     }
 }

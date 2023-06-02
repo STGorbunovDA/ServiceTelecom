@@ -235,7 +235,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool ChangeNumberActBySerialNumberInDataBase(string road,
+        public bool ChangeNumberActBySerialNumberInDatabase(string road,
             string city, string serialNumber, string numberAct)
         {
             try
@@ -334,9 +334,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeByCompanyRepresentativeForDocumentInDataBase(
-            string road, string city, string company, 
-            string dateOfIssuanceOfTheCertificateDataBase, 
-            string representative, string numberIdentification, 
+            string road, string city, string company,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
             string post, string phoneNumber)
         {
             try
@@ -374,13 +374,13 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeRadiostationForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase, 
-            string representative, string numberIdentification, 
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber, 
-            string post, string comment, string city, string location, 
-            string poligon, string company, string model, string serialNumber, 
-            string inventoryNumber, string networkNumber, string price, 
-            string battery, string manipulator, string antenna, 
+            string road, string numberAct, string dateMaintenanceDataBase,
+            string representative, string numberIdentification,
+            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string post, string comment, string city, string location,
+            string poligon, string company, string model, string serialNumber,
+            string inventoryNumber, string networkNumber, string price,
+            string battery, string manipulator, string antenna,
             string charger, string remont)
         {
             try
@@ -463,6 +463,69 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch { }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool CheckRepairInDBRadiostantionBySerialNumber(
+            string road, string city, string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckRepairInDBRadiostantionBySerialNumber",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return true;
+                        else return false;
+                    }
+                }
+
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeNumberActRepairBySerialNumberInDataBase(
+            string road, string city, string serialNumber, string numberActRepair)
+        {
+
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeNumberActRepairBySerialNumberInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"numberActRepairUser",
+                        Encryption.EncryptPlainTextToCipherText(numberActRepair));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
