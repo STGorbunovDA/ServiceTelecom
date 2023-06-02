@@ -10,5 +10,9 @@ namespace ServiceTelecom.Repositories.Interfaces
             GetRepairManualRadiostantionsCollections(
             ObservableCollection<RepairManualRadiostantion>
             repairManualRadiostantionsCollections, string model);
+
+        /// <summary> добавление детали и работы в справочника ремонтов радиостанций </summary>
+        bool AddRepairRadiostationForDocumentInDataBase(
+            string model, string completedWorks, string parts);
     }
 }
