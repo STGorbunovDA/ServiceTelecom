@@ -45,8 +45,18 @@
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
-        /// <summary>Изменить номер акта в radiostantionFull(общей таблице) </summary>
+        /// <summary>Изменить номер акта в radiostantionFull(общей таблицы) </summary>
         bool ChangeNumberActBySerialNumberInDBRadiostationFull(
             string road, string city, string serialNumber, string numberAct);
+
+        /// <summary>Получаем основное средство из radiostantionFull(общей таблицы) </summary>
+        string GetPrimaryMeansInDataBase(string serialNumber, string city, string road);
+
+        /// <summary>Получаем наименование объекта из radiostantionFull(общей таблицы) </summary>
+        string GetProductNameInDataBase(string serialNumber, string city, string road);
+
+        /// <summary>Изменение акта ремонта в radiostantionFull(общей таблице) </summary>
+        bool ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
+            string road, string city, string serialNumber, string numberActRepair);
     }
 }

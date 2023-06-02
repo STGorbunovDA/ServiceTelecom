@@ -140,12 +140,15 @@
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\RadiostationForDocumentsDataBaseModel.cs" />
+    <Compile Include="Models\RepairManualRadiostantion.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ProblemModelRadiostantionRepository.cs" />
+    <Compile Include="Repositories\Base\RepairManualModelRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRepairManualModelRepository.cs" />
     <Compile Include="Repositories\Interfaces\IReportCardRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoadDataBase.cs" />
     <Compile Include="Repositories\Interfaces\ISearchBySerialNumberInDatabaseRadiostantionFull.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
+    <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
@@ -195,6 +199,9 @@
     </Compile>
     <Compile Include="View\Base\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Base\RepairManualView.xaml.cs">
+      <DependentUpon>RepairManualView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StaffRegistrationViewPackage\ReportCardView.xaml.cs">
       <DependentUpon>ReportCardView.xaml</DependentUpon>
@@ -259,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Base\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\RepairManualView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

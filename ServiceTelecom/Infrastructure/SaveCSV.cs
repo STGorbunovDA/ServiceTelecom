@@ -124,7 +124,7 @@ namespace ServiceTelecom.Infrastructure
                             radiostationsForDocumentsCollection[i].NumberAct.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].NumberAct.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].NumberAct.ToString() + ";" +
-                            radiostationsForDocumentsCollection[i].NumberActRemont.ToString() + ";" +
+                            radiostationsForDocumentsCollection[i].NumberActRepair.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Category.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].DecommissionNumberAct.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Price.ToString() + ";" +
@@ -186,7 +186,7 @@ namespace ServiceTelecom.Infrastructure
                             radiostationsForDocumentsCollection[i].NumberIdentification.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].DateOfIssuanceOfTheCertificate.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].PhoneNumber.ToString() + ";" +
-                            radiostationsForDocumentsCollection[i].NumberActRemont.ToString() + ";" +
+                            radiostationsForDocumentsCollection[i].NumberActRepair.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Category.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].PriceRemont.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Antenna.ToString() + ";" +

@@ -1192,7 +1192,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDataBase(
+            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDatabase(
                 Road, City, SerialNumber, NumberAct))
                 MessageBox.Show("Успешно", "Информация", 
                     MessageBoxButton.OK, MessageBoxImage.Information);

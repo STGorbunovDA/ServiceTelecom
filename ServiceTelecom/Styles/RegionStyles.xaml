@@ -51,7 +51,7 @@
     
     <!--#region Style ComboBox Выпадающий-->
     <Style x:Key="ComboBoxStyle2" TargetType="ComboBox">
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -65,7 +65,19 @@
 
     <!--#endregion-->
 
-    <!--#region Style TextBox3-->
+    <!--#region Style TextBox4-->
+    <Style x:Key="TextBoxStyle4" TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="CaretBrush" Value="{StaticResource titleFontColor2}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource titleFontColor3}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0,3,0,0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
     <Style x:Key="TextBoxStyle3" TargetType="TextBox">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -349,6 +361,32 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="menuButtonStyleSeven" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="260" Height="35"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="menuButtonStyleSix" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -374,10 +412,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    
-
-
+  
     <!--Menu All Button Style-->
     <Style x:Key="menuButtonStyleAll" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
@@ -509,6 +544,13 @@
 
     <Style x:Key="messageTextBlockStyle3" TargetType="TextBlock">
         <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="messageTextBlockStyle4" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontFamily" Value="Romul"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
