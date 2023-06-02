@@ -72,6 +72,13 @@
                            Text="{Binding Road, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                            Visibility="Collapsed">
                 </TextBlock>
+                <TextBlock x:Name="txtCity"
+                           Grid.Column="2"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle1}"
+                           Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                           Visibility="Collapsed">
+                </TextBlock>
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"
                             Content="-"
@@ -122,23 +129,23 @@
                             Style="{StaticResource menuButtonStyleCheck}" 
                             Cursor="Hand">
                     </Button>
-                    <TextBox x:Name="txbNumberAct"
+                    <TextBox x:Name="txbNumberActRepair"
                              Grid.Column="1"
                              FontSize="16"
                              Height="40"
                              Width="165"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding NumberAct, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             Text="{Binding NumberActRepair, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
                     <DatePicker
                             Grid.Column="2"
-                            Name="datePickerDateMaintenance" 
+                            Name="datePickerDateRepair" 
                             Style="{StaticResource DatePickerStyle1}"
                             Height="36"
                             Margin="10,5,0,8"
                             Width="165"
-                            Text="{Binding DateMaintenance, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            Text="{Binding DateRepair, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </DatePicker>
                 </StackPanel>
             </Grid>
@@ -165,35 +172,39 @@
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
                            Margin="10,0,10,0"
-                           Text="Категория:" Height="20">
+                           Text="Катег.:" Height="20">
                     </TextBlock>
                     <ComboBox x:Name="cmbCategory"
                                   Height="35"
-                                  Width="60"
+                                  Width="50"
                                   Text="{Binding Category}"
                                   Style="{StaticResource ComboBoxStyle1}">
                         <ComboBoxItem Content="3"/>
                         <ComboBoxItem Content="4"/>
                         <ComboBoxItem Content="5"/>
                         <ComboBoxItem Content="6"/>
-                        <ComboBoxItem Content="7"/>
                     </ComboBox>
                     <TextBlock x:Name="txBlockPriceRemont"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
                            Margin="10,0,10,0"
-                           Text="Ремонт:" Height="20">
+                           Text="Цена:" Height="20">
                     </TextBlock>
-                    <TextBox x:Name="txbPriceRemont"
+                    <TextBox x:Name="txbPriceRepair"
                              Grid.Column="1"
                              FontSize="16"
                              Height="40"
-                             Width="128"
+                             Width="130"
                              Margin="0,0,0,0"
                              IsReadOnly="True"
                              Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding PriceRemont, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             Text="{Binding PriceRepair, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
+                    <CheckBox 
+                            Name="CheckBoxChoicePriceAnalogDigital"
+                            Margin="10,4,0,0"
+                            Style="{StaticResource CheckBoxStyle1}"
+                            IsChecked="{Binding CheckBoxChoicePriceViewModel}"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3">
@@ -212,11 +223,10 @@
                            Height="20" Width="184">
                     </TextBlock>
                     <TextBox x:Name="txbPrimaryMeans"
-                             FontSize="16"
                              Height="60"
                              Width="370"
                              Margin="0,0,0,0"
-                             Style="{StaticResource TextBoxStyle3}"
+                             Style="{StaticResource TextBoxStyle4}"
                              Text="{Binding PrimaryMeans, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
                 </StackPanel>
@@ -231,11 +241,10 @@
                            Height="20" Width="226">
                     </TextBlock>
                     <TextBox x:Name="txbProductName"
-                             FontSize="16"
                              Height="60"
                              Width="370"
                              Margin="0,0,0,0"
-                             Style="{StaticResource TextBoxStyle3}"
+                             Style="{StaticResource TextBoxStyle4}"
                              Text="{Binding ProductName, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </TextBox>
                 </StackPanel>
@@ -247,7 +256,8 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,0">
                     <TextBlock x:Name="txBlockCompletedWorks_1"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -270,26 +280,20 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
+                                HorizontalAlignment="Center"
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_1"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (1)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_1"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_1, Mode=TwoWay}"
-                                  Text="{Binding Parts_1, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_1"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_1, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="5">
@@ -324,26 +328,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_2"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (2)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_2"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_2, Mode=TwoWay}"
-                                  Text="{Binding Parts_2, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_2"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_2, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="6">
@@ -378,26 +375,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_3"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (3)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_3"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_3, Mode=TwoWay}"
-                                  Text="{Binding Parts_3, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_3"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_3, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="7">
@@ -432,26 +422,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_4"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (4)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_4"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_4, Mode=TwoWay}"
-                                  Text="{Binding Parts_4, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_4"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_4, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="8">
@@ -486,26 +469,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_5"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (5)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_5"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_5, Mode=TwoWay}"
-                                  Text="{Binding Parts_5, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_5"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_5, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="9">
@@ -540,26 +516,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_6"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (6)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_6"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_6, Mode=TwoWay}"
-                                  Text="{Binding Parts_6, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_6"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_6, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="10">
@@ -594,33 +563,19 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="txBlockParts_7"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
-                           Margin="0,0,0,0"
                            Text="Израсходованные детали (7)" 
                            Height="20" Width="262">
                     </TextBlock>
-                    <ComboBox x:Name="cmbParts_7"
-                                  Height="42"
-                                  Width="370"
-                                  Margin="0,0,0,0"
-                                  Style="{StaticResource ComboBoxStyle3}"
-                                  ItemsSource="{Binding PartsCollections}"
-                                  SelectedIndex="{Binding TheIndexPartsChoiceCollection_7, Mode=TwoWay}"
-                                  Text="{Binding Parts_7, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                  >
-                        <ComboBoxItem Content="0986237А02 1111111111Контакты для подсоед.аккум.в серии р/ст WARIS"/>
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="" TextWrapping="Wrap" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                        <ComboBox.Resources>
-                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                    <TextBox x:Name="txbParts_7"
+                             Height="45"
+                             Width="370"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts_7, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
                 </StackPanel>
             </Grid>
         </Grid>
