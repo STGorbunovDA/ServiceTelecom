@@ -1,6 +1,7 @@
-﻿using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
+﻿using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
 using System;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -11,6 +12,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+
+        private ObservableCollection<RepairManualRadiostantion>
+            RepairManualRadiostantionsCollections
+        { get; set; }
+
         #region свойства
 
         private string _road;
@@ -295,8 +301,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            RepairManualRadiostantionsCollections = new ObservableCollection<RepairManualRadiostantion>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
+            GetRepairManualRadiostantionsCollections();
         }
 
 
@@ -344,5 +352,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         #endregion
+
+        private void GetRepairManualRadiostantionsCollections()
+        {
+            if (RepairManualRadiostantionsCollections.Count != 0)
+                RepairManualRadiostantionsCollections.Clear();
+            RepairManualRadiostantionsCollections =
+                _workRepositoryRadiostantion.GetRepairManualRadiostantionsCollections(
+                    RepairManualRadiostantionsCollections, Model);
+        }
     }
 }
