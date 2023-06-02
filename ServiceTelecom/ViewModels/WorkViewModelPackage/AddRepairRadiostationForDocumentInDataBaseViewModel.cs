@@ -1,5 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.View;
+using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
@@ -12,6 +15,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private RepairManualModelRepository _repairManualModelRepository;
+        RepairManualView repairManualView = null;
 
         private ObservableCollection<RepairManualRadiostantion>
             RepairManualRadiostantionsCollections
@@ -297,6 +302,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #endregion
 
         public ICommand ChangeNumberActRepairBySerialNumberInDataBase { get; }
+        public ICommand AddRepairManualModelRadiostantionInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
@@ -304,9 +310,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RepairManualRadiostantionsCollections = new ObservableCollection<RepairManualRadiostantion>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
+            AddRepairManualModelRadiostantionInDataBase =
+                new ViewModelCommand(ExecuteAddRepairManualModelRadiostantionInDataBaseCommand);
             GetRepairManualRadiostantionsCollections();
         }
 
+        #region AddRepairManualModelRadiostantionInDataBase
+
+        private void ExecuteAddRepairManualModelRadiostantionInDataBaseCommand(object obj)
+        {
+            if (repairManualView == null)
+            {
+                repairManualView = new RepairManualView(Model);
+                repairManualView.Closed += (sender, args) => repairManualView = null;
+                repairManualView.Show();
+            }
+        }
+
+        #endregion
 
         #region ChangeNumberActRepairBySerialNumberInDataBase
 
@@ -358,7 +379,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RepairManualRadiostantionsCollections.Count != 0)
                 RepairManualRadiostantionsCollections.Clear();
             RepairManualRadiostantionsCollections =
-                _workRepositoryRadiostantion.GetRepairManualRadiostantionsCollections(
+                _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
                     RepairManualRadiostantionsCollections, Model);
         }
     }
