@@ -93,6 +93,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string _numberAct;
         public string NumberAct { get => _numberAct; set { _numberAct = value; OnPropertyChanged(nameof(NumberAct)); } }
 
+        private string _numberActRepair;
+        public string NumberActRepair { get => _numberActRepair; set { _numberActRepair = value; OnPropertyChanged(nameof(NumberActRepair)); } }
+
         private string _manipulator;
         public string Manipulator { get => _manipulator; set { _manipulator = value; OnPropertyChanged(nameof(Manipulator)); } }
 

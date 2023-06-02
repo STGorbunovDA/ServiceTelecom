@@ -218,10 +218,10 @@
                                                 Binding="{Binding NumberAct}" 
                                                 Width="150"/>
                         <DataGridTextColumn Header="№ Акта Рем."
-                                                Binding="{Binding NumberActRemont}" 
+                                                Binding="{Binding NumberActRepair}" 
                                                 Width="150"/>
                         <DataGridTextColumn Header="Кат."
-                                                Binding="{Binding NumberActRemont}" 
+                                                Binding="{Binding Category}" 
                                                 Width="50"/>
                         <DataGridTextColumn Header="Номер акта списания" 
                                                 Binding="{Binding DecommissionNumberAct}" 
