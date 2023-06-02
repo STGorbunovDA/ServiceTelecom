@@ -143,7 +143,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Vertical"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                                HorizontalAlignment="Left" Cursor="">
                     <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
                             Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
                             Content="Ремонт"

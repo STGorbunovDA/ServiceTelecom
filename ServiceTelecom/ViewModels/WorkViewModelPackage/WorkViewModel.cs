@@ -2,8 +2,10 @@
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
@@ -15,7 +17,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
         ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
-        SelectingSaveView selectingSaveView = null; 
+        AddRepairRadiostationForDocumentInDataBaseView addRepairRadiostationForDocumentInDataBaseView = null;
+        SelectingSaveView selectingSaveView = null;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private RoadDataBaseRepository _roadDataBase;
 
@@ -33,6 +36,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(SelectedIndexRadiostantionDataGrid));
             }
         }
+
+        #region свойства
 
         private string _road;
         public string Road { get => _road; set { _road = value; OnPropertyChanged(nameof(Road)); } }
@@ -100,6 +105,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private string _charger;
         public string Charger { get => _charger; set { _charger = value; OnPropertyChanged(nameof(Charger)); } }
 
+        private string _decommissionNumberAct;
+        public string DecommissionNumberAct { get => _decommissionNumberAct; set { _decommissionNumberAct = value; OnPropertyChanged(nameof(DecommissionNumberAct)); } }
+
+        #endregion
+
         //private int _selectedItemUserChoiceRoadCollection;
         //public int SelectedItemUserChoiceRoadCollection
         //{
@@ -166,6 +176,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand UpdateRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteRadiostationForDocumentInDataBase { get; }
         public ICommand SaveCollectionRadiostationsForDocument { get; }
+        public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
 
         public WorkViewModel()
         {
@@ -184,6 +195,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                  new ViewModelCommand(ExecuteUpdateRadiostationForDocumentInDataBaseCommand);
             SaveCollectionRadiostationsForDocument =
                 new ViewModelCommand(ExecuteSaveCollectionRadiostationsForDocumentCommand);
+            AddRepairRadiostationForDocumentInDataBase =
+                new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
@@ -196,13 +209,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (selectingSaveView == null)
             {
                 selectingSaveView = new SelectingSaveView(City, RadiostationsForDocumentsCollection);
-                selectingSaveView.Closed += (sender, args) =>selectingSaveView = null;
+                selectingSaveView.Closed += (sender, args) => selectingSaveView = null;
                 selectingSaveView.Show();
             }
         }
 
         #endregion
-
 
         #region UpdateRadiostationForDocumentInDataBase
 
@@ -229,6 +241,39 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     radiostationForDocumentsDataBaseModel.IdBase);
             GetRadiostationsForDocumentsCollection();
             GetRowAfterAddingRadiostantionInDataGrid();
+        }
+
+        #endregion
+
+        #region AddRepairRadiostationForDocumentInDataBase
+
+        private void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostationForDocumentsDataBaseModel == null)
+                return;
+            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show(
+                    $"Нельзя добавить ремонт на радиостанцию{SerialNumber} " +
+                    $"есть списание {DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (addRepairRadiostationForDocumentInDataBaseView != null)
+                return;
+            addRepairRadiostationForDocumentInDataBaseView =
+                new AddRepairRadiostationForDocumentInDataBaseView(
+                    SelectedRadiostationForDocumentsDataBaseModel);
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            addRepairRadiostationForDocumentInDataBaseView = null;
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRadiostationsForDocumentsCollection();
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
+            addRepairRadiostationForDocumentInDataBaseView.Show();
+
         }
 
         #endregion
