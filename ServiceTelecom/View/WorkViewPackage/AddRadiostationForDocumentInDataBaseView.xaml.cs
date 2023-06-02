@@ -18,7 +18,6 @@ namespace ServiceTelecom.View.WorkViewPackage
                 txtRoad.Text = item.RoadBase;
                 txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
             }
-                
         }
         public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {

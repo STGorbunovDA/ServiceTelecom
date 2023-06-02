@@ -144,8 +144,8 @@
                 <StackPanel Grid.Column="2" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <Button x:Name="btnAddRemontRadiostationForDocumentInDataBase"
-                            Command="{Binding AddRemontRadiostationForDocumentInDataBase}"
+                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
                             Content="Ремонт"
                             Margin ="10,0,0,3"
                             Style="{StaticResource menuButtonStyleAll}" 
@@ -223,6 +223,9 @@
                         <DataGridTextColumn Header="Кат."
                                                 Binding="{Binding NumberActRemont}" 
                                                 Width="50"/>
+                        <DataGridTextColumn Header="Номер акта списания" 
+                                                Binding="{Binding DecommissionNumberAct}" 
+                                                Width="150"/>
                         <DataGridTextColumn Header="Представитель"
                                                 Binding="{Binding Representative}" 
                                                 Width="200"
@@ -270,6 +273,7 @@
                         <DataGridTextColumn Header="Зарядное устройство" 
                                                 Binding="{Binding Charger}" 
                                                 Width="50" Visibility="Collapsed"/>
+                        
                     </DataGrid.Columns>
                 </local:CustomDataGrid>
             </Grid>

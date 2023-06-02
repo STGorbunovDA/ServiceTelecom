@@ -23,7 +23,7 @@ namespace ServiceTelecom.Models
         private string _numberIdentification;
         private string _dateOfIssuanceOfTheCertificate;
         private string _phoneNumber;
-        private string _numberActRemont;
+        private string _numberActRepair;
         private string _category;
         private string _priceRemont;
         private string _antenna;
@@ -54,7 +54,7 @@ namespace ServiceTelecom.Models
             string inventoryNumber, string networkNumber, DateTime dateMaintenance, 
             string numberAct, string city, string price, string representative, 
             string post, string numberIdentification, DateTime dateOfIssuanceOfTheCertificate, 
-            string phoneNumber, string numberActRemont, string category, string priceRemont, 
+            string phoneNumber, string numberActRepair, string category, string priceRemont, 
             string antenna, string manipulator, string battery, string charger, 
             string completedWorks_1, string completedWorks_2, string completedWorks_3, 
             string completedWorks_4, string completedWorks_5, string completedWorks_6, 
@@ -79,7 +79,7 @@ namespace ServiceTelecom.Models
             NumberIdentification = Encryption.DecryptCipherTextToPlainText(numberIdentification);
             DateOfIssuanceOfTheCertificate = dateOfIssuanceOfTheCertificate.ToString("dd.MM.yyyy");
             PhoneNumber = Encryption.DecryptCipherTextToPlainText(phoneNumber);
-            NumberActRemont = Encryption.DecryptCipherTextToPlainText(numberActRemont);
+            NumberActRepair = Encryption.DecryptCipherTextToPlainText(numberActRepair);
             Category = Encryption.DecryptCipherTextToPlainText(category);
             PriceRemont = Encryption.DecryptCipherTextToPlainText(priceRemont);
             Antenna = Encryption.DecryptCipherTextToPlainText(antenna);
@@ -123,7 +123,7 @@ namespace ServiceTelecom.Models
         public string NumberIdentification { get => _numberIdentification; set { _numberIdentification = value; OnPropertyChanged(nameof(NumberIdentification)); } }
         public string DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
         public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
-        public string NumberActRemont { get => _numberActRemont; set { _numberActRemont = value; OnPropertyChanged(nameof(NumberActRemont)); } }
+        public string NumberActRepair { get => _numberActRepair; set { _numberActRepair = value; OnPropertyChanged(nameof(NumberActRepair)); } }
         public string Category { get => _category; set { _category = value; OnPropertyChanged(nameof(Category)); } }
         public string PriceRemont { get => _priceRemont; set { _priceRemont = value; OnPropertyChanged(nameof(PriceRemont)); } }
         public string Antenna { get => _antenna; set { _antenna = value; OnPropertyChanged(nameof(Antenna)); } }
