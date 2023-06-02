@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View;
 using ServiceTelecom.View.Base;
 using System;
@@ -307,6 +308,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections = new ObservableCollection<RepairManualRadiostantion>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
@@ -323,6 +325,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 repairManualView = new RepairManualView(Model);
                 repairManualView.Closed += (sender, args) => repairManualView = null;
+                repairManualView.Closed += (sender, args) => 
+                GetRepairManualRadiostantionsCollections();
                 repairManualView.Show();
             }
         }
