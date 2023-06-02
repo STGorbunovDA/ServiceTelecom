@@ -2,13 +2,14 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class WorkRepositoryRadiostantionFull : IWorkRepositoryRadiostantionFull, 
+    internal class WorkRepositoryRadiostantionFull : IWorkRepositoryRadiostantionFull,
         ISearchBySerialNumberInDatabaseRadiostantionFull
     {
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
@@ -95,17 +96,17 @@ namespace ServiceTelecom.Repositories
                     }
                 }
             }
-            catch { MessageBox.Show("Ошибка считывания РСТ из общей базы"); return false;  }
+            catch { MessageBox.Show("Ошибка считывания РСТ из общей базы"); return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
         public bool ChangeRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase, 
-            string representative, string numberIdentification, 
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber, 
-            string post, string comment, string city, string location, string poligon, 
-            string company, string model, string serialNumber, string inventoryNumber, 
-            string networkNumber, string price, string battery, string manipulator, 
+            string road, string numberAct, string dateMaintenanceDataBase,
+            string representative, string numberIdentification,
+            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string post, string comment, string city, string location, string poligon,
+            string company, string model, string serialNumber, string inventoryNumber,
+            string networkNumber, string price, string battery, string manipulator,
             string antenna, string charger, string remont)
         {
             try
@@ -173,13 +174,13 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase, 
-            string representative, string numberIdentification, 
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber, 
-            string post, string comment, string city, string location, 
-            string poligon, string company, string model, string serialNumber, 
-            string inventoryNumber, string networkNumber, string price, 
-            string battery, string manipulator, string antenna, string charger, 
+            string road, string numberAct, string dateMaintenanceDataBase,
+            string representative, string numberIdentification,
+            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string post, string comment, string city, string location,
+            string poligon, string company, string model, string serialNumber,
+            string inventoryNumber, string networkNumber, string price,
+            string battery, string manipulator, string antenna, string charger,
             string remont)
         {
             try
@@ -276,9 +277,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
-            string road, string city, string numberAct, 
-            string dateOfIssuanceOfTheCertificateDataBase, 
-            string representative, string numberIdentification, 
+            string road, string city, string numberAct,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
             string post, string phoneNumber)
         {
             try
@@ -317,9 +318,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
-            string road, string city, string company, 
-            string dateOfIssuanceOfTheCertificateDataBase, 
-            string representative, string numberIdentification, 
+            string road, string city, string company,
+            string dateOfIssuanceOfTheCertificateDataBase,
+            string representative, string numberIdentification,
             string post, string phoneNumber)
         {
             try
@@ -382,6 +383,76 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public string GetPrimaryMeansInDataBase(string serialNumber, string city, string road)
+        {
+            string primaryMeans = string.Empty;
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return primaryMeans;
+                using (MySqlCommand command = new MySqlCommand(
+                   "GetPrimaryMeansInDataBase",
+                   RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                            while (reader.Read())
+                                primaryMeans = Encryption.DecryptCipherTextToPlainText(
+                                    reader.GetString(0));
+
+                        reader.Close();
+                        return primaryMeans;
+                    }
+                }
+            }
+            catch { return primaryMeans; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public string GetProductNameInDataBase(string serialNumber, string city, string road)
+        {
+            string productName = string.Empty;
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return productName;
+                using (MySqlCommand command = new MySqlCommand(
+                   "GetProductNameInDataBase",
+                   RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                            while (reader.Read())
+                                productName = Encryption.DecryptCipherTextToPlainText(
+                                    reader.GetString(0));
+
+                        reader.Close();
+                        return productName;
+                    }
+                }
+            }
+            catch { return productName; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
