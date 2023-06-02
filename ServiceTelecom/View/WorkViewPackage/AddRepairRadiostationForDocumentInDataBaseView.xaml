@@ -578,6 +578,29 @@
                     </TextBox>
                 </StackPanel>
             </Grid>
+            <Grid Grid.Row="11">
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRepairManualModelRadiostantionInDataBase"
+                            Command="{Binding AddRepairManualModelRadiostantionInDataBase}"
+                            Content="Добавить справочник"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleSeven}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
+                            Content="Добавить ремонт"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleSeven}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                </StackPanel>
+                
+            </Grid>
         </Grid>
     </Border>
 </Window>
