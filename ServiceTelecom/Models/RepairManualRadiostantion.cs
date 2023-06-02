@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.ViewModels;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.ViewModels;
 
 namespace ServiceTelecom.Models
 {
@@ -16,9 +17,9 @@ namespace ServiceTelecom.Models
             string model, string completedWorks, string parts)
         {
             IdBase = idBase;
-            Model = model;
-            CompletedWorks = completedWorks;
-            Parts = parts;
+            Model = Encryption.DecryptCipherTextToPlainText(model);
+            CompletedWorks = Encryption.DecryptCipherTextToPlainText(completedWorks);
+            Parts = Encryption.DecryptCipherTextToPlainText(parts);
         } 
     }
 }
