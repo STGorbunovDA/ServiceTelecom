@@ -58,5 +58,10 @@
         /// <summary>Изменение акта ремонта в radiostantionFull(общей таблице) </summary>
         bool ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
             string road, string city, string serialNumber, string numberActRepair);
+
+        /// <summary>Запись наименование объекта и основного средства в radiostantionFull(общей таблицы) </summary>
+        bool SetPrimaryMeansAndProductNameInDataBase(
+            string road, string city, string serialNumber,
+            string primaryMeans, string productName);
     }
 }

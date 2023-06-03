@@ -40,10 +40,10 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
-            if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
+            if (txbPrice.Text == UserModelStatic.priceAnalogTO) CheckBoxPrice.IsChecked = true;
             else
             {
-                txbPrice.Text = UserModelStatic.priceDigital;
+                txbPrice.Text = UserModelStatic.priceDigitalTO;
                 CheckBoxPrice.IsChecked = false;
             }
             if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
