@@ -59,7 +59,7 @@
         <Setter Property="IsReadOnly" Value="False"/>
         <Setter Property="IsEditable" Value="True"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0,6,0,0"/>
+        <Setter Property="Padding" Value="0,10,0,0"/>
         <Setter Property="SelectedIndex" Value="0"/>
     </Style>
 
@@ -75,9 +75,10 @@
         <Setter Property="BorderBrush" Value="{StaticResource titleFontColor3}"/>
         <Setter Property="BorderThickness" Value="0,0,0,4"/>
         <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0,3,0,0"/>
+        <Setter Property="Padding" Value="0,2,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
+    <!--#region Style TextBox3-->
     <Style x:Key="TextBoxStyle3" TargetType="TextBox">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
