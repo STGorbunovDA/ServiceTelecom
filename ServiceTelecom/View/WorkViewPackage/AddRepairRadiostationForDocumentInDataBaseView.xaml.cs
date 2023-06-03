@@ -1,6 +1,5 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,9 +8,12 @@ namespace ServiceTelecom.View.WorkViewPackage
     public partial class AddRepairRadiostationForDocumentInDataBaseView : Window
     {
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-        public AddRepairRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel radiostation)
+        
+        public AddRepairRadiostationForDocumentInDataBaseView(
+            RadiostationForDocumentsDataBaseModel radiostation)
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            
             InitializeComponent();
 
             txtRoad.Text = radiostation.Road;
@@ -27,6 +29,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             }
 
             datePickerDateRepair.Text = radiostation.DateMaintenance;
+
             txbModel.Text = radiostation.Model;
 
             if (!string.IsNullOrWhiteSpace(radiostation.Category))
@@ -45,12 +48,15 @@ namespace ServiceTelecom.View.WorkViewPackage
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 txbPriceRepair.Text = "5071.94";
             }
+
             txbPrimaryMeans.Text = _workRepositoryRadiostantionFull.
                 GetPrimaryMeansInDataBase(
                 radiostation.SerialNumber, radiostation.City, radiostation.Road);
+
             txbProductName.Text = _workRepositoryRadiostantionFull.
                 GetProductNameInDataBase(
                 radiostation.SerialNumber, radiostation.City, radiostation.Road);
+
             cmbCompletedWorks_1.Text = radiostation.CompletedWorks_1;
             txbParts_1.Text = radiostation.Parts_1;
             cmbCompletedWorks_2.Text = radiostation.CompletedWorks_2;
