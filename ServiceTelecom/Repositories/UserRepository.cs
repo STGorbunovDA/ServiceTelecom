@@ -48,7 +48,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
 
         }
- 
+
         public ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users)
         {
             try
@@ -152,7 +152,7 @@ namespace ServiceTelecom.Repositories
             catch (Exception) { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
-       
+
         public bool SetDateTimeUserDataBase(string user)
         {
             if (!InternetCheck.CheckSkyNET())
@@ -170,7 +170,8 @@ namespace ServiceTelecom.Repositories
                     using (MySqlCommand command = new MySqlCommand("SetDateTimeUserDataBase", RepositoryDataBase.GetInstance.GetConnection()))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue($"user", user);
+                        command.Parameters.AddWithValue($"user",
+                           Encryption.EncryptPlainTextToCipherText(user));
                         command.Parameters.AddWithValue($"dateTimeInput", entryDate);
                         RepositoryDataBase.GetInstance.OpenConnection();
                         if (command.ExecuteNonQuery() == 1) return true;
@@ -180,9 +181,9 @@ namespace ServiceTelecom.Repositories
                 else return true;
             }
             catch { return false; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }   
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
-       
+
         public DateTime GetDateTimeUserDataBase(string user, DateTime date)
         {
             try
@@ -191,7 +192,7 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"userLogin", user);
+                    command.Parameters.AddWithValue($"userLogin", Encryption.EncryptPlainTextToCipherText(user));
                     command.Parameters.AddWithValue($"date", date.ToString("yyyy-MM-dd"));
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
@@ -202,10 +203,10 @@ namespace ServiceTelecom.Repositories
                     }
                 }
             }
-            catch{ return DateTime.MinValue; }
+            catch { return DateTime.MinValue; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-            
-            
+
+
         }
 
         public bool SetDateTimeExitUserDataBase(string user)
@@ -226,13 +227,14 @@ namespace ServiceTelecom.Repositories
 
                     if (date.ToString("yyyy-MM-dd") == getDateTimeFromDataBase.ToString("yyyy-MM-dd"))
                     {
-                        using (MySqlCommand command = new MySqlCommand("SetDateTimeExitUserDataBase", 
+                        using (MySqlCommand command = new MySqlCommand("SetDateTimeExitUserDataBase",
                             RepositoryDataBase.GetInstance.GetConnection()))
                         {
                             RepositoryDataBase.GetInstance.OpenConnection();
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue($"dateTimeExit", exitDate);
-                            command.Parameters.AddWithValue($"userLogin", user);
+                            command.Parameters.AddWithValue($"userLogin",
+                               Encryption.EncryptPlainTextToCipherText(user));
                             command.Parameters.AddWithValue($"dateTimeInputApp", getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
                             if (command.ExecuteNonQuery() == 1) return true;
                             else return false;
@@ -243,7 +245,7 @@ namespace ServiceTelecom.Repositories
                 catch { return false; }
                 finally { RepositoryDataBase.GetInstance.CloseConnection(); }
             }
-            else return false;               
+            else return false;
         }
     }
 }

@@ -31,11 +31,6 @@ namespace ServiceTelecom.View
         {
             if (userRepository.SetDateTimeExitUserDataBase(UserModelStatic.Login))
                 Close();
-
-            //else
-            //{
-            //    MessageBox.Show($"Ошибка записи времени выхода из программы user: {UserStatic.Login}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
         }
     }
 }
