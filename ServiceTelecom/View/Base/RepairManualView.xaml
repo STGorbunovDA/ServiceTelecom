@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.Base"
-        Title="MenuView" Height="320" Width="700"
+        Title="MenuView" Height="640" Width="700"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -38,7 +39,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="370"/>
+                <RowDefinition Height="150"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -87,6 +89,37 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
+                <local:CustomDataGrid x:Name="dataGrid1"
+                              Style="{StaticResource dataGridStyle4}"
+                              ColumnHeaderStyle="{StaticResource dataGridCentAl}"
+                              ItemsSource="{Binding RepairManualRadiostantionsCollections}"
+                              SelectedItem="{Binding SelectedRepairManualRadiostantion}"
+                              SelectedIndex="{Binding SelectedIndexRepairManualDataGrid}"
+                              CellStyle="{StaticResource DataGridContentCellCentering2}"
+                              SelectionMode="Extended"
+                              SelectedItemsList="{Binding RepairManualMulipleSelectedDataGrid, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock" x:Key="WrapText">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="id" 
+                                                Binding="{Binding IdBase}" 
+                                                Width="50" Visibility="Collapsed">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Выпол. работы" 
+                                                Binding="{Binding CompletedWorks}"
+                                                Width="*" 
+                                                ElementStyle="{StaticResource WrapText}"/>
+                        <DataGridTextColumn Header="Детали" 
+                                                Binding="{Binding Parts}" 
+                                                Width="*"
+                                                ElementStyle="{StaticResource WrapText}"/>
+                    </DataGrid.Columns>
+                </local:CustomDataGrid>
+            </Grid>
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="*"/>
@@ -102,7 +135,7 @@
                            Height="20" Width="204">
                     </TextBlock>
                     <TextBox x:Name="txbCompletedWorks"
-                             Height="150"
+                             Height="100"
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle4}"
@@ -120,7 +153,7 @@
                            Height="20" Width="238">
                     </TextBlock>
                     <TextBox x:Name="txbParts"
-                             Height="150"
+                             Height="100"
                              Width="320"
                              Margin="0,0,0,0"
                              Style="{StaticResource TextBoxStyle4}"
@@ -128,15 +161,35 @@
                     </TextBox>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="2">
-                <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
-                            Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
+            <Grid Grid.Row="3">
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRepairManualModelRadiostationForDocumentInDB}"
                             Content="Добавить"
                             Margin ="10,0,15,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                         HorizontalAlignment="Center"    
                         Cursor="Hand">
-                </Button>
+                    </Button>
+                    <Button x:Name="btnChangeRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeRepairManualModelRadiostationForDocumentInDB}"
+                            Content="Изменить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnDeleteRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding DeleteRepairManualModelRadiostationForDocumentInDB}"
+                            Content="Удалить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>

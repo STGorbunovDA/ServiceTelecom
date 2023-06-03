@@ -12,7 +12,11 @@ namespace ServiceTelecom.Repositories.Interfaces
             repairManualRadiostantionsCollections, string model);
 
         /// <summary> добавление детали и работы в справочника ремонтов радиостанций </summary>
-        bool AddRepairRadiostationForDocumentInDataBase(
+        bool AddRepairManualModelRadiostationForDocumentInDB(
+            string model, string completedWorks, string parts);
+
+        /// <summary> изменение: детали и работы у справочника ремонтов радиостанций </summary>
+        bool ChangeRepairManualModelRadiostationForDocumentInDB(int id,
             string model, string completedWorks, string parts);
     }
 }
