@@ -28,7 +28,7 @@ namespace ServiceTelecom.ViewModels
             set { _message = value; OnPropertyChanged(nameof(Message)); } }
 
         private UserRepository userRepository;
-        internal ObservableCollection<UserDataBaseModel> Users { get; set; }
+        public ObservableCollection<UserDataBaseModel> Users { get; set; }
 
         private IList _selectedModels = new ArrayList();
         public IList UserMulipleSelectedDataGrid
@@ -41,14 +41,13 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private UserDataBaseModel _user;
-
         public ICommand AddUserDataBase { get; }
         public ICommand UpdateUsersDataBase { get; }
         public ICommand DeleteUserDataBase { get; }
         public ICommand AddUsersListCommand { get; }
         public ICommand ChangeUserDataBase { get; }
 
+        private UserDataBaseModel _user;
         public UserDataBaseModel SelectedUser
         {
             get => _user;

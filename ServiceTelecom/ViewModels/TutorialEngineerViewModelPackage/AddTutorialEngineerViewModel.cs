@@ -18,8 +18,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private ProblemModelRadiostantionRepository _problemModelRadiostantion;
         private TutorialEngineerRepository _tutorialEngineerRepository;
 
-        private ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        private ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
 
         private string _model;
         public string Model

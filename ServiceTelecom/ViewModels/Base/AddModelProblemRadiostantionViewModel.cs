@@ -11,7 +11,7 @@ namespace ServiceTelecom.ViewModels.Base
     {
         private ProblemModelRadiostantionRepository _problemModelRadiostantionDataBase;
         private ProblemModelRadiostantionDataBaseModel _problemModelRadiostantion;
-        private ObservableCollection<ProblemModelRadiostantionDataBaseModel> 
+        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> 
             ProblemModelCollections { get; set; }
         
         private string _problem;

@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.Base"
-        Title="MenuView" Height="600" Width="600"
+        Title="MenuView" Height="640" Width="700"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -38,7 +39,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="370"/>
+                <RowDefinition Height="150"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -50,7 +52,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="340"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
@@ -58,9 +60,10 @@
                 <TextBlock x:Name="txtModel"
                            Grid.Column="1"
                            Foreground="{StaticResource titleFontColor5}"
-                           Style="{StaticResource messageTextBlockStyle1}"
+                           Style="{StaticResource messageTextBlockStyle3}"
                            Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                           Visibility="Visible">
+                           Visibility="Visible"
+                           VerticalAlignment="Center">
                 </TextBlock>
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"
@@ -78,11 +81,114 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <TextBlock Text="Добавление работы"
+                    <TextBlock Text="Добавление Детали"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="60,0,0,0">
                     </TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <local:CustomDataGrid x:Name="dataGrid1"
+                              Style="{StaticResource dataGridStyle4}"
+                              ColumnHeaderStyle="{StaticResource dataGridCentAl}"
+                              ItemsSource="{Binding RepairManualRadiostantionsCollections}"
+                              SelectedItem="{Binding SelectedRepairManualRadiostantion}"
+                              SelectedIndex="{Binding SelectedIndexRepairManualDataGrid}"
+                              CellStyle="{StaticResource DataGridContentCellCentering2}"
+                              SelectionMode="Extended"
+                              SelectedItemsList="{Binding RepairManualMulipleSelectedDataGrid, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock" x:Key="WrapText">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="id" 
+                                                Binding="{Binding IdBase}" 
+                                                Width="50" Visibility="Collapsed">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Выпол. работы" 
+                                                Binding="{Binding CompletedWorks}"
+                                                Width="*" 
+                                                ElementStyle="{StaticResource WrapText}"/>
+                        <DataGridTextColumn Header="Детали" 
+                                                Binding="{Binding Parts}" 
+                                                Width="*"
+                                                ElementStyle="{StaticResource WrapText}"/>
+                    </DataGrid.Columns>
+                </local:CustomDataGrid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <TextBlock x:Name="txBlockPrimaryMeans"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="0,0,0,0"
+                           Text="Выполненные работы" 
+                           Height="20" Width="204">
+                    </TextBlock>
+                    <TextBox x:Name="txbCompletedWorks"
+                             Height="100"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding CompletedWorks, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <TextBlock x:Name="txBlockProductName"
+                           Foreground="{StaticResource titleFontColor5}"
+                           Style="{StaticResource messageTextBlockStyle2}"
+                           Margin="0,0,0,0"
+                           Text="Израсходованные детали" 
+                           Height="20" Width="238">
+                    </TextBlock>
+                    <TextBox x:Name="txbParts"
+                             Height="100"
+                             Width="320"
+                             Margin="0,0,0,0"
+                             Style="{StaticResource TextBoxStyle4}"
+                             Text="{Binding Parts, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </TextBox>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3">
+                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRepairManualModelRadiostationForDocumentInDB}"
+                            Content="Добавить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnChangeRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeRepairManualModelRadiostationForDocumentInDB}"
+                            Content="Изменить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnDeleteRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding DeleteRepairManualModelRadiostationForDocumentInDB}"
+                            Content="Удалить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
                 </StackPanel>
             </Grid>
         </Grid>

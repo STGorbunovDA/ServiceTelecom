@@ -2,6 +2,7 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -50,6 +51,83 @@ namespace ServiceTelecom.Repositories.Base
 
             }
             catch { return repairManualRadiostantionsCollections; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool AddRepairManualModelRadiostationForDocumentInDB(
+            string model, string completedWorks, string parts)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+
+                using (MySqlCommand command = new MySqlCommand(
+                    "AddRepairManualModelRadiostationForDocumentInDB",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"completedWorksUser",
+                        Encryption.EncryptPlainTextToCipherText(completedWorks));
+                    command.Parameters.AddWithValue($"partsUser",
+                        Encryption.EncryptPlainTextToCipherText(parts));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeRepairManualModelRadiostationForDocumentInDB(int id,
+            string model, string completedWorks, string parts)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeRepairManualModelRadiostationForDocumentInDB",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"idUser", id);
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"completedWorksUser",
+                        Encryption.EncryptPlainTextToCipherText(completedWorks));
+                    command.Parameters.AddWithValue($"partsUser",
+                        Encryption.EncryptPlainTextToCipherText(parts));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public void DeleteRepairManualModelRadiostationForDocumentInDB(int idBase)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return;
+                using (MySqlCommand command = new MySqlCommand(
+                    "DeleteRepairManualModelRadiostationForDocumentInDB",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"idUser", idBase);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch { }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }

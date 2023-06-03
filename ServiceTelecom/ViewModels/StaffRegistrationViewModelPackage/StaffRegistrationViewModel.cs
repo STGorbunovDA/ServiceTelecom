@@ -18,7 +18,7 @@ namespace ServiceTelecom.ViewModels
         ReportCardView reportCard = null;
 
         private ObservableCollection<UserDataBaseModel> Users { get; set; }
-        private ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        public ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
         private ObservableCollection<string> RoadCollections { get; }
         private ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
         private ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
