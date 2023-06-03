@@ -4,6 +4,7 @@ using ServiceTelecom.Repositories;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
@@ -14,8 +15,8 @@ namespace ServiceTelecom.ViewModels
         TutorialEngineerDataBaseModel _tutorialEngineer;
         AddTutorialEngineerView addTutorial = null;
         ChangeTutorialEngineerView changeTutorial = null;
-        private ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
-        private ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
+        public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
+        public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
         private ObservableCollection<string> UserChoice { get; set; }
 
         private int _idTutorialEngineer;
@@ -193,6 +194,9 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
         {
+            if (MessageBox.Show("Подтверждаете удаление?", "Внимание",
+                  MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
             if (TutorialsEngineerMulipleSelectedDataGrid == null ||
                 TutorialsEngineerMulipleSelectedDataGrid.Count == 0)
                 return;

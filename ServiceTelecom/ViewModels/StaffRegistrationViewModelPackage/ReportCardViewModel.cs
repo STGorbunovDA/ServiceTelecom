@@ -13,9 +13,9 @@ namespace ServiceTelecom.ViewModels
         private ReportCardRepository reportCardRepository;
 
         private ReportCardsDataBaseModel _reportCard;
-        private ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
-        private ObservableCollection<string> DateTimeInputCollections { get; set; }
-        private ObservableCollection<string> Users { get; set; }
+        public ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
+        public ObservableCollection<string> DateTimeInputCollections { get; set; }
+        public ObservableCollection<string> Users { get; set; }
 
         private string _user;
         private string _dateTimeInput;

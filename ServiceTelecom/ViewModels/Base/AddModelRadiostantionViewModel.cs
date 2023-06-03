@@ -11,7 +11,7 @@ namespace ServiceTelecom.ViewModels.Base
     {
         private ModelRadiostantionDataBaseModel _modelRadiostantion;
         private ModelDataBaseRepository _modelDataBase;
-        private ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
 
         private string _model;
         public string Model { get => _model; 

@@ -303,7 +303,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #endregion
 
         public ICommand ChangeNumberActRepairBySerialNumberInDataBase { get; }
-        public ICommand AddRepairManualModelRadiostantionInDataBase { get; }
+        public ICommand RepairManualModelRadiostantionInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
@@ -312,18 +312,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RepairManualRadiostantionsCollections = new ObservableCollection<RepairManualRadiostantion>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
-            AddRepairManualModelRadiostantionInDataBase =
-                new ViewModelCommand(ExecuteAddRepairManualModelRadiostantionInDataBaseCommand);
+            RepairManualModelRadiostantionInDataBase =
+                new ViewModelCommand(ExecuteRepairManualModelRadiostantionInDataBaseCommand);
             GetRepairManualRadiostantionsCollections();
         }
 
         #region AddRepairManualModelRadiostantionInDataBase
 
-        private void ExecuteAddRepairManualModelRadiostantionInDataBaseCommand(object obj)
+        private void ExecuteRepairManualModelRadiostantionInDataBaseCommand(object obj)
         {
             if (repairManualView == null)
             {
-                repairManualView = new RepairManualView(Model);
+                repairManualView = new RepairManualView(UserModelStatic.model);
                 repairManualView.Closed += (sender, args) => repairManualView = null;
                 repairManualView.Closed += (sender, args) => 
                 GetRepairManualRadiostantionsCollections();
@@ -384,7 +384,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RepairManualRadiostantionsCollections.Clear();
             RepairManualRadiostantionsCollections =
                 _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
-                    RepairManualRadiostantionsCollections, Model);
+                    RepairManualRadiostantionsCollections, UserModelStatic.model);
         }
     }
 }
