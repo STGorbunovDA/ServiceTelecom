@@ -529,6 +529,73 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        
+        public bool AddRepairRadiostationForDocumentInDataBase(
+            string road, string city, string serialNumber, 
+            string numberActRepair, string category, string priceRepair, 
+            string completedWorks_1, string parts_1, 
+            string completedWorks_2, string parts_2, 
+            string completedWorks_3, string parts_3, 
+            string completedWorks_4, string parts_4, 
+            string completedWorks_5, string parts_5, 
+            string completedWorks_6, string parts_6, 
+            string completedWorks_7, string parts_7)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "AddRepairRadiostationForDocumentInDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"numberActRepairUser",
+                        Encryption.EncryptPlainTextToCipherText(numberActRepair));
+                    command.Parameters.AddWithValue($"categoryUser",
+                        Encryption.EncryptPlainTextToCipherText(category));
+                    command.Parameters.AddWithValue($"priceRepairUser",
+                        Encryption.EncryptPlainTextToCipherText(priceRepair));
+                    command.Parameters.AddWithValue($"completedWorks_1User",
+                        Encryption.EncryptPlainTextToCipherText(completedWorks_1));
+                    command.Parameters.AddWithValue($"parts_1User",
+                        Encryption.EncryptPlainTextToCipherText(parts_1));
+                    command.Parameters.AddWithValue($"completedWorks_2User",
+                        Encryption.EncryptPlainTextToCipherText(completedWorks_2));
+                    command.Parameters.AddWithValue($"parts_2User",
+                        Encryption.EncryptPlainTextToCipherText(parts_2));
+                    command.Parameters.AddWithValue($"completedWorks_3User",
+                       Encryption.EncryptPlainTextToCipherText(completedWorks_3));
+                    command.Parameters.AddWithValue($"parts_3User",
+                        Encryption.EncryptPlainTextToCipherText(parts_3));
+                    command.Parameters.AddWithValue($"completedWorks_4User",
+                       Encryption.EncryptPlainTextToCipherText(completedWorks_4));
+                    command.Parameters.AddWithValue($"parts_4User",
+                        Encryption.EncryptPlainTextToCipherText(parts_4));
+                    command.Parameters.AddWithValue($"completedWorks_5User",
+                      Encryption.EncryptPlainTextToCipherText(completedWorks_5));
+                    command.Parameters.AddWithValue($"parts_5User",
+                        Encryption.EncryptPlainTextToCipherText(parts_5));
+                    command.Parameters.AddWithValue($"completedWorks_6User",
+                      Encryption.EncryptPlainTextToCipherText(completedWorks_6));
+                    command.Parameters.AddWithValue($"parts_6User",
+                        Encryption.EncryptPlainTextToCipherText(parts_6));
+                    command.Parameters.AddWithValue($"completedWorks_7User",
+                     Encryption.EncryptPlainTextToCipherText(completedWorks_7));
+                    command.Parameters.AddWithValue($"parts_7User",
+                        Encryption.EncryptPlainTextToCipherText(parts_7));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }

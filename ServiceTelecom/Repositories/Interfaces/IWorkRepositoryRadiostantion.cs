@@ -75,5 +75,17 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary>Изменение акта ремонта в radiostantion(рабочей таблице) </summary>
         bool ChangeNumberActRepairBySerialNumberInDataBase(
             string road, string city, string serialNumber, string numberActRepair);
+
+        /// <summary>Добавление ремонта в radiostantion(рабочей таблице) </summary>
+        bool AddRepairRadiostationForDocumentInDataBase(
+            string road, string city, string serialNumber,
+            string numberActRepair, string category, string priceRepair,
+            string completedWorks_1, string parts_1,
+            string completedWorks_2, string parts_2,
+            string completedWorks_3, string parts_3,
+            string completedWorks_4, string parts_4,
+            string completedWorks_5, string parts_5,
+            string completedWorks_6, string parts_6,
+            string completedWorks_7, string parts_7);
     }
 }
