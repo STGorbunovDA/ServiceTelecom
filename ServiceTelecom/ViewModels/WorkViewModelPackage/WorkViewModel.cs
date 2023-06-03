@@ -265,6 +265,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (addRepairRadiostationForDocumentInDataBaseView != null)
                 return;
+            UserModelStatic.model = SelectedRadiostationForDocumentsDataBaseModel.Model;
             addRepairRadiostationForDocumentInDataBaseView =
                 new AddRepairRadiostationForDocumentInDataBaseView(
                     SelectedRadiostationForDocumentsDataBaseModel);
