@@ -35,18 +35,19 @@ namespace ServiceTelecom.View.WorkViewPackage
             if (!string.IsNullOrWhiteSpace(radiostation.Category))
             {
                 cmbCategory.Text = radiostation.Category;
-                txbPriceRepair.Text = radiostation.Price;
-                if (txbPriceRepair.Text == "887.94" || txbPriceRepair.Text == "895.86" ||
-                   txbPriceRepair.Text == "1267.49" || txbPriceRepair.Text == "2535.97" ||
-                   txbPriceRepair.Text == "5071.94")
+                txbPriceRepair.Text = radiostation.PriceRemont;
+                if (txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_3 || 
+                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_4 || 
+                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_5 || 
+                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_6)
                     CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 else CheckBoxChoicePriceAnalogDigital.IsChecked = false;
             }
             else
             {
-                cmbCategory.Text = "6";
+                cmbCategory.Text = UserModelStatic.Category_6;
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
-                txbPriceRepair.Text = "5071.94";
+                txbPriceRepair.Text = UserModelStatic.priceRepairDigitalCategory_6;
             }
 
             txbPrimaryMeans.Text = _workRepositoryRadiostantionFull.

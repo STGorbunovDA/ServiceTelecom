@@ -28,10 +28,10 @@ namespace ServiceTelecom.View.WorkViewPackage
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
             txbDecommissionNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct;
-            if (txbPrice.Text == UserModelStatic.priceAnalog) CheckBoxPrice.IsChecked = true;
+            if (txbPrice.Text == UserModelStatic.priceAnalogTO) CheckBoxPrice.IsChecked = true;
             else
             {
-                txbPrice.Text = UserModelStatic.priceDigital;
+                txbPrice.Text = UserModelStatic.priceDigitalTO;
                 CheckBoxPrice.IsChecked = false;
             }
             if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")

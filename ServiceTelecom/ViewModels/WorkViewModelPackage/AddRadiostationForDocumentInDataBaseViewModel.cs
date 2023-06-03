@@ -265,8 +265,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 if (value == true)
-                    Price = UserModelStatic.priceAnalog;
-                else Price = UserModelStatic.priceDigital;
+                    Price = UserModelStatic.priceAnalogTO;
+                else Price = UserModelStatic.priceDigitalTO;
                 _сheckBoxPriceViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
@@ -367,7 +367,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Battery = item.Battery;
                     Price = item.Price;
 
-                    if (Price == UserModelStatic.priceAnalog)
+                    if (Price == UserModelStatic.priceAnalogTO)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
                     if (item.VerifiedRST == UserModelStatic.InRemontTechnicalServices)

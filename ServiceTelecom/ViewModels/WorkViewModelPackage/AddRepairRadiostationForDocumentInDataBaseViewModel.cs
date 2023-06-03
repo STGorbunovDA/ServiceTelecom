@@ -102,24 +102,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (CheckBoxChoicePriceViewModel == true)
                 {
                     if (value == "3")
-                        PriceRepair = "887.94";
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_3;
                     if (value == "4")
-                        PriceRepair = "1267.49";
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_4;
                     if (value == "5")
-                        PriceRepair = "2535.97";
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_5;
                     if (value == "6")
-                        PriceRepair = "5071.94";
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_6;
                 }
                 else
                 {
                     if (value == "3")
-                        PriceRepair = "895.86";
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_3;
                     if (value == "4")
-                        PriceRepair = "1280.37";
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_4;
                     if (value == "5")
-                        PriceRepair = "2559.75";
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_5;
                     if (value == "6")
-                        PriceRepair = "5119.51";
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_6;
                 }
 
                 OnPropertyChanged(nameof(Category));
@@ -146,26 +146,26 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _checkBoxChoicePriceViewModel = value;
                 if (value == true)
                 {
-                    if (Category == "3")
-                        PriceRepair = "887.94";
-                    if (Category == "4")
-                        PriceRepair = "1267.49";
-                    if (Category == "5")
-                        PriceRepair = "2535.97";
-                    if (Category == "6")
-                        PriceRepair = "5071.94";
+                    if (Category == UserModelStatic.Category_3)
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_3;
+                    if (Category == UserModelStatic.Category_4)
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_4;
+                    if (Category == UserModelStatic.Category_5)
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_5;
+                    if (Category == UserModelStatic.Category_6)
+                        PriceRepair = UserModelStatic.priceRepairAnalogCategory_6;
 
                 }
                 else
                 {
-                    if (Category == "3")
-                        PriceRepair = "895.86";
-                    if (Category == "4")
-                        PriceRepair = "1280.37";
-                    if (Category == "5")
-                        PriceRepair = "2559.75";
-                    if (Category == "6")
-                        PriceRepair = "5119.51";
+                    if (Category == UserModelStatic.Category_3)
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_3;
+                    if (Category == UserModelStatic.Category_4)
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_4;
+                    if (Category == UserModelStatic.Category_5)
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_5;
+                    if (Category == UserModelStatic.Category_6)
+                        PriceRepair = UserModelStatic.priceRepairDigitalCategory_6;
                 }
                 OnPropertyChanged(nameof(CheckBoxChoicePriceViewModel));
             }
