@@ -103,7 +103,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     if (value == "3")
                         PriceRepair = "887.94";
-                    if(value == "4")
+                    if (value == "4")
                         PriceRepair = "1267.49";
                     if (value == "5")
                         PriceRepair = "2535.97";
@@ -121,7 +121,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     if (value == "6")
                         PriceRepair = "5119.51";
                 }
-                    
+
                 OnPropertyChanged(nameof(Category));
             }
         }
@@ -144,9 +144,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 _checkBoxChoicePriceViewModel = value;
-                if(value == true)
+                if (value == true)
                 {
-                    if(Category == "3")
+                    if (Category == "3")
                         PriceRepair = "887.94";
                     if (Category == "4")
                         PriceRepair = "1267.49";
@@ -478,7 +478,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             Parts_1 = regParts_1.Replace(Parts_1, " ");
             Parts_1.Trim();
 
-            if(!String.IsNullOrWhiteSpace(CompletedWorks_2))
+            if (!String.IsNullOrWhiteSpace(CompletedWorks_2))
             {
                 if (String.IsNullOrWhiteSpace(Parts_2))
                 {
@@ -570,6 +570,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
 
             #endregion
+
+            if (!String.IsNullOrWhiteSpace(PrimaryMeans) ||
+               !String.IsNullOrWhiteSpace(ProductName))
+                if (_workRepositoryRadiostantionFull.SetPrimaryMeansAndProductNameInDataBase(
+                    Road, City, SerialNumber, PrimaryMeans, ProductName))
+                { }
+                else MessageBox.Show("Ошибка добавления основного средства и наименования изделия" +
+                    "в общую таблицу radiostantionFull", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
 
             //if (_workRepositoryRadiostantion.AddRepairRadiostationForDocumentInDataBase(
             //    Road, City, SerialNumber, NumberActRepair,))
