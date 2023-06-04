@@ -150,7 +150,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
 
         RadiostationForDocumentsDataBaseModel _radiostationForDocumentsDataBaseModel;
-        public RadiostationForDocumentsDataBaseModel SelectedRadiostationForDocumentsDataBaseModel
+        public RadiostationForDocumentsDataBaseModel SelectedRadiostation
         {
             get => _radiostationForDocumentsDataBaseModel;
             set
@@ -159,7 +159,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 SerialNumber = value.SerialNumber;
                 _radiostationForDocumentsDataBaseModel = value;
-                OnPropertyChanged(nameof(SelectedRadiostationForDocumentsDataBaseModel));
+                OnPropertyChanged(nameof(SelectedRadiostation));
             }
         }
 
@@ -180,6 +180,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand DeleteRadiostationForDocumentInDataBase { get; }
         public ICommand SaveCollectionRadiostationsForDocument { get; }
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
+        public ICommand DeleteRepairRadiostationForDocumentInDataBase { get; }
 
         public WorkViewModel()
         {
@@ -200,9 +201,38 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteSaveCollectionRadiostationsForDocumentCommand);
             AddRepairRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
+            DeleteRepairRadiostationForDocumentInDataBase =
+                new ViewModelCommand(ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
+
+
+
+        #region DeleteRepairRadiostationForDocumentInDataBase
+
+        private void ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+            if (String.IsNullOrWhiteSpace(SelectedRadiostation.NumberActRepair))
+                return;
+            if (MessageBox.Show("Подтверждаете удаление ремонта?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if(_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(
+                    Road, City, SerialNumber, NumberActRepair))
+                MessageBox.Show("Успешно", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции {SerialNumber}",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        #endregion
 
 
         #region SaveCollectionRadiostationsForDocument
@@ -235,6 +265,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (UserModelStatic.Post == "Дирекция связи")
                 return;
+            if (MessageBox.Show("Подтверждаете удаление радиостанции?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
@@ -254,7 +287,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (UserModelStatic.Post == "Дирекция связи")
                 return;
-            if (SelectedRadiostationForDocumentsDataBaseModel == null)
+            if (SelectedRadiostation == null)
                 return;
             if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
             {
@@ -265,10 +298,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (addRepairRadiostationForDocumentInDataBaseView != null)
                 return;
-            UserModelStatic.model = SelectedRadiostationForDocumentsDataBaseModel.Model;
+            UserModelStatic.model = SelectedRadiostation.Model;
             addRepairRadiostationForDocumentInDataBaseView =
                 new AddRepairRadiostationForDocumentInDataBaseView(
-                    SelectedRadiostationForDocumentsDataBaseModel);
+                    SelectedRadiostation);
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             addRepairRadiostationForDocumentInDataBaseView = null;
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -290,11 +323,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (changeRadiostationForDocumentInDataBaseView != null)
                 return;
-            if (SelectedRadiostationForDocumentsDataBaseModel == null)
+            if (SelectedRadiostation == null)
                 return;
             changeRadiostationForDocumentInDataBaseView =
             new ChangeRadiostationForDocumentInDataBaseView(
-                SelectedRadiostationForDocumentsDataBaseModel);
+                SelectedRadiostation);
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             changeRadiostationForDocumentInDataBaseView = null;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -316,7 +349,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostationForDocumentsDataBaseModel == null)
+                if (SelectedRadiostation == null)
                 {
                     addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView();
@@ -325,7 +358,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView(
-                        SelectedRadiostationForDocumentsDataBaseModel);
+                        SelectedRadiostation);
                 }
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 addRadiostationForDocumentInDataBaseView = null;

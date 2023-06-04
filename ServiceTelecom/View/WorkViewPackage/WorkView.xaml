@@ -84,6 +84,7 @@
                     <ColumnDefinition Width="290"/>
                     <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
@@ -143,7 +144,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Vertical"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Left" Cursor="">
+                                HorizontalAlignment="Left">
                     <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
                             Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
                             Content="Ремонт"
@@ -166,13 +167,24 @@
                             Cursor="Hand">
                     </Button>
                 </StackPanel>
+                <StackPanel Grid.Column="3" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                    <Button x:Name="btnDeleteRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"
+                            Content="Удалить ремонт"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
                               Style="{StaticResource dataGridStyle3}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
-                              SelectedItem="{Binding SelectedRadiostationForDocumentsDataBaseModel}"
+                              SelectedItem="{Binding SelectedRadiostation}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
                               SelectedIndex="{Binding SelectedIndexRadiostantionDataGrid}"
                               SelectionMode="Extended"
@@ -182,6 +194,11 @@
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
