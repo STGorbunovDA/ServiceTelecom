@@ -96,5 +96,9 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool AddDecommissionNumberActRadiostationInDB(
             string road, string city, string serialNumber,
             string decommissionNumberAct, string reasonDecommissionNumberAct);
+
+        /// <summary>Удаления списания в radiostantion(рабочая таблица) </summary>
+        bool DeleteDecommissionNumberActRadiostationInDB(
+            string road, string city, string serialNumber);
     }
 }

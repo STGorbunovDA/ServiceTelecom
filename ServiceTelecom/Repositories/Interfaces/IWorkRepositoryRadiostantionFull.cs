@@ -85,6 +85,8 @@
             string road, string city, string serialNumber,
             string decommissionNumberAct, string reasonDecommissionNumberAct);
 
-
+        /// <summary>Удаления списания в radiostantionFull(общей таблице) </summary>
+        bool DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
+            string road, string city, string serialNumber);
     }
 }

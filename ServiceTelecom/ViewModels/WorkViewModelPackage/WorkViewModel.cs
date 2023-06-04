@@ -185,6 +185,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteRepairRadiostationForDocumentInDataBase { get; }
         public ICommand AddDecommissionNumberActRadiostationForDocumentInDataBase { get; }
+        public ICommand DeleteDecommissionNumberActRadiostationInDB { get; }
 
         public WorkViewModel()
         {
@@ -210,9 +211,48 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand);
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
+            DeleteDecommissionNumberActRadiostationInDB =
+                new ViewModelCommand(ExecuteDeleteDecommissionNumberActRadiostationInDBCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
+
+
+
+        #region DeleteDecommissionNumberActRadiostationInDB
+
+        private void ExecuteDeleteDecommissionNumberActRadiostationInDBCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+            if (String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+                return;
+            if (MessageBox.Show("Подтверждаете удаление списания?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+            if (_workRepositoryRadiostantionFull.
+                DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
+                    Road, City, SerialNumber))
+            { }
+            else
+                MessageBox.Show($"Ошибка удаления списания у радиостанции " +
+                    $"{SerialNumber} из radiostantionFull(общая база)",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (_workRepositoryRadiostantion.DeleteDecommissionNumberActRadiostationInDB(
+                    Road, City, SerialNumber))
+                MessageBox.Show("Успешно", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show($"Ошибка удаления списания у радиостанции {SerialNumber}",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            GetRadiostationsForDocumentsCollection();
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
+        }
+
+        #endregion
 
         #region AddDecommissionNumberActRadiostationForDocumentInDataBase
 

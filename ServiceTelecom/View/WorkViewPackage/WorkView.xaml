@@ -192,8 +192,9 @@
                             <MenuItem Header="Удалить радиостанцию" Command="{Binding DeleteRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Добавить ремонт" Command="{Binding AddRepairRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"/>
-                            <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}" />
-                            <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}" />
+                            <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}"/>
+                            <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
