@@ -186,6 +186,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand DeleteRepairRadiostationForDocumentInDataBase { get; }
         public ICommand AddDecommissionNumberActRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteDecommissionNumberActRadiostationInDB { get; }
+        public ICommand ChangeNumberActAtRadiostationsInDB { get; }
 
         public WorkViewModel()
         {
@@ -213,10 +214,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
             DeleteDecommissionNumberActRadiostationInDB =
                 new ViewModelCommand(ExecuteDeleteDecommissionNumberActRadiostationInDBCommand);
+            ChangeNumberActAtRadiostationsInDB =
+                new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
 
+
+        #region ChangeNumberActAtRadiostationsInDB
+
+        private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
+               RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
+                return;
+            if (MessageBox.Show("Подтверждаете изменение акта?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+            
+        }
+
+        #endregion
 
 
         #region DeleteDecommissionNumberActRadiostationInDB
@@ -355,12 +375,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (UserModelStatic.Post == "Дирекция связи")
                 return;
-            if (MessageBox.Show("Подтверждаете удаление радиостанции?", "Внимание",
-                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                return;
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
+            if (MessageBox.Show("Подтверждаете удаление радиостанции?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+            
             foreach (RadiostationForDocumentsDataBaseModel
                 radiostationForDocumentsDataBaseModel in RadiostationsForDocumentsMulipleSelectedDataGrid)
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
