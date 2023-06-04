@@ -18,6 +18,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
         ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
         AddRepairRadiostationForDocumentInDataBaseView addRepairRadiostationForDocumentInDataBaseView = null;
+        AddDecommissionNumberActView addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private RoadDataBaseRepository _roadDataBase;
@@ -149,16 +150,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
 
-        RadiostationForDocumentsDataBaseModel _radiostationForDocumentsDataBaseModel;
+        RadiostationForDocumentsDataBaseModel _selectedRadiostationdel;
         public RadiostationForDocumentsDataBaseModel SelectedRadiostation
         {
-            get => _radiostationForDocumentsDataBaseModel;
+            get => _selectedRadiostationdel;
             set
             {
                 if (value == null)
                     return;
                 SerialNumber = value.SerialNumber;
-                _radiostationForDocumentsDataBaseModel = value;
+                _selectedRadiostationdel = value;
                 OnPropertyChanged(nameof(SelectedRadiostation));
             }
         }
@@ -181,6 +182,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand SaveCollectionRadiostationsForDocument { get; }
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteRepairRadiostationForDocumentInDataBase { get; }
+        public ICommand AddDecommissionNumberActRadiostationForDocumentInDataBase { get; }
 
         public WorkViewModel()
         {
@@ -203,11 +205,46 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
             DeleteRepairRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand);
+            AddDecommissionNumberActRadiostationForDocumentInDataBase =
+                new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
             LoadingForControlsWorkView();
             GetRadiostationsForDocumentsCollection();
         }
 
+        #region AddDecommissionNumberActRadiostationForDocumentInDataBase
 
+        private void ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+            if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+            {
+                MessageBox.Show(
+                    $"Уже есть списание {DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (addDecommissionNumberActView != null)
+                return;
+
+            addDecommissionNumberActView = new AddDecommissionNumberActView(
+                SelectedRadiostation.Road,
+                SelectedRadiostation.City,
+                SelectedRadiostation.SerialNumber,
+                SelectedRadiostation.NumberAct);
+            addDecommissionNumberActView.Closed += (sender, args) =>
+            addDecommissionNumberActView = null;
+            addDecommissionNumberActView.Closed += (sender, args) =>
+            GetRadiostationsForDocumentsCollection();
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addDecommissionNumberActView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
+            addDecommissionNumberActView.Show();
+        }
+
+        #endregion
 
         #region DeleteRepairRadiostationForDocumentInDataBase
 
@@ -223,7 +260,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            if(_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(
+            if (_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(
                     Road, City, SerialNumber, NumberActRepair))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -234,14 +271,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-
         #region SaveCollectionRadiostationsForDocument
 
         private void ExecuteSaveCollectionRadiostationsForDocumentCommand(object obj)
         {
             if (selectingSaveView == null)
             {
-                selectingSaveView = new SelectingSaveView(City, RadiostationsForDocumentsCollection);
+                selectingSaveView = new SelectingSaveView(SelectedRadiostation.City, RadiostationsForDocumentsCollection);
                 selectingSaveView.Closed += (sender, args) => selectingSaveView = null;
                 selectingSaveView.Show();
             }
@@ -289,12 +325,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (SelectedRadiostation == null)
                 return;
-            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
             {
                 MessageBox.Show(
                     $"Нельзя добавить ремонт на радиостанцию{SerialNumber} " +
                     $"есть списание {DecommissionNumberAct}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             if (addRepairRadiostationForDocumentInDataBaseView != null)
                 return;

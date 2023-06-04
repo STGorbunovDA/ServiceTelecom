@@ -167,17 +167,7 @@
                             Cursor="Hand">
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Orientation="Vertical"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
-                    <Button x:Name="btnDeleteRepairRadiostationForDocumentInDataBase"
-                            Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"
-                            Content="Удалить ремонт"
-                            Margin ="10,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
-                </StackPanel>
+                
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
@@ -196,7 +186,14 @@
                     </DataGrid.Resources>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}" />
+                            <MenuItem Header="Добавить радиостанцию" Command="{Binding AddRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Изменить радиостанцию" Command="{Binding ChangeRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Обновить" Command="{Binding UpdateRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить радиостанцию" Command="{Binding DeleteRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Добавить ремонт" Command="{Binding AddRepairRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}" />
+                            <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
