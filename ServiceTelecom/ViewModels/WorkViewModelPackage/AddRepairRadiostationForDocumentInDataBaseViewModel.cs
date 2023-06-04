@@ -580,6 +580,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "в общую таблицу radiostantionFull", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
+            if (_workRepositoryRadiostantionFull.AddRepairRadiostationForDocumentInDBRadiostantionFull(
+                Road, City, SerialNumber, NumberActRepair, Category, PriceRepair,
+                CompletedWorks_1, Parts_1, CompletedWorks_2, Parts_2,
+                CompletedWorks_3, Parts_3, CompletedWorks_4, Parts_4,
+                CompletedWorks_5, Parts_5, CompletedWorks_6, Parts_6,
+                CompletedWorks_7, Parts_7))
+            { }
+            else
+                MessageBox.Show($"Ошибка добавления ремонта на радиостанцию {SerialNumber}" +
+                    $"в radiostantionFull(общая таблица)",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
             if (_workRepositoryRadiostantion.AddRepairRadiostationForDocumentInDataBase(
                 Road, City, SerialNumber, NumberActRepair, Category, PriceRepair,

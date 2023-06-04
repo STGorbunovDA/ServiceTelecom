@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
@@ -21,6 +22,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddDecommissionNumberActView addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
 
         public ObservableCollection<string> RoadCollections { get; set; }
@@ -187,6 +189,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public WorkViewModel()
         {
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RoadCollections = new ObservableCollection<string>();
@@ -260,13 +263,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
+            if (_workRepositoryRadiostantionFull.DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
+                    Road, City, SerialNumber))
+            { }
+            else
+                MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
+                    $"{SerialNumber} из radiostantionFull(общая база)",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+
             if (_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(
-                    Road, City, SerialNumber, NumberActRepair))
+                    Road, City, SerialNumber))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции {SerialNumber}",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            GetRadiostationsForDocumentsCollection();
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
         }
 
         #endregion
@@ -341,9 +355,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     SelectedRadiostation);
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             addRepairRadiostationForDocumentInDataBaseView = null;
-            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-            GetRadiostationsForDocumentsCollection();
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            GetRadiostationsForDocumentsCollection();         
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
             addRepairRadiostationForDocumentInDataBaseView.Show();

@@ -47,7 +47,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             {
                 cmbCategory.Text = UserModelStatic.Category_6;
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
-                txbPriceRepair.Text = UserModelStatic.priceRepairDigitalCategory_6;
+                txbPriceRepair.Text = UserModelStatic.priceRepairAnalogCategory_6;
             }
 
             txbPrimaryMeans.Text = _workRepositoryRadiostantionFull.

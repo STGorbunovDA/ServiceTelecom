@@ -599,7 +599,7 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool DeleteRepairRadiostationForDocumentInDataBase(
-            string road, string city, string serialNumber, string numberActRepair)
+            string road, string city, string serialNumber)
         {
             try
             {
@@ -624,5 +624,7 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        
     }
 }
