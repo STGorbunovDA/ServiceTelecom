@@ -16,18 +16,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> для сохранения индекса выделенной строки </summary>
         private int TEMPORARY_INDEX_DATAGRID = 0;
 
-        AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
-        ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
-        AddRepairRadiostationForDocumentInDataBaseView addRepairRadiostationForDocumentInDataBaseView = null;
-        AddDecommissionNumberActView addDecommissionNumberActView = null;
+        AddRadiostationForDocumentInDataBaseView
+            addRadiostationForDocumentInDataBaseView = null;
+        ChangeRadiostationForDocumentInDataBaseView
+            changeRadiostationForDocumentInDataBaseView = null;
+        AddRepairRadiostationForDocumentInDataBaseView
+            addRepairRadiostationForDocumentInDataBaseView = null;
+        AddDecommissionNumberActView
+            addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
-
         public ObservableCollection<string> RoadCollections { get; set; }
         public ObservableCollection<string> CityCollections { get; set; }
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            RadiostationsForDocumentsCollection
+        { get; set; }
 
         private int _selectedIndexRadiostantionDataGrid;
         public int SelectedIndexRadiostantionDataGrid
@@ -43,76 +48,268 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #region свойства
 
         private string _road;
-        public string Road { get => _road; set { _road = value; OnPropertyChanged(nameof(Road)); } }
+        public string Road
+        {
+            get => _road;
+            set
+            {
+                _road = value;
+                OnPropertyChanged(nameof(Road));
+            }
+        }
 
         private string _city;
-        public string City { get => _city; set { _city = value; OnPropertyChanged(nameof(City)); } }
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
 
         private string _serialNumber;
-        public string SerialNumber { get => _serialNumber; set { _serialNumber = value; OnPropertyChanged(nameof(SerialNumber)); } }
+        public string SerialNumber
+        {
+            get => _serialNumber;
+            set
+            {
+                _serialNumber = value;
+                OnPropertyChanged(nameof(SerialNumber));
+            }
+        }
 
         private string _representative;
-        public string Representative { get => _representative; set { _representative = value; OnPropertyChanged(nameof(Representative)); } }
+        public string Representative
+        {
+            get => _representative;
+            set
+            {
+                _representative = value;
+                OnPropertyChanged(nameof(Representative));
+            }
+        }
 
         private string _numberIdentification;
-        public string NumberIdentification { get => _numberIdentification; set { _numberIdentification = value; OnPropertyChanged(nameof(NumberIdentification)); } }
+        public string NumberIdentification
+        {
+            get => _numberIdentification;
+            set
+            {
+                _numberIdentification = value;
+                OnPropertyChanged(nameof(NumberIdentification));
+            }
+        }
 
         private string _phoneNumber;
-        public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); } }
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                _phoneNumber = value;
+                OnPropertyChanged(nameof(PhoneNumber));
+            }
+        }
 
         private string _post;
-        public string Post { get => _post; set { _post = value; OnPropertyChanged(nameof(Post)); } }
+        public string Post
+        {
+            get => _post;
+            set
+            {
+                _post = value;
+                OnPropertyChanged(nameof(Post));
+            }
+        }
 
         private string _dateOfIssuanceOfTheCertificate;
-        public string DateOfIssuanceOfTheCertificate { get => _dateOfIssuanceOfTheCertificate; set { _dateOfIssuanceOfTheCertificate = value; OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate)); } }
+        public string DateOfIssuanceOfTheCertificate
+        {
+            get => _dateOfIssuanceOfTheCertificate;
+            set
+            {
+                _dateOfIssuanceOfTheCertificate = value;
+                OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate));
+            }
+        }
 
         private string _poligon;
-        public string Poligon { get => _poligon; set { _poligon = value; OnPropertyChanged(nameof(Poligon)); } }
+        public string Poligon
+        {
+            get => _poligon;
+            set
+            {
+                _poligon = value;
+                OnPropertyChanged(nameof(Poligon));
+            }
+        }
 
         private string _company;
-        public string Company { get => _company; set { _company = value; OnPropertyChanged(nameof(Company)); } }
+        public string Company
+        {
+            get => _company;
+            set
+            {
+                _company = value;
+                OnPropertyChanged(nameof(Company));
+            }
+        }
 
         private string _location;
-        public string Location { get => _location; set { _location = value; OnPropertyChanged(nameof(Location)); } }
+        public string Location
+        {
+            get => _location;
+            set
+            {
+                _location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
 
         private string _model;
-        public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
+        public string Model
+        {
+            get => _model;
+            set
+            {
+                _model = value;
+                OnPropertyChanged(nameof(Model));
+            }
+        }
 
         private string _inventoryNumber;
-        public string InventoryNumber { get => _inventoryNumber; set { _inventoryNumber = value; OnPropertyChanged(nameof(InventoryNumber)); } }
+        public string InventoryNumber
+        {
+            get => _inventoryNumber;
+            set
+            {
+                _inventoryNumber = value;
+                OnPropertyChanged(nameof(InventoryNumber));
+            }
+        }
 
         private string _networkNumber;
-        public string NetworkNumber { get => _networkNumber; set { _networkNumber = value; OnPropertyChanged(nameof(NetworkNumber)); } }
+        public string NetworkNumber
+        {
+            get => _networkNumber;
+            set
+            {
+                _networkNumber = value;
+                OnPropertyChanged(nameof(NetworkNumber));
+            }
+        }
 
         private string _dateMaintenance;
-        public string DateMaintenance { get => _dateMaintenance; set { _dateMaintenance = value; OnPropertyChanged(nameof(DateMaintenance)); } }
+        public string DateMaintenance
+        {
+            get => _dateMaintenance;
+            set
+            {
+                _dateMaintenance = value;
+                OnPropertyChanged(nameof(DateMaintenance));
+            }
+        }
 
         private string _comment;
-        public string Comment { get => _comment; set { _comment = value; OnPropertyChanged(nameof(Comment)); } }
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                _comment = value;
+                OnPropertyChanged(nameof(Comment));
+            }
+        }
 
         private string _price;
-        public string Price { get => _price; set { _price = value; OnPropertyChanged(nameof(Price)); } }
+        public string Price
+        {
+            get => _price;
+            set
+            {
+                _price = value;
+                OnPropertyChanged(nameof(Price));
+            }
+        }
 
         private string _numberAct;
-        public string NumberAct { get => _numberAct; set { _numberAct = value; OnPropertyChanged(nameof(NumberAct)); } }
+        public string NumberAct
+        {
+            get => _numberAct;
+            set
+            {
+                _numberAct = value;
+                OnPropertyChanged(nameof(NumberAct));
+            }
+        }
 
         private string _numberActRepair;
-        public string NumberActRepair { get => _numberActRepair; set { _numberActRepair = value; OnPropertyChanged(nameof(NumberActRepair)); } }
+        public string NumberActRepair
+        {
+            get => _numberActRepair;
+            set
+            {
+                _numberActRepair = value;
+                OnPropertyChanged(nameof(NumberActRepair));
+            }
+        }
 
         private string _manipulator;
-        public string Manipulator { get => _manipulator; set { _manipulator = value; OnPropertyChanged(nameof(Manipulator)); } }
+        public string Manipulator
+        {
+            get => _manipulator;
+            set
+            {
+                _manipulator = value;
+                OnPropertyChanged(nameof(Manipulator));
+            }
+        }
 
         private string _antenna;
-        public string Antenna { get => _antenna; set { _antenna = value; OnPropertyChanged(nameof(Antenna)); } }
+        public string Antenna
+        {
+            get => _antenna;
+            set
+            {
+                _antenna = value;
+                OnPropertyChanged(nameof(Antenna));
+            }
+        }
 
         private string _battery;
-        public string Battery { get => _battery; set { _battery = value; OnPropertyChanged(nameof(Battery)); } }
+        public string Battery
+        {
+            get => _battery;
+            set
+            {
+                _battery = value;
+                OnPropertyChanged(nameof(Battery));
+            }
+        }
 
         private string _charger;
-        public string Charger { get => _charger; set { _charger = value; OnPropertyChanged(nameof(Charger)); } }
+        public string Charger
+        {
+            get => _charger;
+            set
+            {
+                _charger = value;
+                OnPropertyChanged(nameof(Charger));
+            }
+        }
 
         private string _decommissionNumberAct;
-        public string DecommissionNumberAct { get => _decommissionNumberAct; set { _decommissionNumberAct = value; OnPropertyChanged(nameof(DecommissionNumberAct)); } }
+        public string DecommissionNumberAct
+        {
+            get => _decommissionNumberAct;
+            set
+            {
+                _decommissionNumberAct = value;
+                OnPropertyChanged(nameof(DecommissionNumberAct));
+            }
+        }
 
         #endregion
 
@@ -140,10 +337,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private int _theIndexUserChoiceCityCollection;
         public int TheIndexUserChoiceCityCollection
         {
-            get
-            {
-                return _theIndexUserChoiceCityCollection;
-            }
+            get => _theIndexUserChoiceCityCollection;
             set
             {
                 _theIndexUserChoiceCityCollection = value;
@@ -169,7 +363,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private IList _selectedModels = new ArrayList();
         public IList RadiostationsForDocumentsMulipleSelectedDataGrid
         {
-            get { return _selectedModels; }
+            get => _selectedModels;
             set
             {
                 _selectedModels = value;
@@ -233,7 +427,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (MessageBox.Show("Подтверждаете изменение акта?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            
+
         }
 
         #endregion
@@ -323,7 +517,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            if (_workRepositoryRadiostantionFull.DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
+            if (_workRepositoryRadiostantionFull.
+                DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
                     Road, City, SerialNumber))
             { }
             else
@@ -336,8 +531,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции {SerialNumber}",
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
+                    $"{SerialNumber}","Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             GetRadiostationsForDocumentsCollection();
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -351,7 +546,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (selectingSaveView == null)
             {
-                selectingSaveView = new SelectingSaveView(SelectedRadiostation.City, RadiostationsForDocumentsCollection);
+                selectingSaveView = new SelectingSaveView(SelectedRadiostation.City, 
+                    RadiostationsForDocumentsCollection);
                 selectingSaveView.Closed += (sender, args) => selectingSaveView = null;
                 selectingSaveView.Show();
             }
@@ -381,9 +577,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (MessageBox.Show("Подтверждаете удаление радиостанции?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            
+
             foreach (RadiostationForDocumentsDataBaseModel
-                radiostationForDocumentsDataBaseModel in RadiostationsForDocumentsMulipleSelectedDataGrid)
+                radiostationForDocumentsDataBaseModel in 
+                RadiostationsForDocumentsMulipleSelectedDataGrid)
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
             GetRadiostationsForDocumentsCollection();
@@ -418,11 +615,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addRepairRadiostationForDocumentInDataBaseView = null;
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-            GetRadiostationsForDocumentsCollection();         
+            GetRadiostationsForDocumentsCollection();
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
             addRepairRadiostationForDocumentInDataBaseView.Show();
-
         }
 
         #endregion
@@ -461,17 +657,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostation == null)
-                {
-                    addRadiostationForDocumentInDataBaseView =
+                if (SelectedRadiostation == null) addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView();
-                }
-                else
-                {
-                    addRadiostationForDocumentInDataBaseView =
+                else addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView(
                         SelectedRadiostation);
-                }
+                
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -496,7 +687,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
                     RoadCollections.Add(item.RoadBase);
 
-            CityCollections = _workRepositoryRadiostantion.GetCityAlongRoadForCityCollection(RoadCollections[0].ToString(), CityCollections);
+            CityCollections = _workRepositoryRadiostantion.
+                GetCityAlongRoadForCityCollection(
+                RoadCollections[0].ToString(), CityCollections);
         }
 
         #endregion
@@ -531,7 +724,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _workRepositoryRadiostantion.GetRadiostationsForDocumentsCollection(
                 RadiostationsForDocumentsCollection, RoadCollections[0].ToString(),
                 CityCollections[0].ToString());
-
         }
 
         #endregion
