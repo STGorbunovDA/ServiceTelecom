@@ -80,6 +80,11 @@
         bool DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
             string road, string city, string serialNumber);
 
-       
+        /// <summary>Добавление списания в radiostantionFull(общая таблица) </summary>
+        bool AddDecommissionNumberActRadiostationInDBRadiostationFull(
+            string road, string city, string serialNumber,
+            string decommissionNumberAct, string reasonDecommissionNumberAct);
+
+
     }
 }

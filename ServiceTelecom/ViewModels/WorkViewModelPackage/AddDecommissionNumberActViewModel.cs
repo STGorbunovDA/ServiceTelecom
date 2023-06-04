@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -9,6 +10,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class AddDecommissionNumberActViewModel : ViewModelBase
     {
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
 
         private string _road;
         public string Road
@@ -63,7 +65,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public AddDecommissionNumberActViewModel()
         {
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-
+            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
         }
@@ -95,8 +97,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            //if(_workRepositoryRadiostantion.AddDecommissionNumberActRadiostationForDocumentInDB(
-            //    Road,City,SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
+            if (_workRepositoryRadiostantionFull.AddDecommissionNumberActRadiostationInDBRadiostationFull(
+                Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
+            {}
+            else MessageBox.Show($"Ошибка списания радиостанции " +
+                    $"{SerialNumber}, radiostantionFull(общая база)",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            if (_workRepositoryRadiostantion.AddDecommissionNumberActRadiostationInDB(
+                Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
+                MessageBox.Show("Успешно", "Информация",
+                         MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show($"Ошибка списания радиостанции {SerialNumber}",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion

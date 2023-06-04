@@ -91,5 +91,10 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary>Удаления ремонта в radiostantion(рабочей таблице) </summary>
         bool DeleteRepairRadiostationForDocumentInDataBase(
             string road, string city, string serialNumber);
+
+        /// <summary>Добавление списания в radiostantion(рабочую таблицу) </summary>
+        bool AddDecommissionNumberActRadiostationInDB(
+            string road, string city, string serialNumber,
+            string decommissionNumberAct, string reasonDecommissionNumberAct);
     }
 }

@@ -127,9 +127,10 @@
                 <Button x:Name="btnAddDecommissionNumberActRadiostationForDocumentInDataBase"
                             Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"
                             Content="Добавить"
-                            Margin ="10,0,0,5"
+                            Margin ="0,0,15,0"
                             Style="{StaticResource menuButtonStyleFour}" 
-                            Cursor="Hand">
+                            Cursor="Hand"
+                            HorizontalAlignment="Right">
                 </Button>
             </Grid>
         </Grid>
