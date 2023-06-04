@@ -63,5 +63,30 @@
         bool SetPrimaryMeansAndProductNameInDataBase(
             string road, string city, string serialNumber,
             string primaryMeans, string productName);
+
+        /// <summary>Добавление ремонта в radiostantionFull(общую таблицу) </summary>
+        bool AddRepairRadiostationForDocumentInDBRadiostantionFull(
+            string road, string city, string serialNumber,
+            string numberActRepair, string category, string priceRepair,
+            string completedWorks_1, string parts_1,
+            string completedWorks_2, string parts_2,
+            string completedWorks_3, string parts_3,
+            string completedWorks_4, string parts_4,
+            string completedWorks_5, string parts_5,
+            string completedWorks_6, string parts_6,
+            string completedWorks_7, string parts_7);
+
+        /// <summary>Удаления ремонта в radiostantionFull(общей таблице) </summary>
+        bool DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
+            string road, string city, string serialNumber);
+
+        /// <summary>Добавление списания в radiostantionFull(общая таблица) </summary>
+        bool AddDecommissionNumberActRadiostationInDBRadiostationFull(
+            string road, string city, string serialNumber,
+            string decommissionNumberAct, string reasonDecommissionNumberAct);
+
+        /// <summary>Удаления списания в radiostantionFull(общей таблице) </summary>
+        bool DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
+            string road, string city, string serialNumber);
     }
 }

@@ -87,5 +87,18 @@ namespace ServiceTelecom.Repositories.Interfaces
             string completedWorks_5, string parts_5,
             string completedWorks_6, string parts_6,
             string completedWorks_7, string parts_7);
+
+        /// <summary>Удаления ремонта в radiostantion(рабочей таблице) </summary>
+        bool DeleteRepairRadiostationForDocumentInDataBase(
+            string road, string city, string serialNumber);
+
+        /// <summary>Добавление списания в radiostantion(рабочую таблицу) </summary>
+        bool AddDecommissionNumberActRadiostationInDB(
+            string road, string city, string serialNumber,
+            string decommissionNumberAct, string reasonDecommissionNumberAct);
+
+        /// <summary>Удаления списания в radiostantion(рабочая таблица) </summary>
+        bool DeleteDecommissionNumberActRadiostationInDB(
+            string road, string city, string serialNumber);
     }
 }

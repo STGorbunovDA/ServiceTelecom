@@ -84,6 +84,7 @@
                     <ColumnDefinition Width="290"/>
                     <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
@@ -143,7 +144,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Vertical"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Left" Cursor="">
+                                HorizontalAlignment="Left">
                     <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
                             Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
                             Content="Ремонт"
@@ -166,13 +167,14 @@
                             Cursor="Hand">
                     </Button>
                 </StackPanel>
+                
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
                               Style="{StaticResource dataGridStyle3}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl}"
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
-                              SelectedItem="{Binding SelectedRadiostationForDocumentsDataBaseModel}"
+                              SelectedItem="{Binding SelectedRadiostation}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
                               SelectedIndex="{Binding SelectedIndexRadiostantionDataGrid}"
                               SelectionMode="Extended"
@@ -182,6 +184,20 @@
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Добавить радиостанцию" Command="{Binding AddRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Изменить радиостанцию" Command="{Binding ChangeRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Обновить" Command="{Binding UpdateRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить радиостанцию" Command="{Binding DeleteRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Добавить ремонт" Command="{Binding AddRepairRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}"/>
+                            <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
+                            <MenuItem Header="Изменить номер акта" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
