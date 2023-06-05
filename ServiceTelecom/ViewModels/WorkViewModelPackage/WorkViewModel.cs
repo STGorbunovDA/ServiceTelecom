@@ -1,7 +1,5 @@
-﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.Models;
+﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
@@ -313,26 +311,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        //private int _selectedItemUserChoiceRoadCollection;
-        //public int SelectedItemUserChoiceRoadCollection
-        //{
-        //    get
-        //    {
-        //        TheIndexUserChoiceCityCollection = -1;
+        private int _selectedItemUserChoiceRoadCollection;
+        public int SelectedItemUserChoiceCityCollection
+        {
+            get => _selectedItemUserChoiceRoadCollection;
+            set
+            {
+                _selectedItemUserChoiceRoadCollection = value;
+                OnPropertyChanged(nameof(SelectedItemUserChoiceCityCollection));
+            }
+        }
 
-        //        if (CityCollections.Count != 0)
-        //            CityCollections.Clear();
-        //        CityCollections = _workRepository.GetCityAlongRoadForCityCollection(Road, CityCollections);
 
-        //        TheIndexUserChoiceCityCollection = 0;
-        //        return _selectedItemUserChoiceRoadCollection;
-        //    }
-        //    set
-        //    {
-        //        _selectedItemUserChoiceRoadCollection = value;
-        //        OnPropertyChanged(nameof(SelectedItemUserChoiceRoadCollection));
-        //    }
-        //}
 
         private int _theIndexUserChoiceCityCollection;
         public int TheIndexUserChoiceCityCollection
@@ -344,6 +334,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(TheIndexUserChoiceCityCollection));
             }
         }
+
 
 
         RadiostationForDocumentsDataBaseModel _selectedRadiostationdel;
@@ -427,7 +418,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (MessageBox.Show("Подтверждаете изменение акта?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-
         }
 
         #endregion
@@ -532,7 +522,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
-                    $"{SerialNumber}","Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                    $"{SerialNumber}", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             GetRadiostationsForDocumentsCollection();
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -546,7 +536,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (selectingSaveView == null)
             {
-                selectingSaveView = new SelectingSaveView(SelectedRadiostation.City, 
+                selectingSaveView = new SelectingSaveView(SelectedRadiostation.City,
                     RadiostationsForDocumentsCollection);
                 selectingSaveView.Closed += (sender, args) => selectingSaveView = null;
                 selectingSaveView.Show();
@@ -579,7 +569,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
 
             foreach (RadiostationForDocumentsDataBaseModel
-                radiostationForDocumentsDataBaseModel in 
+                radiostationForDocumentsDataBaseModel in
                 RadiostationsForDocumentsMulipleSelectedDataGrid)
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
@@ -615,6 +605,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addRepairRadiostationForDocumentInDataBaseView = null;
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            LoadingForControlsWorkView();
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection();
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -639,6 +631,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             changeRadiostationForDocumentInDataBaseView = null;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            LoadingForControlsWorkView();
+            changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection();
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -662,7 +656,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 else addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView(
                         SelectedRadiostation);
-                
+
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 addRadiostationForDocumentInDataBaseView = null;
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -686,10 +680,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
                     RoadCollections.Add(item.RoadBase);
+            if (CityCollections.Count != 0)
+            {
+                TheIndexUserChoiceCityCollection = -1;
+                CityCollections.Clear();
+            }
 
             CityCollections = _workRepositoryRadiostantion.
-                GetCityAlongRoadForCityCollection(
-                RoadCollections[0].ToString(), CityCollections);
+                    GetCityAlongRoadForCityCollection(
+                    RoadCollections[0].ToString(), CityCollections);
+            TheIndexUserChoiceCityCollection = 0;
         }
 
         #endregion

@@ -11,6 +11,7 @@ namespace ServiceTelecom.View.WorkViewPackage
         public WorkView()
         {
             InitializeComponent();
+            cmbCity.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
