@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.Base"
-        Title="MenuView" Height="200" Width="500"
+        Title="Добавление модели" Height="200" Width="500"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"

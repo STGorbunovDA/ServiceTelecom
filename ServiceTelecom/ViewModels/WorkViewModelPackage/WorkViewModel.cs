@@ -635,7 +635,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetRadiostationsForDocumentsCollection(Road, City);
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
+            addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+            ClearUserModelStaticRoadCitySerialNumber();
             addRepairRadiostationForDocumentInDataBaseView.Show();
+        }
+
+        #endregion
+
+        #region ClearUserModelStaticRoadCitySerialNumber 
+
+        private void ClearUserModelStaticRoadCitySerialNumber()
+        {
+            UserModelStatic.road = null;
+            UserModelStatic.city = null;
+            UserModelStatic.serialNumber = null;
         }
 
         #endregion

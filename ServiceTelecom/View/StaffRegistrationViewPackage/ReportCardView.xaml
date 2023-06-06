@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels"
-        Title="MenuView" Height="600" Width="1000"
+        Title="Табель" Height="600" Width="1000"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -69,7 +69,7 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                    <TextBlock Text="Регистрация сотрудников"
+                    <TextBlock Text="Табель сотрудников"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
                                Margin="100,0,0,0">

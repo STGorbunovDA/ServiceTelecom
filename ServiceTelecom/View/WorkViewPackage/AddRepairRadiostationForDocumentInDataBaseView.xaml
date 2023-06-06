@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="MenuView" Height="768" Width="800"
+        Title="Добавление ремонта" Height="768" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -60,8 +59,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="240"/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
@@ -83,23 +81,28 @@
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"
                             Content="-"
-                            Grid.Column="3"
+                            Grid.Column="2"
                             Click="BtnMinimize_Click" 
                             Cursor="Hand">
                 </Button>
                 <Button x:Name="btnClose"
                             Style="{StaticResource menuButtonStyleThree}"
                             Content="x"
-                            Grid.Column="4"
+                            Grid.Column="3"
                             Click="BtnClose_Click">
                 </Button>
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <TextBlock Text="Добавление Ремонта"
+                    <TextBlock Text="Добавление Ремонта для предприятия"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle3}"
-                               Margin="60,0,0,0">
+                               Margin="60,0,5,0">
+                    </TextBlock>
+                    <TextBlock x:Name="txtCompany"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle3}"
+                               >
                     </TextBlock>
                 </StackPanel>
             </Grid>
