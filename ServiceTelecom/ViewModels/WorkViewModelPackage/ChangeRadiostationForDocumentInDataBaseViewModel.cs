@@ -631,7 +631,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     if (Price == UserModelStatic.priceAnalogTO)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
-                    if (item.VerifiedRST == UserModelStatic.InRemontTechnicalServices)
+                    if (item.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
                         CheckBoxRemontViewModel = true;
                     if (item.Manipulator == UserModelStatic.UnitMeasureForCheckBox)
                         CheckBoxManipulatorViewModel = true;
@@ -1062,7 +1062,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else Charger = "-";
 
             if (CheckBoxRemontViewModel)
-                Remont = UserModelStatic.InRemontTechnicalServices;
+                Remont = UserModelStatic.InRepairTechnicalServices;
             else Remont = "-";
 
             #endregion

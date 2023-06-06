@@ -17,8 +17,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        private ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        private ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
 
         #region свойства
 
@@ -370,7 +370,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     if (Price == UserModelStatic.priceAnalogTO)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
-                    if (item.VerifiedRST == UserModelStatic.InRemontTechnicalServices)
+                    if (item.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
                         CheckBoxRemontViewModel = true;
                     if (item.Manipulator == UserModelStatic.UnitMeasureForCheckBox)
                         CheckBoxManipulatorViewModel = true;
@@ -847,7 +847,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else Charger = "-";
 
             if (CheckBoxRemontViewModel)
-                Remont = UserModelStatic.InRemontTechnicalServices;
+                Remont = UserModelStatic.InRepairTechnicalServices;
             else Remont = "-";
 
             #endregion
