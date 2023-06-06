@@ -9,7 +9,7 @@ using ServiceTelecom.Infrastructure.Interfaces;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class SaveCSV : IReportCardSave<ReportCardsDataBaseModel>,
+    internal class SaveCSV : ISaveCSV<ReportCardsDataBaseModel>,
         ITutorialsEngineerSave<TutorialEngineerDataBaseModel>,
         ISaveRadiostationsForDocumets<RadiostationForDocumentsDataBaseModel>
     {
