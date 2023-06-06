@@ -3,8 +3,11 @@ using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
+using System.Windows.Documents;
 
 namespace ServiceTelecom.Repositories
 {
@@ -63,9 +66,9 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"roadUser", 
+                    command.Parameters.AddWithValue($"roadUser",
                         Encryption.EncryptPlainTextToCipherText(road));
-                    command.Parameters.AddWithValue($"cityUser", 
+                    command.Parameters.AddWithValue($"cityUser",
                         Encryption.EncryptPlainTextToCipherText(city));
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -532,14 +535,14 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddRepairRadiostationForDocumentInDataBase(
-            string road, string city, string serialNumber, 
-            string numberActRepair, string category, string priceRepair, 
-            string completedWorks_1, string parts_1, 
-            string completedWorks_2, string parts_2, 
-            string completedWorks_3, string parts_3, 
-            string completedWorks_4, string parts_4, 
-            string completedWorks_5, string parts_5, 
-            string completedWorks_6, string parts_6, 
+            string road, string city, string serialNumber,
+            string numberActRepair, string category, string priceRepair,
+            string completedWorks_1, string parts_1,
+            string completedWorks_2, string parts_2,
+            string completedWorks_3, string parts_3,
+            string completedWorks_4, string parts_4,
+            string completedWorks_5, string parts_5,
+            string completedWorks_6, string parts_6,
             string completedWorks_7, string parts_7)
         {
             try
@@ -628,7 +631,7 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddDecommissionNumberActRadiostationInDB(
-            string road, string city, string serialNumber, 
+            string road, string city, string serialNumber,
             string decommissionNumberAct, string reasonDecommissionNumberAct)
         {
             try
@@ -683,6 +686,40 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public string GetOfTheLastNumberActRepair(string road)
+        {
+            List<string> numberActRepairList = new List<string>();
+            string numberActRepair = string.Empty;
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return numberActRepair;
+                using (MySqlCommand command = new MySqlCommand(
+                    "GetOfTheLastNumberActRepair",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                            while (reader.Read())
+                                numberActRepairList.Add(
+                                    Encryption.DecryptCipherTextToPlainText(
+                                        reader.GetString(0)));
+
+                        reader.Close();
+                        numberActRepairList.Sort(); 
+                        return numberActRepairList.LastOrDefault();
+                    }
+                }
+            }
+            catch { return numberActRepair; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }

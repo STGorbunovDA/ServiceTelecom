@@ -418,7 +418,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ChangeNumberActAtRadiostationsInDB =
                 new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
             GetRoad();
-            //GetRadiostationsForDocumentsCollection(0,0);
         }
 
 
@@ -614,10 +613,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (addRepairRadiostationForDocumentInDataBaseView != null)
                 return;
+
+            UserModelStatic.road = SelectedRadiostation.Road;
             UserModelStatic.model = SelectedRadiostation.Model;
+            UserModelStatic.serialNumber = SelectedRadiostation.SerialNumber;
+
             addRepairRadiostationForDocumentInDataBaseView =
                 new AddRepairRadiostationForDocumentInDataBaseView(
                     SelectedRadiostation);
+
             addRepairRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             addRepairRadiostationForDocumentInDataBaseView = null;
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;

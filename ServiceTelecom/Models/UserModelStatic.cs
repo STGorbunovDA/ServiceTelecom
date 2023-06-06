@@ -28,8 +28,15 @@ namespace ServiceTelecom.Models
         public const string Category_5 = "5";
         public const string Category_6 = "6";
 
+       
+        /// <summary> необходима для ремонтов</summary>
+        public static string road = string.Empty;
+        /// <summary> необходима для ремонтов</summary>
+        public static string city = string.Empty;
         /// <summary> необходима для ремонтов</summary>
         public static string model = string.Empty;
+        /// <summary> необходима для ремонтов</summary>
+        public static string serialNumber = string.Empty;
 
         public static ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrationsDataBaseModelCollection { get; set; }
