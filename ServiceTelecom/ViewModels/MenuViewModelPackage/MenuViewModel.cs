@@ -56,6 +56,7 @@ namespace ServiceTelecom.ViewModels
             {
                 work = new WorkView();
                 work.Closed += (sender, args) => work = null;
+                work.Closed += (sender, args) => 
                 UserModelStatic.StaffRegistrationsDataBaseModelCollection.Clear();
                 work.Show();
             }
