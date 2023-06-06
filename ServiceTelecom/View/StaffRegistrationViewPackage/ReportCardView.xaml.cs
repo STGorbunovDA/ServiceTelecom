@@ -10,6 +10,8 @@ namespace ServiceTelecom.View
         public ReportCardView()
         {
             InitializeComponent();
+            cmbUser.SelectedIndex = 0;
+            cmbDateTimeInput.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

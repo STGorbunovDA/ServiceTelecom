@@ -34,10 +34,6 @@ namespace ServiceTelecom.Repositories
                             UserModelStatic user = new UserModelStatic(
                                 table.Rows[0].ItemArray[0].ToString(),
                                 table.Rows[0].ItemArray[2].ToString());
-                            RegistryKey currentUserKey = Registry.CurrentUser;
-                            RegistryKey helloKey = currentUserKey.CreateSubKey("SOFTWARE\\ServiceTelekom_Setting\\Login_Password");
-                            helloKey.SetValue("Login", $"{credential.UserName}");
-                            helloKey.Close();
                             return user;
                         }
                         else return null;

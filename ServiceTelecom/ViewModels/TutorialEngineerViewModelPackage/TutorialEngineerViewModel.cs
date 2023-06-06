@@ -17,7 +17,7 @@ namespace ServiceTelecom.ViewModels
         ChangeTutorialEngineerView changeTutorial = null;
         public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
         public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
-        private ObservableCollection<string> UserChoice { get; set; }
+        public ObservableCollection<string> UserChoice { get; set; }
 
         private int _idTutorialEngineer;
         private string _model;

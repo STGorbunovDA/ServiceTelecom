@@ -7,7 +7,7 @@ namespace ServiceTelecom.Models
     {
         public const string priceAnalogTO = "1411.18";
         public const string priceDigitalTO = "1919.57";
-        public const string InRemontTechnicalServices = "ремонт";
+        public const string InRepairTechnicalServices = "ремонт";
         public const string PassedTechnicalServices = "прошла проверку";
         public const string InWorkTechnicalServices = "В работе";
 
@@ -28,8 +28,15 @@ namespace ServiceTelecom.Models
         public const string Category_5 = "5";
         public const string Category_6 = "6";
 
+       
+        /// <summary> необходима для ремонтов</summary>
+        public static string road = string.Empty;
+        /// <summary> необходима для ремонтов</summary>
+        public static string city = string.Empty;
         /// <summary> необходима для ремонтов</summary>
         public static string model = string.Empty;
+        /// <summary> необходима для ремонтов</summary>
+        public static string serialNumber = string.Empty;
 
         public static ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrationsDataBaseModelCollection { get; set; }

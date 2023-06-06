@@ -1,12 +1,14 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -419,8 +421,57 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             AddRepairRadiostationForDocumentInDataBase =
                  new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
             GetRepairManualRadiostantionsCollections();
+            GetPrimaryMeansInDataBase();
+            GetOfTheLastNumberActRepair();
+            GetProductNameInDataBase();
         }
 
+        #region GetProductNameInDataBase
+
+        private void GetProductNameInDataBase()
+        {
+            ProductName = _workRepositoryRadiostantionFull.
+                GetProductNameInDataBase(
+                UserModelStatic.serialNumber, 
+                UserModelStatic.city, 
+                UserModelStatic.road);
+        }
+
+
+        #endregion
+
+        #region GetPrimaryMeansInDataBase
+
+        private void GetPrimaryMeansInDataBase()
+        {
+            PrimaryMeans = _workRepositoryRadiostantionFull.
+                GetPrimaryMeansInDataBase(
+                UserModelStatic.serialNumber, 
+                UserModelStatic.city, 
+                UserModelStatic.road);
+        }
+
+        #endregion
+
+        #region GetOfTheLastNumberActRepair
+
+        private void GetOfTheLastNumberActRepair()
+        {
+            string textNumberActRepair = _workRepositoryRadiostantion.
+                GetOfTheLastNumberActRepair(UserModelStatic.road);
+            foreach (var item in
+                        UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                NumberActRepair = item.NumberPrintDocumentBase + "/";
+
+            if(!String.IsNullOrWhiteSpace(textNumberActRepair))
+            NumberActRepair +=(
+                Convert.ToInt32(
+                textNumberActRepair.Substring(textNumberActRepair.IndexOf("/") + 1)
+                ) + 1).ToString();
+        }
+
+
+        #endregion
 
         #region AddRepairRadiostationForDocumentInDataBase
 
@@ -436,7 +487,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
             if (!Regex.IsMatch(NumberActRepair,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+                @"[0-9]{2,2}/[0-9]{1,}$"))
             {
                 MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);

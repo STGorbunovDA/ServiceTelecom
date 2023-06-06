@@ -8,12 +8,12 @@ namespace ServiceTelecom.View.WorkViewPackage
     public partial class AddRepairRadiostationForDocumentInDataBaseView : Window
     {
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-        
+
         public AddRepairRadiostationForDocumentInDataBaseView(
             RadiostationForDocumentsDataBaseModel radiostation)
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
-            
+
             InitializeComponent();
 
             txtRoad.Text = radiostation.Road;
@@ -21,12 +21,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             txbSerialNumber.Text = radiostation.SerialNumber;
 
             if (!string.IsNullOrWhiteSpace(radiostation.NumberActRepair))
-                txbNumberActRepair.Text = radiostation.NumberActRepair;
-            else
-            {
-                foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
-                    txbNumberActRepair.Text = item.NumberPrintDocumentBase + "/";
-            }
+                txbNumberActRepair.Text = radiostation.NumberActRepair; 
 
             datePickerDateRepair.Text = radiostation.DateMaintenance;
 
@@ -36,9 +31,9 @@ namespace ServiceTelecom.View.WorkViewPackage
             {
                 cmbCategory.Text = radiostation.Category;
                 txbPriceRepair.Text = radiostation.PriceRemont;
-                if (txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_3 || 
-                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_4 || 
-                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_5 || 
+                if (txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_3 ||
+                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_4 ||
+                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_5 ||
                     txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_6)
                     CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 else CheckBoxChoicePriceAnalogDigital.IsChecked = false;
@@ -49,14 +44,6 @@ namespace ServiceTelecom.View.WorkViewPackage
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 txbPriceRepair.Text = UserModelStatic.priceRepairAnalogCategory_6;
             }
-
-            txbPrimaryMeans.Text = _workRepositoryRadiostantionFull.
-                GetPrimaryMeansInDataBase(
-                radiostation.SerialNumber, radiostation.City, radiostation.Road);
-
-            txbProductName.Text = _workRepositoryRadiostantionFull.
-                GetProductNameInDataBase(
-                radiostation.SerialNumber, radiostation.City, radiostation.Road);
 
             cmbCompletedWorks_1.Text = radiostation.CompletedWorks_1;
             txbParts_1.Text = radiostation.Parts_1;

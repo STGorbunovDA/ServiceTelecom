@@ -19,11 +19,11 @@ namespace ServiceTelecom.ViewModels
 
         private ObservableCollection<UserDataBaseModel> Users { get; set; }
         public ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
-        private ObservableCollection<string> RoadCollections { get; }
-        private ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
-        private ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
-        private ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
-        private ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
+        public ObservableCollection<string> RoadCollections { get; }
+        public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
+        public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
+        public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
+        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
 
         private int _theIndexSectionForemanCollection;
         public int TheIndexSectionForemanCollection { get => _theIndexSectionForemanCollection; set { _theIndexSectionForemanCollection = value; OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } }
