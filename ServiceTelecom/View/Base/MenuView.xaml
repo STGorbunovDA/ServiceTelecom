@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="MenuView" Height="400" Width="600"
+        Title="Меню" Height="400" Width="600"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"

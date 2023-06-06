@@ -19,7 +19,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             txtRoad.Text = radiostation.Road;
             txtCity.Text = radiostation.City;
             txbSerialNumber.Text = radiostation.SerialNumber;
-
+            txtCompany.Text = radiostation.Company;
             if (!string.IsNullOrWhiteSpace(radiostation.NumberActRepair))
                 txbNumberActRepair.Text = radiostation.NumberActRepair; 
 

@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="MenuView" Height="630" Width="900"
+        Title="Изменение радиостанции" Height="630" Width="900"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -116,7 +116,7 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <TextBlock Text="Изменение РСТ"
+                    <TextBlock Text="Изменение радиостанции"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="60,0,0,0">
