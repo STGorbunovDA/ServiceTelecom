@@ -30,6 +30,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
 
+        AddNumberActView addNumberActView;
+
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
 
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
@@ -440,6 +442,32 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (MessageBox.Show("Подтверждаете изменение акта?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
+
+            foreach (RadiostationForDocumentsDataBaseModel item 
+                in RadiostationsForDocumentsMulipleSelectedDataGrid)
+            {
+                if(!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
+                {
+                    MessageBox.Show(
+                    $"У выбранной радиостанции {item.SerialNumber} " +
+                    $"есть списание {DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            if (addNumberActView != null)
+                return;
+
+            addNumberActView = new AddNumberActView(
+                SelectedRadiostation.Road,
+                SelectedRadiostation.City,
+                SelectedRadiostation.NumberAct);
+            addNumberActView.Closed += (sender, args) => addNumberActView = null;
+            GetRadiostationsForDocumentsCollection(Road, City);
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addNumberActView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
+            addNumberActView.Show();
         }
 
         #endregion
