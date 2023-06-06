@@ -96,8 +96,8 @@
                                   Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding RoadCollections}"
-                                  SelectedItem="{Binding SelectedItemUserChoiceRoadCollection, Mode=TwoWay}"
-                                  Text="{Binding Road}">
+                                  SelectedIndex="{Binding SelectedIndexRoadCollection, Mode=TwoWay}"
+                                  Text="{Binding Road, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
                     <ComboBox x:Name="cmbCity"
                                   Height="35"
@@ -105,8 +105,8 @@
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding CityCollections}"
-                                  SelectedIndex="{Binding TheIndexUserChoiceCityCollection, Mode=TwoWay}"
-                                  Text="{Binding City}">
+                                  SelectedIndex="{Binding SelectedIndexCityCollection, Mode=TwoWay}"
+                                  Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
                     <TextBox x:Name="txbSearchInfo"
                              FontSize="16"

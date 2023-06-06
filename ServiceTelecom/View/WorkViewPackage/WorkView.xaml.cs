@@ -11,6 +11,7 @@ namespace ServiceTelecom.View.WorkViewPackage
         public WorkView()
         {
             InitializeComponent();
+            cmbRoad.SelectedIndex = 0;
             cmbCity.SelectedIndex = 0;
         }
 

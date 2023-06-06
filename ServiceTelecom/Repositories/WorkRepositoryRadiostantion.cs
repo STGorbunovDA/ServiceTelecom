@@ -63,8 +63,10 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"roadUser", Encryption.EncryptPlainTextToCipherText(road));
-                    command.Parameters.AddWithValue($"cityUser", Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"roadUser", 
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser", 
+                        Encryption.EncryptPlainTextToCipherText(city));
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)
