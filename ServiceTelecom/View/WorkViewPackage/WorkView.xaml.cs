@@ -1,18 +1,18 @@
-﻿using System.Windows;
+﻿using ServiceTelecom.Infrastructure;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage
 {
-    /// <summary>
-    /// Логика взаимодействия для WorkView.xaml
-    /// </summary>
     public partial class WorkView : Window
     {
+        GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         public WorkView()
         {
+            getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             InitializeComponent();
             cmbRoad.SelectedIndex = 0;
-            cmbCity.SelectedIndex = 0;
+            //cmbCity.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -28,6 +28,8 @@ namespace ServiceTelecom.View.WorkViewPackage
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
+            getSetRegistryServiceTelecomSetting.
+                                    SetRegistryCity(cmbCity.Text);
             Close();
         }
     }
