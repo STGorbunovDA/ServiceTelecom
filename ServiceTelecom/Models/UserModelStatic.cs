@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Infrastructure;
+using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Models
@@ -40,6 +41,8 @@ namespace ServiceTelecom.Models
 
         public static ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrationsDataBaseModelCollection { get; set; }
+
+        public static IList RadiostationsForDocumentsMulipleSelectedDataGrid;
 
         public static string Login { get; private set; }
         public static string Post { get; private set; }//TODO продумать
