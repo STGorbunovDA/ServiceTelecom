@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Windows.Documents;
 
 namespace ServiceTelecom.Repositories
 {
@@ -720,6 +719,43 @@ namespace ServiceTelecom.Repositories
                 }
             }
             catch { return numberActRepair; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public ObservableCollection<string>
+            GetCompanyForChoiсeUniqueValueCollections(
+            ObservableCollection<string> choiseUniqueValueCollections,
+            string road, string city)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return choiseUniqueValueCollections;
+                using (MySqlCommand command = new MySqlCommand(
+                    "GetCompanyForChoiсeUniqueValueCollections",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                       Encryption.EncryptPlainTextToCipherText(city));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                            while (reader.Read())
+                                choiseUniqueValueCollections.Add(
+                                    Encryption.DecryptCipherTextToPlainText(
+                                        reader.GetString(0)));
+
+                        reader.Close();
+                        choiseUniqueValueCollections.OrderByDescending(a => a);
+                        return choiseUniqueValueCollections;
+                    }
+                }
+            }
+            catch { return choiseUniqueValueCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }

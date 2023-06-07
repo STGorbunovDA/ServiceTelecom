@@ -32,7 +32,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool CheckNumberActOverTwentyForDocumentInDataBase(
             string road, string city, string numberAct);
 
-        /// <summary> Изменить номер акта в radiostantion(рабочей таблице) </summary>
+        /// <summary> Изменить номер акта по заводскому номеру в radiostantion(рабочей таблице) </summary>
         bool ChangeNumberActBySerialNumberInDatabase(string road,
             string city, string serialNumber, string numberAct);
 
@@ -103,5 +103,13 @@ namespace ServiceTelecom.Repositories.Interfaces
 
         /// <summary>Получение крайнего ремонта по дороге в radiostantion(рабочая таблица) </summary>
         string GetOfTheLastNumberActRepair(string road);
+
+        /// <summary>Получение всех предприятий по дороге и городу из radiostantion(рабочая таблица) </summary>
+        ObservableCollection<string>
+            GetCompanyForChoiсeUniqueValueCollections(
+            ObservableCollection<string> choiseUniqueValueCollections,
+            string road, string city);
+
+
     }
 }

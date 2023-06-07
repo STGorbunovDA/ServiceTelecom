@@ -3,16 +3,15 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage
 {
-    public partial class WorkView : Window
+    public partial class ChangeNumberActView : Window
     {
-        public WorkView()
+        public ChangeNumberActView(string numberAct)
         {
             InitializeComponent();
-            cmbRoad.SelectedIndex = 0;
-            cmbChoiseSearch.SelectedIndex = 0;
+            txtNumberActOld.Text = numberAct;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();

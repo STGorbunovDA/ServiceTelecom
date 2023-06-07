@@ -74,18 +74,18 @@
                                 HorizontalAlignment="Center">
                     <TextBlock Text="Рабочая форма"
                                Foreground="{StaticResource titleFontColor5}"
-                               Style="{StaticResource messageTextBlockStyle1}"
+                               Style="{StaticResource messageTextBlockStyle3}"
                                Margin="150,0,0,0">
                     </TextBlock>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="290"/>
-                    <ColumnDefinition Width="170"/>
-                    <ColumnDefinition Width="170"/>
-                    <ColumnDefinition Width="170"/>
-                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
                                 VerticalAlignment="Center"
@@ -108,67 +108,57 @@
                                   SelectedIndex="{Binding SelectedIndexCityCollection, Mode=TwoWay}"
                                   Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
-                    <TextBox x:Name="txbSearchInfo"
-                             FontSize="16"
-                             Height="38"
-                             Width="270"
-                             Margin="0,5,0,0"
-                             IsReadOnly="True"
-                             Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding SerialNumber}">
-                    </TextBox>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Vertical"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
-                    <Button x:Name="btnAddRadiostationForDocumentInDataBase"
-                            Command="{Binding AddRadiostationForDocumentInDataBase}"
-                            Content="Добавить"
-                            Margin ="10,0,0,3"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
-                    <Button x:Name="btnChangeRadiostationForDocumentInDataBase"
-                            Command="{Binding ChangeRadiostationForDocumentInDataBase}"
-                            Content="Изменить"
-                            Margin ="10,0,0,3"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
-                    <Button x:Name="btnDeleteRadiostationForDocumentInDataBase"
-                            Command="{Binding DeleteRadiostationForDocumentInDataBase}"
-                            Content="Удалить"
-                            Margin ="10,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Vertical"
                                 VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <StackPanel  Orientation="Horizontal"
+                                VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
-                            Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
-                            Content="Ремонт"
-                            Margin ="10,0,0,3"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
-                    <Button x:Name="btnUpdateRadiostationForDocumentInDataBase"
-                            Command="{Binding UpdateRadiostationForDocumentInDataBase}"
-                            Content="Обновить"
-                            Margin ="10,0,0,3"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
-                    <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
-                            Command="{Binding SaveCollectionRadiostationsForDocument}"
-                            Content="Сохранить"
-                            Margin ="10,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                    </Button>
+                        <TextBlock Text="Поиск Serial №:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle2}"
+                               VerticalAlignment="Center">
+                        </TextBlock>
+                        <TextBox x:Name="txbSearchSerialNumber"
+                             FontSize="16"
+                             Height="38"
+                             Width="200"
+                             Margin="10,0,0,0"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBox>
+                    </StackPanel>
+                    
                 </StackPanel>
-                
+                <StackPanel Grid.Column="4" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <ComboBox x:Name="cmbChoiseSearch"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="0,0,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  SelectedIndex="{Binding SelectedIndexChoiсeSearchCollection, Mode=TwoWay}">
+                        <ComboBoxItem Content="Предприятие"/>
+                        <ComboBoxItem Content="Станция"/>
+                        <ComboBoxItem Content="Дата ТО"/>
+                        <ComboBoxItem Content="Номер акта ТО"/>
+                        <ComboBoxItem Content="Номер акта Ремонта"/>
+                        <ComboBoxItem Content="Представитель ПП"/>
+                        <ComboBoxItem Content="Номер акта списания"/>
+                        <ComboBoxItem Content="Модель"/>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbChoiseUniqueValue"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="0,5,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding ChoiсeUniqueValueCollections}"
+                                  SelectedIndex="{Binding SelectedIndexChoiсeUniqueValueCollection, Mode=TwoWay}"
+                                  Text="{Binding ChoiсeUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </ComboBox>
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
                 <local:CustomDataGrid x:Name="dataGrid1"
@@ -196,7 +186,7 @@
                             <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}"/>
                             <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
-                            <MenuItem Header="Изменить номер акта" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
+                            <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -293,6 +283,54 @@
                         
                     </DataGrid.Columns>
                 </local:CustomDataGrid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRadiostationForDocumentInDataBase}"
+                            Content="Добавить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnChangeRadiostationForDocumentInDataBase"
+                            Command="{Binding ChangeRadiostationForDocumentInDataBase}"
+                            Content="Изменить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnDeleteRadiostationForDocumentInDataBase"
+                            Command="{Binding DeleteRadiostationForDocumentInDataBase}"
+                            Content="Удалить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
+                            Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
+                            Content="Ремонт"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnUpdateRadiostationForDocumentInDataBase"
+                            Command="{Binding UpdateRadiostationForDocumentInDataBase}"
+                            Content="Обновить"
+                            Margin ="10,0,0,3"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
+                            Command="{Binding SaveCollectionRadiostationsForDocument}"
+                            Content="Сохранить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>

@@ -486,7 +486,7 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool SetPrimaryMeansAndProductNameInDataBase(
-            string road, string city, string serialNumber, 
+            string road, string city, string serialNumber,
             string primaryMeans, string productName)
         {
             try
@@ -614,7 +614,7 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddDecommissionNumberActRadiostationInDBRadiostationFull(
-            string road, string city, string serialNumber, 
+            string road, string city, string serialNumber,
             string decommissionNumberAct, string reasonDecommissionNumberAct)
         {
             try
