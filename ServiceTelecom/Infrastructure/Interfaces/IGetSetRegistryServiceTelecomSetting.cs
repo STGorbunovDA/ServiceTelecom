@@ -13,5 +13,11 @@
 
         // <summary> Запись из реестра City </summary>
         string GetRegistryCity();
+
+        // <summary> Сохранить город для отображения после добавления или изменения радиостанции </summary>
+        void SetRegistryCityForAddChange(string city);
+
+        // <summary> Получить город для отображения после добавления или изменения радиостанции </summary>
+        string GetRegistryCityForAddChange();
     }
 }

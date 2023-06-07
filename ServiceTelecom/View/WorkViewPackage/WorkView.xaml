@@ -75,7 +75,7 @@
                                 HorizontalAlignment="Center">
                     <TextBlock Text="Рабочая форма"
                                Foreground="{StaticResource titleFontColor5}"
-                               Style="{StaticResource messageTextBlockStyle1}"
+                               Style="{StaticResource messageTextBlockStyle3}"
                                Margin="150,0,0,0">
                     </TextBlock>
                 </StackPanel>
@@ -109,14 +109,56 @@
                                   SelectedIndex="{Binding SelectedIndexCityCollection, Mode=TwoWay}"
                                   Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
-                    <TextBox x:Name="txbSearchSerialNumber"
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <StackPanel  Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                        <TextBlock Text="Поиск Serial №:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle2}"
+                               VerticalAlignment="Center">
+                        </TextBlock>
+                        <TextBox x:Name="txbSearchSerialNumber"
                              FontSize="16"
                              Height="38"
-                             Width="270"
-                             Margin="0,5,0,0"
+                             Width="200"
+                             Margin="10,0,0,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                    </TextBox>
+                        </TextBox>
+                    </StackPanel>
+                    
+                </StackPanel>
+                <StackPanel Grid.Column="4" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                    <ComboBox x:Name="cmbChoiseSearch"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="0,0,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  SelectedIndex="{Binding SelectedIndexChoiseSearchCollection, Mode=TwoWay}">
+                        <ComboBoxItem Content="Предприятие"/>
+                        <ComboBoxItem Content="Станция"/>
+                        <ComboBoxItem Content="Дата ТО"/>
+                        <ComboBoxItem Content="Номер акта ТО"/>
+                        <ComboBoxItem Content="Номер акта Ремонта"/>
+                        <ComboBoxItem Content="Представитель ПП"/>
+                        <ComboBoxItem Content="Номер акта списания"/>
+                        <ComboBoxItem Content="Модель"/>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbChoiseUniqueValue"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="0,5,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding ChoiseUniqueValueCollections}"
+                                  SelectedIndex="{Binding SelectedIndexChoiseUniqueValueCollection, Mode=TwoWay}"
+                                  Text="{Binding ChoiseUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    </ComboBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">

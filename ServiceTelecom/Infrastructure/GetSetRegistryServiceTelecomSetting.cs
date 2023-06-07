@@ -42,12 +42,12 @@ namespace ServiceTelecom.Infrastructure
             helloKey.SetValue("Город проверки", $"{city}");
             helloKey.Close();
         }
-
         public string GetRegistryCity()
         {
             try
             {
-                RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ServiceTelekomSetting\\City");
+                RegistryKey reg = Registry.CurrentUser.OpenSubKey(
+                    "SOFTWARE\\ServiceTelekomSetting\\City");
                 if (reg != null)
                 {
                     RegistryKey currentUserKey2 = Registry.CurrentUser;
@@ -60,9 +60,39 @@ namespace ServiceTelecom.Infrastructure
             {
                 return string.Empty;
             }
-
-
-
         }
+
+
+        public void SetRegistryCityForAddChange(string city)
+        {
+            RegistryKey currentUserKey = Registry.CurrentUser;
+            RegistryKey helloKey = currentUserKey.CreateSubKey(
+                "SOFTWARE\\ServiceTelekomSetting\\City");
+            helloKey.SetValue("Город для добавления и сохранения", $"{city}");
+            helloKey.Close();
+        }
+
+        public string GetRegistryCityForAddChange()
+        {
+            try
+            {
+                RegistryKey reg = Registry.CurrentUser.OpenSubKey(
+                    "SOFTWARE\\ServiceTelekomSetting\\City");
+                if (reg != null)
+                {
+                    RegistryKey currentUserKey2 = Registry.CurrentUser;
+                    RegistryKey helloKey2 = currentUserKey2.OpenSubKey(
+                        "SOFTWARE\\ServiceTelekomSetting\\City");
+                    return helloKey2.GetValue("Город для добавления и сохранения").ToString();
+                }
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        
     }
 }

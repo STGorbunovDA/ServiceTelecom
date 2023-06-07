@@ -6,10 +6,8 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class WorkView : Window
     {
-        GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         public WorkView()
         {
-            getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             InitializeComponent();
             cmbRoad.SelectedIndex = 0;
         }
@@ -27,8 +25,6 @@ namespace ServiceTelecom.View.WorkViewPackage
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            getSetRegistryServiceTelecomSetting.
-                                    SetRegistryCity(cmbCity.Text);
             Close();
         }
     }
