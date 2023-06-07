@@ -12,7 +12,6 @@ namespace ServiceTelecom.View.WorkViewPackage
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             InitializeComponent();
             cmbRoad.SelectedIndex = 0;
-            //cmbCity.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
