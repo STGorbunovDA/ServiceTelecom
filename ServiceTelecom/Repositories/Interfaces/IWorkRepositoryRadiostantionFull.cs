@@ -45,7 +45,7 @@
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
-        /// <summary>Изменить номер акта в radiostantionFull(общей таблицы) </summary>
+        /// <summary>Изменить номер акта по заводскому номеру в radiostantionFull(общей таблицы) </summary>
         bool ChangeNumberActBySerialNumberInDBRadiostationFull(
             string road, string city, string serialNumber, string numberAct);
 
