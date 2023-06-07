@@ -18,51 +18,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> для сохранения индекса коллекции дорог </summary>
         private int TEMPORARY_INDEX_ROAD_COLLECTION = 0;
 
-        GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
-
         /// <summary> Для получения значения только один раз из реестра  </summary>
         private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
-
-        /// <summary> Для сохранения рабочего города из реестра  </summary>
-        private string CITY_REGISTRY = string.Empty;
-
-        AddRadiostationForDocumentInDataBaseView
-            addRadiostationForDocumentInDataBaseView = null;
-        ChangeRadiostationForDocumentInDataBaseView
-            changeRadiostationForDocumentInDataBaseView = null;
-        AddRepairRadiostationForDocumentInDataBaseView
-            addRepairRadiostationForDocumentInDataBaseView = null;
-        AddDecommissionNumberActView
-            addDecommissionNumberActView = null;
-        SelectingSaveView selectingSaveView = null;
-
-        ChangeNumberActView changeNumberActView;
-
-
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-        private RoadDataBaseRepository _roadDataBase;
-        public ObservableCollection<string> RoadCollections { get; set; }
-        public ObservableCollection<string> CityCollections { get; set; }
-        public ObservableCollection<string> ChoiseUniqueValueCollections { get; set; }
-
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationsForDocumentsCollection
-        { get; set; }
-
-        private ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            ReserveRadiostationsForDocumentsCollection;
-
-        private int _selectedIndexRadiostantionDataGrid;
-        public int SelectedIndexRadiostantionDataGrid
-        {
-            get => _selectedIndexRadiostantionDataGrid;
-            set
-            {
-                _selectedIndexRadiostantionDataGrid = value;
-                OnPropertyChanged(nameof(SelectedIndexRadiostantionDataGrid));
-            }
-        }
 
         #region свойства
 
@@ -333,6 +290,44 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
+        private ChangeNumberActView changeNumberActView;
+        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private RoadDataBaseRepository _roadDataBase;
+
+        AddRadiostationForDocumentInDataBaseView
+            addRadiostationForDocumentInDataBaseView = null;
+        ChangeRadiostationForDocumentInDataBaseView
+            changeRadiostationForDocumentInDataBaseView = null;
+        AddRepairRadiostationForDocumentInDataBaseView
+            addRepairRadiostationForDocumentInDataBaseView = null;
+        AddDecommissionNumberActView
+            addDecommissionNumberActView = null;
+        SelectingSaveView selectingSaveView = null;
+
+        public ObservableCollection<string> RoadCollections { get; set; }
+        public ObservableCollection<string> CityCollections { get; set; }
+        public ObservableCollection<string> ChoiseUniqueValueCollections { get; set; }
+
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            RadiostationsForDocumentsCollection
+        { get; set; }
+
+        private ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            ReserveRadiostationsForDocumentsCollection;
+
+        private int _selectedIndexRadiostantionDataGrid;
+        public int SelectedIndexRadiostantionDataGrid
+        {
+            get => _selectedIndexRadiostantionDataGrid;
+            set
+            {
+                _selectedIndexRadiostantionDataGrid = value;
+                OnPropertyChanged(nameof(SelectedIndexRadiostantionDataGrid));
+            }
+        }
+
         private int _selectedIndexChoiseSearchCollection;
         public int SelectedIndexChoiseSearchCollection
         {
@@ -392,7 +387,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (value == null)
                     return;
-                NumberAct = value.NumberAct;
                 _selectedRadiostationdel = value;
                 OnPropertyChanged(nameof(SelectedRadiostation));
             }
@@ -836,7 +830,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (NUMBER_LIMIT_LOADING_REGESTRY_CITY == 0)
             {
                 city = getSetRegistryServiceTelecomSetting.GetRegistryCity();
-                CITY_REGISTRY = city;
                 NUMBER_LIMIT_LOADING_REGESTRY_CITY++;
             }
             if (RadiostationsForDocumentsCollection.Count != 0)
@@ -896,7 +889,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         #endregion
-
 
         #region GetByChoiseSearchForChoiseUniqueValueCollections
 
