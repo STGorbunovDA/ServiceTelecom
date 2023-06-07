@@ -196,7 +196,7 @@
                             <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}"/>
                             <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
-                            <MenuItem Header="Изменить номер акта" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
+                            <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

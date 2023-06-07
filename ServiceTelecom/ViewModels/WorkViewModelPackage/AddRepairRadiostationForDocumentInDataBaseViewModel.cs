@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -689,7 +688,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
             if (!Regex.IsMatch(NumberActRepair,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+                @"[0-9]{2,2}/[0-9]{1,}$"))
             {
                 MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);

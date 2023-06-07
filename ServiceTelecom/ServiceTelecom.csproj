@@ -184,7 +184,7 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddDecommissionNumberActViewModel.cs" />
-    <Compile Include="ViewModels\WorkViewModelPackage\AddNumberActViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\ChangeNumberActViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRepairRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeRadiostationForDocumentInDataBaseViewModel.cs" />
@@ -225,8 +225,8 @@
     <Compile Include="View\WorkViewPackage\AddDecommissionNumberActView.xaml.cs">
       <DependentUpon>AddDecommissionNumberActView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WorkViewPackage\AddNumberActView.xaml.cs">
-      <DependentUpon>AddNumberActView.xaml</DependentUpon>
+    <Compile Include="View\WorkViewPackage\ChangeNumberActView.xaml.cs">
+      <DependentUpon>ChangeNumberActView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\AddRadiostationForDocumentInDataBaseView.xaml.cs">
       <DependentUpon>AddRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
@@ -307,7 +307,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\WorkViewPackage\AddNumberActView.xaml">
+    <Page Include="View\WorkViewPackage\ChangeNumberActView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

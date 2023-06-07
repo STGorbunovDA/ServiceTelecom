@@ -30,7 +30,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
 
-        AddNumberActView addNumberActView;
+        ChangeNumberActView changeNumberActView;
 
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
 
@@ -439,9 +439,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
-            if (MessageBox.Show("Подтверждаете изменение акта?", "Внимание",
-                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                return;
 
             foreach (RadiostationForDocumentsDataBaseModel item 
                 in RadiostationsForDocumentsMulipleSelectedDataGrid)
@@ -455,19 +452,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
-            if (addNumberActView != null)
+            if (changeNumberActView != null)
                 return;
 
-            addNumberActView = new AddNumberActView(
-                SelectedRadiostation.Road,
-                SelectedRadiostation.City,
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid 
+                = RadiostationsForDocumentsMulipleSelectedDataGrid;
+
+            changeNumberActView = new ChangeNumberActView(
                 SelectedRadiostation.NumberAct);
-            addNumberActView.Closed += (sender, args) => addNumberActView = null;
+            changeNumberActView.Closed += (sender, args) => changeNumberActView = null;
+            changeNumberActView.Closed += (sender, args) => 
+            RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            changeNumberActView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection(Road, City);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
-            addNumberActView.Closed += (sender, args) =>
+            changeNumberActView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
-            addNumberActView.Show();
+            changeNumberActView.Show();
         }
 
         #endregion

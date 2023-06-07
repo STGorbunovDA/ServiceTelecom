@@ -3,13 +3,11 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage
 {
-    public partial class AddNumberActView : Window
+    public partial class ChangeNumberActView : Window
     {
-        public AddNumberActView(string road, string city, string numberAct)
+        public ChangeNumberActView(string numberAct)
         {
             InitializeComponent();
-            txtRoad.Text = road;
-            txtCity.Text = city;
             txtNumberActOld.Text = numberAct;
         }
 
