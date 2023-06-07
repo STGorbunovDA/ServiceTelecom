@@ -139,7 +139,7 @@
                                   Width="270"
                                   Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  SelectedIndex="{Binding SelectedIndexChoiseSearchCollection, Mode=TwoWay}">
+                                  SelectedIndex="{Binding SelectedIndexChoiсeSearchCollection, Mode=TwoWay}">
                         <ComboBoxItem Content="Предприятие"/>
                         <ComboBoxItem Content="Станция"/>
                         <ComboBoxItem Content="Дата ТО"/>
@@ -154,9 +154,9 @@
                                   Width="270"
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding ChoiseUniqueValueCollections}"
-                                  SelectedIndex="{Binding SelectedIndexChoiseUniqueValueCollection, Mode=TwoWay}"
-                                  Text="{Binding ChoiseUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                  ItemsSource="{Binding ChoiсeUniqueValueCollections}"
+                                  SelectedIndex="{Binding SelectedIndexChoiсeUniqueValueCollection, Mode=TwoWay}"
+                                  Text="{Binding ChoiсeUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
                 </StackPanel>
             </Grid>

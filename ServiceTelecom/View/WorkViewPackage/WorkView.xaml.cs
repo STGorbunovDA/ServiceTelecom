@@ -1,5 +1,4 @@
-﻿using ServiceTelecom.Infrastructure;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage
@@ -10,6 +9,7 @@ namespace ServiceTelecom.View.WorkViewPackage
         {
             InitializeComponent();
             cmbRoad.SelectedIndex = 0;
+            cmbChoiseSearch.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

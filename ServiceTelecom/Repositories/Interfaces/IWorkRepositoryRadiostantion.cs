@@ -103,6 +103,13 @@ namespace ServiceTelecom.Repositories.Interfaces
 
         /// <summary>Получение крайнего ремонта по дороге в radiostantion(рабочая таблица) </summary>
         string GetOfTheLastNumberActRepair(string road);
-                
+
+        /// <summary>Получение всех предприятий по дороге и городу из radiostantion(рабочая таблица) </summary>
+        ObservableCollection<string>
+            GetCompanyForChoiсeUniqueValueCollections(
+            ObservableCollection<string> choiseUniqueValueCollections,
+            string road, string city);
+
+
     }
 }
