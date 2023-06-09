@@ -848,8 +848,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (CheckBoxRemontViewModel)
                 Remont = UserModelStatic.InRepairTechnicalServices;
-            else Remont = "-";
-
+            else Remont = UserModelStatic.InWorkTechnicalServices;  
+            
             #endregion
 
             if (_workRepositoryRadiostantion.

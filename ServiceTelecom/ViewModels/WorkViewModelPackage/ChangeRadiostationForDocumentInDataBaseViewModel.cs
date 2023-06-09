@@ -1043,8 +1043,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            //if (InventoryNumber.Contains("\\"))
-            //    InventoryNumber = InventoryNumber.Replace("\\", "\\\\");
 
             if (String.IsNullOrWhiteSpace(NetworkNumber))
             {
@@ -1052,8 +1050,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            //if (NetworkNumber.Contains("\\"))
-            //    NetworkNumber = NetworkNumber.Replace("\\", "\\\\");
 
             if (String.IsNullOrWhiteSpace(Price))
             {
@@ -1076,7 +1072,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (CheckBoxRemontViewModel)
                 Remont = UserModelStatic.InRepairTechnicalServices;
-            else Remont = "-";
+            else Remont = UserModelStatic.InWorkTechnicalServices;
 
             #endregion
 
