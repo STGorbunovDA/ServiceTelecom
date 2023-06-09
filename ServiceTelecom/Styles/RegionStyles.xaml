@@ -65,6 +65,20 @@
 
     <!--#endregion-->
 
+    <!--#region Style TextBox5-->
+    <Style x:Key="TextBoxStyle5" TargetType="TextBox">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="CaretBrush" Value="{StaticResource titleFontColor2}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource titleFontColor3}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,4"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0,5,0,0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    
     <!--#region Style TextBox4-->
     <Style x:Key="TextBoxStyle4" TargetType="TextBox">
         <Setter Property="FontSize" Value="14"/>
