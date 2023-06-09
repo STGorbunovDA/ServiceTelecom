@@ -23,6 +23,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region свойства
 
+        private string _fillOut;
+        public string FillOut
+        {
+            get => _fillOut;
+            set
+            {
+                _fillOut = value;
+                OnPropertyChanged(nameof(FillOut));
+            }
+        }
+
         private string _sign;
         public string Sign
         {
@@ -454,12 +465,25 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ObservableCollection<string> ChoiсeUniqueValueCollections { get; set; }
         public ObservableCollection<string> SignCollections { get; set; }
 
+        public ObservableCollection<string> FillOutCollections { get; set; }
+
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
             RadiostationsForDocumentsCollection
         { get; set; }
 
         private ObservableCollection<RadiostationForDocumentsDataBaseModel>
             ReserveRadiostationsForDocumentsCollection;
+
+        private int _selectedIndexFillOutCollection;
+        public int SelectedIndexFillOutCollection
+        {
+            get => _selectedIndexFillOutCollection;
+            set
+            {
+                _selectedIndexFillOutCollection = value;
+                OnPropertyChanged(nameof(SelectedIndexFillOutCollection));
+            }
+        }
 
         private int _selectedIndexSignCollection;
         public int SelectedIndexSignCollection
@@ -573,7 +597,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ChangeNumberActAtRadiostationsInDB { get; }
         public ICommand AddNumberActInSignCollections { get; }
         public ICommand RemoveFromSignCollections { get; }
-        public ICommand SearchByNumberActInRadiostationsForDocumentsCollection { get; }
+        public ICommand SearchBySingNumberActInRadiostationsForDocumentsCollection { get; }
+        public ICommand AddNumberActInFillOutCollections { get; }
+        public ICommand RemoveFromFillOutCollections { get; }
+        public ICommand SearchByNumberActFillOutInRadiostationsForDocumentsCollection { get; }
         public WorkViewModel()
         {
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -587,6 +614,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             CityCollections = new ObservableCollection<string>();
             ChoiсeUniqueValueCollections = new ObservableCollection<string>();
             SignCollections = new ObservableCollection<string>();
+            FillOutCollections = new ObservableCollection<string>();
             AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
             ChangeRadiostationForDocumentInDataBase =
@@ -611,11 +639,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddNumberActInSignCollectionsCommand);
             RemoveFromSignCollections =
                 new ViewModelCommand(ExecuteRemoveFromSignCollectionsCommand);
-            SearchByNumberActInRadiostationsForDocumentsCollection =
-            new ViewModelCommand(ExecuteSearchByNumberActInRadiostationsForDocumentsCollectionCommand);
+            SearchBySingNumberActInRadiostationsForDocumentsCollection =
+                new ViewModelCommand(ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand);
+
+            AddNumberActInFillOutCollections =
+                new ViewModelCommand(ExecuteAddNumberActInFillOutCollectionsCommand);
+            RemoveFromFillOutCollections =
+                new ViewModelCommand(ExecuteRemoveFromFillOutCollectionsCommand);
+            SearchByNumberActFillOutInRadiostationsForDocumentsCollection =
+                new ViewModelCommand(ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand);
+
             GetRoad();
             GetNumberActForSignCollections();
+            GetNumberActForFillOutCollections();
         }
+
 
         #region ChangeNumberActAtRadiostationsInDB
 
@@ -1029,34 +1067,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region SearchByNumberActInRadiostationsForDocumentsCollection
-
-        private void ExecuteSearchByNumberActInRadiostationsForDocumentsCollectionCommand(object obj)
-        {
-            if (String.IsNullOrWhiteSpace(City))
-                return;
-            if (SignCollections.Count < 1)
-                return;
-
-            if (RadiostationsForDocumentsCollection.Count != 0)
-                RadiostationsForDocumentsCollection.Clear();
-            foreach (var item in ReserveRadiostationsForDocumentsCollection)
-                RadiostationsForDocumentsCollection.Add(item);
-
-            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
-            {
-                if (RadiostationsForDocumentsCollection[i].
-                    NumberAct != Sign)
-                    RadiostationsForDocumentsCollection.
-                        Remove(RadiostationsForDocumentsCollection[i]);
-                else i++;
-            }
-            Counters();
-        }
-
-
-        #endregion
-
         #region SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection
 
         private void SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection(string value)
@@ -1394,6 +1404,156 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region Акты заполняем
+
+        #region AddNumberActInFillOutCollections
+
+        private void ExecuteAddNumberActInFillOutCollectionsCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+            if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+            {
+                MessageBox.Show(
+                    $"Есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            foreach (var item in FillOutCollections)
+                if (item == SelectedRadiostation.NumberAct)
+                    return;
+
+            FillOutCollections.Add(SelectedRadiostation.NumberAct);
+
+            string temp = string.Empty;
+
+            for (int i = 0; i < FillOutCollections.Count; i++)
+            {
+                for (int y = 0; y < FillOutCollections.Count - 1; y++)
+                {
+                    if (Convert.ToInt32(FillOutCollections[y].
+                        Substring(FillOutCollections[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(FillOutCollections[y + 1].
+                    Substring(FillOutCollections[y + 1].IndexOf("/") + 1)))
+                    {
+                        temp = FillOutCollections[y + 1];
+                        FillOutCollections[y + 1] = FillOutCollections[y];
+                        FillOutCollections[y] = temp;
+                    }
+                }
+            }
+
+            string addRegistry = String.Empty;
+            foreach (var item in FillOutCollections)
+                addRegistry += item.ToString() + ";";
+
+            getSetRegistryServiceTelecomSetting.SetRegistryNumberActForFillOutCollections
+                (addRegistry);
+
+            if (FillOutCollections.Count > 0)
+                SelectedIndexFillOutCollection = FillOutCollections.Count - 1;
+        }
+
+        #endregion
+
+        #region GetNumberActForFillOutCollections
+
+        private void GetNumberActForFillOutCollections()
+        {
+            string addRegistry =
+             getSetRegistryServiceTelecomSetting.
+             GetRegistryNumberActForFillOutCollections();
+
+            if (String.IsNullOrWhiteSpace(addRegistry))
+                return;
+
+            string[] split = addRegistry.Split(new Char[] { ';' });
+
+            foreach (string item in split)
+                if (!String.IsNullOrWhiteSpace(item))
+                    FillOutCollections.Add(item);
+
+            string temp = string.Empty;
+
+            for (int i = 0; i < FillOutCollections.Count; i++)
+            {
+                for (int y = 0; y < FillOutCollections.Count - 1; y++)
+                {
+                    if (Convert.ToInt32(FillOutCollections[y].
+                        Substring(FillOutCollections[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(FillOutCollections[y + 1].
+                    Substring(FillOutCollections[y + 1].IndexOf("/") + 1)))
+                    {
+                        temp = FillOutCollections[y + 1];
+                        FillOutCollections[y + 1] = FillOutCollections[y];
+                        FillOutCollections[y] = temp;
+                    }
+                }
+            }
+
+            if (FillOutCollections.Count > 0)
+                SelectedIndexFillOutCollection = FillOutCollections.Count - 2;
+
+        }
+
+        #endregion
+
+        #region RemoveFromFillOutCollections
+
+        private void ExecuteRemoveFromFillOutCollectionsCommand(object obj)
+        {
+            if (FillOutCollections.Count == 0) return;
+
+            if (FillOutCollections.Count > 0)
+            {
+                FillOutCollections.Remove(FillOut);
+                SelectedIndexFillOutCollection = FillOutCollections.Count - 1;
+            }
+
+            string addRegistry = String.Empty;
+            foreach (var item in FillOutCollections)
+                addRegistry += item.ToString() + ";";
+
+            getSetRegistryServiceTelecomSetting.SetRegistryNumberActForFillOutCollections
+                (addRegistry);
+        }
+
+
+        #endregion
+
+        #region SearchByNumberActFillOutInRadiostationsForDocumentsCollection
+
+        private void ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(City))
+                return;
+            if (FillOutCollections.Count < 1)
+                return;
+
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+            foreach (var item in ReserveRadiostationsForDocumentsCollection)
+                RadiostationsForDocumentsCollection.Add(item);
+
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (RadiostationsForDocumentsCollection[i].
+                    NumberAct != FillOut)
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
+            Counters();
+        }
+
+        #endregion
+
+
+        #endregion
+
         #region Акты на подпись
 
         #region AddNumberActInSignCollections
@@ -1417,24 +1577,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             SignCollections.Add(SelectedRadiostation.NumberAct);
 
-            for (int i = 0; i < SignCollections.Count;)
+            string temp = string.Empty;
+
+            for (int i = 0; i < SignCollections.Count; i++)
             {
-                string temp = string.Empty;
-
-                if (i == SignCollections.Count - 1)
-                    break;
-
-                if (Convert.ToInt32(
-                    SignCollections[i].Substring(SignCollections[i].IndexOf("/") + 1))
-                > Convert.ToInt32(
-                    SignCollections[i + 1].Substring(SignCollections[i + 1].IndexOf("/") + 1)))
+                for (int y = 0; y < SignCollections.Count - 1; y++)
                 {
-                    temp = SignCollections[i + 1];
-                    SignCollections[i + 1] = SignCollections[i];
-                    SignCollections[i] = temp;
-                    i++;
+                    if (Convert.ToInt32(SignCollections[y].
+                        Substring(SignCollections[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(SignCollections[y + 1].
+                    Substring(SignCollections[y + 1].IndexOf("/") + 1)))
+                    {
+                        temp = SignCollections[y + 1];
+                        SignCollections[y + 1] = SignCollections[y];
+                        SignCollections[y] = temp;
+                    }
                 }
-                else i++;
             }
 
             string addRegistry = String.Empty;
@@ -1467,30 +1625,26 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!String.IsNullOrWhiteSpace(item))
                     SignCollections.Add(item);
 
-            for (int i = 0; i < SignCollections.Count;)
+            string temp = string.Empty;
+
+            for (int i = 0; i < SignCollections.Count; i++)
             {
-                string temp = string.Empty;
-
-                if (i == SignCollections.Count - 1)
-                    break;
-
-                if (Convert.ToInt32(
-                    SignCollections[i].Substring(SignCollections[i].IndexOf("/") + 1))
-                > Convert.ToInt32(
-                    SignCollections[i + 1].Substring(SignCollections[i + 1].IndexOf("/") + 1)))
+                for (int y = 0; y < SignCollections.Count - 1; y++)
                 {
-                    temp = SignCollections[i + 1];
-                    SignCollections[i + 1] = SignCollections[i];
-                    SignCollections[i] = temp;
-                    i++;
+                    if (Convert.ToInt32(SignCollections[y].
+                        Substring(SignCollections[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(SignCollections[y + 1].
+                    Substring(SignCollections[y + 1].IndexOf("/") + 1)))
+                    {
+                        temp = SignCollections[y + 1];
+                        SignCollections[y + 1] = SignCollections[y];
+                        SignCollections[y] = temp;
+                    }
                 }
-                else i++;
             }
 
-            //SignCollections = new ObservableCollection<string>(SignCollections.OrderBy(i => i));
-            //SignCollections.Sort();
             if (SignCollections.Count > 0)
-                SelectedIndexSignCollection = SignCollections.Count - 1;
+                SelectedIndexSignCollection = SignCollections.Count - 2;
         }
 
         #endregion
@@ -1502,7 +1656,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (SignCollections.Count == 0) return;
 
             if (SignCollections.Count > 0)
+            {
                 SignCollections.Remove(Sign);
+                SelectedIndexSignCollection = SignCollections.Count - 1;
+            }
 
             string addRegistry = String.Empty;
             foreach (var item in SignCollections)
@@ -1510,8 +1667,35 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             getSetRegistryServiceTelecomSetting.SetRegistryNumberActForSignCollections
                 (addRegistry);
-
         }
+
+        #endregion
+
+        #region SearchBySingNumberActInRadiostationsForDocumentsCollection
+
+        private void ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(City))
+                return;
+            if (SignCollections.Count < 1)
+                return;
+
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+            foreach (var item in ReserveRadiostationsForDocumentsCollection)
+                RadiostationsForDocumentsCollection.Add(item);
+
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (RadiostationsForDocumentsCollection[i].
+                    NumberAct != Sign)
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
+            Counters();
+        }
+
 
         #endregion
 
