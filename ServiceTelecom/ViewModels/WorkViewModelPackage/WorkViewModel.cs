@@ -6,6 +6,7 @@ using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,6 +24,50 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
 
         #region свойства
+
+        private string _counterAmountRepair;
+        public string CounterAmountRepair
+        {
+            get => _counterAmountRepair;
+            set
+            {
+                _counterAmountRepair = value;
+                OnPropertyChanged(nameof(CounterAmountRepair));
+            }
+        }
+
+        private string _counterQuantityRepair;
+        public string CounterQuantityRepair
+        {
+            get => _counterQuantityRepair;
+            set
+            {
+                _counterQuantityRepair = value;
+                OnPropertyChanged(nameof(CounterQuantityRepair));
+            }
+        }
+
+        private string _counterAmountRadiostantion;
+        public string CounterAmountRadiostantion
+        {
+            get => _counterAmountRadiostantion;
+            set
+            {
+                _counterAmountRadiostantion = value;
+                OnPropertyChanged(nameof(CounterAmountRadiostantion));
+            }
+        }
+
+        private string _counterQuantityRadiostantion;
+        public string CounterQuantityRadiostantion
+        {
+            get => _counterQuantityRadiostantion;
+            set
+            {
+                _counterQuantityRadiostantion = value;
+                OnPropertyChanged(nameof(CounterQuantityRadiostantion));
+            }
+        }
 
         private string _cmbChoiseSearch;
         public string CmbChoiseSearch
@@ -817,6 +862,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     GetCityAlongRoadForCityCollection(
                     RoadCollections[index].ToString(), CityCollections);
             SelectedIndexCityCollection = 0;
+
+            if (CityCollections.Count == 0)
+                Counters();
         }
 
         #endregion
@@ -864,6 +912,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 ReserveRadiostationsForDocumentsCollection.Clear();
             foreach (var item in RadiostationsForDocumentsCollection)
                 ReserveRadiostationsForDocumentsCollection.Add(item);
+
+            Counters();
         }
 
         #endregion
@@ -1129,13 +1179,30 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     }
                 }
             }
+
+            Counters();
         }
 
 
         #endregion
 
+        #region
 
-       
+        void Counters()
+        {
+            CounterQuantityRadiostantion =
+                RadiostationsForDocumentsCollection.Count.ToString() + " шт.";
+
+            decimal amountRadiostantion = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                amountRadiostantion += Convert.ToDecimal(
+                    item.Price);
+            CounterAmountRadiostantion = amountRadiostantion.ToString() + " руб.";
+
+
+        }
+
+        #endregion
 
     }
 }

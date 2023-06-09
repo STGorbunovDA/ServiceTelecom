@@ -38,8 +38,9 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="140"/>
+                <RowDefinition Height="110"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -109,7 +110,7 @@
                                   Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
                 </StackPanel>
-                
+
                 <StackPanel Grid.Column="4" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
@@ -260,11 +261,91 @@
                         <DataGridTextColumn Header="Зарядное устройство" 
                                                 Binding="{Binding Charger}" 
                                                 Width="50" Visibility="Collapsed"/>
-                        
+
                     </DataGrid.Columns>
                 </local:CustomDataGrid>
             </Grid>
             <Grid Grid.Row="3">
+                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="10,0,0,0">
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Колличество РСТ:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterQuantityRadiostantion"
+                               Text="{Binding CounterQuantityRadiostantion}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Сумма ТО:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterAmountRadiostantion"
+                               Text="{Binding CounterAmountRadiostantion}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="100,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Колличество ремонтов:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterQuantityRepair"
+                               Text="{Binding CounterQuantityRepair}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Сумма ремонтов:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterAmountRepair"
+                               Text="{Binding CounterAmountRepair}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                
+                
+            </Grid>
+            <Grid Grid.Row="4">
                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
