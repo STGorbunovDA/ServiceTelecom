@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="Списание" Height="335" Width="360"
+        Title="Списание" Height="380" Width="360"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -38,7 +38,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="240"/>
                 <RowDefinition Height="38"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -115,7 +115,7 @@
                     </TextBlock>
                     <TextBox x:Name="txbReasonDecommissionNumberAct"
                              FontSize="16"
-                             Height="180"
+                             Height="220"
                              Width="224"
                              Margin="0,0,10,0"
                              Style="{StaticResource TextBoxStyle4}"
