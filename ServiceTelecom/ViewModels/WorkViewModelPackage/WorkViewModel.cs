@@ -1,5 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using ServiceTelecom.Infrastructure;
+﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -572,7 +571,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             if (_workRepositoryRadiostantion.DeleteDecommissionNumberActRadiostationInDB(
                     Road, City, SelectedRadiostation.SerialNumber))
-                MessageBox.Show("Успешно", "Информация",
+                MessageBox.Show("Успешно! Добавь номер акта ТО и исправь Price!", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show($"Ошибка удаления списания у радиостанции " +
@@ -922,6 +921,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection(string value)
         {
+            if (String.IsNullOrWhiteSpace(City))
+                return;
             if (string.IsNullOrWhiteSpace(value))
             {
                 if (RadiostationsForDocumentsCollection.Count != 0)
@@ -1190,16 +1191,31 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void Counters()
         {
+            //Кол-во радиостанций
             CounterQuantityRadiostantion =
                 RadiostationsForDocumentsCollection.Count.ToString() + " шт.";
 
+            //Общая цена ТО
             decimal amountRadiostantion = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
                 amountRadiostantion += Convert.ToDecimal(
                     item.Price);
             CounterAmountRadiostantion = amountRadiostantion.ToString() + " руб.";
 
+            //Кол-во ремонтов
+            int quantityRepair = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (!String.IsNullOrWhiteSpace(item.NumberActRepair))
+                    quantityRepair++;
+            CounterQuantityRepair = quantityRepair.ToString();
 
+            //Сумма ремонтов
+            decimal amountRepair = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (!String.IsNullOrWhiteSpace(item.PriceRemont))
+                    amountRepair += Convert.ToDecimal(
+                    item.PriceRemont);
+            CounterAmountRepair = amountRepair.ToString();
         }
 
         #endregion
