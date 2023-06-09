@@ -118,16 +118,22 @@
                     <TextBlock Text="На подписание"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               Margin="8,0,0,0"
-                               HorizontalAlignment="Left">
+                               Margin="-3,0,0,0"
+                               HorizontalAlignment="Center">
                     </TextBlock>
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Margin="0,0,0,0">
+                        <Button x:Name="btnSearchByNumberActInRadiostationsForDocumentsCollection"
+                            Command="{Binding SearchByNumberActInRadiostationsForDocumentsCollection}"
+                            Content="✔"
+                            Margin ="0,5,5,0"
+                            Style="{StaticResource menuButtonStyleCheck}">
+                        </Button>
                         <ComboBox x:Name="cmbSign"
                                   Height="35"
-                                  Width="170"
+                                  Width="130"
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding SignCollections}"
