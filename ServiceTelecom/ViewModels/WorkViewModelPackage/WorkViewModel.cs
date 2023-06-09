@@ -24,6 +24,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region свойства
 
+        private string _сounterDecommissionNumberActs;
+        public string CounterDecommissionNumberActs
+        {
+            get => _сounterDecommissionNumberActs;
+            set
+            {
+                _сounterDecommissionNumberActs = value;
+                OnPropertyChanged(nameof(CounterDecommissionNumberActs));
+            }
+        }
+
+        private string _сounterInRepairRadiostantionsTechnicalServices;
+        public string CounterInRepairRadiostantionsTechnicalServices
+        {
+            get => _сounterInRepairRadiostantionsTechnicalServices;
+            set
+            {
+                _сounterInRepairRadiostantionsTechnicalServices = value;
+                OnPropertyChanged(nameof(CounterInRepairRadiostantionsTechnicalServices));
+            }
+        }
+
         private string _сounterVerifiedRadiostantions;
         public string CounterVerifiedRadiostantions
         {
@@ -1229,7 +1251,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (!String.IsNullOrWhiteSpace(item.NumberActRepair))
                     quantityRepair++;
-            CounterQuantityRepair = quantityRepair.ToString();
+            CounterQuantityRepair = quantityRepair.ToString() + " шт.";
 
             //Сумма ремонтов
             decimal amountRepair = 0;
@@ -1242,16 +1264,36 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //В работе
             int inWorkRadiostantions = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if(item.VerifiedRST == UserModelStatic.InWorkTechnicalServices)
+                if (item.VerifiedRST == UserModelStatic.InWorkTechnicalServices)
+                {
+                    if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
+                        continue;
                     inWorkRadiostantions++;
-            CounterInWorkRadiostantions = inWorkRadiostantions.ToString();
+                }
+                    
+            CounterInWorkRadiostantions = inWorkRadiostantions.ToString() + " шт.";
 
             //Прошла проверку
             int verifiedRadiostantions = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (item.VerifiedRST == UserModelStatic.PassedTechnicalServices)
                     verifiedRadiostantions++;
-            CounterVerifiedRadiostantions = verifiedRadiostantions.ToString();
+            CounterVerifiedRadiostantions = verifiedRadiostantions.ToString() + " шт.";
+
+            //в ремонт
+            int inRepairRadiostantionsTechnicalServices = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (item.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
+                    inRepairRadiostantionsTechnicalServices++;
+            CounterInRepairRadiostantionsTechnicalServices 
+                = inRepairRadiostantionsTechnicalServices.ToString() + " шт.";
+
+            //списаний
+            int decommissionNumberActs = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
+                    decommissionNumberActs++;
+            CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";  
         }
 
         #endregion
