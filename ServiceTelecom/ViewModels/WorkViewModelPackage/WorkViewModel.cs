@@ -1,18 +1,12 @@
-﻿using Microsoft.Win32;
-using ServiceTelecom.Infrastructure;
+﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -26,9 +20,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         /// <summary> Для получения значения только один раз из реестра  </summary>
         private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
-
-        /// <summary> Для ограничения загрузки по номеру акта  </summary>
-        private int NUMBER_LIMIT_LOADING_SIGN = 0;
 
         #region свойства
 
@@ -566,7 +557,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                             selectedRowsCounterAmountRadiostantion.ToString() + " руб.";
                     }
                 }
-
                 OnPropertyChanged(nameof(RadiostationsForDocumentsMulipleSelectedDataGrid));
             }
         }
@@ -1400,11 +1390,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
                     decommissionNumberActs++;
             CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";
-
-
-
-
-
         }
 
         #endregion

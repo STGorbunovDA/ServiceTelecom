@@ -45,7 +45,6 @@ namespace ServiceTelecom.View.WorkViewPackage
                     else txbPrice.Text = UserModelStatic.priceDigitalTO;
                 }
             }
-
             
             if (selectedRadiostation.Manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;
