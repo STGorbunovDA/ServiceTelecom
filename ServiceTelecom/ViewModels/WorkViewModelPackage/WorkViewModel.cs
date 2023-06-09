@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Infrastructure;
+﻿using Google.Protobuf.WellKnownTypes;
+using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -22,6 +23,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
 
         #region свойства
+
+        private string _cmbChoiseSearch;
+        public string CmbChoiseSearch
+        {
+            get => _cmbChoiseSearch;
+            set
+            {
+                _cmbChoiseSearch = value;
+                OnPropertyChanged(nameof(CmbChoiseSearch));
+            }
+        }
+
+        private string _choiсeUniqueValue;
+        public string ChoiсeUniqueValue
+        {
+            get => _choiсeUniqueValue;
+            set
+            {
+                _choiсeUniqueValue = value;
+                SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection(value);
+                OnPropertyChanged(nameof(ChoiсeUniqueValue));
+            }
+        }
 
         private string _road;
         public string Road
@@ -52,7 +76,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 _serialNumber = value;
-                SearchBySerialNumberInRadiostationsForDocumentsCollection(value);
                 OnPropertyChanged(nameof(SerialNumber));
             }
         }
@@ -328,28 +351,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _selectedIndexChoiсeSearchCollection;
-        public int SelectedIndexChoiсeSearchCollection
-        {
-            get => _selectedIndexChoiсeSearchCollection;
-            set
-            {
-                _selectedIndexChoiсeSearchCollection = value;
-                GetByChoiсeSearchForChoiсeUniqueValueCollections(value);
-                OnPropertyChanged(nameof(SelectedIndexChoiсeSearchCollection));
-            }
-        }
-        private int _selectedIndexChoiсeUniqueValueCollection;
-        public int SelectedIndexChoiсeUniqueValueCollection
-        {
-            get => _selectedIndexChoiсeUniqueValueCollection;
-            set
-            {
-                _selectedIndexChoiсeUniqueValueCollection = value;
-                OnPropertyChanged(nameof(SelectedIndexChoiсeUniqueValueCollection));
-            }
-        }
-
         private int _selectedIndexRoadCollection;
         public int SelectedIndexRoadCollection
         {
@@ -458,6 +459,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
             GetRoad();
         }
+
 
         #region ChangeNumberActAtRadiostationsInDB
 
@@ -859,11 +861,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region SearchBySerialNumberInRadiostationsForDocumentsCollection
+        #region SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection
 
-        private void SearchBySerialNumberInRadiostationsForDocumentsCollection(string value)
+        private void SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection(string value)
         {
-
             if (string.IsNullOrWhiteSpace(value))
             {
                 if (RadiostationsForDocumentsCollection.Count != 0)
@@ -871,56 +872,68 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 foreach (var item in ReserveRadiostationsForDocumentsCollection)
                     RadiostationsForDocumentsCollection.Add(item);
             }
-            if (RadiostationsForDocumentsCollection.Count !=
-                ReserveRadiostationsForDocumentsCollection.Count)
+
+            if (CmbChoiseSearch == "Заводской №")
             {
-                RadiostationsForDocumentsCollection.Clear();
-                for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
                 {
-                    if (ReserveRadiostationsForDocumentsCollection[i].SerialNumber.
-                        Contains(value))
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
                     {
-                        RadiostationsForDocumentsCollection.Add(
-                            ReserveRadiostationsForDocumentsCollection[i]);
+                        if (ReserveRadiostationsForDocumentsCollection[i].SerialNumber.
+                            Contains(value))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].SerialNumber.Contains(value))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
                     }
                 }
             }
-            else
+            if (CmbChoiseSearch == "Предприятие")
             {
-                for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
                 {
-                    if (!RadiostationsForDocumentsCollection[i].SerialNumber.Contains(value))
-                        RadiostationsForDocumentsCollection.
-                            Remove(RadiostationsForDocumentsCollection[i]);
-                    else i++;
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].Company.
+                            Contains(value))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].Company.Contains(value))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
                 }
             }
-
         }
+
 
         #endregion
 
-        #region GetByChoiсeSearchForChoiсeUniqueValueCollections
 
-        private void GetByChoiсeSearchForChoiсeUniqueValueCollections(int index)
-        {
-            if (index < 0)
-                return;
-            if (ChoiсeUniqueValueCollections.Count != 0)
-            {
-                ChoiсeUniqueValueCollections.Clear();
-                SelectedIndexChoiсeUniqueValueCollection = -1;
-            }
-            if (index == 0)
-            {
-                ChoiсeUniqueValueCollections = _workRepositoryRadiostantion.
-                    GetCompanyForChoiсeUniqueValueCollections(
-                    ChoiсeUniqueValueCollections, Road, City);
-                SelectedIndexChoiсeUniqueValueCollection = 0;
-            }
-        }
-
-        #endregion
+       
 
     }
 }
