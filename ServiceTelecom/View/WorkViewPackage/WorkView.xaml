@@ -38,9 +38,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="140"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -82,9 +83,10 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical"
@@ -110,28 +112,39 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Vertical"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
-                    <StackPanel  Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
-                        <TextBlock Text="Поиск Serial №:"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="На подписание"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               VerticalAlignment="Center">
-                        </TextBlock>
-                        <TextBox x:Name="txbSearchSerialNumber"
-                             FontSize="16"
-                             Height="38"
-                             Width="200"
-                             Margin="10,0,0,0"
-                             Style="{StaticResource TextBoxStyle1}"
-                             Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                        </TextBox>
+                               Margin="8,0,0,0"
+                               HorizontalAlignment="Left">
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,0">
+                        <ComboBox x:Name="cmbSign"
+                                  Height="35"
+                                  Width="170"
+                                  Margin="0,5,0,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding SignCollections}"
+                                  SelectedIndex="{Binding SelectedIndexSignCollection, Mode=TwoWay}"
+                                  Text="{Binding Sign, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </ComboBox>
+                        <Button x:Name="btnRemoveFromSignCollections"
+                            Command="{Binding RemoveFromSignCollections}"
+                            Content="⌫"
+                            Margin ="5,5,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                        </Button>
                     </StackPanel>
-                    
+                        
                 </StackPanel>
-                <StackPanel Grid.Column="4" Orientation="Vertical"
+                    <StackPanel Grid.Column="5" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                     <ComboBox x:Name="cmbChoiseSearch"
@@ -139,25 +152,26 @@
                                   Width="270"
                                   Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  SelectedIndex="{Binding SelectedIndexChoiсeSearchCollection, Mode=TwoWay}">
+                                  Text="{Binding CmbChoiseSearch, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ComboBoxItem Content="Заводской №"/>
                         <ComboBoxItem Content="Предприятие"/>
                         <ComboBoxItem Content="Станция"/>
                         <ComboBoxItem Content="Дата ТО"/>
-                        <ComboBoxItem Content="Номер акта ТО"/>
-                        <ComboBoxItem Content="Номер акта Ремонта"/>
+                        <ComboBoxItem Content="№ акта ТО"/>
+                        <ComboBoxItem Content="№ акта Ремонта"/>
                         <ComboBoxItem Content="Представитель ПП"/>
-                        <ComboBoxItem Content="Номер акта списания"/>
+                        <ComboBoxItem Content="№ акта списания"/>
                         <ComboBoxItem Content="Модель"/>
                     </ComboBox>
-                    <ComboBox x:Name="cmbChoiseUniqueValue"
-                                  Height="35"
-                                  Width="270"
-                                  Margin="0,5,0,0"
-                                  Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding ChoiсeUniqueValueCollections}"
-                                  SelectedIndex="{Binding SelectedIndexChoiсeUniqueValueCollection, Mode=TwoWay}"
-                                  Text="{Binding ChoiсeUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                    </ComboBox>
+                    <TextBox x:Name="txbChoiseUniqueValue"
+                             FontSize="16"
+                             Height="35"
+                             Width="270"
+                             Margin="0,5,0,0"
+                             Style="{StaticResource TextBoxStyle5}"
+                             Text="{Binding ChoiсeUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             HorizontalAlignment="Left">
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
@@ -187,6 +201,7 @@
                             <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
                             <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
+                            <MenuItem Header="Добавить на подпись" Command="{Binding AddNumberActInSignCollections}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -208,7 +223,7 @@
                                                 Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Заводской"
-                                                Binding="{Binding SerialNumber}" 
+                                                Binding="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="200"/>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
@@ -280,11 +295,197 @@
                         <DataGridTextColumn Header="Зарядное устройство" 
                                                 Binding="{Binding Charger}" 
                                                 Width="50" Visibility="Collapsed"/>
-                        
+
                     </DataGrid.Columns>
                 </local:CustomDataGrid>
             </Grid>
             <Grid Grid.Row="3">
+                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="10,0,0,0">
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Колличество РСТ:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterQuantityRadiostantion"
+                               Text="{Binding CounterQuantityRadiostantion}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Сумма ТО:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterAmountRadiostantion"
+                               Text="{Binding CounterAmountRadiostantion}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="30,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Колличество ремонтов:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterQuantityRepair"
+                               Text="{Binding CounterQuantityRepair}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Сумма ремонтов:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterAmountRepair"
+                               Text="{Binding CounterAmountRepair}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="30,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="В работе:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterInWorkRadiostantions"
+                               Text="{Binding CounterInWorkRadiostantions}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Проверено:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterVerifiedRadiostantion"
+                               Text="{Binding CounterVerifiedRadiostantions}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="30,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="В ремонт:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterInRepairRadiostantionsTechnicalServices"
+                               Text="{Binding CounterInRepairRadiostantionsTechnicalServices}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Списаний:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterDecommissionNumberActs"
+                               Text="{Binding CounterDecommissionNumberActs}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="30,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="Выбрано строк:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterSelectedRows"
+                               Text="{Binding SelectedRows}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Выбранная сумма ТО:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockSelectedRowsCounterAmountRadiostantion"
+                               Text="{Binding SelectedRowsCounterAmountRadiostantion}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle5}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="4">
                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">

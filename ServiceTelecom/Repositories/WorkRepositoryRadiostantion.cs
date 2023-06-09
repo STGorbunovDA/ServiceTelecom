@@ -653,6 +653,8 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(decommissionNumberAct));
                     command.Parameters.AddWithValue($"reasonDecommissionNumberActUser",
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
+                    command.Parameters.AddWithValue($"priceUser",
+                        Encryption.EncryptPlainTextToCipherText(UserModelStatic.nullPriceTO));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -713,7 +715,7 @@ namespace ServiceTelecom.Repositories
                                         reader.GetString(0)));
 
                         reader.Close();
-                        numberActRepairList.Sort(); 
+                        numberActRepairList.Sort();
                         return numberActRepairList.LastOrDefault();
                     }
                 }
@@ -722,41 +724,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public ObservableCollection<string>
-            GetCompanyForChoiсeUniqueValueCollections(
-            ObservableCollection<string> choiseUniqueValueCollections,
-            string road, string city)
-        {
-            try
-            {
-                if (!InternetCheck.CheckSkyNET())
-                    return choiseUniqueValueCollections;
-                using (MySqlCommand command = new MySqlCommand(
-                    "GetCompanyForChoiсeUniqueValueCollections",
-                    RepositoryDataBase.GetInstance.GetConnection()))
-                {
-                    RepositoryDataBase.GetInstance.OpenConnection();
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"roadUser",
-                        Encryption.EncryptPlainTextToCipherText(road));
-                    command.Parameters.AddWithValue($"cityUser",
-                       Encryption.EncryptPlainTextToCipherText(city));
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                            while (reader.Read())
-                                choiseUniqueValueCollections.Add(
-                                    Encryption.DecryptCipherTextToPlainText(
-                                        reader.GetString(0)));
 
-                        reader.Close();
-                        choiseUniqueValueCollections.OrderByDescending(a => a);
-                        return choiseUniqueValueCollections;
-                    }
-                }
-            }
-            catch { return choiseUniqueValueCollections; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
+
     }
 }

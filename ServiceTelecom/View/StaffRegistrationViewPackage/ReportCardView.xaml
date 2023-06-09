@@ -116,7 +116,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Margin ="0,30,0,0">
-                    <Button x:Name="chkCmbUser"
+                    <Button x:Name="btnCmbUser"
                             Command="{Binding GetReportCardsAtCmbUser}"
                             Content="✔"
                             Margin ="0,0,0,0"
@@ -132,7 +132,7 @@
                                   SelectedItem = "{Binding SelectedItemCmbUser, Mode=TwoWay}"
                                   Text="{Binding User}">
                     </ComboBox>
-                    <Button x:Name="chkCmbDateTimeInput"
+                    <Button x:Name="btnCmbDateTimeInput"
                             Command="{Binding GetReportCardsAtCmbDateTimeInput}"
                             Content="✔"
                             Margin ="0,0,0,0"
