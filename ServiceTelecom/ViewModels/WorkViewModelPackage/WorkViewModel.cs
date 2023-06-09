@@ -478,7 +478,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show(
                     $"У выбранной радиостанции {item.SerialNumber} " +
-                    $"есть списание {DecommissionNumberAct}", "Отмена",
+                    $"есть списание {item.DecommissionNumberAct}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -519,18 +519,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (_workRepositoryRadiostantionFull.
                 DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
-                    Road, City, SerialNumber))
+                    Road, City, SelectedRadiostation.SerialNumber))
             { }
             else
                 MessageBox.Show($"Ошибка удаления списания у радиостанции " +
-                    $"{SerialNumber} из radiostantionFull(общая база)",
+                    $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая база)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             if (_workRepositoryRadiostantion.DeleteDecommissionNumberActRadiostationInDB(
-                    Road, City, SerialNumber))
+                    Road, City, SelectedRadiostation.SerialNumber))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
-                MessageBox.Show($"Ошибка удаления списания у радиостанции {SerialNumber}",
+                MessageBox.Show($"Ошибка удаления списания у радиостанции " +
+                    $"{SelectedRadiostation.SerialNumber}",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             GetRadiostationsForDocumentsCollection(Road, City);
@@ -550,7 +551,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
             {
                 MessageBox.Show(
-                    $"Уже есть списание {DecommissionNumberAct}", "Отмена",
+                    $"Уже есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (!String.IsNullOrWhiteSpace(SelectedRadiostation.NumberActRepair))
+            {
+                MessageBox.Show(
+                    $"Есть ремонт: {SelectedRadiostation.NumberActRepair}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -590,20 +598,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRepositoryRadiostantionFull.
                 DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
-                    Road, City, SerialNumber))
+                    Road, City, SelectedRadiostation.SerialNumber))
             { }
             else
                 MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
-                    $"{SerialNumber} из radiostantionFull(общая база)",
+                    $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая база)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
             if (_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(
-                    Road, City, SerialNumber))
+                    Road, City, SelectedRadiostation.SerialNumber))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
-                    $"{SerialNumber}", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                    $"{SelectedRadiostation.SerialNumber}", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             GetRadiostationsForDocumentsCollection(Road, City);
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -672,8 +680,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
             {
                 MessageBox.Show(
-                    $"Нельзя добавить ремонт на радиостанцию{SerialNumber} " +
-                    $"есть списание {DecommissionNumberAct}", "Отмена",
+                    $"Нельзя добавить ремонт на радиостанцию{SelectedRadiostation.SerialNumber} " +
+                    $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -856,7 +864,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 ReserveRadiostationsForDocumentsCollection.Clear();
             foreach (var item in RadiostationsForDocumentsCollection)
                 ReserveRadiostationsForDocumentsCollection.Add(item);
-
         }
 
         #endregion
@@ -948,6 +955,174 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
                     {
                         if (!RadiostationsForDocumentsCollection[i].Location.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "Дата ТО")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].DateMaintenance.
+                            Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            DateMaintenance.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "№ акта ТО")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].NumberAct.
+                            Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            NumberAct.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "№ акта Ремонта")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].NumberActRepair.
+                            Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            NumberActRepair.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "Представитель ПП")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].Representative.
+                            Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            Representative.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "№ акта списания")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].
+                            DecommissionNumberAct.Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            DecommissionNumberAct.Contains(value.Trim()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "Модель")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].
+                            Model.Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].
+                            Model.Contains(value.Trim()))
                             RadiostationsForDocumentsCollection.
                                 Remove(RadiostationsForDocumentsCollection[i]);
                         else i++;

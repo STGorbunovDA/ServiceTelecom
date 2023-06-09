@@ -188,7 +188,7 @@
                                                 Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Заводской"
-                                                Binding="{Binding SerialNumber}" 
+                                                Binding="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="200"/>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
