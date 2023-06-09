@@ -24,6 +24,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region свойства
 
+        private string _сounterVerifiedRadiostantions;
+        public string CounterVerifiedRadiostantions
+        {
+            get => _сounterVerifiedRadiostantions;
+            set
+            {
+                _сounterVerifiedRadiostantions = value;
+                OnPropertyChanged(nameof(CounterVerifiedRadiostantions));
+            }
+        }
+
+        private string _сounterInWorkRadiostantions;
+        public string CounterInWorkRadiostantions
+        {
+            get => _сounterInWorkRadiostantions;
+            set
+            {
+                _сounterInWorkRadiostantions = value;
+                OnPropertyChanged(nameof(CounterInWorkRadiostantions));
+            }
+        }
+
         private string _counterAmountRepair;
         public string CounterAmountRepair
         {
@@ -1215,7 +1237,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!String.IsNullOrWhiteSpace(item.PriceRemont))
                     amountRepair += Convert.ToDecimal(
                     item.PriceRemont);
-            CounterAmountRepair = amountRepair.ToString();
+            CounterAmountRepair = amountRepair.ToString() + " руб.";
+
+            //В работе
+            int inWorkRadiostantions = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if(item.VerifiedRST == UserModelStatic.InWorkTechnicalServices)
+                    inWorkRadiostantions++;
+            CounterInWorkRadiostantions = inWorkRadiostantions.ToString();
+
+            //Прошла проверку
+            int verifiedRadiostantions = 0;
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (item.VerifiedRST == UserModelStatic.PassedTechnicalServices)
+                    verifiedRadiostantions++;
+            CounterVerifiedRadiostantions = verifiedRadiostantions.ToString();
         }
 
         #endregion

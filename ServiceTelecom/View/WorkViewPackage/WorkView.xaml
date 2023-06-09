@@ -341,6 +341,42 @@
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="50,0,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                            <TextBlock Text="В работе:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterInWorkRadiostantions"
+                               Text="{Binding CounterInWorkRadiostantions}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                            <TextBlock Text="Проверено:"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="0,0,0,0">
+                            </TextBlock>
+                            <TextBlock x:Name="txtBlockCounterVerifiedRadiostantion"
+                               Text="{Binding CounterVerifiedRadiostantions}"
+                               Foreground="{StaticResource titleFontColor5}"
+                               Style="{StaticResource messageTextBlockStyle1}"
+                               Margin="10,0,0,0">
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
                 
                 
