@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -92,7 +93,36 @@ namespace ServiceTelecom.Infrastructure
                 return string.Empty;
             }
         }
+        public void SetRegistryNumberActForSignCollections(string numberActSignCollections)
+        {
+            RegistryKey currentUserKey = Registry.CurrentUser;
+            RegistryKey helloKey = currentUserKey.CreateSubKey(
+                $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
+            helloKey.SetValue("Акты_на_подпись", $"{numberActSignCollections}");
+            helloKey.Close();
+        }
 
-        
+        public string GetRegistryNumberActForSignCollections()
+        {
+            try
+            {
+                RegistryKey reg3 = Registry.CurrentUser.OpenSubKey(
+               $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
+                if (reg3 != null)
+                {
+                    string addRegistry = String.Empty;
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
+                    return helloKey.GetValue("Акты_на_подпись").ToString();
+                }
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
     }
 }

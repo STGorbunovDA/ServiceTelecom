@@ -19,5 +19,8 @@
 
         // <summary> Получить город для отображения после добавления или изменения радиостанции </summary>
         string GetRegistryCityForAddChange();
+
+        // <summary> Сохранить номера актов на подпись </summary>
+        void SetRegistryNumberActForSignCollections(string numberActSignCollections);
     }
 }

@@ -10,6 +10,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             InitializeComponent();
             cmbRoad.SelectedIndex = 0;
             cmbChoiseSearch.SelectedIndex = 0;
+            cmbSign.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
