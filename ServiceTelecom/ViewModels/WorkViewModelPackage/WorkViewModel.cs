@@ -909,7 +909,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
                     {
                         if (ReserveRadiostationsForDocumentsCollection[i].Company.
-                            Contains(value))
+                            Contains(value.Trim().ToUpper()))
                         {
                             RadiostationsForDocumentsCollection.Add(
                                 ReserveRadiostationsForDocumentsCollection[i]);
@@ -920,7 +920,34 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
                     {
-                        if (!RadiostationsForDocumentsCollection[i].Company.Contains(value))
+                        if (!RadiostationsForDocumentsCollection[i].Company.Contains(value.Trim().ToUpper()))
+                            RadiostationsForDocumentsCollection.
+                                Remove(RadiostationsForDocumentsCollection[i]);
+                        else i++;
+                    }
+                }
+            }
+            if (CmbChoiseSearch == "Станция")
+            {
+                if (RadiostationsForDocumentsCollection.Count !=
+                ReserveRadiostationsForDocumentsCollection.Count)
+                {
+                    RadiostationsForDocumentsCollection.Clear();
+                    for (int i = 0; i < ReserveRadiostationsForDocumentsCollection.Count; i++)
+                    {
+                        if (ReserveRadiostationsForDocumentsCollection[i].Location.
+                            Contains(value.Trim()))
+                        {
+                            RadiostationsForDocumentsCollection.Add(
+                                ReserveRadiostationsForDocumentsCollection[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+                    {
+                        if (!RadiostationsForDocumentsCollection[i].Location.Contains(value.Trim()))
                             RadiostationsForDocumentsCollection.
                                 Remove(RadiostationsForDocumentsCollection[i]);
                         else i++;
