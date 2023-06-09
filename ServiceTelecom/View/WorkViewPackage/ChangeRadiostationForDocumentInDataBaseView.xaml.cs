@@ -10,6 +10,10 @@ namespace ServiceTelecom.View.WorkViewPackage
         {
             InitializeComponent();
             txbNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.NumberAct;
+            if (string.IsNullOrWhiteSpace(txbNumberAct.Text))
+                foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                    txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
+
             txtRoad.Text = selectedRadiostationForDocumentsDataBaseModel.Road;
             txbCity.Text = selectedRadiostationForDocumentsDataBaseModel.City;
             txbSerialNumber.Text = selectedRadiostationForDocumentsDataBaseModel.SerialNumber;
@@ -28,12 +32,21 @@ namespace ServiceTelecom.View.WorkViewPackage
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
             txbDecommissionNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct;
-            if (txbPrice.Text == UserModelStatic.priceAnalogTO) CheckBoxPrice.IsChecked = true;
-            else
+
+            if(txbPrice.Text != UserModelStatic.nullPriceTO)
             {
-                txbPrice.Text = UserModelStatic.priceDigitalTO;
-                CheckBoxPrice.IsChecked = false;
+                if (txbPrice.Text == UserModelStatic.priceAnalogTO)
+                    CheckBoxPrice.IsChecked = true;
+                else
+                {
+                    CheckBoxPrice.IsChecked = false;
+                    if (!string.IsNullOrWhiteSpace(txbDecommissionNumberAct.Text))
+                        txbPrice.Text = UserModelStatic.nullPriceTO;
+                    else txbPrice.Text = UserModelStatic.priceDigitalTO;
+                }
             }
+
+            
             if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;
             if (selectedRadiostationForDocumentsDataBaseModel.Antenna == "1")
@@ -43,7 +56,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
             if (string.IsNullOrWhiteSpace(selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct))
                 txbDecommissionNumberAct.IsReadOnly = true;
-            
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -653,6 +653,8 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(decommissionNumberAct));
                     command.Parameters.AddWithValue($"reasonDecommissionNumberActUser",
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
+                    command.Parameters.AddWithValue($"priceUser",
+                        Encryption.EncryptPlainTextToCipherText(UserModelStatic.nullPriceTO));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
