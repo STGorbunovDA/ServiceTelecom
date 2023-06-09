@@ -6,6 +6,7 @@ namespace ServiceTelecom.Models
 {
     public class UserModelStatic
     {
+        public const string nullPriceTO = "0.0";
         public const string priceAnalogTO = "1411.18";
         public const string priceDigitalTO = "1919.57";
         public const string InRepairTechnicalServices = "ремонт";
