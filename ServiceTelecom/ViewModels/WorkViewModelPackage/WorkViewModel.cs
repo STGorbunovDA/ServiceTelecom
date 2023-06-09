@@ -24,6 +24,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region свойства
 
+        private string _selectedRowsCounterAmountRadiostantion;
+        public string SelectedRowsCounterAmountRadiostantion
+        {
+            get => _selectedRowsCounterAmountRadiostantion;
+            set
+            {
+                _selectedRowsCounterAmountRadiostantion = value;
+                OnPropertyChanged(nameof(SelectedRowsCounterAmountRadiostantion));
+            }
+        }
+
+        private string _selectedRows;
+        public string SelectedRows
+        {
+            get => _selectedRows;
+            set
+            {
+                _selectedRows = value;
+                OnPropertyChanged(nameof(SelectedRows));
+            }
+        }
+
         private string _сounterDecommissionNumberActs;
         public string CounterDecommissionNumberActs
         {
@@ -498,6 +520,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 _selectedModels = value;
+                SelectedRows = 
+                    RadiostationsForDocumentsMulipleSelectedDataGrid.Count.ToString();
+                decimal selectedRowsCounterAmountRadiostantion = 0;
+                foreach (RadiostationForDocumentsDataBaseModel item
+                    in RadiostationsForDocumentsMulipleSelectedDataGrid)
+                {
+                    selectedRowsCounterAmountRadiostantion += Convert.ToDecimal(
+                        item.Price);
+                    SelectedRowsCounterAmountRadiostantion =
+                        selectedRowsCounterAmountRadiostantion.ToString() + " руб.";
+                }
                 OnPropertyChanged(nameof(RadiostationsForDocumentsMulipleSelectedDataGrid));
             }
         }
@@ -1293,7 +1326,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
                     decommissionNumberActs++;
-            CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";  
+            CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";
+
+           
+
+            
+
         }
 
         #endregion
