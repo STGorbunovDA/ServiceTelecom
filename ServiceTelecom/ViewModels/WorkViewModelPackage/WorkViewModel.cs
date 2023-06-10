@@ -1,12 +1,16 @@
 ﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -21,6 +25,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> Для получения значения только один раз из реестра  </summary>
         private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
 
+        /// <summary> Для ограничения функционала при загрузке радиостанций из общей таблицы  </summary>
         private bool CHECK_HOW_MUCH = false;
 
         #region свойства
@@ -446,6 +451,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        SaveCSV saveCSV;
+        DispatcherTimer dispatcherTimer;
         private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         private ChangeNumberActView changeNumberActView;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
@@ -604,10 +611,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand RemoveFromFillOutCollections { get; }
         public ICommand SearchByNumberActFillOutInRadiostationsForDocumentsCollection { get; }
         public ICommand GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
-
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
+
         public WorkViewModel()
         {
+            saveCSV = new SaveCSV();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             RadiostationsForDocumentsCollection =
@@ -659,12 +667,35 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
+            Timer();
         }
 
+        #region Timer
 
-        #region ChangeNumberActAtRadiostationsInDB
+        private void Timer()
+        {
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(SaveRadiostationsForDocumentsCollection);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
 
-        private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
+        private void SaveRadiostationsForDocumentsCollection(object sender, EventArgs e)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            
+            new Thread(() => {
+                saveCSV.AutoSaveRadiostationsFull(City, RadiostationsForDocumentsCollection); 
+            }) { IsBackground = true }.Start();
+        }
+
+            #endregion
+
+
+            #region ChangeNumberActAtRadiostationsInDB
+
+            private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
         {
             if (CHECK_HOW_MUCH)
                 return;
@@ -1092,7 +1123,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (Road == null)
                 return;
-            if(RoadCollections.Count == 0) return;
+            if (RoadCollections.Count == 0) return;
 
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
