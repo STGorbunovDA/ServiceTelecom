@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Infrastructure.Interfaces
 {
-    public interface IAutoSaveCSV
+    public interface IBackupCopyRadiostationsForDocumentsCollection
     {
-        /// <summary> Для автоматического сохранения коллекций радиостанций </summary>
+        /// <summary> Для автоматического сохранения коллекций радиостанций в CSV </summary>
         void AutoSaveRadiostationsFull(string city,
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection);

@@ -451,7 +451,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        SaveCSV saveCSV;
+        BackupCopyRadiostationsForDocumentsCollection backupCopyRadiostationsForDocumentsCollection;
         DispatcherTimer dispatcherTimer;
         private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         private ChangeNumberActView changeNumberActView;
@@ -615,7 +615,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public WorkViewModel()
         {
-            saveCSV = new SaveCSV();
+            backupCopyRadiostationsForDocumentsCollection = 
+                new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             RadiostationsForDocumentsCollection =
@@ -686,8 +687,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             
             new Thread(() => {
-                saveCSV.AutoSaveRadiostationsFull(City, RadiostationsForDocumentsCollection); 
+                backupCopyRadiostationsForDocumentsCollection.
+                AutoSaveRadiostationsFull(City, RadiostationsForDocumentsCollection); 
             }) { IsBackground = true }.Start();
+
         }
 
             #endregion

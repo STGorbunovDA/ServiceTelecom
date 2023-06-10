@@ -130,10 +130,11 @@
     <Compile Include="CustomControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\BackupCopyRadiostationsForDocumentsCollection.cs" />
     <Compile Include="Infrastructure\CustomDataGrid.cs" />
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\GetSetRegistryServiceTelecomSetting.cs" />
-    <Compile Include="Infrastructure\Interfaces\IAutoSaveCSV.cs" />
+    <Compile Include="Infrastructure\Interfaces\IBackupCopyRadiostationsForDocumentsCollection.cs" />
     <Compile Include="Infrastructure\Interfaces\IGetSetRegistryServiceTelecomSetting.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveCSV.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
