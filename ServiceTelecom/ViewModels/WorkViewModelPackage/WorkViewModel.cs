@@ -601,6 +601,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddNumberActInFillOutCollections { get; }
         public ICommand RemoveFromFillOutCollections { get; }
         public ICommand SearchByNumberActFillOutInRadiostationsForDocumentsCollection { get; }
+        public ICommand GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public WorkViewModel()
         {
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -641,13 +642,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteRemoveFromSignCollectionsCommand);
             SearchBySingNumberActInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand);
-
             AddNumberActInFillOutCollections =
                 new ViewModelCommand(ExecuteAddNumberActInFillOutCollectionsCommand);
             RemoveFromFillOutCollections =
                 new ViewModelCommand(ExecuteRemoveFromFillOutCollectionsCommand);
             SearchByNumberActFillOutInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand);
+            GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection
+                = new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
 
             GetRoad();
             GetNumberActForSignCollections();
@@ -1036,6 +1038,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection
+
+        private void ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand(object obj)
+        {
+            if (Road == null)
+                return;
+            if(RoadCollections.Count == 0) return;
+
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+            RadiostationsForDocumentsCollection =
+                _workRepositoryRadiostantion.GetFullByRoadRadiostationsForDocumentsCollection(
+                RadiostationsForDocumentsCollection, Road);
+            if (ReserveRadiostationsForDocumentsCollection.Count != 0)
+                ReserveRadiostationsForDocumentsCollection.Clear();
+            foreach (var item in RadiostationsForDocumentsCollection)
+                ReserveRadiostationsForDocumentsCollection.Add(item);
+            Counters();
+        }
+
+        #endregion
+
         #region GetRadiostationsForDocumentsCollection
 
         private void GetRadiostationsForDocumentsCollection(string road, string city)
@@ -1061,7 +1085,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 ReserveRadiostationsForDocumentsCollection.Clear();
             foreach (var item in RadiostationsForDocumentsCollection)
                 ReserveRadiostationsForDocumentsCollection.Add(item);
-
             Counters();
         }
 
