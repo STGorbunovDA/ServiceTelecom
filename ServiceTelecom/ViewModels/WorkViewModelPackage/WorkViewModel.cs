@@ -615,7 +615,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public WorkViewModel()
         {
-            backupCopyRadiostationsForDocumentsCollection = 
+            backupCopyRadiostationsForDocumentsCollection =
                 new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
@@ -671,34 +671,49 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             Timer();
         }
 
-        #region Timer
+        #region Timer and BackupCopyRadiostationsForDocumentsCollection
 
         private void Timer()
         {
             dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(SaveRadiostationsForDocumentsCollection);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Tick += new EventHandler(BackupCopyRadiostationsForDocumentsCollection);
+            dispatcherTimer.Interval = new TimeSpan(0, 30, 0);
             dispatcherTimer.Start();
         }
 
-        private void SaveRadiostationsForDocumentsCollection(object sender, EventArgs e)
+        private void BackupCopyRadiostationsForDocumentsCollection(object sender, EventArgs e)
         {
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
-            
-            new Thread(() => {
-                backupCopyRadiostationsForDocumentsCollection.
-                AutoSaveRadiostationsFull(City, RadiostationsForDocumentsCollection); 
-            }) { IsBackground = true }.Start();
 
+            new Thread(() =>
+            {
+                backupCopyRadiostationsForDocumentsCollection.
+                AutoSaveRadiostationsFullJson(City, RadiostationsForDocumentsCollection);
+            })
+            { IsBackground = true }.Start();
+
+            new Thread(() =>
+            {
+                backupCopyRadiostationsForDocumentsCollection.
+                CopyDataBaseRadiostantionInRadiostantionCopy();
+            })
+            { IsBackground = true }.Start();
+
+            new Thread(() =>
+            {
+                backupCopyRadiostationsForDocumentsCollection.
+                AutoSaveRadiostationsFullCSV(City, RadiostationsForDocumentsCollection);
+            })
+            { IsBackground = true }.Start();
         }
 
-            #endregion
+        #endregion
 
 
-            #region ChangeNumberActAtRadiostationsInDB
+        #region ChangeNumberActAtRadiostationsInDB
 
-            private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
+        private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
         {
             if (CHECK_HOW_MUCH)
                 return;

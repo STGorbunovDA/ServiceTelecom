@@ -1,15 +1,25 @@
-﻿using ServiceTelecom.Infrastructure.Interfaces;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Utilities;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
 using System;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class BackupCopyRadiostationsForDocumentsCollection : IBackupCopyRadiostationsForDocumentsCollection
+    internal class BackupCopyRadiostationsForDocumentsCollection
+        : IBackupCopyRadiostationsForDocumentsCollection
     {
-        public void AutoSaveRadiostationsFull(string city,
+        public void AutoSaveRadiostationsFullCSV(string city,
            ObservableCollection<RadiostationForDocumentsDataBaseModel>
            radiostationsForDocumentsCollection)
         {
@@ -86,6 +96,91 @@ namespace ServiceTelecom.Infrastructure
                     sw.WriteLine();
                 }
             }
+        }
+
+        public void AutoSaveRadiostationsFullJson(string city,
+           ObservableCollection<RadiostationForDocumentsDataBaseModel>
+           radiostationsForDocumentsCollection)
+        {
+            JArray products = new JArray();
+
+            foreach (RadiostationForDocumentsDataBaseModel item 
+                in radiostationsForDocumentsCollection)
+            {
+                JObject product = JObject.FromObject(new
+                {
+                    id = item.IdBase,
+                    poligon = item.Poligon,
+                    company = item.Company,
+                    location = item.Location,
+                    model = item.Model,
+                    serialNumber = item.SerialNumber,
+                    inventoryNumber = item.InventoryNumber,
+                    networkNumber = item.NetworkNumber,
+                    dateTO = item.DateMaintenance,
+                    numberAct = item.NumberAct,
+                    city = item.City,
+                    price = item.Price,
+                    representative = item.Representative,
+                    post = item.Post,
+                    numberIdentification = item.NumberIdentification,
+                    dateIssue = item.DateOfIssuanceOfTheCertificate,
+                    phoneNumber = item.PhoneNumber,
+                    numberActRemont = item.NumberActRepair,
+                    category = item.Category,
+                    priceRemont = item.PriceRemont,
+                    antenna = item.Antenna,
+                    manipulator = item.Manipulator,
+                    battery = item.Battery,
+                    charger = item.Charger,
+                    completed_works_1 = item.CompletedWorks_1,
+                    completed_works_2 = item.CompletedWorks_2,
+                    completed_works_3 = item.CompletedWorks_3,
+                    completed_works_4 = item.CompletedWorks_4,
+                    completed_works_5 = item.CompletedWorks_5,
+                    completed_works_6 = item.CompletedWorks_6,
+                    completed_works_7 = item.CompletedWorks_7,
+                    parts_1 = item.Parts_1,
+                    parts_2 = item.Parts_2,
+                    parts_3 = item.Parts_3,
+                    parts_4 = item.Parts_4,
+                    parts_5 = item.Parts_5,
+                    parts_6 = item.Parts_6,
+                    parts_7 = item.Parts_7,
+                    decommissionSerialNumber = item.DecommissionNumberAct,
+                    comment = item.Comment,
+                    road = item.Road,
+                    verifiedRST = item.VerifiedRST
+                });
+                products.Add(product);
+            }
+
+            string json = JsonConvert.SerializeObject(products);
+
+            string fileNamePath = $@"C:\ServiceTelekom\БазаJson\{city}\БазаJson.json";
+
+            if (!File.Exists($@"С:\ServiceTelekom\БазаJson\{city}\"))
+                Directory.CreateDirectory($@"C:\ServiceTelekom\БазаJson\{city}\");
+
+            File.WriteAllText(fileNamePath, json);
+        }
+
+        public void CopyDataBaseRadiostantionInRadiostantionCopy()
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return;
+                using (MySqlCommand command = new MySqlCommand(
+                "CopyDataBaseRadiostantionInRadiostantionCopy",
+                RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch { }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
 }
