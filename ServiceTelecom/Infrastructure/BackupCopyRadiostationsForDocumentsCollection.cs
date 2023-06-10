@@ -25,13 +25,13 @@ namespace ServiceTelecom.Infrastructure
         {
             DateTime today = DateTime.Today;
 
-            if (File.Exists($@"C:\ServiceTelekom\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv"))
-                File.Delete($@"C:\ServiceTelekom\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv");
+            if (File.Exists($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv"))
+                File.Delete($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv");
 
-            string fileNamePath = $@"C:\ServiceTelekom\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv";
+            string fileNamePath = $@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv";
 
-            if (!File.Exists($@"С:\ServiceTelekom\База\{city}\"))
-                Directory.CreateDirectory($@"C:\ServiceTelekom\База\{city}\");
+            if (!File.Exists($@"С:\ServiceTelekom\Backup\База\{city}\"))
+                Directory.CreateDirectory($@"C:\ServiceTelekom\Backup\База\{city}\");
 
             using (StreamWriter sw = new StreamWriter(fileNamePath, false, Encoding.Unicode))
             {
@@ -157,10 +157,10 @@ namespace ServiceTelecom.Infrastructure
 
             string json = JsonConvert.SerializeObject(products);
 
-            string fileNamePath = $@"C:\ServiceTelekom\БазаJson\{city}\БазаJson.json";
+            string fileNamePath = $@"C:\ServiceTelekom\Backup\БазаJson\{city}\БазаJson.json";
 
-            if (!File.Exists($@"С:\ServiceTelekom\БазаJson\{city}\"))
-                Directory.CreateDirectory($@"C:\ServiceTelekom\БазаJson\{city}\");
+            if (!File.Exists($@"С:\ServiceTelekom\Backup\БазаJson\{city}\"))
+                Directory.CreateDirectory($@"C:\ServiceTelekom\Backup\БазаJson\{city}\");
 
             File.WriteAllText(fileNamePath, json);
         }

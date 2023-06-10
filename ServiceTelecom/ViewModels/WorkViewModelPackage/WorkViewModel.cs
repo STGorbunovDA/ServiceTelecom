@@ -710,7 +710,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-
         #region ChangeNumberActAtRadiostationsInDB
 
         private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
