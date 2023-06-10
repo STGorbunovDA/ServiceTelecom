@@ -124,5 +124,35 @@ namespace ServiceTelecom.Infrastructure
             }
         }
 
+        public void SetRegistryNumberActForFillOutCollections(
+            string numberActFillOutCollections)
+        {
+            RegistryKey currentUserKey = Registry.CurrentUser;
+            RegistryKey helloKey = currentUserKey.CreateSubKey(
+                $"SOFTWARE\\ServiceTelekomSetting\\Акты_незаполненные");
+            helloKey.SetValue("Акты_незаполненные", $"{numberActFillOutCollections}");
+            helloKey.Close();
+        }
+        public string GetRegistryNumberActForFillOutCollections()
+        {
+            try
+            {
+                RegistryKey reg3 = Registry.CurrentUser.OpenSubKey(
+               $"SOFTWARE\\ServiceTelekomSetting\\Акты_незаполненные");
+                if (reg3 != null)
+                {
+                    string addRegistry = String.Empty;
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekomSetting\\Акты_незаполненные");
+                    return helloKey.GetValue("Акты_незаполненные").ToString();
+                }
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
     }
 }

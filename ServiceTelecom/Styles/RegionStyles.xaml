@@ -240,7 +240,6 @@
 
     <!--#region Style Button-->
 
-    <!--Menu Button 1 - x Style-->
     <Style x:Key="menuButtonStyleOne" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
@@ -269,8 +268,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <!--Menu Button 2  - x Style-->
+    
     <Style x:Key="menuButtonStyleTwo" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
@@ -302,7 +300,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--Menu Button 3 - x Style-->
     <Style x:Key="menuButtonStyleThree" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{StaticResource buttonFontColor11}"/>
@@ -333,7 +330,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--Menu Button 4 - x Style-->
     <Style x:Key="menuButtonStyleFour" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -360,8 +356,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--Menu Button Style-->
-    
     <Style x:Key="menuButtonStyleFive" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -373,6 +367,32 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Width="100" Height="25"
+                                        CornerRadius="6"
+                                        Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource buttonFontColor4}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="menuButtonStyleSix" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="330" Height="35"
                                         CornerRadius="6"
                                         Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center"
@@ -414,17 +434,17 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="menuButtonStyleSix" TargetType="Button">
+    <Style x:Key="menuButtonStyleEight" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Romul"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="{StaticResource buttonFontColor3}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Width="330" Height="35"
+                    <Border Width="120" Height="34"
                                         CornerRadius="6"
                                         Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center"
@@ -439,8 +459,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-  
-    <!--Menu All Button Style-->
+
     <Style x:Key="menuButtonStyleAll" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -467,9 +486,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--#endregion-->
-
-    <!--Menu Button Check Style-->
     <Style x:Key="menuButtonStyleCheck" TargetType="Button">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -585,7 +601,7 @@
     </Style>
 
     <Style x:Key="messageTextBlockStyle5" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontFamily" Value="Romul"/>
         <Setter Property="TextWrapping" Value="Wrap"/>

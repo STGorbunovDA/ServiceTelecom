@@ -6,32 +6,32 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class ChangeRadiostationForDocumentInDataBaseView : Window
     {
-        public ChangeRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
+        public ChangeRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostation)
         {
             InitializeComponent();
-            txbNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.NumberAct;
+            txbNumberAct.Text = selectedRadiostation.NumberAct;
             if (string.IsNullOrWhiteSpace(txbNumberAct.Text))
                 foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
                     txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
 
-            txtRoad.Text = selectedRadiostationForDocumentsDataBaseModel.Road;
-            txbCity.Text = selectedRadiostationForDocumentsDataBaseModel.City;
-            txbSerialNumber.Text = selectedRadiostationForDocumentsDataBaseModel.SerialNumber;
-            txbRepresentative.Text = selectedRadiostationForDocumentsDataBaseModel.Representative;
-            txbNumberIdentification.Text = selectedRadiostationForDocumentsDataBaseModel.NumberIdentification;
-            txbPhoneNumber.Text = selectedRadiostationForDocumentsDataBaseModel.PhoneNumber;
-            txbPost.Text = selectedRadiostationForDocumentsDataBaseModel.Post;
-            datePickerDateOfIssuanceOfTheCertificate.Text = selectedRadiostationForDocumentsDataBaseModel.DateOfIssuanceOfTheCertificate;
-            txbPoligon.Text = selectedRadiostationForDocumentsDataBaseModel.Poligon;
-            txbCompany.Text = selectedRadiostationForDocumentsDataBaseModel.Company;
-            txbLocation.Text = selectedRadiostationForDocumentsDataBaseModel.Location;
-            cmbModel.Text = selectedRadiostationForDocumentsDataBaseModel.Model;
-            txbInventoryNumber.Text = selectedRadiostationForDocumentsDataBaseModel.InventoryNumber;
-            txbNetworkNumber.Text = selectedRadiostationForDocumentsDataBaseModel.NetworkNumber;
-            datePickerDateMaintenance.Text = selectedRadiostationForDocumentsDataBaseModel.DateMaintenance;
-            txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
-            txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
-            txbDecommissionNumberAct.Text = selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct;
+            txtRoad.Text = selectedRadiostation.Road;
+            txbCity.Text = selectedRadiostation.City;
+            txbSerialNumber.Text = selectedRadiostation.SerialNumber;
+            txbRepresentative.Text = selectedRadiostation.Representative;
+            txbNumberIdentification.Text = selectedRadiostation.NumberIdentification;
+            txbPhoneNumber.Text = selectedRadiostation.PhoneNumber;
+            txbPost.Text = selectedRadiostation.Post;
+            datePickerDateOfIssuanceOfTheCertificate.Text = selectedRadiostation.DateOfIssuanceOfTheCertificate;
+            txbPoligon.Text = selectedRadiostation.Poligon;
+            txbCompany.Text = selectedRadiostation.Company;
+            txbLocation.Text = selectedRadiostation.Location;
+            cmbModel.Text = selectedRadiostation.Model;
+            txbInventoryNumber.Text = selectedRadiostation.InventoryNumber;
+            txbNetworkNumber.Text = selectedRadiostation.NetworkNumber;
+            datePickerDateMaintenance.Text = selectedRadiostation.DateMaintenance;
+            txbComment.Text = selectedRadiostation.Comment;
+            txbPrice.Text = selectedRadiostation.Price;
+            txbDecommissionNumberAct.Text = selectedRadiostation.DecommissionNumberAct;
 
             if(txbPrice.Text != UserModelStatic.nullPriceTO)
             {
@@ -45,16 +45,20 @@ namespace ServiceTelecom.View.WorkViewPackage
                     else txbPrice.Text = UserModelStatic.priceDigitalTO;
                 }
             }
-
             
-            if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")
+            if (selectedRadiostation.Manipulator == "1")
                 CheckBoxManipulator.IsChecked = true;
-            if (selectedRadiostationForDocumentsDataBaseModel.Antenna == "1")
+            if (selectedRadiostation.Antenna == "1")
                 CheckBoxAntenna.IsChecked = true;
-            if (selectedRadiostationForDocumentsDataBaseModel.Charger == "1")
+            if (selectedRadiostation.Charger == "1")
                 CheckBoxCharger.IsChecked = true;
-            txbBattery.Text = selectedRadiostationForDocumentsDataBaseModel.Battery;
-            if (string.IsNullOrWhiteSpace(selectedRadiostationForDocumentsDataBaseModel.DecommissionNumberAct))
+
+            txbBattery.Text = selectedRadiostation.Battery;
+
+            if (selectedRadiostation.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
+                CheckBoxRemont.IsChecked = true;
+
+            if (string.IsNullOrWhiteSpace(selectedRadiostation.DecommissionNumberAct))
                 txbDecommissionNumberAct.IsReadOnly = true;
 
         }

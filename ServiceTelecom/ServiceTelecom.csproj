@@ -71,6 +71,9 @@
     <Reference Include="MySql.Data, Version=8.0.31.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.31\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Savage.Data, Version=5.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Savage.Data.5.5.1\lib\netstandard2.0\Savage.Data.dll</HintPath>
     </Reference>
@@ -130,13 +133,15 @@
     <Compile Include="CustomControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\BackupCopyRadiostationsForDocumentsCollection.cs" />
     <Compile Include="Infrastructure\CustomDataGrid.cs" />
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\GetSetRegistryServiceTelecomSetting.cs" />
+    <Compile Include="Infrastructure\Interfaces\IBackupCopyRadiostationsForDocumentsCollection.cs" />
     <Compile Include="Infrastructure\Interfaces\IGetSetRegistryServiceTelecomSetting.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveCSV.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
-    <Compile Include="Infrastructure\Interfaces\ITutorialsEngineerSave.cs" />
+    <Compile Include="Infrastructure\Interfaces\ISaveTutorialsEngineer.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />

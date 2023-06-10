@@ -10,7 +10,7 @@ using ServiceTelecom.Infrastructure.Interfaces;
 namespace ServiceTelecom.Infrastructure
 {
     internal class SaveCSV : ISaveCSV<ReportCardsDataBaseModel>,
-        ITutorialsEngineerSave<TutorialEngineerDataBaseModel>,
+        ISaveTutorialsEngineer<TutorialEngineerDataBaseModel>,
         ISaveRadiostationsForDocumets<RadiostationForDocumentsDataBaseModel>
     {
         static volatile SaveCSV Class;
@@ -213,7 +213,6 @@ namespace ServiceTelecom.Infrastructure
                         sw.Write(value);
                         sw.WriteLine();
                     }
-
                 }
                 MessageBox.Show("Файл успешно сохранен!");
             }    
