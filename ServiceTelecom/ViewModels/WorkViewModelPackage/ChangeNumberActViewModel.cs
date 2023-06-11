@@ -87,6 +87,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     break;
                 }         
             }
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             MessageBox.Show("Успешно", "Информация",
                         MessageBoxButton.OK, MessageBoxImage.Information);
         }

@@ -469,6 +469,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddDecommissionNumberActView
             addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
+        PrintRepairView printRepairView = null;
 
         public ObservableCollection<string> RoadsCollection { get; set; }
         public ObservableCollection<string> CitiesCollection { get; set; }
@@ -673,9 +674,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
             HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            PrintActs = 
-                new ViewModelCommand(ExecutePrintActsCommand);
-            PrintExcelNumberActTechnicalWork = 
+            PrintActs =
+                 new ViewModelCommand(ExecutePrintActsCommand);
+            PrintExcelNumberActTechnicalWork =
                 new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
             GetRoad();
             GetNumberActForSignCollections();
@@ -755,6 +756,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (CmbChoiseSearch == "№ акта Ремонта")
             {
+                if (UserModelStatic.Post == "Дирекция связи")
+                    return;
+                if (CHECK_HOW_MUCH)
+                    return;
+                if (printRepairView != null)
+                    return;
+
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (ChoiсeUniqueValue == item.NumberActRepair)
+                        PrintNumberActRadiostantionsCollection.Add(item);
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 1)
+                    return;
+
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+                    PrintNumberActRadiostantionsCollection;
+
+                printRepairView = new PrintRepairView();
+                printRepairView.Closed += (sender, args) => printRepairView = null;
+                printRepairView.Closed += (sender, args) =>
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+                printRepairView.Show();
 
             }
             if (CmbChoiseSearch == "№ акта списания")
@@ -842,6 +866,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             changeNumberActView = new ChangeNumberActView(
                 SelectedRadiostation.NumberAct);
             changeNumberActView.Closed += (sender, args) => changeNumberActView = null;
+            changeNumberActView.Closed += (sender, args) =>
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             changeNumberActView.Closed += (sender, args) =>
             RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             changeNumberActView.Closed += (sender, args) =>
