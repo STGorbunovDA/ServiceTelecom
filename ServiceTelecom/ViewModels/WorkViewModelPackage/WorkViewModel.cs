@@ -4,6 +4,7 @@ using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
@@ -474,7 +475,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ObservableCollection<string> SignCollection { get; set; }
         public ObservableCollection<string> FillOutCollection { get; set; }
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+        public List<RadiostationForDocumentsDataBaseModel>
             PrintNumberActRadiostantionsCollection
         { get; set; }
 
@@ -626,7 +627,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ReserveRadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             PrintNumberActRadiostantionsCollection =
-                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+                new List<RadiostationForDocumentsDataBaseModel>();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             RoadsCollection = new ObservableCollection<string>();
             CitiesCollection = new ObservableCollection<string>();
@@ -688,24 +689,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     if (ChoiсeUniqueValue == item.NumberAct)
                         PrintNumberActRadiostantionsCollection.Add(item);
                 }
-
-                var rad = new RadiostationForDocumentsDataBaseModel();
-                for (int i = 0; i < PrintNumberActRadiostantionsCollection.Count; i++)
-                {
-                    for (int y = 0; y < PrintNumberActRadiostantionsCollection.Count - 1; y++)
-                    {
-                        if (PrintNumberActRadiostantionsCollection[y].Model ==
-                            PrintNumberActRadiostantionsCollection[y + 1].Model)
-                            continue;
-                        else
-                        {
-                            rad = PrintNumberActRadiostantionsCollection[y + 1];
-                            PrintNumberActRadiostantionsCollection[y + 1] =
-                                PrintNumberActRadiostantionsCollection[y];
-                            PrintNumberActRadiostantionsCollection[y] = rad;
-                        }
-                    }
-                }
+                PrintNumberActRadiostantionsCollection.Sort();
             }
             if (CmbChoiseSearch == "№ акта Ремонта")
             {
