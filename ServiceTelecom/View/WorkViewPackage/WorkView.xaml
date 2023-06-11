@@ -97,7 +97,7 @@
                                   Width="270"
                                   Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding RoadCollections}"
+                                  ItemsSource="{Binding RoadsCollection}"
                                   SelectedIndex="{Binding SelectedIndexRoadCollection, Mode=TwoWay}"
                                   Text="{Binding Road, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
@@ -106,7 +106,7 @@
                                   Width="270"
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding CityCollections}"
+                                  ItemsSource="{Binding CitiesCollection}"
                                   SelectedIndex="{Binding SelectedIndexCityCollection, Mode=TwoWay}"
                                   Text="{Binding City, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     </ComboBox>
@@ -128,7 +128,7 @@
                         </Button>
                         <Button x:Name="btnHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection"
                             Command="{Binding HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection}"
-                            Content="👀 не пров."
+                            Content="👀 не провер."
                             Margin ="0,5,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource menuButtonStyleEight}">
@@ -161,12 +161,12 @@
                                   Width="125"
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding SignCollections}"
+                                  ItemsSource="{Binding SignCollection}"
                                   SelectedIndex="{Binding SelectedIndexSignCollection, Mode=TwoWay}"
                                   Text="{Binding Sign, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </ComboBox>
                         <Button x:Name="btnRemoveFromSignCollections"
-                            Command="{Binding RemoveFromSignCollections}"
+                            Command="{Binding RemoveFromSignCollection}"
                             Content="⌫"
                             Margin ="5,5,0,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
@@ -200,12 +200,12 @@
                                   Width="125"
                                   Margin="0,5,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding FillOutCollections}"
+                                  ItemsSource="{Binding FillOutCollection}"
                                   SelectedIndex="{Binding SelectedIndexFillOutCollection, Mode=TwoWay}"
                                   Text="{Binding FillOut, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         </ComboBox>
-                        <Button x:Name="btnRemoveFromFillOutCollections"
-                            Command="{Binding RemoveFromFillOutCollections}"
+                        <Button x:Name="btnRemoveFromFillOutCollection"
+                            Command="{Binding RemoveFromFillOutCollection}"
                             Content="⌫"
                             Margin ="5,5,0,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
@@ -213,6 +213,12 @@
                         </Button>
                     </StackPanel>
 
+                </StackPanel>
+                <StackPanel Grid.Column="4" Orientation="Vertical"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Center"
+                            Margin="30,0,0,15">
+                    
                 </StackPanel>
                 <StackPanel Grid.Column="5" Orientation="Vertical"
                                 VerticalAlignment="Center"
@@ -233,15 +239,26 @@
                         <ComboBoxItem Content="№ акта списания"/>
                         <ComboBoxItem Content="Модель"/>
                     </ComboBox>
-                    <TextBox x:Name="txbChoiseUniqueValue"
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left">
+                        <TextBox x:Name="txbChoiseUniqueValue"
                              FontSize="16"
                              Height="35"
-                             Width="270"
+                             Width="225"
                              Margin="0,5,0,0"
                              Style="{StaticResource TextBoxStyle5}"
                              Text="{Binding ChoiсeUniqueValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              HorizontalAlignment="Left">
-                    </TextBox>
+                        </TextBox>
+                        <Button x:Name="btnPrintActs"
+                            Command="{Binding PrintActs}"
+                            Content="🖨"
+                            Margin ="5,4,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}">
+                        </Button>
+                    </StackPanel>
+                   
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
@@ -271,8 +288,8 @@
                             <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить списание" Command="{Binding DeleteDecommissionNumberActRadiostationInDB}"/>
                             <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
-                            <MenuItem Header="Добавить на подпись" Command="{Binding AddNumberActInSignCollections}"/>
-                            <MenuItem Header="Заполняем акт" Command="{Binding AddNumberActInFillOutCollections}"/>
+                            <MenuItem Header="Добавить на подпись" Command="{Binding AddNumberActInSignCollection}"/>
+                            <MenuItem Header="Заполняем акт" Command="{Binding AddNumberActInFillOutCollection}"/>
                             
                         </ContextMenu>
                     </DataGrid.ContextMenu>

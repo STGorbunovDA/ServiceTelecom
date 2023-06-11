@@ -49,6 +49,8 @@ namespace ServiceTelecom.Models
         private string _road;
         private string _verifiedRST;
 
+        public RadiostationForDocumentsDataBaseModel() { }
+
         public RadiostationForDocumentsDataBaseModel(int idBase, string poligon, 
             string company, string location, string model, string serialNumber, 
             string inventoryNumber, string networkNumber, DateTime dateMaintenance, 

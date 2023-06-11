@@ -37,6 +37,8 @@ namespace ServiceTelecom.Infrastructure
 
         public void SetRegistryCity(string city)
         {
+            if (String.IsNullOrWhiteSpace(city))
+                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
                 "SOFTWARE\\ServiceTelekomSetting\\City");
@@ -52,7 +54,8 @@ namespace ServiceTelecom.Infrastructure
                 if (reg != null)
                 {
                     RegistryKey currentUserKey2 = Registry.CurrentUser;
-                    RegistryKey helloKey2 = currentUserKey2.OpenSubKey("SOFTWARE\\ServiceTelekomSetting\\City");
+                    RegistryKey helloKey2 = currentUserKey2.OpenSubKey(
+                        "SOFTWARE\\ServiceTelekomSetting\\City");
                     return helloKey2.GetValue("Город проверки").ToString();
                 }
                 return string.Empty;
@@ -66,24 +69,26 @@ namespace ServiceTelecom.Infrastructure
 
         public void SetRegistryCityForAddChange(string city)
         {
+            if (String.IsNullOrWhiteSpace(city))
+                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
-                "SOFTWARE\\ServiceTelekomSetting\\City");
+                "SOFTWARE\\ServiceTelekomSetting\\CityAddChangeDelete");
             helloKey.SetValue("Город для добавления и сохранения", $"{city}");
             helloKey.Close();
         }
 
-        public string GetRegistryCityForAddChange()
+        public string GetRegistryCityForAddChangeDelete()
         {
             try
             {
                 RegistryKey reg = Registry.CurrentUser.OpenSubKey(
-                    "SOFTWARE\\ServiceTelekomSetting\\City");
+                    "SOFTWARE\\ServiceTelekomSetting\\CityAddChangeDelete");
                 if (reg != null)
                 {
                     RegistryKey currentUserKey2 = Registry.CurrentUser;
                     RegistryKey helloKey2 = currentUserKey2.OpenSubKey(
-                        "SOFTWARE\\ServiceTelekomSetting\\City");
+                        "SOFTWARE\\ServiceTelekomSetting\\CityAddChangeDelete");
                     return helloKey2.GetValue("Город для добавления и сохранения").ToString();
                 }
                 return string.Empty;
@@ -95,6 +100,8 @@ namespace ServiceTelecom.Infrastructure
         }
         public void SetRegistryNumberActForSignCollections(string numberActSignCollections)
         {
+            if (String.IsNullOrWhiteSpace(numberActSignCollections))
+                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
                 $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
@@ -127,6 +134,8 @@ namespace ServiceTelecom.Infrastructure
         public void SetRegistryNumberActForFillOutCollections(
             string numberActFillOutCollections)
         {
+            if (String.IsNullOrWhiteSpace(numberActFillOutCollections))
+                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
                 $"SOFTWARE\\ServiceTelekomSetting\\Акты_незаполненные");

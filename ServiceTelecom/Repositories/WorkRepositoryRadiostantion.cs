@@ -567,7 +567,8 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return;
-                using (MySqlCommand command = new MySqlCommand("DeleteRadiostationFromDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "DeleteRadiostationFromDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
