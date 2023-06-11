@@ -458,6 +458,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
+        private PrintExcel printExcel;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -618,6 +619,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintActs { get; }
         public WorkViewModel()
         {
+            printExcel = new PrintExcel();
             backupCopyRadiostationsForDocumentsCollection =
                 new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -685,11 +687,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (CmbChoiseSearch == "№ акта ТО")
             {
                 foreach (var item in RadiostationsForDocumentsCollection)
-                {
                     if (ChoiсeUniqueValue == item.NumberAct)
                         PrintNumberActRadiostantionsCollection.Add(item);
-                }
+                
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 20)
+                    return;
                 PrintNumberActRadiostantionsCollection.Sort();
+                printExcel.PrintExcelNumberActTechnicalWork(
+                    PrintNumberActRadiostantionsCollection, City);
             }
             if (CmbChoiseSearch == "№ акта Ремонта")
             {
