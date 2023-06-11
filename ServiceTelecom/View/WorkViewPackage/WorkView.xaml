@@ -290,7 +290,7 @@
                             <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
                             <MenuItem Header="Добавить на подпись" Command="{Binding AddNumberActInSignCollection}"/>
                             <MenuItem Header="Заполняем акт" Command="{Binding AddNumberActInFillOutCollection}"/>
-                            <MenuItem Header="Печать Акта Тех. обслуживания" Command="{Binding PrintExcelNumberActTechnicalWork}"/>
+                            <MenuItem Header="Печать Акта тех. обслуживания" Command="{Binding PrintExcelNumberActTechnicalWork}"/>
                             
                         </ContextMenu>
                     </DataGrid.ContextMenu>
