@@ -617,6 +617,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand PrintActs { get; }
+        public ICommand PrintExcelNumberActTechnicalWork { get; }
         public WorkViewModel()
         {
             printExcel = new PrintExcel();
@@ -672,13 +673,51 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
             HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            PrintActs = new ViewModelCommand(ExecutePrintActsCommand);
+            PrintActs = 
+                new ViewModelCommand(ExecutePrintActsCommand);
+            PrintExcelNumberActTechnicalWork = 
+                new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
 
+        #region PrintExcelNumberActTechnicalWork
+
+        private void ExecutePrintExcelNumberActTechnicalWorkCommand(object obj)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberAct == item.NumberAct)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 20)
+                return;
+            PrintNumberActRadiostantionsCollection.Sort();
+
+            new Thread(() =>
+            {
+                printExcel.PrintExcelNumberActTechnicalWork(
+                PrintNumberActRadiostantionsCollection);
+            })
+            { IsBackground = true }.Start();
+        }
+
+        #endregion
 
         #region PrintActs
 
@@ -686,7 +725,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (PrintNumberActRadiostantionsCollection.Count != 0)
                 PrintNumberActRadiostantionsCollection.Clear();
-            
+
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+
             if (CmbChoiseSearch == "№ акта ТО")
             {
                 foreach (var item in RadiostationsForDocumentsCollection)
