@@ -32,9 +32,9 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                //cityCollections.Add(reader.GetString(0));
                                 cityCollections.Add(
-                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(0)));
+                                     Encryption.DecryptCipherTextToPlainText(
+                                         reader.GetString(0)));
                             }
                         }
                         reader.Close();

@@ -1056,7 +1056,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             changeRadiostationForDocumentInDataBaseView = null;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-            getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChange(City);
+            getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChangeDelete(City);
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
@@ -1081,23 +1081,33 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostation == null) addRadiostationForDocumentInDataBaseView =
-                    new AddRadiostationForDocumentInDataBaseView();
+                if (SelectedRadiostation == null)
+                    addRadiostationForDocumentInDataBaseView =
+                    new AddRadiostationForDocumentInDataBaseView(Road);
                 else addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView(
                         SelectedRadiostation);
-
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                addRadiostationForDocumentInDataBaseView = null;
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChange(City);
+                getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChangeDelete(City);
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetRadiostationsForDocumentsCollection(Road,
-                getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetRowAfterAddingRadiostantionInDataGrid();
+                addRadiostationForDocumentInDataBaseView = null;
+
+                if (RadiostationsForDocumentsCollection.Count > 0)
+                {
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRadiostationsForDocumentsCollection(Road,
+                    getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRowAfterAddingRadiostantionInDataGrid();
+                }
+                else
+                {
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRadiostationsForDocumentsCollection(Road, City);
+                } 
+
                 addRadiostationForDocumentInDataBaseView.Show();
             }
         }

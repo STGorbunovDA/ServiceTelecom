@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.View.WorkViewPackage

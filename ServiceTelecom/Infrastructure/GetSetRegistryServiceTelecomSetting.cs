@@ -67,7 +67,7 @@ namespace ServiceTelecom.Infrastructure
         }
 
 
-        public void SetRegistryCityForAddChange(string city)
+        public void SetRegistryCityForAddChangeDelete(string city)
         {
             if (String.IsNullOrWhiteSpace(city))
                 return;
