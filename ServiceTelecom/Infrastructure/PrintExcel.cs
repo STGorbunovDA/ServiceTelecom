@@ -11,7 +11,7 @@ namespace ServiceTelecom.Infrastructure
     {
         internal void PrintExcelNumberActTechnicalWork(
             List<RadiostationForDocumentsDataBaseModel>
-            radiostantionsCollection, string city)
+            radiostantionsCollection)
         {
             Excel.Application exApp = new Excel.Application();
 
@@ -35,6 +35,7 @@ namespace ServiceTelecom.Infrastructure
                     string numberAct = radiostantionsCollection[0].NumberAct;
                     string dateMaintenance = radiostantionsCollection[0].DateMaintenance;
                     string company = radiostantionsCollection[0].Company;
+                    string city = radiostantionsCollection[0].City;
                     string location = "ст. " + city;
                     
                     string sectionForeman = string.Empty;

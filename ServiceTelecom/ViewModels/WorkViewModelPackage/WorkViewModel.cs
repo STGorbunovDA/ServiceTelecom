@@ -684,19 +684,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintActsCommand(object obj)
         {
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+            
             if (CmbChoiseSearch == "№ акта ТО")
             {
                 foreach (var item in RadiostationsForDocumentsCollection)
                     if (ChoiсeUniqueValue == item.NumberAct)
                         PrintNumberActRadiostantionsCollection.Add(item);
-                
+
                 if (PrintNumberActRadiostantionsCollection.Count == 0)
                     return;
                 if (PrintNumberActRadiostantionsCollection.Count > 20)
                     return;
                 PrintNumberActRadiostantionsCollection.Sort();
-                printExcel.PrintExcelNumberActTechnicalWork(
-                    PrintNumberActRadiostantionsCollection, City);
+
+                new Thread(() =>
+                {
+                    printExcel.PrintExcelNumberActTechnicalWork(
+                    PrintNumberActRadiostantionsCollection);
+                })
+                { IsBackground = true }.Start();
+
             }
             if (CmbChoiseSearch == "№ акта Ремонта")
             {
@@ -1097,7 +1106,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                     GetRadiostationsForDocumentsCollection(Road, City);
-                } 
+                }
 
                 addRadiostationForDocumentInDataBaseView.Show();
             }
