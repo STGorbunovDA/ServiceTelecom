@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using ServiceTelecom.Infrastructure;
+﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
@@ -204,6 +203,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ICommand AddInRegistryInformationCompany { get; }
         public ICommand ContinuePrintRepair { get; }
+
         public PrintRepairViewModel()
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
@@ -213,7 +213,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddInRegistryInformationCompanyCommand);
             ContinuePrintRepair =
                 new ViewModelCommand(ExecuteContinuePrintRepairCommand);
-
+            if (UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid == null)
+                return;
             foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
             {
@@ -449,7 +450,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 })
                 { IsBackground = true }.Start();
             }
-
         }
 
         #endregion

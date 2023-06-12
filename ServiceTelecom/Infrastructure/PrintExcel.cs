@@ -1595,6 +1595,10 @@ namespace ServiceTelecom.Infrastructure
                     string parts_6 = string.Empty;
                     string completedWorks_7 = string.Empty;
                     string parts_7 = string.Empty;
+
+
+                    if (UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid == null)
+                        return;
                     foreach (RadiostationForDocumentsDataBaseModel item
                         in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
                     {
