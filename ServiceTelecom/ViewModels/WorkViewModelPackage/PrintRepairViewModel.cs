@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
-    internal class PrintRepairViewModel : ViewModelBase
+    internal class PrintRepairViewModel : ViewModelBase, ICloseWindows
     {
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         PrintExcel printExcel;
@@ -17,11 +18,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region Свойства
 
+        public Action Close { get; set; }
+
         private string PrimaryMeans { get; set; } 
         public string ProductName { get; set; }
         public string Road { get; set; }
         public string City { get; set; }
         public string SerialNumber { get; set; }
+
 
         private string _company;
         public string Company
@@ -203,11 +207,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ICommand AddInRegistryInformationCompany { get; }
         public ICommand ContinuePrintRepair { get; }
+        public ICommand CloseWindowCommand { get; }
+
 
         public PrintRepairViewModel()
         {
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
+            CloseWindowCommand =
+                new ViewModelCommand(ExecuteCloseWindowCommand);
             printExcel = new PrintExcel();
             AddInRegistryInformationCompany =
                 new ViewModelCommand(ExecuteAddInRegistryInformationCompanyCommand);
@@ -226,6 +234,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetProductNameInDataBase();
             GetPrimaryMeansInDataBase();
         }
+
+        #region CloseWindowCommand
+
+        private void ExecuteCloseWindowCommand(object obj)
+        {
+            Close?.Invoke();
+        }
+
+        #endregion
 
         #region GetProductNameInDataBase
 
@@ -449,6 +466,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         PrimaryMeans, ProductName);
                 })
                 { IsBackground = true }.Start();
+                Close?.Invoke();
             }
         }
 

@@ -28,7 +28,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> Для ограничения функционала при загрузке радиостанций из общей таблицы  </summary>
         private bool CHECK_HOW_MUCH = false;
 
-        private bool PRINT_REPAIR = true;
 
         #region свойства
 
@@ -696,8 +695,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintExcelNumberActRepairCommand(object obj)
         {
-            if (!PRINT_REPAIR)
-                return;
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -724,19 +721,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView = new PrintRepairView();
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
-            ClearPrintNumberActRadiostantionsCollection();
+            ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
             printRepairView.Show();
-            PRINT_REPAIR = false;
         }
 
 
         #endregion
 
-        private async void ClearPrintNumberActRadiostantionsCollection()
+        private async void ClearRadiostationsForDocumentsMulipleSelectedDataGrid()
         {
             await Task.Delay(2000);
             UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
-            PRINT_REPAIR = true;
         }
 
         #region PrintExcelNumberActTechnicalWork
@@ -779,8 +774,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintActsCommand(object obj)
         {
-            if (!PRINT_REPAIR)
-                return;
             if (PrintNumberActRadiostantionsCollection.Count != 0)
                 PrintNumberActRadiostantionsCollection.Clear();
             if (RadiostationsForDocumentsCollection.Count == 0)
@@ -833,10 +826,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 printRepairView = new PrintRepairView();
                 printRepairView.Closed += (sender, args) => printRepairView = null;
                 printRepairView.Closed += (sender, args) =>
-                ClearPrintNumberActRadiostantionsCollection();
+                ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
                 printRepairView.Show();
-                PRINT_REPAIR = false;
-
             }
             if (CmbChoiseSearch == "№ акта списания")
             {

@@ -13,7 +13,7 @@ namespace ServiceTelecom.ViewModels
         public ViewModelCommand(Action<object> executeAction)
         {
             _executeAction = executeAction;
-            //_canExecuteAction = null;
+            _canExecuteAction = null;
         }
 
         public ViewModelCommand(Action<object> executeAction, 
