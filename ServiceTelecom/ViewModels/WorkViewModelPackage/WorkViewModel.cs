@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -619,6 +620,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand PrintActs { get; }
         public ICommand PrintExcelNumberActTechnicalWork { get; }
+
+        public ICommand PrintExcelNumberActRepair { get; }
         public WorkViewModel()
         {
             printExcel = new PrintExcel();
@@ -678,11 +681,51 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                  new ViewModelCommand(ExecutePrintActsCommand);
             PrintExcelNumberActTechnicalWork =
                 new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
+            PrintExcelNumberActRepair =
+                new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
+
+
+        #region PrintExcelNumberActRepair
+
+        private void ExecutePrintExcelNumberActRepairCommand(object obj)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberActRepair == item.NumberActRepair)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 1)
+                return;
+
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+                PrintNumberActRadiostantionsCollection;
+
+            printRepairView = new PrintRepairView();
+            printRepairView.Closed += (sender, args) => printRepairView = null;
+            printRepairView.Closed += (sender, args) =>
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            printRepairView.Show();
+        }
+
+
+        #endregion
 
         #region PrintExcelNumberActTechnicalWork
 
@@ -1078,7 +1121,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
 
             UserModelStatic.road = SelectedRadiostation.Road;
-            UserModelStatic.model = SelectedRadiostation.Model;
+            UserModelStatic.city = SelectedRadiostation.City;
             UserModelStatic.serialNumber = SelectedRadiostation.SerialNumber;
 
             addRepairRadiostationForDocumentInDataBaseView =

@@ -152,6 +152,7 @@
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\RadiostationForDocumentsDataBaseModel.cs" />
+    <Compile Include="Models\RepairDataCompanyModel.cs" />
     <Compile Include="Models\RepairManualRadiostantion.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />

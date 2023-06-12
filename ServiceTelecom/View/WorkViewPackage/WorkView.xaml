@@ -282,7 +282,7 @@
                             <MenuItem Header="Изменить радиостанцию" Command="{Binding ChangeRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Обновить" Command="{Binding UpdateRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить радиостанцию" Command="{Binding DeleteRadiostationForDocumentInDataBase}"/>
-                            <MenuItem Header="Добавить ремонт" Command="{Binding AddRepairRadiostationForDocumentInDataBase}"/>
+                            <MenuItem Header="Добавить/изменить ремонт" Command="{Binding AddRepairRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Удалить ремонт" Command="{Binding DeleteRepairRadiostationForDocumentInDataBase}"/>
                             <MenuItem Header="Сохранить базу" Command="{Binding SaveCollectionRadiostationsForDocument}"/>
                             <MenuItem Header="Списать радиостанцию" Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"/>
@@ -290,7 +290,8 @@
                             <MenuItem Header="Изменить номер акта ТО" Command="{Binding ChangeNumberActAtRadiostationsInDB}"/>
                             <MenuItem Header="Добавить на подпись" Command="{Binding AddNumberActInSignCollection}"/>
                             <MenuItem Header="Заполняем акт" Command="{Binding AddNumberActInFillOutCollection}"/>
-                            <MenuItem Header="Печать Акта тех. обслуживания" Command="{Binding PrintExcelNumberActTechnicalWork}"/>
+                            <MenuItem Header="Печать акта тех. обслуживания" Command="{Binding PrintExcelNumberActTechnicalWork}"/>
+                            <MenuItem Header="Печать ремонтного акта" Command="{Binding PrintExcelNumberActRepair}"/>
                             
                         </ContextMenu>
                     </DataGrid.ContextMenu>
