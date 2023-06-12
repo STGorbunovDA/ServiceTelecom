@@ -58,6 +58,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteAddModelDataBaseCommand(object obj)
         {
+            if(string.IsNullOrWhiteSpace(Model)) return;
             var result = ModelCollections.FirstOrDefault(s => s.Model == Model);
             if (result != null)
                 return;

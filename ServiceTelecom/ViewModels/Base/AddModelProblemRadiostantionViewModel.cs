@@ -66,6 +66,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteAddProblemModelDataBaseCommand(object obj)
         {
+            if(string.IsNullOrWhiteSpace(Problem)) return;
             var result = ProblemModelCollections.FirstOrDefault(s => s.Problem == Problem);
             if (result != null)
                 return;

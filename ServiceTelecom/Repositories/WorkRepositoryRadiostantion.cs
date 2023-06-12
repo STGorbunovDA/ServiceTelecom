@@ -32,9 +32,9 @@ namespace ServiceTelecom.Repositories
                         {
                             while (reader.Read())
                             {
-                                //cityCollections.Add(reader.GetString(0));
                                 cityCollections.Add(
-                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(0)));
+                                     Encryption.DecryptCipherTextToPlainText(
+                                         reader.GetString(0)));
                             }
                         }
                         reader.Close();
@@ -567,7 +567,8 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return;
-                using (MySqlCommand command = new MySqlCommand("DeleteRadiostationFromDataBase",
+                using (MySqlCommand command = new MySqlCommand(
+                    "DeleteRadiostationFromDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();

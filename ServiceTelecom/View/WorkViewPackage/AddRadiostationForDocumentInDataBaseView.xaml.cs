@@ -8,16 +8,23 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class AddRadiostationForDocumentInDataBaseView : Window
     {
-        public AddRadiostationForDocumentInDataBaseView()
+        public AddRadiostationForDocumentInDataBaseView(string road)
         {
             InitializeComponent();
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
+
+
             foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
             {
-                txtRoad.Text = item.RoadBase;
-                txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
+                if(road == item.RoadBase)
+                {
+                    txtRoad.Text = item.RoadBase;
+                    txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
+                    break;
+                }   
             }
+            cmbModel.SelectedIndex = 0;
         }
         public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {

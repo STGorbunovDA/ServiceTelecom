@@ -1,10 +1,10 @@
 ﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -451,13 +451,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        BackupCopyRadiostationsForDocumentsCollection backupCopyRadiostationsForDocumentsCollection;
+        BackupCopyRadiostationsForDocumentsCollection
+            backupCopyRadiostationsForDocumentsCollection;
         DispatcherTimer dispatcherTimer;
         private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         private ChangeNumberActView changeNumberActView;
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
+        private PrintExcel printExcel;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -468,13 +470,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddDecommissionNumberActView
             addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
+        PrintRepairView printRepairView = null;
 
-        public ObservableCollection<string> RoadCollections { get; set; }
-        public ObservableCollection<string> CityCollections { get; set; }
-        public ObservableCollection<string> ChoiсeUniqueValueCollections { get; set; }
-        public ObservableCollection<string> SignCollections { get; set; }
+        public ObservableCollection<string> RoadsCollection { get; set; }
+        public ObservableCollection<string> CitiesCollection { get; set; }
+        public ObservableCollection<string> ChoiсeUniqueValuesCollection { get; set; }
+        public ObservableCollection<string> SignCollection { get; set; }
+        public ObservableCollection<string> FillOutCollection { get; set; }
 
-        public ObservableCollection<string> FillOutCollections { get; set; }
+        public List<RadiostationForDocumentsDataBaseModel>
+            PrintNumberActRadiostantionsCollection
+        { get; set; }
 
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
             RadiostationsForDocumentsCollection
@@ -538,7 +544,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 _selectedIndexCityCollection = value;
-                if (value < 0 || CityCollections.Count == 0)
+                if (value < 0 || CitiesCollection.Count == 0)
                 {
                     if (RadiostationsForDocumentsCollection.Count != 0)
                         RadiostationsForDocumentsCollection.Clear();
@@ -546,8 +552,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 else
                 {
                     GetRadiostationsForDocumentsCollection(
-                        RoadCollections[TEMPORARY_INDEX_ROAD_COLLECTION].ToString(),
-                        CityCollections[value].ToString());
+                        RoadsCollection[TEMPORARY_INDEX_ROAD_COLLECTION].ToString(),
+                        CitiesCollection[value].ToString());
 
                 }
 
@@ -604,17 +610,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddDecommissionNumberActRadiostationForDocumentInDataBase { get; }
         public ICommand DeleteDecommissionNumberActRadiostationInDB { get; }
         public ICommand ChangeNumberActAtRadiostationsInDB { get; }
-        public ICommand AddNumberActInSignCollections { get; }
-        public ICommand RemoveFromSignCollections { get; }
+        public ICommand AddNumberActInSignCollection { get; }
+        public ICommand RemoveFromSignCollection { get; }
         public ICommand SearchBySingNumberActInRadiostationsForDocumentsCollection { get; }
-        public ICommand AddNumberActInFillOutCollections { get; }
-        public ICommand RemoveFromFillOutCollections { get; }
+        public ICommand AddNumberActInFillOutCollection { get; }
+        public ICommand RemoveFromFillOutCollection { get; }
         public ICommand SearchByNumberActFillOutInRadiostationsForDocumentsCollection { get; }
         public ICommand GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
+        public ICommand PrintActs { get; }
+        public ICommand PrintExcelNumberActTechnicalWork { get; }
 
+        public ICommand PrintExcelNumberActRepair { get; }
         public WorkViewModel()
         {
+            printExcel = new PrintExcel();
             backupCopyRadiostationsForDocumentsCollection =
                 new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -623,12 +633,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             ReserveRadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+            PrintNumberActRadiostantionsCollection =
+                new List<RadiostationForDocumentsDataBaseModel>();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
-            RoadCollections = new ObservableCollection<string>();
-            CityCollections = new ObservableCollection<string>();
-            ChoiсeUniqueValueCollections = new ObservableCollection<string>();
-            SignCollections = new ObservableCollection<string>();
-            FillOutCollections = new ObservableCollection<string>();
+            RoadsCollection = new ObservableCollection<string>();
+            CitiesCollection = new ObservableCollection<string>();
+            ChoiсeUniqueValuesCollection = new ObservableCollection<string>();
+            SignCollection = new ObservableCollection<string>();
+            FillOutCollection = new ObservableCollection<string>();
             AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
             ChangeRadiostationForDocumentInDataBase =
@@ -649,27 +661,176 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteDeleteDecommissionNumberActRadiostationInDBCommand);
             ChangeNumberActAtRadiostationsInDB =
                 new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
-            AddNumberActInSignCollections =
+            AddNumberActInSignCollection =
                 new ViewModelCommand(ExecuteAddNumberActInSignCollectionsCommand);
-            RemoveFromSignCollections =
+            RemoveFromSignCollection =
                 new ViewModelCommand(ExecuteRemoveFromSignCollectionsCommand);
             SearchBySingNumberActInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand);
-            AddNumberActInFillOutCollections =
+            AddNumberActInFillOutCollection =
                 new ViewModelCommand(ExecuteAddNumberActInFillOutCollectionsCommand);
-            RemoveFromFillOutCollections =
+            RemoveFromFillOutCollection =
                 new ViewModelCommand(ExecuteRemoveFromFillOutCollectionsCommand);
             SearchByNumberActFillOutInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand);
-            GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection
-                = new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection
-                = new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
+            GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection =
+                new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
+            HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
+                new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
+            PrintActs =
+                 new ViewModelCommand(ExecutePrintActsCommand);
+            PrintExcelNumberActTechnicalWork =
+                new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
+            PrintExcelNumberActRepair =
+                new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
+
+
+        #region PrintExcelNumberActRepair
+
+        private void ExecutePrintExcelNumberActRepairCommand(object obj)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberActRepair == item.NumberActRepair)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 1)
+                return;
+
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+                PrintNumberActRadiostantionsCollection;
+
+            printRepairView = new PrintRepairView();
+            printRepairView.Closed += (sender, args) => printRepairView = null;
+            printRepairView.Closed += (sender, args) =>
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            printRepairView.Show();
+        }
+
+
+        #endregion
+
+        #region PrintExcelNumberActTechnicalWork
+
+        private void ExecutePrintExcelNumberActTechnicalWorkCommand(object obj)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberAct == item.NumberAct)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 20)
+                return;
+            PrintNumberActRadiostantionsCollection.Sort();
+
+            new Thread(() =>
+            {
+                printExcel.PrintExcelNumberActTechnicalWork(
+                PrintNumberActRadiostantionsCollection);
+            })
+            { IsBackground = true }.Start();
+        }
+
+        #endregion
+
+        #region PrintActs
+
+        private void ExecutePrintActsCommand(object obj)
+        {
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+
+            if (CmbChoiseSearch == "№ акта ТО")
+            {
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (ChoiсeUniqueValue == item.NumberAct)
+                        PrintNumberActRadiostantionsCollection.Add(item);
+
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 20)
+                    return;
+                PrintNumberActRadiostantionsCollection.Sort();
+
+                new Thread(() =>
+                {
+                    printExcel.PrintExcelNumberActTechnicalWork(
+                    PrintNumberActRadiostantionsCollection);
+                })
+                { IsBackground = true }.Start();
+
+            }
+            if (CmbChoiseSearch == "№ акта Ремонта")
+            {
+                if (UserModelStatic.Post == "Дирекция связи")
+                    return;
+                if (CHECK_HOW_MUCH)
+                    return;
+                if (printRepairView != null)
+                    return;
+
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (ChoiсeUniqueValue == item.NumberActRepair)
+                        PrintNumberActRadiostantionsCollection.Add(item);
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 1)
+                    return;
+
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+                    PrintNumberActRadiostantionsCollection;
+
+                printRepairView = new PrintRepairView();
+                printRepairView.Closed += (sender, args) => printRepairView = null;
+                printRepairView.Closed += (sender, args) =>
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+                printRepairView.Show();
+
+            }
+            if (CmbChoiseSearch == "№ акта списания")
+            {
+
+            }
+        }
+
+        #endregion
 
         #region Timer and BackupCopyRadiostationsForDocumentsCollection
 
@@ -684,6 +845,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private void BackupCopyRadiostationsForDocumentsCollection(object sender, EventArgs e)
         {
             if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.Post == "Дирекция связи")
                 return;
 
             new Thread(() =>
@@ -714,10 +879,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
                 return;
+            if (CHECK_HOW_MUCH)
+                return;
+
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
@@ -744,6 +910,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 SelectedRadiostation.NumberAct);
             changeNumberActView.Closed += (sender, args) => changeNumberActView = null;
             changeNumberActView.Closed += (sender, args) =>
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            changeNumberActView.Closed += (sender, args) =>
             RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             changeNumberActView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection(Road, City);
@@ -759,9 +927,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteDeleteDecommissionNumberActRadiostationInDBCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -797,9 +965,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -841,9 +1009,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -880,6 +1048,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSaveCollectionRadiostationsForDocumentCommand(object obj)
         {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
             if (selectingSaveView == null)
             {
                 selectingSaveView = new SelectingSaveView(SelectedRadiostation.City,
@@ -905,12 +1075,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteDeleteRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
+            if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
+               RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
             if (UserModelStatic.Post == "Дирекция связи")
                 return;
-            if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
-               RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
+            if (CHECK_HOW_MUCH)
                 return;
             if (MessageBox.Show("Подтверждаете удаление радиостанции?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
@@ -921,8 +1091,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RadiostationsForDocumentsMulipleSelectedDataGrid)
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
-            GetCityOnTheRoad(RoadCollections.IndexOf(Road));
-            GetRadiostationsForDocumentsCollection(Road, City);
+            GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
+            GetRadiostationsForDocumentsCollection(Road,
+                getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
             GetRowAfterAddingRadiostantionInDataGrid();
         }
 
@@ -932,9 +1103,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -950,7 +1121,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
 
             UserModelStatic.road = SelectedRadiostation.Road;
-            UserModelStatic.model = SelectedRadiostation.Model;
+            UserModelStatic.city = SelectedRadiostation.City;
             UserModelStatic.serialNumber = SelectedRadiostation.SerialNumber;
 
             addRepairRadiostationForDocumentInDataBaseView =
@@ -986,9 +1157,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (changeRadiostationForDocumentInDataBaseView != null)
                 return;
@@ -1000,12 +1171,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             changeRadiostationForDocumentInDataBaseView = null;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-            getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChange(City);
+            getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChangeDelete(City);
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-            GetCityOnTheRoad(RoadCollections.IndexOf(Road));
+            GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRadiostationsForDocumentsCollection(Road,
-            getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChange());
+            getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             changeRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
             GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -1019,29 +1190,39 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (addRadiostationForDocumentInDataBaseView == null)
             {
-                if (SelectedRadiostation == null) addRadiostationForDocumentInDataBaseView =
-                    new AddRadiostationForDocumentInDataBaseView();
+                if (SelectedRadiostation == null)
+                    addRadiostationForDocumentInDataBaseView =
+                    new AddRadiostationForDocumentInDataBaseView(Road);
                 else addRadiostationForDocumentInDataBaseView =
                     new AddRadiostationForDocumentInDataBaseView(
                         SelectedRadiostation);
-
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChangeDelete(City);
+                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
                 addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
                 addRadiostationForDocumentInDataBaseView = null;
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChange(City);
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetCityOnTheRoad(RoadCollections.IndexOf(Road));
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetRadiostationsForDocumentsCollection(Road,
-                getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChange());
-                addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
-                GetRowAfterAddingRadiostantionInDataGrid();
+
+                if (RadiostationsForDocumentsCollection.Count > 0)
+                {
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRadiostationsForDocumentsCollection(Road,
+                    getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRowAfterAddingRadiostantionInDataGrid();
+                }
+                else
+                {
+                    addRadiostationForDocumentInDataBaseView.Closed += (sender, args) =>
+                    GetRadiostationsForDocumentsCollection(Road, City);
+                }
+
                 addRadiostationForDocumentInDataBaseView.Show();
             }
         }
@@ -1052,15 +1233,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetRoad()
         {
-            if (RoadCollections.Count != 0)
-                RoadCollections.Clear();
+            if (RoadsCollection.Count != 0)
+                RoadsCollection.Clear();
             if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
             {
                 _roadDataBase = new RoadDataBaseRepository();
-                RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
+                RoadsCollection = _roadDataBase.GetRoadDataBase(RoadsCollection);
             }
             else foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
-                    RoadCollections.Add(item.RoadBase);
+                    RoadsCollection.Add(item.RoadBase);
         }
 
 
@@ -1072,18 +1253,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (index < 0)
                 return;
-            if (CityCollections.Count != 0)
+            if (CitiesCollection.Count != 0)
             {
                 SelectedIndexCityCollection = -1;
-                CityCollections.Clear();
+                CitiesCollection.Clear();
             }
 
-            CityCollections = _workRepositoryRadiostantion.
+            CitiesCollection = _workRepositoryRadiostantion.
                     GetCityAlongRoadForCityCollection(
-                    RoadCollections[index].ToString(), CityCollections);
+                    RoadsCollection[index].ToString(), CitiesCollection);
             SelectedIndexCityCollection = 0;
 
-            if (CityCollections.Count == 0)
+            if (CitiesCollection.Count != 0)
                 Counters();
         }
 
@@ -1111,12 +1292,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (Road == null)
                 return;
             if (City == null)
                 return;
-            if (RoadCollections.Count == 0) return;
-            if (CityCollections.Count == 0) return;
+            if (RoadsCollection.Count == 0) return;
+            if (CitiesCollection.Count == 0) return;
 
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
@@ -1140,7 +1323,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (Road == null)
                 return;
-            if (RoadCollections.Count == 0) return;
+            if (RoadsCollection.Count == 0) return;
 
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
@@ -1531,9 +1714,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddNumberActInFillOutCollectionsCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -1545,39 +1728,39 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            foreach (var item in FillOutCollections)
+            foreach (var item in FillOutCollection)
                 if (item == SelectedRadiostation.NumberAct)
                     return;
 
-            FillOutCollections.Add(SelectedRadiostation.NumberAct);
+            FillOutCollection.Add(SelectedRadiostation.NumberAct);
 
             string temp = string.Empty;
 
-            for (int i = 0; i < FillOutCollections.Count; i++)
+            for (int i = 0; i < FillOutCollection.Count; i++)
             {
-                for (int y = 0; y < FillOutCollections.Count - 1; y++)
+                for (int y = 0; y < FillOutCollection.Count - 1; y++)
                 {
-                    if (Convert.ToInt32(FillOutCollections[y].
-                        Substring(FillOutCollections[y].IndexOf("/") + 1))
-                    > Convert.ToInt32(FillOutCollections[y + 1].
-                    Substring(FillOutCollections[y + 1].IndexOf("/") + 1)))
+                    if (Convert.ToInt32(FillOutCollection[y].
+                        Substring(FillOutCollection[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(FillOutCollection[y + 1].
+                    Substring(FillOutCollection[y + 1].IndexOf("/") + 1)))
                     {
-                        temp = FillOutCollections[y + 1];
-                        FillOutCollections[y + 1] = FillOutCollections[y];
-                        FillOutCollections[y] = temp;
+                        temp = FillOutCollection[y + 1];
+                        FillOutCollection[y + 1] = FillOutCollection[y];
+                        FillOutCollection[y] = temp;
                     }
                 }
             }
 
             string addRegistry = String.Empty;
-            foreach (var item in FillOutCollections)
+            foreach (var item in FillOutCollection)
                 addRegistry += item.ToString() + ";";
 
             getSetRegistryServiceTelecomSetting.SetRegistryNumberActForFillOutCollections
                 (addRegistry);
 
-            if (FillOutCollections.Count > 0)
-                SelectedIndexFillOutCollection = FillOutCollections.Count - 1;
+            if (FillOutCollection.Count > 0)
+                SelectedIndexFillOutCollection = FillOutCollection.Count - 1;
         }
 
         #endregion
@@ -1586,6 +1769,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetNumberActForFillOutCollections()
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             string addRegistry =
              getSetRegistryServiceTelecomSetting.
              GetRegistryNumberActForFillOutCollections();
@@ -1597,28 +1782,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             foreach (string item in split)
                 if (!String.IsNullOrWhiteSpace(item))
-                    FillOutCollections.Add(item);
+                    FillOutCollection.Add(item);
 
             string temp = string.Empty;
 
-            for (int i = 0; i < FillOutCollections.Count; i++)
+            for (int i = 0; i < FillOutCollection.Count; i++)
             {
-                for (int y = 0; y < FillOutCollections.Count - 1; y++)
+                for (int y = 0; y < FillOutCollection.Count - 1; y++)
                 {
-                    if (Convert.ToInt32(FillOutCollections[y].
-                        Substring(FillOutCollections[y].IndexOf("/") + 1))
-                    > Convert.ToInt32(FillOutCollections[y + 1].
-                    Substring(FillOutCollections[y + 1].IndexOf("/") + 1)))
+                    if (Convert.ToInt32(FillOutCollection[y].
+                        Substring(FillOutCollection[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(FillOutCollection[y + 1].
+                    Substring(FillOutCollection[y + 1].IndexOf("/") + 1)))
                     {
-                        temp = FillOutCollections[y + 1];
-                        FillOutCollections[y + 1] = FillOutCollections[y];
-                        FillOutCollections[y] = temp;
+                        temp = FillOutCollection[y + 1];
+                        FillOutCollection[y + 1] = FillOutCollection[y];
+                        FillOutCollection[y] = temp;
                     }
                 }
             }
 
-            if (FillOutCollections.Count > 0)
-                SelectedIndexFillOutCollection = FillOutCollections.Count - 2;
+            if (FillOutCollection.Count > 0)
+                SelectedIndexFillOutCollection = FillOutCollection.Count - 2;
 
         }
 
@@ -1628,24 +1813,25 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteRemoveFromFillOutCollectionsCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (FillOutCollections.Count == 0) return;
+            if (FillOutCollection.Count == 0) return;
 
-            if (FillOutCollections.Count > 0)
+            if (FillOutCollection.Count > 0)
             {
-                FillOutCollections.Remove(FillOut);
-                SelectedIndexFillOutCollection = FillOutCollections.Count - 1;
+                FillOutCollection.Remove(FillOut);
+                SelectedIndexFillOutCollection = FillOutCollection.Count - 1;
             }
 
             string addRegistry = String.Empty;
-            foreach (var item in FillOutCollections)
+            foreach (var item in FillOutCollection)
                 addRegistry += item.ToString() + ";";
 
             getSetRegistryServiceTelecomSetting.SetRegistryNumberActForFillOutCollections
                 (addRegistry);
         }
-
 
         #endregion
 
@@ -1653,11 +1839,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (CHECK_HOW_MUCH)
                 return;
             if (String.IsNullOrWhiteSpace(City))
                 return;
-            if (FillOutCollections.Count < 1)
+            if (FillOutCollection.Count < 1)
                 return;
 
             if (RadiostationsForDocumentsCollection.Count != 0)
@@ -1687,9 +1875,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddNumberActInSignCollectionsCommand(object obj)
         {
-            if (CHECK_HOW_MUCH)
-                return;
             if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -1700,39 +1888,39 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                      MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            foreach (var item in SignCollections)
+            foreach (var item in SignCollection)
                 if (item == SelectedRadiostation.NumberAct)
                     return;
 
-            SignCollections.Add(SelectedRadiostation.NumberAct);
+            SignCollection.Add(SelectedRadiostation.NumberAct);
 
             string temp = string.Empty;
 
-            for (int i = 0; i < SignCollections.Count; i++)
+            for (int i = 0; i < SignCollection.Count; i++)
             {
-                for (int y = 0; y < SignCollections.Count - 1; y++)
+                for (int y = 0; y < SignCollection.Count - 1; y++)
                 {
-                    if (Convert.ToInt32(SignCollections[y].
-                        Substring(SignCollections[y].IndexOf("/") + 1))
-                    > Convert.ToInt32(SignCollections[y + 1].
-                    Substring(SignCollections[y + 1].IndexOf("/") + 1)))
+                    if (Convert.ToInt32(SignCollection[y].
+                        Substring(SignCollection[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(SignCollection[y + 1].
+                    Substring(SignCollection[y + 1].IndexOf("/") + 1)))
                     {
-                        temp = SignCollections[y + 1];
-                        SignCollections[y + 1] = SignCollections[y];
-                        SignCollections[y] = temp;
+                        temp = SignCollection[y + 1];
+                        SignCollection[y + 1] = SignCollection[y];
+                        SignCollection[y] = temp;
                     }
                 }
             }
 
             string addRegistry = String.Empty;
-            foreach (var item in SignCollections)
+            foreach (var item in SignCollection)
                 addRegistry += item.ToString() + ";";
 
             getSetRegistryServiceTelecomSetting.SetRegistryNumberActForSignCollections
                 (addRegistry);
 
-            if (SignCollections.Count > 0)
-                SelectedIndexSignCollection = SignCollections.Count - 1;
+            if (SignCollection.Count > 0)
+                SelectedIndexSignCollection = SignCollection.Count - 1;
         }
 
         #endregion
@@ -1741,6 +1929,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetNumberActForSignCollections()
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             string addRegistry =
              getSetRegistryServiceTelecomSetting.
              GetRegistryNumberActForSignCollections();
@@ -1752,28 +1942,28 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             foreach (string item in split)
                 if (!String.IsNullOrWhiteSpace(item))
-                    SignCollections.Add(item);
+                    SignCollection.Add(item);
 
             string temp = string.Empty;
 
-            for (int i = 0; i < SignCollections.Count; i++)
+            for (int i = 0; i < SignCollection.Count; i++)
             {
-                for (int y = 0; y < SignCollections.Count - 1; y++)
+                for (int y = 0; y < SignCollection.Count - 1; y++)
                 {
-                    if (Convert.ToInt32(SignCollections[y].
-                        Substring(SignCollections[y].IndexOf("/") + 1))
-                    > Convert.ToInt32(SignCollections[y + 1].
-                    Substring(SignCollections[y + 1].IndexOf("/") + 1)))
+                    if (Convert.ToInt32(SignCollection[y].
+                        Substring(SignCollection[y].IndexOf("/") + 1))
+                    > Convert.ToInt32(SignCollection[y + 1].
+                    Substring(SignCollection[y + 1].IndexOf("/") + 1)))
                     {
-                        temp = SignCollections[y + 1];
-                        SignCollections[y + 1] = SignCollections[y];
-                        SignCollections[y] = temp;
+                        temp = SignCollection[y + 1];
+                        SignCollection[y + 1] = SignCollection[y];
+                        SignCollection[y] = temp;
                     }
                 }
             }
 
-            if (SignCollections.Count > 0)
-                SelectedIndexSignCollection = SignCollections.Count - 2;
+            if (SignCollection.Count > 0)
+                SelectedIndexSignCollection = SignCollection.Count - 2;
         }
 
         #endregion
@@ -1782,18 +1972,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteRemoveFromSignCollectionsCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (SignCollections.Count == 0) return;
+            if (SignCollection.Count == 0) return;
 
-            if (SignCollections.Count > 0)
+            if (SignCollection.Count > 0)
             {
-                SignCollections.Remove(Sign);
-                SelectedIndexSignCollection = SignCollections.Count - 1;
+                SignCollection.Remove(Sign);
+                SelectedIndexSignCollection = SignCollection.Count - 1;
             }
 
             string addRegistry = String.Empty;
-            foreach (var item in SignCollections)
+            foreach (var item in SignCollection)
                 addRegistry += item.ToString() + ";";
 
             getSetRegistryServiceTelecomSetting.SetRegistryNumberActForSignCollections
@@ -1806,11 +1998,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand(object obj)
         {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
             if (CHECK_HOW_MUCH)
                 return;
             if (String.IsNullOrWhiteSpace(City))
                 return;
-            if (SignCollections.Count < 1)
+            if (SignCollection.Count < 1)
                 return;
 
             if (RadiostationsForDocumentsCollection.Count != 0)

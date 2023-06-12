@@ -68,6 +68,10 @@
     <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.31.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.31\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
@@ -143,10 +147,12 @@
     <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveTutorialsEngineer.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
+    <Compile Include="Infrastructure\PrintExcel.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\RadiostationForDocumentsDataBaseModel.cs" />
+    <Compile Include="Models\RepairDataCompanyModel.cs" />
     <Compile Include="Models\RepairManualRadiostantion.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
@@ -193,6 +199,7 @@
     <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRepairRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeRadiostationForDocumentInDataBaseViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\PrintRepairViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
@@ -241,6 +248,9 @@
     </Compile>
     <Compile Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml.cs">
       <DependentUpon>ChangeRadiostationForDocumentInDataBaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\PrintRepairView.xaml.cs">
+      <DependentUpon>PrintRepairView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\SelectingSaveView.xaml.cs">
       <DependentUpon>SelectingSaveView.xaml</DependentUpon>
@@ -325,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkViewPackage\ChangeRadiostationForDocumentInDataBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\PrintRepairView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
