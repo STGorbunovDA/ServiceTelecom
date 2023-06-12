@@ -1,18 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Utilities;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.IO;
 using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -25,10 +20,10 @@ namespace ServiceTelecom.Infrastructure
         {
             DateTime today = DateTime.Today;
 
-            if (File.Exists($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv"))
-                File.Delete($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv");
+            if (File.Exists($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today:dd.MM.yyyy}.csv"))
+                File.Delete($@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today:dd.MM.yyyy}.csv");
 
-            string fileNamePath = $@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today.ToString("dd.MM.yyyy")}.csv";
+            string fileNamePath = $@"C:\ServiceTelekom\Backup\База\{city}\База_{city}_{today:dd.MM.yyyy}.csv";
 
             if (!File.Exists($@"С:\ServiceTelekom\Backup\База\{city}\"))
                 Directory.CreateDirectory($@"C:\ServiceTelekom\Backup\База\{city}\");
@@ -157,7 +152,12 @@ namespace ServiceTelecom.Infrastructure
 
             string json = JsonConvert.SerializeObject(products);
 
-            string fileNamePath = $@"C:\ServiceTelekom\Backup\БазаJson\{city}\БазаJson.json";
+            DateTime today = DateTime.Today;
+
+            if (File.Exists($@"C:\ServiceTelekom\Backup\База\{city}\БазаJson_{city}_{today:dd.MM.yyyy}.json"))
+                File.Delete($@"C:\ServiceTelekom\Backup\База\{city}\БазаJson_{city}_{today:dd.MM.yyyy}.json");
+
+            string fileNamePath = $@"C:\ServiceTelekom\Backup\БазаJson\{city}\БазаJson_{city}_{today:dd.MM.yyyy}.json";
 
             if (!File.Exists($@"С:\ServiceTelekom\Backup\БазаJson\{city}\"))
                 Directory.CreateDirectory($@"C:\ServiceTelekom\Backup\БазаJson\{city}\");

@@ -621,8 +621,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand PrintActs { get; }
         public ICommand PrintExcelNumberActTechnicalWork { get; }
-
         public ICommand PrintExcelNumberActRepair { get; }
+        
         public WorkViewModel()
         {
             printExcel = new PrintExcel();
@@ -728,11 +728,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region ClearRadiostationsForDocumentsMulipleSelectedDataGrid
+
         private async void ClearRadiostationsForDocumentsMulipleSelectedDataGrid()
         {
             await Task.Delay(2000);
             UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
         }
+
+        #endregion
 
         #region PrintExcelNumberActTechnicalWork
 
