@@ -28,6 +28,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> Для ограничения функционала при загрузке радиостанций из общей таблицы  </summary>
         private bool CHECK_HOW_MUCH = false;
 
+
         #region свойства
 
         private string _fillOut;
@@ -720,12 +721,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView = new PrintRepairView();
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
             printRepairView.Show();
         }
 
 
         #endregion
+
+        private async void ClearRadiostationsForDocumentsMulipleSelectedDataGrid()
+        {
+            await Task.Delay(2000);
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+        }
 
         #region PrintExcelNumberActTechnicalWork
 
@@ -769,7 +776,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (PrintNumberActRadiostantionsCollection.Count != 0)
                 PrintNumberActRadiostantionsCollection.Clear();
-
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -820,9 +826,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 printRepairView = new PrintRepairView();
                 printRepairView.Closed += (sender, args) => printRepairView = null;
                 printRepairView.Closed += (sender, args) =>
-                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+                ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
                 printRepairView.Show();
-
             }
             if (CmbChoiseSearch == "№ акта списания")
             {

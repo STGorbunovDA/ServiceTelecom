@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -15,9 +16,9 @@ namespace ServiceTelecom.View.WorkViewPackage
         {
             repairData = new List<RepairDataCompanyModel>();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
-            
+
             InitializeComponent();
-            
+            Loaded += PrintRepairView_Loader;
             repairData = getSetRegistryServiceTelecomSetting.GetRepairData(txbCompany.Text);
 
             foreach (var item in repairData)
@@ -37,7 +38,7 @@ namespace ServiceTelecom.View.WorkViewPackage
                 txbThirdMemberCommissionPost.Text = item.ThirdMemberCommissionPost;
             }
 
-            if(!string.IsNullOrWhiteSpace(txbOKPO.Text) &&
+            if (!string.IsNullOrWhiteSpace(txbOKPO.Text) &&
                !string.IsNullOrWhiteSpace(txbBE.Text) &&
                !string.IsNullOrWhiteSpace(txbFullNameCompany.Text) &&
                !string.IsNullOrWhiteSpace(txbChiefСompanyFIO.Text) &&
@@ -48,7 +49,10 @@ namespace ServiceTelecom.View.WorkViewPackage
                !string.IsNullOrWhiteSpace(txbFirstMemberCommissionPost.Text) &&
                !string.IsNullOrWhiteSpace(txbSecondMemberCommissionFIO.Text) &&
                !string.IsNullOrWhiteSpace(txbSecondMemberCommissionPost.Text))
+            {
+                CheckBoxDisableThirdVerification.IsChecked = true;
                 CheckContinue.IsChecked = true;
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,9 +66,16 @@ namespace ServiceTelecom.View.WorkViewPackage
             WindowState = WindowState.Minimized;
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
+
+        private void PrintRepairView_Loader(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (DataContext is ICloseWindows vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                };
+            }
         }
     }
 }

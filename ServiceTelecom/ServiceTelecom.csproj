@@ -142,6 +142,7 @@
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\GetSetRegistryServiceTelecomSetting.cs" />
     <Compile Include="Infrastructure\Interfaces\IBackupCopyRadiostationsForDocumentsCollection.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICloseWindows.cs" />
     <Compile Include="Infrastructure\Interfaces\IGetSetRegistryServiceTelecomSetting.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveCSV.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
