@@ -311,7 +311,6 @@ namespace ServiceTelecom.Repositories
                     if (command.ExecuteNonQuery() > 0) return true;
                     else return false;
                 }
-
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

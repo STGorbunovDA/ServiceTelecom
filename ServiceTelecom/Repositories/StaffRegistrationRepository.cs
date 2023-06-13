@@ -41,7 +41,6 @@ namespace ServiceTelecom.Repositories
             }
             catch (Exception) { return staffRegistrations; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-
         }
 
         public bool AddStaffRegistrationDataBase(string sectionForeman, string engineer, string attorney,
@@ -94,7 +93,6 @@ namespace ServiceTelecom.Repositories
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
-
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

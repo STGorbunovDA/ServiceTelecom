@@ -68,7 +68,6 @@ namespace ServiceTelecom.Repositories
                         return dateTimeInputCollections;
                     }
                 }
-
             }
             catch (Exception) { return dateTimeInputCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
