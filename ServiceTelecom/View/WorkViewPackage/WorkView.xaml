@@ -16,6 +16,7 @@
     <Window.DataContext>
         <viewModel:WorkViewModel/>
     </Window.DataContext>
+    
     <Border CornerRadius="12"
             BorderThickness="3"
                 Opacity="1">
@@ -324,6 +325,7 @@
                               SelectionMode="Extended"
                               SelectedItemsList="{Binding RadiostationsForDocumentsMulipleSelectedDataGrid, Mode=TwoWay}">
                     <DataGrid.Resources>
+                        <local:NameToBrushConverter x:Key="NameToBrushConverter"/>
                         <Style TargetType="TextBlock" x:Key="WrapText">
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
@@ -353,7 +355,14 @@
                                                 Width="80" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Предприятие" 
                                                 Binding="{Binding Company}" 
-                                                Width="100"/>
+                                                Width="100">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" 
+                                            Value="{Binding VerifiedRST, Converter={StaticResource NameToBrushConverter}}"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Станция" 
                                                 Binding="{Binding Location}" 
                                                 Width="150"
@@ -364,9 +373,7 @@
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Заводской"
                                                 Binding="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                                                Width="180">
-                            
-                        </DataGridTextColumn>
+                                                Width="180"/>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
                                                 Width="240"
@@ -436,6 +443,9 @@
                                                 Width="50" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Зарядное устройство" 
                                                 Binding="{Binding Charger}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Верификация" 
+                                                Binding="{Binding VerifiedRST, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="50" Visibility="Collapsed"/>
 
                     </DataGrid.Columns>

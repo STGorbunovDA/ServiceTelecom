@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Infrastructure;
+﻿using Microsoft.Office.Interop.Excel;
+using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -10,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
@@ -216,6 +218,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _serialNumber = value;
                 OnPropertyChanged(nameof(SerialNumber));
+            }
+        }
+
+        private string _verifiedRST;
+        public string VerifiedRST
+        {
+            get => _verifiedRST;
+            set
+            {
+                _verifiedRST = value;
+                OnPropertyChanged(nameof(VerifiedRST));
             }
         }
 
@@ -698,8 +711,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForFillOutCollections();
             Timer();
         }
-
-
 
         #region PrintTagTechnicalWork
 
@@ -1812,7 +1823,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //списаний
             int decommissionNumberActs = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
+                if (item.VerifiedRST == UserModelStatic.decommissionRadiostantion)
                     decommissionNumberActs++;
             CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";
         }

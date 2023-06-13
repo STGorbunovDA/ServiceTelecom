@@ -153,6 +153,7 @@
     <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
     <Compile Include="Infrastructure\Interfaces\ISaveTutorialsEngineer.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
+    <Compile Include="Infrastructure\NameToBrushConverter.cs" />
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
