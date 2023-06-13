@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="Печать бирок" Height="180" Width="400"
+        Title="Печать бирок" Height="175" Width="400"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -37,7 +37,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="85"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -78,9 +78,9 @@
                             Grid.Column="2"
                             Name="datePickerDateMaintenance" 
                             Style="{StaticResource DatePickerStyle1}"
-                            
-                            Margin="0,5,0,4"
-                            Text="{Binding DateMaintenance, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            FontSize="25"
+                            Margin="0,0,0,0"
+                            Text="{Binding DateMaintenance, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Cursor="">
                     </DatePicker>
                 </StackPanel>
             </Grid>
