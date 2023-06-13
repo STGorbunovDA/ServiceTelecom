@@ -34,8 +34,6 @@ namespace ServiceTelecom.Models
             _numberPrintDocument = Encryption.DecryptCipherTextToPlainText(numberPrintDocument);
             _curator = Encryption.DecryptCipherTextToPlainText(curator);
             _radioCommunicationDirectorate = Encryption.DecryptCipherTextToPlainText(radioCommunicationDirectorate);    
-        }
-
-        
+        }  
     }
 }

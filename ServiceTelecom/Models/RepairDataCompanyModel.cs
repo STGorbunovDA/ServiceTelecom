@@ -18,6 +18,20 @@ namespace ServiceTelecom.Models
         private string _thirdMemberCommissionFIO;
         private string _thirdMemberCommissionPost;
 
+        public string OKPO { get => _okpo; set { _okpo = value; OnPropertyChanged(nameof(OKPO)); } }
+        public string BE { get => _be; set { _be = value; OnPropertyChanged(nameof(BE)); } }
+        public string FullNameCompany { get => _fullNameCompany; set { _fullNameCompany = value; OnPropertyChanged(nameof(FullNameCompany)); } }
+        public string ChiefСompanyFIO { get => _chiefСompanyFIO; set { _chiefСompanyFIO = value; OnPropertyChanged(nameof(ChiefСompanyFIO)); } }
+        public string ChiefСompanyPost { get => _chiefСompanyPost; set { _chiefСompanyPost = value; OnPropertyChanged(nameof(ChiefСompanyPost)); } }
+        public string ChairmanСompanyFIO { get => _chairmanСompanyFIO; set { _chairmanСompanyFIO = value; OnPropertyChanged(nameof(ChairmanСompanyFIO)); } }
+        public string ChairmanСompanyPost { get => _chairmanСompanyPost; set { _chairmanСompanyPost = value; OnPropertyChanged(nameof(ChairmanСompanyPost)); } }
+        public string FirstMemberCommissionFIO { get => _firstMemberCommissionFIO; set { _firstMemberCommissionFIO = value; OnPropertyChanged(nameof(FirstMemberCommissionFIO)); } }
+        public string FirstMemberCommissionPost { get => _firstMemberCommissionPost; set { _firstMemberCommissionPost = value; OnPropertyChanged(nameof(FirstMemberCommissionPost)); } }
+        public string SecondMemberCommissionFIO { get => _secondMemberCommissionFIO; set { _secondMemberCommissionFIO = value; OnPropertyChanged(nameof(SecondMemberCommissionFIO)); } }
+        public string SecondMemberCommissionPost { get => _secondMemberCommissionPost; set { _secondMemberCommissionPost = value; OnPropertyChanged(nameof(SecondMemberCommissionPost)); } }
+        public string ThirdMemberCommissionFIO { get => _thirdMemberCommissionFIO; set { _thirdMemberCommissionFIO = value; OnPropertyChanged(nameof(ThirdMemberCommissionFIO)); } }
+        public string ThirdMemberCommissionPost { get => _thirdMemberCommissionPost; set { _thirdMemberCommissionPost = value; OnPropertyChanged(nameof(ThirdMemberCommissionPost)); } }
+        
         public RepairDataCompanyModel(string oKPO, string bE, 
             string fullNameCompany, string chiefСompanyFIO, 
             string chiefСompanyPost, string chairmanСompanyFIO, 
@@ -39,22 +53,6 @@ namespace ServiceTelecom.Models
             SecondMemberCommissionPost = secondMemberCommissionPost;
             ThirdMemberCommissionFIO = thirdMemberCommissionFIO;
             ThirdMemberCommissionPost = thirdMemberCommissionPost;
-        }
-
-        public string OKPO { get => _okpo; set { _okpo = value; OnPropertyChanged(nameof(OKPO)); } }
-        public string BE { get => _be; set { _be = value; OnPropertyChanged(nameof(BE)); } }
-        public string FullNameCompany { get => _fullNameCompany; set { _fullNameCompany = value; OnPropertyChanged(nameof(FullNameCompany)); } }
-        public string ChiefСompanyFIO { get => _chiefСompanyFIO; set { _chiefСompanyFIO = value; OnPropertyChanged(nameof(ChiefСompanyFIO)); } }
-        public string ChiefСompanyPost { get => _chiefСompanyPost; set { _chiefСompanyPost = value; OnPropertyChanged(nameof(ChiefСompanyPost)); } }
-        public string ChairmanСompanyFIO { get => _chairmanСompanyFIO; set { _chairmanСompanyFIO = value; OnPropertyChanged(nameof(ChairmanСompanyFIO)); } }
-        public string ChairmanСompanyPost { get => _chairmanСompanyPost; set { _chairmanСompanyPost = value; OnPropertyChanged(nameof(ChairmanСompanyPost)); } }
-        public string FirstMemberCommissionFIO { get => _firstMemberCommissionFIO; set { _firstMemberCommissionFIO = value; OnPropertyChanged(nameof(FirstMemberCommissionFIO)); } }
-        public string FirstMemberCommissionPost { get => _firstMemberCommissionPost; set { _firstMemberCommissionPost = value; OnPropertyChanged(nameof(FirstMemberCommissionPost)); } }
-        public string SecondMemberCommissionFIO { get => _secondMemberCommissionFIO; set { _secondMemberCommissionFIO = value; OnPropertyChanged(nameof(SecondMemberCommissionFIO)); } }
-        public string SecondMemberCommissionPost { get => _secondMemberCommissionPost; set { _secondMemberCommissionPost = value; OnPropertyChanged(nameof(SecondMemberCommissionPost)); } }
-        public string ThirdMemberCommissionFIO { get => _thirdMemberCommissionFIO; set { _thirdMemberCommissionFIO = value; OnPropertyChanged(nameof(ThirdMemberCommissionFIO)); } }
-        public string ThirdMemberCommissionPost { get => _thirdMemberCommissionPost; set { _thirdMemberCommissionPost = value; OnPropertyChanged(nameof(ThirdMemberCommissionPost)); } }
-
-        
+        }           
     }
 }

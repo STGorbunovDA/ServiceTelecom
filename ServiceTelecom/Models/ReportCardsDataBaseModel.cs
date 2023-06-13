@@ -5,7 +5,6 @@ namespace ServiceTelecom.Models
 {
     internal class ReportCardsDataBaseModel : ViewModelBase
     {
-
         private int _idReportCards;
         private string _user;
         private string _dateTimeInput;
