@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,7 +11,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class PrintExcel : IPrintExcel
+    internal class Print : IPrint
     {
         private FileInfo _fileInfo;
         public void PrintExcelNumberActTechnicalWork(
@@ -1552,7 +1553,8 @@ namespace ServiceTelecom.Infrastructure
             string firstMemberCommissionFIO, string firstMemberCommissionPost,
             string secondMemberCommissionFIO, string secondMemberCommissionPost,
             string thirdMemberCommissionFIO, string thirdMemberCommissionPost,
-            string primaryMeans, string productName)
+            string primaryMeans, string productName, 
+            IList RadiostationsForDocumentsMulipleSelectedDataGrid)
         {
             Excel.Application exApp = new Excel.Application();
             try
@@ -1601,10 +1603,10 @@ namespace ServiceTelecom.Infrastructure
                     string parts_7 = string.Empty;
 
 
-                    if (UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid == null)
+                    if (RadiostationsForDocumentsMulipleSelectedDataGrid == null)
                         return;
                     foreach (RadiostationForDocumentsDataBaseModel item
-                        in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
+                        in RadiostationsForDocumentsMulipleSelectedDataGrid)
                     {
                         numberActRepair = item.NumberActRepair;
                         city = item.City;
@@ -2842,6 +2844,123 @@ namespace ServiceTelecom.Infrastructure
                     p.Kill();
                 //WordApp.ActiveDocument.Close();
                 //WordApp.Quit();
+            }
+        }
+
+        public void PrintTagTechnicalWorkRadiostantion(string road, string city,
+            string dateMaintenance, string check)
+        {
+            string month2;
+            DateTime dateTag = Convert.ToDateTime(dateMaintenance);
+            string monthCheckTag = DateTime.DaysInMonth(dateTag.Year, dateTag.Month).ToString();
+            if (dateTag.ToString("dd") == monthCheckTag)
+                month2 = dateTag.AddMonths(1).ToString("MM");
+            else month2 = dateTag.ToString("MM");
+            string month = dateTag.ToString("MM");
+            string day = dateTag.ToString("dd");
+            string year = dateTag.ToString("yyyy");
+            string day2 = dateTag.AddDays(1).ToString("dd");
+            string year2 = dateTag.AddYears(1).ToString("yyyy");
+            string engineer = string.Empty;
+
+            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                engineer = item.EngineerBase;
+
+            var items = new Dictionary<string, string>
+            {
+                    {"check", check },
+                    {"day", day },
+                    {"month", month },
+                    {"month2", month2 },
+                    {"year", year },
+                    {"day2", day2 },
+                    {"year2", year2 },
+                    {"Engineer", engineer },
+                    {"road", road + "," + city }
+            };
+
+            Excel.Application app = new Excel.Application();
+
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType != null)
+                {
+                    if (File.Exists("documents\\TAG.xls"))
+                        _fileInfo = new FileInfo("documents\\TAG.xls");
+                    else throw new ArgumentException("Остутсвует файл documents\\TAG.xls");
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                       "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                String file = _fileInfo.FullName;
+                object m = Type.Missing;
+
+                // open the workbook. 
+                Excel.Workbook wb = app.Workbooks.Open(
+                    file,
+                    m, false, m, m, m, m, m, m, m, m, m, m, m, m);
+
+                // get the active worksheet. (Replace this if you need to.) 
+                Excel.Worksheet ws = (Excel.Worksheet)wb.ActiveSheet;
+
+                // get the used range. 
+                Excel.Range r = (Excel.Range)ws.UsedRange;
+
+                foreach (var item in items)
+                {
+                    bool success = (bool)r.Replace(
+                    item.Key,
+                    item.Value,
+                    Excel.XlLookAt.xlWhole,
+                    Excel.XlSearchOrder.xlByRows,
+                    true);
+                }
+                string fileName = string.Empty;
+                if (check == "РСТ")
+                    fileName = $"Бирка_тех_обслуживания_{dateMaintenance}.xls";
+                else fileName = $"Бирка_манипулятор_{dateMaintenance}.xls";
+
+                if (!File.Exists($@"С:\ServiceTelekom\Бирки\"))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory($@"C:\ServiceTelekom\Бирки");
+                        wb.SaveAs($@"C:\ServiceTelekom\Бирки\" + fileName);
+                        app.Visible = true;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Не удаётся сохранить файл excel");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        wb.SaveAs($@"C:\Documents_ServiceTelekom\Бирки\" + file);
+                        app.Visible = true;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Не удаётся сохранить файл excel");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (app != null)
+                    app = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                MessageBox.Show(ex.ToString());
+                Environment.Exit(0);
             }
         }
     }

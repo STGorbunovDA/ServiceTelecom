@@ -1,9 +1,10 @@
 ﻿using ServiceTelecom.Models;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ServiceTelecom.Infrastructure.Interfaces
 {
-    internal interface IPrintExcel
+    internal interface IPrint
     {
         /// <summary> Печать акта технического обслуживания </summary>
         void PrintExcelNumberActTechnicalWork(
@@ -17,11 +18,16 @@ namespace ServiceTelecom.Infrastructure.Interfaces
             string firstMemberCommissionFIO, string firstMemberCommissionPost,
             string secondMemberCommissionFIO, string secondMemberCommissionPost,
             string thirdMemberCommissionFIO, string thirdMemberCommissionPost,
-            string primaryMeans, string productName);
+            string primaryMeans, string productName,
+            IList RadiostationsForDocumentsMulipleSelectedDataGrid);
 
         /// <summary> Печать акта списания </summary>
         void PrintWordDecommissionNumberAct(
             List<RadiostationForDocumentsDataBaseModel>
             radiostantionsCollection);
+
+        /// <summary> Печать бирок </summary>
+        void PrintTagTechnicalWorkRadiostantion(string road, string city,
+            string dateMaintenance, string check);
     }
 }
