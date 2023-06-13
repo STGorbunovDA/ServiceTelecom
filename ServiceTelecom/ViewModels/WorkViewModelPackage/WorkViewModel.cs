@@ -462,6 +462,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
         private PrintExcel printExcel;
+        private PrintTagTechnicalWorkView printTagTechnicalWorkView;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -626,6 +627,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintWordDecommissionNumberAct { get; }
         public ICommand ShowDecommissioned { get; }
         public ICommand ShowNumberActRepair { get; }
+        public ICommand PrintTagTechnicalWork { get; }
 
         public WorkViewModel()
         {
@@ -691,12 +693,30 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
             ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
+            PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
 
+
+
+        #region PrintTagTechnicalWork
+
+        private void ExecutePrintTagTechnicalWorkCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (printTagTechnicalWorkView != null)
+                return;
+            printTagTechnicalWorkView = new PrintTagTechnicalWorkView();
+            printTagTechnicalWorkView.Closed += (sender, args) =>
+            printTagTechnicalWorkView = null;
+            printTagTechnicalWorkView.Show();
+        }
+
+        #endregion
 
         #region PrintWordDecommissionNumberAct
 
