@@ -460,7 +460,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
-        private PrintExcel printExcel;
+        private Print printExcel;
         private PrintTagTechnicalWorkView printTagTechnicalWorkView;
 
         AddRadiostationForDocumentInDataBaseView
@@ -630,7 +630,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public WorkViewModel()
         {
-            printExcel = new PrintExcel();
+            printExcel = new Print();
             backupCopyRadiostationsForDocumentsCollection =
                 new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -709,9 +709,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (printTagTechnicalWorkView != null)
                 return;
+
+            UserModelStatic.road = SelectedRadiostation.Road;
+            UserModelStatic.city = SelectedRadiostation.City;
             printTagTechnicalWorkView = new PrintTagTechnicalWorkView();
             printTagTechnicalWorkView.Closed += (sender, args) =>
             printTagTechnicalWorkView = null;
+            printTagTechnicalWorkView.Closed += (sender, args) =>
+            ClearUserModelStaticRoadCitySerialNumber();
             printTagTechnicalWorkView.Show();
         }
 
@@ -778,20 +783,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView = new PrintRepairView();
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
-            ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             printRepairView.Show();
         }
 
-
-        #endregion
-
-        #region ClearRadiostationsForDocumentsMulipleSelectedDataGrid
-
-        private async void ClearRadiostationsForDocumentsMulipleSelectedDataGrid()
-        {
-            await Task.Delay(2000);
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
-        }
 
         #endregion
 
@@ -888,7 +883,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 printRepairView = new PrintRepairView();
                 printRepairView.Closed += (sender, args) => printRepairView = null;
                 printRepairView.Closed += (sender, args) =>
-                ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
                 printRepairView.Show();
             }
             if (CmbChoiseSearch == "№ акта списания")

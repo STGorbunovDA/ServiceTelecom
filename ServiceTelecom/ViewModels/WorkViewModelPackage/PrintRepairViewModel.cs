@@ -3,6 +3,7 @@ using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -13,8 +14,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class PrintRepairViewModel : ViewModelBase, ICloseWindows
     {
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
-        PrintExcel printExcel;
+        Print printExcel;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+
+        public IList RadiostationsForDocumentsMulipleSelectedDataGrid;
 
         #region Свойства
 
@@ -216,7 +219,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             CloseWindowCommand =
                 new ViewModelCommand(ExecuteCloseWindowCommand);
-            printExcel = new PrintExcel();
+            printExcel = new Print();
             AddInRegistryInformationCompany =
                 new ViewModelCommand(ExecuteAddInRegistryInformationCompanyCommand);
             ContinuePrintRepair =
@@ -231,6 +234,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 SerialNumber = item.SerialNumber;
                 Company = item.Company;
             }
+            RadiostationsForDocumentsMulipleSelectedDataGrid 
+                = UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid;
             GetProductNameInDataBase();
             GetPrimaryMeansInDataBase();
         }
@@ -463,7 +468,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         FirstMemberCommissionFIO, FirstMemberCommissionPost, 
                         SecondMemberCommissionFIO,SecondMemberCommissionPost, 
                         ThirdMemberCommissionFIO, ThirdMemberCommissionPost, 
-                        PrimaryMeans, ProductName);
+                        PrimaryMeans, ProductName, 
+                        RadiostationsForDocumentsMulipleSelectedDataGrid);
                 })
                 { IsBackground = true }.Start();
                 Close?.Invoke();
