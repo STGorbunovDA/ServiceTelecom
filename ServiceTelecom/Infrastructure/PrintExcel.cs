@@ -1,15 +1,19 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure.Interfaces;
+using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class PrintExcel
+    internal class PrintExcel : IPrintExcel
     {
-        internal void PrintExcelNumberActTechnicalWork(
+        private FileInfo _fileInfo;
+        public void PrintExcelNumberActTechnicalWork(
             List<RadiostationForDocumentsDataBaseModel>
             radiostantionsCollection)
         {
@@ -1542,7 +1546,7 @@ namespace ServiceTelecom.Infrastructure
             }
         }
 
-        internal void PrintExcelNumberActRepair(string company, string okpo, string be,
+        public void PrintExcelNumberActRepair(string company, string okpo, string be,
             string fullNameCompany, string chiefСompanyFIO, string chiefСompanyPost,
             string chairmanСompanyFIO, string chairmanСompanyPost,
             string firstMemberCommissionFIO, string firstMemberCommissionPost,
@@ -2720,6 +2724,124 @@ namespace ServiceTelecom.Infrastructure
                 GC.WaitForPendingFinalizers();
                 Environment.Exit(0);
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void PrintWordDecommissionNumberAct(
+            List<RadiostationForDocumentsDataBaseModel>
+            radiostantionsCollection)
+        {
+            string serialNumberCompany = string.Empty;
+            string serialNumber = string.Empty;
+            string company = string.Empty;
+            string city = string.Empty;
+            string comment = string.Empty;
+            string model = string.Empty;
+            foreach (RadiostationForDocumentsDataBaseModel item
+                in radiostantionsCollection)
+            {
+                company = item.Company;
+                serialNumber = item.SerialNumber;
+                model = item.Model;
+                serialNumberCompany = $"{item.SerialNumber}-{item.Company}";
+                city = item.City;
+                comment = item.Comment;
+
+            }
+            string dateDecommissioning = DateTime.Today.ToString("dd.MM.yyyy");
+
+            var items = new Dictionary<string, string>
+            {
+                    {"<numberActTZPP>", serialNumberCompany },
+                    {"<model>", model },
+                    {"<serialNumber>", serialNumber },
+                    {"<company>", company },
+                    {"<dateDecommission>", dateDecommissioning },
+                    {"<comment>", comment}
+            };
+
+
+            Type officeType = Type.GetTypeFromProgID("Word.Application");
+
+            if (officeType != null)
+            {
+                if (File.Exists("documents\\DV.doc"))
+                    _fileInfo = new FileInfo("documents\\DV.doc");
+                else throw new ArgumentException("Остутсвует файл documents\\DV.doc");
+            }
+            else
+            {
+                MessageBox.Show($"Ошибка у Вас не установлен Word",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var WordApp = new Word.Application();
+            try
+            {
+                Object file = _fileInfo.FullName;
+                Object missing = Type.Missing;
+
+                WordApp.Documents.Open(file);
+
+                foreach (var item in items)
+                {
+                    Word.Find find = WordApp.Selection.Find;
+                    find.Text = item.Key;
+                    find.Replacement.Text = item.Value;
+
+                    Object wrap = Word.WdFindWrap.wdFindContinue;
+                    Object replace = Word.WdReplace.wdReplaceAll;
+
+                    find.Execute(FindText: Type.Missing,
+                        MatchCase: false,
+                        MatchWholeWord: false,
+                        MatchWildcards: false,
+                        MatchSoundsLike: false,
+                        MatchAllWordForms: false,
+                        Forward: true,
+                        Wrap: wrap,
+                        Format: false,
+                        ReplaceWith: missing, Replace: replace);
+                }
+
+                string word_file = $"{serialNumberCompany.Replace('/', '.')}_{dateDecommissioning}_АКТ_Списания.doc";
+
+                if (!File.Exists($@"С:\ServiceTelekom\Списания\{city}\"))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory($@"C:\ServiceTelekom\Списания\{city}\");
+                        WordApp.ActiveDocument.SaveAs($@"C:\ServiceTelekom\Списания\{city}\" + word_file);
+                        WordApp.Visible = true;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Не удаётся сохранить файл word");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        WordApp.ActiveDocument.SaveAs($@"C:\ServiceTelekom\Списания\{city}\" + word_file);
+                        WordApp.Visible = true;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Не удаётся сохранить файл word");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удаётся сформировать акт списания(ProcessPrintWord)");
+
+                Process[] localByName = Process.GetProcessesByName("winword");
+                foreach (Process p in localByName)
+                    p.Kill();
+                //WordApp.ActiveDocument.Close();
+                //WordApp.Quit();
             }
         }
     }

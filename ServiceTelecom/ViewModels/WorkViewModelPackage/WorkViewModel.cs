@@ -622,7 +622,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintActs { get; }
         public ICommand PrintExcelNumberActTechnicalWork { get; }
         public ICommand PrintExcelNumberActRepair { get; }
-        
+        public ICommand PrintWordDecommissionNumberAct { get; }
+
         public WorkViewModel()
         {
             printExcel = new PrintExcel();
@@ -684,12 +685,46 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
             PrintExcelNumberActRepair =
                 new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
+            PrintWordDecommissionNumberAct = 
+                new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
 
+
+
+        #region PrintWordDecommissionNumberAct
+
+        private void ExecutePrintWordDecommissionNumberActCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.DecommissionNumberAct 
+                    == item.DecommissionNumberAct)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 1)
+                return;
+
+            new Thread(() =>
+            {
+                printExcel.PrintWordDecommissionNumberAct(
+                PrintNumberActRadiostantionsCollection);
+            })
+            { IsBackground = true }.Start();
+        }
+
+        #endregion
 
         #region PrintExcelNumberActRepair
 
@@ -780,6 +815,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (PrintNumberActRadiostantionsCollection.Count != 0)
                 PrintNumberActRadiostantionsCollection.Clear();
+            
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -835,7 +871,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (CmbChoiseSearch == "№ акта списания")
             {
+                if (UserModelStatic.Post == "Дирекция связи")
+                    return;
+                if (CHECK_HOW_MUCH)
+                    return;
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (ChoiсeUniqueValue == item.DecommissionNumberAct)
+                        PrintNumberActRadiostantionsCollection.Add(item);
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 1)
+                    return;
 
+                new Thread(() =>
+                {
+                    printExcel.PrintWordDecommissionNumberAct(
+                    PrintNumberActRadiostantionsCollection);
+                })
+                { IsBackground = true }.Start();
             }
         }
 
