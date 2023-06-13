@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
-using System;
 
 namespace ServiceTelecom.Repositories
 {

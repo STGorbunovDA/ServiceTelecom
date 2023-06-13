@@ -3,7 +3,6 @@ using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -246,7 +245,5 @@ namespace ServiceTelecom.Infrastructure
                 return false;
             }
         }
-
-
     }
 }

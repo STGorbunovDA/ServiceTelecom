@@ -46,6 +46,7 @@ namespace ServiceTelecom.Infrastructure
                     string sectionForeman = string.Empty;
                     string attorney = string.Empty;
                     string engineer = string.Empty;
+
                     foreach (var item in UserModelStatic.
                         StaffRegistrationsDataBaseModelCollection)
                     {
@@ -57,11 +58,9 @@ namespace ServiceTelecom.Infrastructure
                         }
                     }
 
-
                     string post = radiostantionsCollection[0].Post;
                     string representative = radiostantionsCollection[0].Representative;
                     string numberIdentification = radiostantionsCollection[0].NumberIdentification;
-
                     string poligon = radiostantionsCollection[0].Poligon;
                     string road = radiostantionsCollection[0].Road;
                     string dateOfIssuanceOfTheCertificate = radiostantionsCollection[0].DateOfIssuanceOfTheCertificate;
@@ -75,9 +74,7 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.PageSetup.Zoom = false;
                     workSheet.PageSetup.FitToPagesWide = 1;
                     workSheet.PageSetup.FitToPagesTall = 1;
-
                     workSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
-
                     workSheet.Rows.Font.Size = 9.5;
                     workSheet.Rows.Font.Name = "Times New Roman";
 
@@ -558,10 +555,8 @@ namespace ServiceTelecom.Infrastructure
                     workSheet2.PageSetup.Zoom = false;
                     workSheet2.PageSetup.FitToPagesWide = 1;
                     workSheet2.PageSetup.FitToPagesTall = 1;
-
                     workSheet2.Rows.Font.Size = 15;
                     workSheet2.Rows.Font.Name = "Times New Roman";
-
                     workSheet2.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
                     workSheet2.PageSetup.CenterHorizontally = true;
                     workSheet2.PageSetup.CenterVertically = true;
@@ -1045,10 +1040,8 @@ namespace ServiceTelecom.Infrastructure
                     workSheet2.Cells[47, 2] = $"Примечание: 1. \" - \" - не предоставлено для ТО";
                     workSheet2.Cells[47, 8] = $"2. \" б/н \" - без номера (номер отсутсвует)";
 
-
                     int s3 = 1;
                     int j3 = 4;
-
                     for (int i = 0; i < 16; i++)
                     {
                         workSheet2.Cells[3 + s3, 22] = s3;
@@ -1081,7 +1074,6 @@ namespace ServiceTelecom.Infrastructure
 
                         s4++;
                         j4++;
-
                     }
                     while (s4 <= 20)
                     {
@@ -1103,17 +1095,14 @@ namespace ServiceTelecom.Infrastructure
                     workSheet3.PageSetup.Zoom = false;
                     workSheet3.PageSetup.FitToPagesWide = 1;
                     workSheet3.PageSetup.FitToPagesTall = 1;
-
                     workSheet3.Rows.Font.Size = 11;
                     workSheet3.Rows.Font.Name = "Times New Roman";
-
                     workSheet2.PageSetup.CenterHorizontally = true;
                     workSheet2.PageSetup.CenterVertically = true;
                     workSheet3.PageSetup.TopMargin = 50;
                     workSheet3.PageSetup.BottomMargin = 0;
                     workSheet3.PageSetup.LeftMargin = 90;
                     workSheet3.PageSetup.RightMargin = 0;
-
                     workSheet3.PageSetup.Zoom = 97;
 
                     Excel.Range _excelCells101 = (Excel.Range)workSheet3.get_Range("A1", "I1").Cells;
@@ -1265,7 +1254,6 @@ namespace ServiceTelecom.Infrastructure
                     _excelCells155.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                     _excelCells155.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
-
                     _excelCells103.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                     _excelCells104.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
                     _excelCells108.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDot;
@@ -1319,7 +1307,6 @@ namespace ServiceTelecom.Infrastructure
                     Excel.Range range_Consolidated131 = workSheet3.Rows.get_Range("A18", "I37");
                     Excel.Range range_Consolidated132 = workSheet3.Rows.get_Range("D18", "F37");
                     Excel.Range range_Consolidated133 = workSheet3.Rows.get_Range("A11", "E11");
-
 
                     Excel.Range rowHeight100 = workSheet3.get_Range("A38", "I41");
                     rowHeight100.EntireRow.RowHeight = 10; //
@@ -1400,7 +1387,6 @@ namespace ServiceTelecom.Infrastructure
                     range_Consolidated132.NumberFormat = "@";
                     range_Consolidated133.Font.Size = 9;
 
-
                     workSheet3.Cells[1, 1] = $"ПЕРВИЧНЫЙ ТЕХНИЧЕСКИЙ АКТ № {numberAct}";
                     workSheet3.Cells[2, 1] = $"ОКАЗАННЫХ УСЛУГ ПО ТЕХНИЧЕСКОМУ ОБСЛУЖИВАНИЮ СИСТЕМ РАДИОСВЯЗИ";
                     workSheet3.Cells[4, 1] = $"{city}";
@@ -1461,7 +1447,6 @@ namespace ServiceTelecom.Infrastructure
 
                     int s2 = 1;
                     int j2 = 18;
-
                     for (int i = 0; i < radiostantionsCollection.Count; i++)
                     {
                         workSheet3.Cells[17 + s2, 1] = s2;
@@ -1602,7 +1587,6 @@ namespace ServiceTelecom.Infrastructure
                     string completedWorks_7 = string.Empty;
                     string parts_7 = string.Empty;
 
-
                     if (RadiostationsForDocumentsMulipleSelectedDataGrid == null)
                         return;
                     foreach (RadiostationForDocumentsDataBaseModel item
@@ -1665,7 +1649,6 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.PageSetup.BottomMargin = 0;
                     workSheet.PageSetup.LeftMargin = 0;
                     workSheet.PageSetup.RightMargin = 0;
-
                     workSheet.PageSetup.Zoom = 90;
 
                     Excel.Range _excelCells1 = (Excel.Range)workSheet.get_Range("A1", "F1").Cells;
@@ -2071,13 +2054,11 @@ namespace ServiceTelecom.Infrastructure
 
                     workSheet2.Rows.Font.Size = 9;
                     workSheet2.Rows.Font.Name = "Times New Roman";
-
                     workSheet2.PageSetup.CenterHorizontally = true;
                     workSheet2.PageSetup.TopMargin = 0;
                     workSheet2.PageSetup.BottomMargin = 0;
                     workSheet2.PageSetup.LeftMargin = 0;
                     workSheet2.PageSetup.RightMargin = 0;
-
                     workSheet2.PageSetup.Zoom = 90;
 
                     Excel.Range _excelCells100 = (Excel.Range)workSheet2.get_Range("G1", "K1").Cells;
@@ -2163,8 +2144,6 @@ namespace ServiceTelecom.Infrastructure
                     Excel.Range _excelCells187 = (Excel.Range)workSheet2.get_Range("I62", "J62").Cells;
                     Excel.Range _excelCells188 = (Excel.Range)workSheet2.get_Range("F63", "G63").Cells;
                     Excel.Range _excelCells189 = (Excel.Range)workSheet2.get_Range("I63", "J63").Cells;
-
-
 
                     int z1 = 39;
                     int z2 = 39;
@@ -2783,7 +2762,6 @@ namespace ServiceTelecom.Infrastructure
             {
                 Object file = _fileInfo.FullName;
                 Object missing = Type.Missing;
-
                 WordApp.Documents.Open(file);
 
                 foreach (var item in items)
@@ -2842,8 +2820,6 @@ namespace ServiceTelecom.Infrastructure
                 Process[] localByName = Process.GetProcessesByName("winword");
                 foreach (Process p in localByName)
                     p.Kill();
-                //WordApp.ActiveDocument.Close();
-                //WordApp.Quit();
             }
         }
 
@@ -2851,7 +2827,6 @@ namespace ServiceTelecom.Infrastructure
             string dateMaintenance, string check)
         {
             string month2;
-
             string day = string.Empty;
             string day2 = string.Empty;
 

@@ -15,6 +15,7 @@ namespace ServiceTelecom.Infrastructure
         {
             this.SelectedItemsList = this.SelectedItems;
         }
+
         #region SelectedItemsList
 
         public IList SelectedItemsList
@@ -24,7 +25,8 @@ namespace ServiceTelecom.Infrastructure
         }
 
         public static readonly DependencyProperty SelectedItemsListProperty =
-                DependencyProperty.Register("SelectedItemsList", typeof(IList), typeof(CustomDataGrid), new PropertyMetadata(null));
+                DependencyProperty.Register("SelectedItemsList", typeof(IList), 
+                    typeof(CustomDataGrid), new PropertyMetadata(null));
 
         #endregion
     }

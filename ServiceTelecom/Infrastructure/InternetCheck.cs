@@ -6,10 +6,7 @@ namespace ServiceTelecom.Infrastructure
 {
     internal class InternetCheck
     {
-        /// <summary>
-        /// Проверка Интернета
-        /// </summary>
-        /// <returns></returns>
+        /// <summary> Проверка интернета </summary>
         public static bool CheckSkyNET()
         {
             try
