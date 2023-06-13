@@ -12,6 +12,7 @@ namespace ServiceTelecom.Models
         public const string InRepairTechnicalServices = "ремонт";
         public const string PassedTechnicalServices = "прошла проверку";
         public const string InWorkTechnicalServices = "В работе";
+        public const string decommissionRadiostantion = "списана";
 
         public const string UnitMeasureForCheckBox = "1";
 
