@@ -2851,15 +2851,23 @@ namespace ServiceTelecom.Infrastructure
             string dateMaintenance, string check)
         {
             string month2;
+
+            string day = string.Empty;
+            string day2 = string.Empty;
+
             DateTime dateTag = Convert.ToDateTime(dateMaintenance);
             string monthCheckTag = DateTime.DaysInMonth(dateTag.Year, dateTag.Month).ToString();
             if (dateTag.ToString("dd") == monthCheckTag)
                 month2 = dateTag.AddMonths(1).ToString("MM");
             else month2 = dateTag.ToString("MM");
             string month = dateTag.ToString("MM");
-            string day = dateTag.ToString("dd");
+
+            if (check == "РСТ")
+            {
+                day = dateTag.ToString("dd");
+                day2 = dateTag.AddDays(1).ToString("dd");
+            } 
             string year = dateTag.ToString("yyyy");
-            string day2 = dateTag.AddDays(1).ToString("dd");
             string year2 = dateTag.AddYears(1).ToString("yyyy");
             string engineer = string.Empty;
 
