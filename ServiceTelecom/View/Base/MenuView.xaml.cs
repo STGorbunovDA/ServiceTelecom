@@ -30,7 +30,7 @@ namespace ServiceTelecom.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             if (userRepository.SetDateTimeExitUserDataBase(UserModelStatic.Login))
-                Close();
+                Application.Current.Shutdown();
         }
     }
 }
