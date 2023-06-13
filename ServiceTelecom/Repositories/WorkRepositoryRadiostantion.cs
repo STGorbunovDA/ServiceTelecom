@@ -766,6 +766,9 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
                     command.Parameters.AddWithValue($"priceUser",
                         Encryption.EncryptPlainTextToCipherText(UserModelStatic.nullPriceTO));
+                    command.Parameters.AddWithValue($"decommissionUser",
+                        Encryption.EncryptPlainTextToCipherText(
+                            UserModelStatic.decommissionRadiostantion));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -793,6 +796,9 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(city));
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"decommissionUser",
+                       Encryption.EncryptPlainTextToCipherText(
+                           UserModelStatic.InWorkTechnicalServices));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

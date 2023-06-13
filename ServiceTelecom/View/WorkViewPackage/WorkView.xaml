@@ -364,7 +364,9 @@
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Заводской"
                                                 Binding="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                                                Width="180"/>
+                                                Width="180">
+                            
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
                                                 Width="240"
@@ -667,6 +669,13 @@
                     <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
                             Command="{Binding SaveCollectionRadiostationsForDocument}"
                             Content="Сохранить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnAddDecommissionNumberActRadiostationForDocumentInDataBase"
+                            Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"
+                            Content="Списать"
                             Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
