@@ -228,7 +228,13 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource menuButtonStyleEight}">
                         </Button>
-                       
+                        <Button x:Name="btnShowNumberActRepair"
+                            Command="{Binding ShowNumberActRepair}"
+                            Content="👀 ремонты"
+                            Margin ="0,5,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource menuButtonStyleEight}">
+                        </Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="5" Orientation="Vertical"

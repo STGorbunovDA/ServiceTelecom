@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Infrastructure;
+﻿using Google.Protobuf.WellKnownTypes;
+using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -623,6 +624,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintExcelNumberActTechnicalWork { get; }
         public ICommand PrintExcelNumberActRepair { get; }
         public ICommand PrintWordDecommissionNumberAct { get; }
+        public ICommand ShowDecommissioned { get; }
+        public ICommand ShowNumberActRepair { get; }
 
         public WorkViewModel()
         {
@@ -679,20 +682,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
             HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            PrintActs =
-                 new ViewModelCommand(ExecutePrintActsCommand);
+            PrintActs = new ViewModelCommand(ExecutePrintActsCommand);
             PrintExcelNumberActTechnicalWork =
                 new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
             PrintExcelNumberActRepair =
                 new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
             PrintWordDecommissionNumberAct = 
                 new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
+            ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
+            ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
-
 
 
         #region PrintWordDecommissionNumberAct
@@ -1429,6 +1432,38 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 ReserveRadiostationsForDocumentsCollection.Add(item);
             Counters();
             CHECK_HOW_MUCH = false;
+        }
+
+        #endregion
+
+        #region ShowNumberActRepair
+
+        private void ExecuteShowNumberActRepairCommand(object obj)
+        {
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (String.IsNullOrWhiteSpace(
+                    RadiostationsForDocumentsCollection[i].NumberActRepair))
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
+        }
+
+        #endregion
+
+        #region ShowDecommissioned
+
+        private void ExecuteShowDecommissionedCommand(object obj)
+        {
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (String.IsNullOrWhiteSpace(
+                    RadiostationsForDocumentsCollection[i].DecommissionNumberAct))
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
         }
 
         #endregion
