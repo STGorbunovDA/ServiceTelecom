@@ -16,7 +16,7 @@ namespace ServiceTelecom.View
             //_user = user;
         }
 
-        void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
@@ -30,7 +30,7 @@ namespace ServiceTelecom.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             if (userRepository.SetDateTimeExitUserDataBase(UserModelStatic.Login))
-                Close();
+                Application.Current.Shutdown();
         }
     }
 }

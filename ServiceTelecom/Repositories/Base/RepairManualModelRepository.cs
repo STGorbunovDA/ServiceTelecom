@@ -2,7 +2,6 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -48,7 +47,6 @@ namespace ServiceTelecom.Repositories.Base
                         return repairManualRadiostantionsCollections;
                     }
                 }
-
             }
             catch { return repairManualRadiostantionsCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
@@ -61,7 +59,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "AddRepairManualModelRadiostationForDocumentInDB",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -89,7 +86,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "ChangeRepairManualModelRadiostationForDocumentInDB",
                     RepositoryDataBase.GetInstance.GetConnection()))

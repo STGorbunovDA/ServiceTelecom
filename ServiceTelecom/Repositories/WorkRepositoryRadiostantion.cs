@@ -41,8 +41,6 @@ namespace ServiceTelecom.Repositories
                         return cityCollections;
                     }
                 }
-
-
             }
             catch (Exception) { return cityCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
@@ -57,7 +55,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsForDocumentsCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "HowMuchToCheckRadiostantionsByCityForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -113,7 +110,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsForDocumentsCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetFullByRoadRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -145,7 +141,7 @@ namespace ServiceTelecom.Repositories
                                     reader.GetString(33), reader.GetString(34), reader.GetString(35),
                                     reader.GetString(36), reader.GetString(37), reader.GetString(38),
                                     reader.GetString(39), reader.GetString(40), reader.GetString(41));
-                                radiostationsForDocumentsCollection.Add(
+                                    radiostationsForDocumentsCollection.Add(
                                     radiostationForDocumentsDataBaseModels);
                             }
                         }
@@ -168,7 +164,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsForDocumentsCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -202,7 +197,7 @@ namespace ServiceTelecom.Repositories
                                     reader.GetString(33), reader.GetString(34), reader.GetString(35),
                                     reader.GetString(36), reader.GetString(37), reader.GetString(38),
                                     reader.GetString(39), reader.GetString(40), reader.GetString(41));
-                                radiostationsForDocumentsCollection.Add(
+                                    radiostationsForDocumentsCollection.Add(
                                     radiostationForDocumentsDataBaseModels);
                             }
                         }
@@ -617,7 +612,6 @@ namespace ServiceTelecom.Repositories
         public bool ChangeNumberActRepairBySerialNumberInDataBase(
             string road, string city, string serialNumber, string numberActRepair)
         {
-
             try
             {
                 if (!InternetCheck.CheckSkyNET())
@@ -766,6 +760,9 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
                     command.Parameters.AddWithValue($"priceUser",
                         Encryption.EncryptPlainTextToCipherText(UserModelStatic.nullPriceTO));
+                    command.Parameters.AddWithValue($"decommissionUser",
+                        Encryption.EncryptPlainTextToCipherText(
+                            UserModelStatic.decommissionRadiostantion));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -793,6 +790,9 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(city));
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"decommissionUser",
+                       Encryption.EncryptPlainTextToCipherText(
+                           UserModelStatic.InWorkTechnicalServices));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -833,7 +833,6 @@ namespace ServiceTelecom.Repositories
             }
             catch { return numberActRepair; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
-        
+        }     
     }
 }

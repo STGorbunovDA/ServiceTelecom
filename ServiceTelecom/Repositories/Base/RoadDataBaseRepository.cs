@@ -13,7 +13,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return roadCollections;
-
                 using (MySqlCommand command = new MySqlCommand("GetRoadDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {

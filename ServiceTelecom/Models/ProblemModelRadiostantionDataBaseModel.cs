@@ -18,7 +18,6 @@ namespace ServiceTelecom.Models
             Problem = Encryption.DecryptCipherTextToPlainText(problem);
         }
 
-
         public override string ToString()
         {
             return $"{Problem}";

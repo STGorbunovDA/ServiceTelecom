@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Infrastructure;
+﻿using Microsoft.Office.Interop.Excel;
+using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -10,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
@@ -216,6 +218,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _serialNumber = value;
                 OnPropertyChanged(nameof(SerialNumber));
+            }
+        }
+
+        private string _verifiedRST;
+        public string VerifiedRST
+        {
+            get => _verifiedRST;
+            set
+            {
+                _verifiedRST = value;
+                OnPropertyChanged(nameof(VerifiedRST));
             }
         }
 
@@ -460,7 +473,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
         private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
         private RoadDataBaseRepository _roadDataBase;
-        private PrintExcel printExcel;
+        private Print printExcel;
+        private PrintTagTechnicalWorkView printTagTechnicalWorkView;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -621,11 +635,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection { get; }
         public ICommand PrintActs { get; }
         public ICommand PrintExcelNumberActTechnicalWork { get; }
-
         public ICommand PrintExcelNumberActRepair { get; }
+        public ICommand PrintWordDecommissionNumberAct { get; }
+        public ICommand ShowDecommissioned { get; }
+        public ICommand ShowNumberActRepair { get; }
+        public ICommand PrintTagTechnicalWork { get; }
+
         public WorkViewModel()
         {
-            printExcel = new PrintExcel();
+            printExcel = new Print();
             backupCopyRadiostationsForDocumentsCollection =
                 new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
@@ -678,18 +696,73 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
             HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
                 new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            PrintActs =
-                 new ViewModelCommand(ExecutePrintActsCommand);
+            PrintActs = new ViewModelCommand(ExecutePrintActsCommand);
             PrintExcelNumberActTechnicalWork =
                 new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
             PrintExcelNumberActRepair =
                 new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
+            PrintWordDecommissionNumberAct = 
+                new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
+            ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
+            ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
+            PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             Timer();
         }
 
+        #region PrintTagTechnicalWork
+
+        private void ExecutePrintTagTechnicalWorkCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (printTagTechnicalWorkView != null)
+                return;
+
+            UserModelStatic.road = SelectedRadiostation.Road;
+            UserModelStatic.city = SelectedRadiostation.City;
+            printTagTechnicalWorkView = new PrintTagTechnicalWorkView();
+            printTagTechnicalWorkView.Closed += (sender, args) =>
+            printTagTechnicalWorkView = null;
+            printTagTechnicalWorkView.Closed += (sender, args) =>
+            ClearUserModelStaticRoadCitySerialNumber();
+            printTagTechnicalWorkView.Show();
+        }
+
+        #endregion
+
+        #region PrintWordDecommissionNumberAct
+
+        private void ExecutePrintWordDecommissionNumberActCommand(object obj)
+        {
+            if (UserModelStatic.Post == "Дирекция связи")
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+
+            if (PrintNumberActRadiostantionsCollection.Count != 0)
+                PrintNumberActRadiostantionsCollection.Clear();
+
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.DecommissionNumberAct 
+                    == item.DecommissionNumberAct)
+                    PrintNumberActRadiostantionsCollection.Add(item);
+            if (PrintNumberActRadiostantionsCollection.Count == 0)
+                return;
+            if (PrintNumberActRadiostantionsCollection.Count > 1)
+                return;
+
+            new Thread(() =>
+            {
+                printExcel.PrintWordDecommissionNumberAct(
+                PrintNumberActRadiostantionsCollection);
+            })
+            { IsBackground = true }.Start();
+        }
+
+        #endregion
 
         #region PrintExcelNumberActRepair
 
@@ -721,18 +794,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView = new PrintRepairView();
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
-            ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
+            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             printRepairView.Show();
         }
 
 
         #endregion
-
-        private async void ClearRadiostationsForDocumentsMulipleSelectedDataGrid()
-        {
-            await Task.Delay(2000);
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
-        }
 
         #region PrintExcelNumberActTechnicalWork
 
@@ -776,6 +843,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (PrintNumberActRadiostantionsCollection.Count != 0)
                 PrintNumberActRadiostantionsCollection.Clear();
+            
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -826,12 +894,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 printRepairView = new PrintRepairView();
                 printRepairView.Closed += (sender, args) => printRepairView = null;
                 printRepairView.Closed += (sender, args) =>
-                ClearRadiostationsForDocumentsMulipleSelectedDataGrid();
+                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
                 printRepairView.Show();
             }
             if (CmbChoiseSearch == "№ акта списания")
             {
+                if (UserModelStatic.Post == "Дирекция связи")
+                    return;
+                if (CHECK_HOW_MUCH)
+                    return;
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (ChoiсeUniqueValue == item.DecommissionNumberAct)
+                        PrintNumberActRadiostantionsCollection.Add(item);
+                if (PrintNumberActRadiostantionsCollection.Count == 0)
+                    return;
+                if (PrintNumberActRadiostantionsCollection.Count > 1)
+                    return;
 
+                new Thread(() =>
+                {
+                    printExcel.PrintWordDecommissionNumberAct(
+                    PrintNumberActRadiostantionsCollection);
+                })
+                { IsBackground = true }.Start();
             }
         }
 
@@ -1376,6 +1461,38 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region ShowNumberActRepair
+
+        private void ExecuteShowNumberActRepairCommand(object obj)
+        {
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (String.IsNullOrWhiteSpace(
+                    RadiostationsForDocumentsCollection[i].NumberActRepair))
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
+        }
+
+        #endregion
+
+        #region ShowDecommissioned
+
+        private void ExecuteShowDecommissionedCommand(object obj)
+        {
+            for (int i = 0; i < RadiostationsForDocumentsCollection.Count;)
+            {
+                if (String.IsNullOrWhiteSpace(
+                    RadiostationsForDocumentsCollection[i].DecommissionNumberAct))
+                    RadiostationsForDocumentsCollection.
+                        Remove(RadiostationsForDocumentsCollection[i]);
+                else i++;
+            }
+        }
+
+        #endregion
+
         #region SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection
 
         private void SearchByChoiseUniqueValueInRadiostationsForDocumentsCollection(string value)
@@ -1706,7 +1823,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //списаний
             int decommissionNumberActs = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
+                if (item.VerifiedRST == UserModelStatic.decommissionRadiostantion)
                     decommissionNumberActs++;
             CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";
         }

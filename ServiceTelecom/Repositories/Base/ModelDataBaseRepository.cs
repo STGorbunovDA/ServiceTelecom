@@ -84,31 +84,5 @@ namespace ServiceTelecom.Repositories.Base
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
-
-        #region Изменение радиостанции отком. в IModelDataBase
-
-        //public bool ChangeModelDataBase(int dID, string modelUser)
-        //{
-        //    try
-        //    {
-        //        if (!InternetCheck.CheckSkyNET())
-        //            return false;
-        //        using (MySqlCommand command = new MySqlCommand("ChangeModelDataBase",
-        //            RepositoryDataBase.GetInstance.GetConnection()))
-        //        {
-        //            RepositoryDataBase.GetInstance.OpenConnection();
-        //            command.CommandType = CommandType.StoredProcedure;
-        //            command.Parameters.AddWithValue($"dID", dID);
-        //            command.Parameters.AddWithValue($"modelUser",
-        //                Encryption.EncryptPlainTextToCipherText(modelUser));
-        //            if (command.ExecuteNonQuery() == 1) return true;
-        //            else return false;
-        //        }
-        //    }
-        //    catch { return false; }
-        //    finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        //}
-
-        #endregion
     }
 }

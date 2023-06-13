@@ -7,11 +7,7 @@ namespace ServiceTelecom.Infrastructure
     class Encryption
     {
         private const string SecurityKey = "ServiceTelecomGorbunov2015";//TODO убрать кодовое слово в отдельный файл!
-        /// <summary>
-        /// Шифруем
-        /// </summary>
-        /// <param name="PlainText"></param>
-        /// <returns></returns>
+        /// <summary> Шифруем </summary>
         public static string EncryptPlainTextToCipherText(string PlainText)
         {
             if (string.IsNullOrWhiteSpace(PlainText))
@@ -39,11 +35,7 @@ namespace ServiceTelecom.Infrastructure
             objTripleDESCryptoService.Clear();
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
-        /// <summary>
-        /// Дешифруем
-        /// </summary>
-        /// <param name="CipherText"></param>
-        /// <returns></returns>
+        /// <summary> Дешефруем </summary>
         public static string DecryptCipherTextToPlainText(string CipherText)
         {
             if (string.IsNullOrWhiteSpace(CipherText))

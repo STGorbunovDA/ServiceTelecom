@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    public interface IWorkRepositoryRadiostantion
+    internal interface IWorkRepositoryRadiostantion
     {
         /// <summary> Загрузка всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
@@ -108,10 +108,6 @@ namespace ServiceTelecom.Repositories.Interfaces
             string road, string city, string serialNumber);
 
         /// <summary>Получение крайнего ремонта по дороге в radiostantion(рабочая таблица) </summary>
-        string GetOfTheLastNumberActRepair(string road);
-
-        
-
-
+        string GetOfTheLastNumberActRepair(string road);       
     }
 }

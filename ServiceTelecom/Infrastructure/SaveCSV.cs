@@ -134,7 +134,6 @@ namespace ServiceTelecom.Infrastructure
                         sw.Write(value);
                         sw.WriteLine();
                     }
-
                 }
                 MessageBox.Show("Файл успешно сохранен!");
             }
