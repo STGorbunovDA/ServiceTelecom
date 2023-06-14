@@ -1,5 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
-using ServiceTelecom.Infrastructure;
+﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View.WorkViewPackage;
@@ -8,10 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
