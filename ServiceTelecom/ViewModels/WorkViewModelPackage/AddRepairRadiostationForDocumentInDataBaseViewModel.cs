@@ -13,8 +13,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRepairRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
         private RepairManualModelRepository _repairManualModelRepository;
 
         RepairManualView repairManualView = null;
@@ -408,8 +408,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections = 
                 new ObservableCollection<RepairManualRadiostantion>();

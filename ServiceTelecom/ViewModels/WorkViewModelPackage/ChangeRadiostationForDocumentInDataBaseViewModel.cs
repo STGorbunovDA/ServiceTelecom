@@ -12,8 +12,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class ChangeRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
@@ -319,8 +319,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ChangeRadiostationForDocumentInDataBaseViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _modelDataBase = new ModelDataBaseRepository();
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();

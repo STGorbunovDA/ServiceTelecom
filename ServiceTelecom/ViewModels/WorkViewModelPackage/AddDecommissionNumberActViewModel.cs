@@ -8,8 +8,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddDecommissionNumberActViewModel : ViewModelBase
     {
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         private string _road;
         public string Road
@@ -63,8 +63,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public AddDecommissionNumberActViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
                 new ViewModelCommand(
                     ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);

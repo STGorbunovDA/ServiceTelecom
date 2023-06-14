@@ -9,8 +9,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class ChangeNumberActViewModel : ViewModelBase
     {
-        WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        WorkRadiostantionRepository _workRepositoryRadiostantion;
+        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         #region свойства
 
@@ -30,8 +30,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ChangeNumberActRadiostationsForDocumentInDB { get; }
         public ChangeNumberActViewModel() 
         {
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             ChangeNumberActRadiostationsForDocumentInDB =
                 new ViewModelCommand(
                     ExecuteChangeNumberActRadiostationsForDocumentInDBCommand);

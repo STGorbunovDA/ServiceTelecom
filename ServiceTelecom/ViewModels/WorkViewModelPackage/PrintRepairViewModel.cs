@@ -15,7 +15,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         Print printExcel;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         public IList RadiostationsForDocumentsMulipleSelectedDataGrid;
 
@@ -214,7 +214,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public PrintRepairViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             CloseWindowCommand =
                 new ViewModelCommand(ExecuteCloseWindowCommand);
