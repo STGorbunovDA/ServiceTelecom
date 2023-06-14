@@ -16,7 +16,9 @@ namespace ServiceTelecom.ViewModels.Base
         
         private string _problem;
         public string Problem { get => _problem; 
-            set { _problem = value; OnPropertyChanged(nameof(Problem)); } }
+            set { _problem = value; 
+                OnPropertyChanged(nameof(Problem)); } 
+        }
 
         private int _theIndexProblemModelCollection;
         public int TheIndexProblemModelCollection 
@@ -59,7 +61,8 @@ namespace ServiceTelecom.ViewModels.Base
             else
             {
                 Problem = string.Empty;
-                MessageBox.Show("Ошибка удаления проблемы", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка удаления проблемы", "Отмена", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

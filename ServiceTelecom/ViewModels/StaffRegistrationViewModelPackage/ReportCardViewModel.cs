@@ -22,28 +22,33 @@ namespace ServiceTelecom.ViewModels
 
         public string User { get => _user; 
             set { _user = value; 
-                OnPropertyChanged(nameof(User)); } }
+                OnPropertyChanged(nameof(User)); } 
+        }
         public string DateTimeInput { get => _dateTimeInput; 
             set { _dateTimeInput = value; 
-                OnPropertyChanged(nameof(DateTimeInput)); } }
+                OnPropertyChanged(nameof(DateTimeInput)); } 
+        }
 
         public string SelectedItemCmbUser { get => _user; 
             set { _user = value; 
-                OnPropertyChanged(nameof(SelectedItemCmbUser)); } }
+                OnPropertyChanged(nameof(SelectedItemCmbUser)); } 
+        }
         public string SelectedItemDateTimeInput { get => _dateTimeInput; 
             set { _dateTimeInput = value; 
-                OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } }
-
+                OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } 
+        }
 
         private int _theIndexUsersCollection;
         public int TheIndexUsersCollection { get => _theIndexUsersCollection; 
             set { _theIndexUsersCollection = value; 
-                OnPropertyChanged(nameof(TheIndexUsersCollection)); } }
+                OnPropertyChanged(nameof(TheIndexUsersCollection)); } 
+        }
 
         private int _theIndexDateTimeInputCollection;
         public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; 
             set { _theIndexDateTimeInputCollection = value; 
-                OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } }
+                OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } 
+        }
 
         public ReportCardsDataBaseModel SelectedReportCardDataBaseMode
         {

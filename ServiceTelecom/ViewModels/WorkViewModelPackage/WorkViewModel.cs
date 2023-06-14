@@ -1212,6 +1212,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             UserModelStatic.road = SelectedRadiostation.Road;
             UserModelStatic.city = SelectedRadiostation.City;
+            UserModelStatic.model = SelectedRadiostation.Model;
             UserModelStatic.serialNumber = SelectedRadiostation.SerialNumber;
 
             addRepairRadiostationForDocumentInDataBaseView =
@@ -1238,6 +1239,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             UserModelStatic.road = null;
             UserModelStatic.city = null;
+            UserModelStatic.model = null;
             UserModelStatic.serialNumber = null;
         }
 

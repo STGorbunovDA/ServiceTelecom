@@ -1,5 +1,4 @@
 ﻿using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -67,7 +66,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
             _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
+                new ViewModelCommand(
+                    ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
         }
 
         #region AddDecommissionNumberActRadiostationForDocumentInDataBase
@@ -97,7 +97,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepositoryRadiostantionFull.AddDecommissionNumberActRadiostationInDBRadiostationFull(
+            if (_workRepositoryRadiostantionFull.
+                AddDecommissionNumberActRadiostationInDBRadiostationFull(
                 Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
             {}
             else MessageBox.Show($"Ошибка списания радиостанции " +

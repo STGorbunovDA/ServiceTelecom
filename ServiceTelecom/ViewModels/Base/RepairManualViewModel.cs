@@ -196,10 +196,18 @@ namespace ServiceTelecom.ViewModels.Base
                     RepairManualRadiostantionsCollections, UserModelStatic.model);
         }
 
+        #endregion
+
+        #region GetRowAfterAddingRadiostantionInDataGrid
+
         private void GetRowAfterAddingRadiostantionInDataGrid()
         {
             SelectedIndexRepairManualDataGrid = RepairManualRadiostantionsCollections.Count - 1;
         }
+
+        #endregion
+
+        #region GetRowAfterChangeRepairManualInDataGrid
 
         private void GetRowAfterChangeRepairManualInDataGrid(int temporaryIndexDataGrid)
         {

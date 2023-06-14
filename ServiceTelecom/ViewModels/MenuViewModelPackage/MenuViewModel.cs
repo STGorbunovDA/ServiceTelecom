@@ -76,7 +76,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteRegistrationCommand(object obj)
         {
-            if (UserModelStatic.Post == "Admin" || UserModelStatic.Post == "Руководитель")
+            if (UserModelStatic.Post == "Admin" || 
+                UserModelStatic.Post == "Руководитель")
             {
                 if (staffRegistration == null)
                 {

@@ -12,20 +12,34 @@ namespace ServiceTelecom.ViewModels
     internal class AdminViewModel : ViewModelBase
     {
         private int _id;
-        private string _login = string.Empty;
-        private string _password;
-        private string _post;
-        private string _message;
+        public int Id { get => _id; 
+            set { _id = value; 
+                OnPropertyChanged(nameof(Id)); } 
+        }
 
-        public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
+        private string _login = string.Empty;
         public string Login { get => _login; 
-            set { _login = value; OnPropertyChanged(nameof(Login)); } }
+            set { _login = value; 
+                OnPropertyChanged(nameof(Login)); } 
+        }
+
+        private string _password;
         public string Password { get => _password; 
-            set { _password = value; OnPropertyChanged(nameof(Password)); } }
+            set { _password = value; 
+                OnPropertyChanged(nameof(Password)); } 
+        }
+
+        private string _post;
         public string Post { get => _post; 
-            set { _post = value; OnPropertyChanged(nameof(Post)); } }
+            set { _post = value; 
+                OnPropertyChanged(nameof(Post)); } 
+        }
+
+        private string _message;
         public string Message { get => _message; 
-            set { _message = value; OnPropertyChanged(nameof(Message)); } }
+            set { _message = value; 
+                OnPropertyChanged(nameof(Message)); } 
+        }
 
         private UserRepository userRepository;
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
@@ -80,7 +94,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteChangeUserDataBaseCommand(object obj)
         {
-            if (String.IsNullOrWhiteSpace(Login) && String.IsNullOrWhiteSpace(Password)
+            if (String.IsNullOrWhiteSpace(Login) 
+                && String.IsNullOrWhiteSpace(Password)
                 && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 
                 && Password.Length > 22)
             {

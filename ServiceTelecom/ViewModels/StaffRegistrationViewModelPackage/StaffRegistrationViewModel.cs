@@ -25,7 +25,8 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<string> SectionForemanCollection { get; set; } 
         public ObservableCollection<string> EngineerCollection { get; set; } 
         public ObservableCollection<string> CuratorCollection { get; set; } 
-        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } 
+        public ObservableCollection<string> 
+            RadioCommunicationDirectorateCollection { get; set; } 
 
 
         private int _theIndexSectionForemanCollection;
@@ -211,10 +212,14 @@ namespace ServiceTelecom.ViewModels
             _roadDataBase = new RoadDataBaseRepository();
             RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
             GetStaffRegistrationsForUpdate();
-            AddStaffRegistrationDataBase = new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
-            ChangeStaffRegistrationDataBase = new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
-            DeleteStaffRegistrationDataBase = new ViewModelCommand(ExecuteDeleteStaffRegistrationDataBaseCommand);
-            UpdateStaffRegistrationDataBase = new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
+            AddStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
+            ChangeStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
+            DeleteStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteDeleteStaffRegistrationDataBaseCommand);
+            UpdateStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
             ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
         }
 
