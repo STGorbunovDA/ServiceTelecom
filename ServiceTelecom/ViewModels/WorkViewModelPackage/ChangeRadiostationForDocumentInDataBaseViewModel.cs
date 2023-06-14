@@ -297,7 +297,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-
         private int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
@@ -330,17 +329,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ChangeNumberActBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActBySerialNumberInDataBaseCommand);
             ChangeDecommissionNumberActBySerialNumberInDataBase =
-                new ViewModelCommand(ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand);
+                new ViewModelCommand(
+                    ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand);
             ChangeRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
+                new ViewModelCommand(
+                    ExecuteChangeRadiostationForDocumentInDataBaseCommand);
             SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
-                    new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+                    new ViewModelCommand(
+                        ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
             SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase =
-                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
+                new ViewModelCommand(
+                    ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand);
             ChangeByNumberActRepresentativeForDocumentInDataBase =
-                new ViewModelCommand(ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand);
+                new ViewModelCommand(
+                    ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand);
             ChangeByCompanyRepresentativeForDocumentInDataBase =
-                new ViewModelCommand(ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand);
+                new ViewModelCommand(
+                    ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand);
             GetModelDataBase();
         }
 
@@ -578,9 +583,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
+        #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDB
 
-        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand(object obj)
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
@@ -706,7 +711,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            string dateMaintenanceDataBase = Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
+            string dateMaintenanceDataBase = 
+                Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
             if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
@@ -1264,6 +1270,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region GetModelDataBase
+
         private void GetModelDataBase()
         {
             TheIndexModelChoiceCollection = -1;
@@ -1272,5 +1280,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
+
+        #endregion
     }
 }

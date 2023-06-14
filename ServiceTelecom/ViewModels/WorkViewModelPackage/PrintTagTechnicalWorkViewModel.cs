@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -31,7 +30,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-
         public ICommand PrintTagTechnicalWorkRadiostantion { get; }
         public ICommand PrintTagTechnicalWorkManipulator { get; }
         public PrintTagTechnicalWorkViewModel()
@@ -56,15 +54,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (String.IsNullOrWhiteSpace(DateMaintenance))
             {
-                MessageBox.Show("Поле \"Дата\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Поле \"Дата\" не должно быть пустым", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (!Regex.IsMatch(DateMaintenance,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
-                MessageBox.Show("Введите корректно поле \"Дата\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Введите корректно поле \"Дата\"",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -83,15 +81,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (String.IsNullOrWhiteSpace(DateMaintenance))
             {
-                MessageBox.Show("Поле \"Дата\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Поле \"Дата\" не должно быть пустым", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (!Regex.IsMatch(DateMaintenance,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
-                MessageBox.Show("Введите корректно поле \"Дата\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Введите корректно поле \"Дата\"", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
