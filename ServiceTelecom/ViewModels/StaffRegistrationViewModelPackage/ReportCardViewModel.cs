@@ -40,7 +40,6 @@ namespace ServiceTelecom.ViewModels
             set { _theIndexUsersCollection = value; 
                 OnPropertyChanged(nameof(TheIndexUsersCollection)); } }
 
-
         private int _theIndexDateTimeInputCollection;
         public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; 
             set { _theIndexDateTimeInputCollection = value; 
@@ -153,7 +152,8 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-        /// <summary> Получить всё из БД </summary>
+        #region Получить всё из БД
+
         private void GetStaffReportCardsForUpdate()
         {
             if (ReportCards.Count != 0 || DateTimeInputCollections.Count != 0 
@@ -179,5 +179,7 @@ namespace ServiceTelecom.ViewModels
             TheIndexUsersCollection = 0;
             TheIndexDateTimeInputCollection = 0;
         }
+
+        #endregion
     }
 }

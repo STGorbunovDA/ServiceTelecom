@@ -1,18 +1,15 @@
-﻿using Microsoft.Win32;
-using ServiceTelecom.Models;
+﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System.Net;
 using System.Security;
 using System.Windows.Input;
 using ServiceTelecom.View;
 using ServiceTelecom.Infrastructure;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ServiceTelecom.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        //Fields
         private string _username;
         private SecureString _password;
         private string _errorMessage;
@@ -45,8 +42,9 @@ namespace ServiceTelecom.ViewModels
         {
             bool validData;
             if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3 ||
-                    Password == null || Password.Length < 3 || Username.ToLower().Equals("select")
-                    || Username.Length > 22 || Password.Length > 22)
+                    Password == null || Password.Length < 3 || 
+                    Username.ToLower().Equals("select")|| 
+                    Username.Length > 22 || Password.Length > 22)
                 validData = false;
             else validData = true;
             return validData;
@@ -54,11 +52,11 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            UserModelStatic user = userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
+            UserModelStatic user = 
+                userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
             if (user != null)
             {
-                bool flag = userRepository.SetDateTimeUserDataBase(UserModelStatic.Login);
-                if (flag)
+                if (userRepository.SetDateTimeUserDataBase(UserModelStatic.Login))
                 {
                     getSetRegistryServiceTelecomSetting.SetRegistryUser(UserModelStatic.Login);
                     MenuView menu = new MenuView(user);
@@ -66,7 +64,6 @@ namespace ServiceTelecom.ViewModels
                     IsViewVisible = false;
                 }
                 else ErrorMessage = "Invalid set dateTime User DataBase";
-
             }
             else ErrorMessage = "Invalid username or password";
         }
