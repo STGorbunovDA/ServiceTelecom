@@ -3,21 +3,21 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface IWorkRepositoryRadiostantion
+    internal interface IWorkRepositoryRadiostantionRepository
     {
-        /// <summary> Загрузка всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
+        /// <summary> Получение всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
             GetRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city);
         
-        /// <summary> Загрузка всех радиостанций по дороге из radiostantion(рабочей таблице) </summary>
+        /// <summary> Получение всех радиостанций по дороге из radiostantion(рабочей таблице) </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
             GetFullByRoadRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road);
 
-        /// <summary> Загрузка городов из БД по дороге из radiostantion(рабочей таблице) </summary>
+        /// <summary> Получение городов из БД по дороге из radiostantion(рабочей таблице) </summary>
         ObservableCollection<string> GetCityAlongRoadForCityCollection(
             string road,ObservableCollection<string> cityCollections);
 
@@ -34,7 +34,7 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool CheckSerialNumberForDocumentInDataBaseRadiostantion(
             string road, string serialNumber);
 
-        /// <summary>Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel в radiostantion(рабочей таблице) </summary>
+        /// <summary> Проверка наличия более 20 штук Радиостанций в акте по дороге и городу, нужно для формирования документа Excel в radiostantion(рабочей таблице) </summary>
         bool CheckNumberActOverTwentyForDocumentInDataBase(
             string road, string city, string numberAct);
 

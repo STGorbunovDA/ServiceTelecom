@@ -3,29 +3,43 @@ using ServiceTelecom.Repositories;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using System.Windows.Controls;
 using System;
 using System.Collections;
+using System.Windows;
 
 namespace ServiceTelecom.ViewModels
 {
     internal class AdminViewModel : ViewModelBase
     {
         private int _id;
-        private string _login = string.Empty;
-        private string _password;
-        private string _post;
-        private string _message;
+        public int Id { get => _id; 
+            set { _id = value; 
+                OnPropertyChanged(nameof(Id)); } 
+        }
 
-        public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
+        private string _login = string.Empty;
         public string Login { get => _login; 
-            set { _login = value; OnPropertyChanged(nameof(Login)); } }
+            set { _login = value; 
+                OnPropertyChanged(nameof(Login)); } 
+        }
+
+        private string _password;
         public string Password { get => _password; 
-            set { _password = value; OnPropertyChanged(nameof(Password)); } }
+            set { _password = value; 
+                OnPropertyChanged(nameof(Password)); } 
+        }
+
+        private string _post;
         public string Post { get => _post; 
-            set { _post = value; OnPropertyChanged(nameof(Post)); } }
+            set { _post = value; 
+                OnPropertyChanged(nameof(Post)); } 
+        }
+
+        private string _message;
         public string Message { get => _message; 
-            set { _message = value; OnPropertyChanged(nameof(Message)); } }
+            set { _message = value; 
+                OnPropertyChanged(nameof(Message)); } 
+        }
 
         private UserRepository userRepository;
         public ObservableCollection<UserDataBaseModel> Users { get; set; }
@@ -80,14 +94,15 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteChangeUserDataBaseCommand(object obj)
         {
-            if (String.IsNullOrWhiteSpace(Login) && String.IsNullOrWhiteSpace(Password)
-                && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 && Password.Length > 22)
+            if (String.IsNullOrWhiteSpace(Login) 
+                && String.IsNullOrWhiteSpace(Password)
+                && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 
+                && Password.Length > 22)
             {
                 Message = "Error change user's";
                 return;
             }
-            bool flag = userRepository.ChangeUserDataBase(Id, Login, Password, Post);
-            if (flag)
+            if (userRepository.ChangeUserDataBase(Id, Login, Password, Post))
             {
                 Message = "Successfully delete user's";
                 Users.Clear();
@@ -103,7 +118,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteUserDataBaseCommand(object obj)
         {
-            if (UserMulipleSelectedDataGrid == null || UserMulipleSelectedDataGrid.Count == 0)
+            if (UserMulipleSelectedDataGrid == null || 
+                UserMulipleSelectedDataGrid.Count == 0)
                 return;
             foreach (UserDataBaseModel user in UserMulipleSelectedDataGrid)
                 userRepository.DeleteUsersDataBase(user);
@@ -119,23 +135,27 @@ namespace ServiceTelecom.ViewModels
         {
             if (!Login.Contains("-"))
             {
-                if (!Regex.IsMatch(Login, @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+                if (!Regex.IsMatch(Login,
+                    @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
                 {
-                    Message = "Введите корректно поле \"Логин\"P.s. пример: Иванов В.В.";
+                    MessageBox.Show("Введите корректно поле \"Login\" " +
+                        "пример Иванов И.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
             else if (Login.Contains("-"))
             {
-                if (!Regex.IsMatch(Login, @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
+                if (!Regex.IsMatch(Login, 
+                    @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
                 {
-                    //MessageBox.Show("Введите корректно поле \"Логин\"P.s. пример: Иванов-Петров В.В.", "Отмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Message = "Введите корректно поле \"Логин\"P.s. пример: Иванов-Петров В.В.";
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
+                        "пример Иванова-Сидорова Я.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
-            bool flag = userRepository.AddUserDataBase(Login, Password, Post);
-            if (flag)
+            if (userRepository.AddUserDataBase(Login, Password, Post))
             {
                 Message = "Successfully adding a user";
                 Users.Clear();

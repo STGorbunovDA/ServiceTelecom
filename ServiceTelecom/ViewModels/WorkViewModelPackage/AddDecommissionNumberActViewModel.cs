@@ -1,5 +1,4 @@
 ﻿using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -9,8 +8,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddDecommissionNumberActViewModel : ViewModelBase
     {
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         private string _road;
         public string Road
@@ -64,10 +63,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public AddDecommissionNumberActViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
+                new ViewModelCommand(
+                    ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
         }
 
         #region AddDecommissionNumberActRadiostationForDocumentInDataBase
@@ -97,7 +97,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (_workRepositoryRadiostantionFull.AddDecommissionNumberActRadiostationInDBRadiostationFull(
+            if (_workRepositoryRadiostantionFull.
+                AddDecommissionNumberActRadiostationInDBRadiostationFull(
                 Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
             {}
             else MessageBox.Show($"Ошибка списания радиостанции " +

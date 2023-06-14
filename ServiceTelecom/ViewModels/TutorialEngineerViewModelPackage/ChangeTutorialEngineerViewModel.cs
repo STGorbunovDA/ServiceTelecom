@@ -18,8 +18,12 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private ProblemModelRadiostantionRepository _problemModelRadiostantion;
         private TutorialEngineerRepository _tutorialEngineerRepository;
 
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel>
+            ModelCollections
+        { get; set; }
+        public ObservableCollection<ProblemModelRadiostantionDataBaseModel>
+            ProblemModelCollections
+        { get; set; }
 
         private string _idText;
         public string IdText
@@ -74,7 +78,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         public ChangeTutorialEngineerViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            ProblemModelCollections = 
+            ProblemModelCollections =
                 new ObservableCollection<ProblemModelRadiostantionDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
             _problemModelRadiostantion = new ProblemModelRadiostantionRepository();
@@ -84,7 +88,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             AddProblemDataBase = new ViewModelCommand(ExecuteAddProblemDataBaseCommand);
             Clear = new ViewModelCommand(ExecuteClearCommand);
-            ChangeTutorialEngineer = 
+            ChangeTutorialEngineer =
                 new ViewModelCommand(ExecuteChangeTutorialEngineerCommand);
         }
 
@@ -92,8 +96,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 
         private void ExecuteChangeTutorialEngineerCommand(object obj)
         {
-            if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions) 
-                || string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem) 
+            if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions)
+                || string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem)
                 || string.IsNullOrWhiteSpace(UserModelStatic.Login))
                 return;
 
@@ -107,34 +111,43 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
 
             if (_tutorialEngineerRepository.ChangeTutorialEngineer(IdText, Model, Problem,
                 Info, Actions, UserModelStatic.Login))
-                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, 
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
                     MessageBoxImage.Information);
             else
-                MessageBox.Show("Ошибка изменения инструкции", "Отмена", 
+                MessageBox.Show("Ошибка изменения инструкции", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
+
+        #region GetModelDataBase
 
         private void GetModelDataBase()
         {
             TheIndexModelChoiceCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
+            ModelCollections = 
+                _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
+
+        #endregion
+
+        #region GetProblemModelRadiostantion
 
         private void GetProblemModelRadiostantion()
         {
             TheIndexProblemChoiceCollection = -1;
             if (ProblemModelCollections.Count != 0)
                 ProblemModelCollections.Clear();
-            ProblemModelCollections = 
+            ProblemModelCollections =
                 _problemModelRadiostantion.GetProblemModelRadiostantionDataBase(
                     ProblemModelCollections);
             TheIndexProblemChoiceCollection = ProblemModelCollections.Count - 1;
         }
+
+        #endregion
 
         #region Clear
 
@@ -153,9 +166,9 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             if (addProblemModelRadiostantion == null)
             {
                 addProblemModelRadiostantion = new AddProblemModelDataBaseView();
-                addProblemModelRadiostantion.Closed += (sender, args) => 
+                addProblemModelRadiostantion.Closed += (sender, args) =>
                 addProblemModelRadiostantion = null;
-                addProblemModelRadiostantion.Closed += (sender, args) => 
+                addProblemModelRadiostantion.Closed += (sender, args) =>
                 GetProblemModelRadiostantion();
                 addProblemModelRadiostantion.Show();
             }
@@ -170,9 +183,9 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             if (addModelRadiostantion == null)
             {
                 addModelRadiostantion = new AddModelRadiostantionView();
-                addModelRadiostantion.Closed += (sender, args) => 
+                addModelRadiostantion.Closed += (sender, args) =>
                 addModelRadiostantion = null;
-                addModelRadiostantion.Closed += (sender, args) => 
+                addModelRadiostantion.Closed += (sender, args) =>
                 GetModelDataBase();
                 addModelRadiostantion.Show();
             }

@@ -2,7 +2,7 @@
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface IRoadDataBase
+    internal interface IRoadDataBaseRepository
     {
         /// <summary> Получение дорог из БД</summary>
         ObservableCollection<string> GetRoadDataBase(

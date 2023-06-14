@@ -7,7 +7,7 @@ using System.Data;
 
 namespace ServiceTelecom.Repositories.Base
 {
-    internal class ModelDataBaseRepository : IModelRadiostantionDataBaseModel
+    internal class ModelDataBaseRepository : IModelDataBaseRepository
     {
         public ObservableCollection<ModelRadiostantionDataBaseModel> 
             GetModelRadiostantionDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)

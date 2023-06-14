@@ -7,12 +7,12 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class AddRepairRadiostationForDocumentInDataBaseView : Window
     {
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         public AddRepairRadiostationForDocumentInDataBaseView(
             RadiostationForDocumentsDataBaseModel radiostation)
         {
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
 
             InitializeComponent();
 

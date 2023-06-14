@@ -1,6 +1,6 @@
 ﻿namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface IWorkRepositoryRadiostantionFull
+    internal interface IWorkRepositoryRadiostantionFullRepository
     {
         /// <summary>Проверка наличия радиостанции в radiostantionFull(общей таблице)</summary>
         bool CheckSerialNumberForDocumentInDataBaseRadiostantionFull(

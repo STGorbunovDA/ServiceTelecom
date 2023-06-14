@@ -13,12 +13,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class AddRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
 
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationForDocumentsCollection { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> 
+            ModelCollections { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> 
+            RadiostationForDocumentsCollection { get; set; }
 
         #region свойства
 
@@ -300,21 +302,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
             SearchBySerialNumberForFeaturesAdditionsFromTheDatabase =
-                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand);
+                new ViewModelCommand(
+                    ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDBCommand);
             SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase =
-                new ViewModelCommand(ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand);
+                new ViewModelCommand(
+                    ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand);
             GetModelDataBase();
         }
 
         #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
 
-        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabaseCommand(object obj)
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
@@ -341,7 +345,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region SearchBySerialNumberForFeaturesAdditionsFromTheDatabase
 
-        private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
+        private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDBCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
@@ -930,14 +934,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region GetModelDataBase
+
         private void GetModelDataBase()
         {
-            //TheIndexModelChoiceCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
             ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
                 ModelCollections);
-            //TheIndexModelChoiceCollection = 1;
         }
+
+        #endregion
     }
 }

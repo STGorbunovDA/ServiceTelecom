@@ -13,13 +13,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRepairRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
-        private WorkRepositoryRadiostantion _workRepositoryRadiostantion;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        private WorkRadiostantionRepository _workRepositoryRadiostantion;
         private RepairManualModelRepository _repairManualModelRepository;
 
         RepairManualView repairManualView = null;
 
-        private ObservableCollection<RepairManualRadiostantion>
+        public ObservableCollection<RepairManualRadiostantion>
             RepairManualRadiostantionsCollections
         { get; set; }
         public ObservableCollection<string> CompletedWorksCollections { get; set; }
@@ -408,10 +408,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
-            _workRepositoryRadiostantion = new WorkRepositoryRadiostantion();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _repairManualModelRepository = new RepairManualModelRepository();
-            RepairManualRadiostantionsCollections = new ObservableCollection<RepairManualRadiostantion>();
+            RepairManualRadiostantionsCollections = 
+                new ObservableCollection<RepairManualRadiostantion>();
             CompletedWorksCollections = new ObservableCollection<string>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);
@@ -630,7 +631,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "в общую таблицу radiostantionFull", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantionFull.AddRepairRadiostationForDocumentInDBRadiostantionFull(
+            if (_workRepositoryRadiostantionFull.
+                AddRepairRadiostationForDocumentInDBRadiostantionFull(
                 Road, City, SerialNumber, NumberActRepair, Category, PriceRepair,
                 CompletedWorks_1, Parts_1, CompletedWorks_2, Parts_2,
                 CompletedWorks_3, Parts_3, CompletedWorks_4, Parts_4,
@@ -718,6 +720,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
+        #region GetRepairManualRadiostantionsCollections
+
         private void GetRepairManualRadiostantionsCollections()
         {
             if (RepairManualRadiostantionsCollections.Count != 0)
@@ -732,5 +736,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             foreach (var item in RepairManualRadiostantionsCollections)
                 CompletedWorksCollections.Add(item.CompletedWorks);
         }
+
+        #endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ServiceTelecom.Models;
-using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using System;
 using System.Collections;
@@ -30,6 +29,7 @@ namespace ServiceTelecom.ViewModels.Base
                 OnPropertyChanged(nameof(Model));
             }
         }
+
         private string _сompletedWorks;
         public string CompletedWorks
         {
@@ -40,6 +40,7 @@ namespace ServiceTelecom.ViewModels.Base
                 OnPropertyChanged(nameof(CompletedWorks));
             }
         }
+
         private string _parts;
         public string Parts
         {
@@ -61,7 +62,6 @@ namespace ServiceTelecom.ViewModels.Base
                 OnPropertyChanged(nameof(SelectedIndexRepairManualDataGrid));
             }
         }
-
 
         private RepairManualRadiostantion _repairManual;
         public RepairManualRadiostantion SelectedRepairManualRadiostantion
@@ -93,21 +93,23 @@ namespace ServiceTelecom.ViewModels.Base
         public ICommand AddRepairManualModelRadiostationForDocumentInDB { get; }
         public ICommand ChangeRepairManualModelRadiostationForDocumentInDB { get; }
         public ICommand DeleteRepairManualModelRadiostationForDocumentInDB { get; }
+        
         public RepairManualViewModel()
         {
             _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections = 
                 new ObservableCollection<RepairManualRadiostantion>();
             AddRepairManualModelRadiostationForDocumentInDB =
-                new ViewModelCommand(ExecuteAddRepairManualModelRadiostationForDocumentInDBCommand);
+                new ViewModelCommand(
+                    ExecuteAddRepairManualModelRadiostationForDocumentInDBCommand);
             ChangeRepairManualModelRadiostationForDocumentInDB =
-                new ViewModelCommand(ExecuteChangeRepairManualModelRadiostationForDocumentInDBCommand);
+                new ViewModelCommand(
+                    ExecuteChangeRepairManualModelRadiostationForDocumentInDBCommand);
             DeleteRepairManualModelRadiostationForDocumentInDB =
-                 new ViewModelCommand(ExecuteDeleteRepairManualModelRadiostationForDocumentInDBCommand);
+                 new ViewModelCommand(
+                     ExecuteDeleteRepairManualModelRadiostationForDocumentInDBCommand);
             GetRepairManualRadiostantionsCollections();
         }
-
-
 
         #region DeleteRepairManualModelRadiostationForDocumentInDB
 
@@ -122,7 +124,8 @@ namespace ServiceTelecom.ViewModels.Base
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRepairManualDataGrid;
             foreach (RepairManualRadiostantion repairManualRadiostantion
                 in RepairManualMulipleSelectedDataGrid)
-                _repairManualModelRepository.DeleteRepairManualModelRadiostationForDocumentInDB(
+                _repairManualModelRepository.
+                    DeleteRepairManualModelRadiostationForDocumentInDB(
                     repairManualRadiostantion.IdBase);
             GetRepairManualRadiostantionsCollections();
             GetRowAfterChangeRepairManualInDataGrid(TEMPORARY_INDEX_DATAGRID);
@@ -142,7 +145,8 @@ namespace ServiceTelecom.ViewModels.Base
                 || String.IsNullOrWhiteSpace(Parts))
                 return;
             if(SelectedRepairManualRadiostantion == null) return;
-            if (_repairManualModelRepository.ChangeRepairManualModelRadiostationForDocumentInDB(
+            if (_repairManualModelRepository.
+                ChangeRepairManualModelRadiostationForDocumentInDB(
                 SelectedRepairManualRadiostantion.IdBase,
                 Model, CompletedWorks, Parts))
             {
@@ -154,7 +158,6 @@ namespace ServiceTelecom.ViewModels.Base
             }
             else MessageBox.Show("Ошибка изменения", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Error);
-
         }
 
         #endregion
@@ -167,7 +170,8 @@ namespace ServiceTelecom.ViewModels.Base
                 || String.IsNullOrWhiteSpace(CompletedWorks) 
                 || String.IsNullOrWhiteSpace(Parts))
                 return;
-            if(_repairManualModelRepository.AddRepairManualModelRadiostationForDocumentInDB(
+            if(_repairManualModelRepository.
+                AddRepairManualModelRadiostationForDocumentInDB(
                 Model, CompletedWorks, Parts))
             {
                 GetRepairManualRadiostantionsCollections();
@@ -181,6 +185,8 @@ namespace ServiceTelecom.ViewModels.Base
 
         #endregion
 
+        #region GetRepairManualRadiostantionsCollections
+
         private void GetRepairManualRadiostantionsCollections()
         {
             if (RepairManualRadiostantionsCollections.Count != 0)
@@ -189,14 +195,25 @@ namespace ServiceTelecom.ViewModels.Base
                 _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
                     RepairManualRadiostantionsCollections, UserModelStatic.model);
         }
+
+        #endregion
+
+        #region GetRowAfterAddingRadiostantionInDataGrid
+
         private void GetRowAfterAddingRadiostantionInDataGrid()
         {
             SelectedIndexRepairManualDataGrid = RepairManualRadiostantionsCollections.Count - 1;
         }
+
+        #endregion
+
+        #region GetRowAfterChangeRepairManualInDataGrid
+
         private void GetRowAfterChangeRepairManualInDataGrid(int temporaryIndexDataGrid)
         {
             SelectedIndexRepairManualDataGrid = temporaryIndexDataGrid;
         }
 
+        #endregion
     }
 }

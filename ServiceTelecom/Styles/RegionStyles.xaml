@@ -14,8 +14,8 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-        <!--#endregion-->
-    
+    <!--#endregion-->
+
     <!--#region Style ComboBox-->
 
     <Style x:Key="ComboBoxStyle1" TargetType="ComboBox">
@@ -31,25 +31,6 @@
         <Setter Property="SelectedIndex" Value="0"/>
     </Style>
 
-    
-
-    <!--#endregion-->
-
-    <!--#region Style ComboBox Выпадающий-->
-    <Style x:Key="ComboBoxStyle3" TargetType="ComboBox">
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="FontFamily" Value="Unbounded Light"/>
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Margin" Value="0,-3,0,0"/>
-        <Setter Property="IsReadOnly" Value="False"/>
-        <Setter Property="IsEditable" Value="True"/>
-        <Setter Property="TextBlock.TextAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0,6,0,0"/>
-        <Setter Property="SelectedIndex" Value="0"/>
-    </Style>
-    
-    <!--#region Style ComboBox Выпадающий-->
     <Style x:Key="ComboBoxStyle2" TargetType="ComboBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -63,9 +44,23 @@
         <Setter Property="SelectedIndex" Value="0"/>
     </Style>
 
+    <Style x:Key="ComboBoxStyle3" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="Unbounded Light"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,-3,0,0"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+        <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0,6,0,0"/>
+        <Setter Property="SelectedIndex" Value="0"/>
+    </Style>
+
     <!--#endregion-->
 
-    <!--#region Style TextBox5-->
+    <!--#region Style TextBox-->
+
     <Style x:Key="TextBoxStyle5" TargetType="TextBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -78,8 +73,7 @@
         <Setter Property="Padding" Value="0,5,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
-    
-    <!--#region Style TextBox4-->
+
     <Style x:Key="TextBoxStyle4" TargetType="TextBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -92,7 +86,7 @@
         <Setter Property="Padding" Value="0,2,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
-    <!--#region Style TextBox3-->
+
     <Style x:Key="TextBoxStyle3" TargetType="TextBox">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -105,8 +99,7 @@
         <Setter Property="Padding" Value="0,10,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
-    
-    <!--#region Style TextBox2-->
+
     <Style x:Key="TextBoxStyle2" TargetType="TextBox">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -119,8 +112,7 @@
         <Setter Property="Padding" Value="0,10,0,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
-    
-    <!--#region Style TextBox-->
+
     <Style x:Key="TextBoxStyle1" TargetType="TextBox">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -138,8 +130,7 @@
     <!--#endregion-->
 
     <!--#region Style Datagrid-->
-
-    <!--Стиль rows Datagrid-->
+    
     <Style x:Key="DataGridContentCellCentering" TargetType="DataGridCell">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -160,7 +151,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--Стиль rows Datagrid-->
     <Style x:Key="DataGridContentCellCentering2" TargetType="DataGridCell">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Unbounded Light"/>
@@ -181,7 +171,6 @@
         </Style.Triggers>
     </Style>
 
-    <!--1 Стиль DataGrid-->
     <Style x:Key="dataGridStyle" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
@@ -193,7 +182,6 @@
         <Setter Property="RowHeight" Value="35"/>
     </Style>
 
-    <!--2 Стиль DataGrid-->
     <Style x:Key="dataGridStyle2" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
@@ -205,7 +193,6 @@
         <Setter Property="RowHeight" Value="200"/>
     </Style>
     
-    <!--3 Стиль DataGrid-->
     <Style x:Key="dataGridStyle3" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
@@ -217,7 +204,7 @@
         <Setter Property="RowHeight" Value="40"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
     </Style>
-    <!--3 Стиль DataGrid-->
+
     <Style x:Key="dataGridStyle4" TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="Margin" Value="1,0,1,0" />
@@ -230,7 +217,6 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
     </Style>
     
-    <!--Стиль для расположения элемента Colums Text DataGrid-->
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Romul"/>
@@ -541,8 +527,7 @@
     <!--#endregion-->
 
     <!--#region Style RadioButton-->
-
-    <!--Menu RadioButton-->
+    
     <Style x:Key="menuRadioButton" TargetType="RadioButton">
         <!--Normal RadioButton style-->
         <Setter Property="Height" Value="40"/>
@@ -576,7 +561,8 @@
 
     <!--Menu RadioButton icon-->
     <Style x:Key="menuButtonIcom" TargetType="fa:IconImage">
-        <Setter Property="Foreground" Value="{Binding Path=Tag,RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Foreground" Value="{Binding Path=Tag, 
+            RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Margin" Value="10,0,10,0"/>
@@ -584,7 +570,8 @@
 
     <!--Menu RadioButton text-->
     <Style x:Key="menuButtonText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, 
+            RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
         <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontSize" Value="18.5"/>
@@ -595,7 +582,6 @@
 
     <!--#region Style TextBlock-->
    
-    <!--Message TextBlock-->
     <Style x:Key="messageTextBlockStyle1" TargetType="TextBlock">
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontWeight" Value="Medium"/>
@@ -618,6 +604,7 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
+    
     <Style x:Key="messageTextBlockStyle4" TargetType="TextBlock">
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="Medium"/>
@@ -633,6 +620,7 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
+    
     <!--#endregion-->
 
     <!--#region Style DatePickerStyle-->
@@ -990,4 +978,5 @@
     </Style>
 
     <!--#endregion-->
+    
 </ResourceDictionary>

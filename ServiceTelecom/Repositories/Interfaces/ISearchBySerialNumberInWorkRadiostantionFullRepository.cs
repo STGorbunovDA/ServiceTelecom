@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface ISearchBySerialNumberInDatabaseRadiostantionFull
+    internal interface ISearchBySerialNumberInWorkRadiostantionFullRepository
     {
         /// <summary> Поиск радиостанции в БД по дороге, городу и заводскому номеру </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>

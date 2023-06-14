@@ -4,7 +4,6 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.TutorialEngineerViewPackage
 {
-
     public partial class ChangeTutorialEngineerView : Window
     {
         public ChangeTutorialEngineerView(TutorialEngineerDataBaseModel tutorialEngineerDataBase)

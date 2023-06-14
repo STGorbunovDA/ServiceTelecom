@@ -18,75 +18,146 @@ namespace ServiceTelecom.ViewModels
         ReportCardView reportCard = null;
 
         private ObservableCollection<UserDataBaseModel> Users { get; set; }
-        public ObservableCollection<StaffRegistrationDataBaseModel> StaffRegistrations { get; set; } //Получаем Бригады
+        public ObservableCollection<StaffRegistrationDataBaseModel> 
+            StaffRegistrations { get; set; } 
+
         public ObservableCollection<string> RoadCollections { get; }
-        public ObservableCollection<string> SectionForemanCollection { get; set; } // получаем начальников для Combobox
-        public ObservableCollection<string> EngineerCollection { get; set; } // получаем инженеров для Combobox
-        public ObservableCollection<string> CuratorCollection { get; set; } // получаем кураторов для Combobox
-        public ObservableCollection<string> RadioCommunicationDirectorateCollection { get; set; } // получаем представителей дирекции связи для Combobox
+        public ObservableCollection<string> SectionForemanCollection { get; set; } 
+        public ObservableCollection<string> EngineerCollection { get; set; } 
+        public ObservableCollection<string> CuratorCollection { get; set; } 
+        public ObservableCollection<string> 
+            RadioCommunicationDirectorateCollection { get; set; } 
+
 
         private int _theIndexSectionForemanCollection;
-        public int TheIndexSectionForemanCollection { get => _theIndexSectionForemanCollection; set { _theIndexSectionForemanCollection = value; OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } }
+        public int TheIndexSectionForemanCollection { 
+            get => _theIndexSectionForemanCollection; 
+            set { _theIndexSectionForemanCollection = value; 
+                OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } 
+        }
 
         private int _theIndexEngineerCollection;
-        public int TheIndexEngineerCollection { get => _theIndexEngineerCollection; set { _theIndexEngineerCollection = value; OnPropertyChanged(nameof(TheIndexEngineerCollection)); } }
+        public int TheIndexEngineerCollection {
+            get => _theIndexEngineerCollection; 
+            set { _theIndexEngineerCollection = value; 
+                OnPropertyChanged(nameof(TheIndexEngineerCollection)); } 
+        }
 
         private int _theIndexCuratorCollection;
-        public int TheIndexCuratorCollection { get => _theIndexCuratorCollection; set { _theIndexCuratorCollection = value; OnPropertyChanged(nameof(TheIndexCuratorCollection)); } }
+        public int TheIndexCuratorCollection { 
+            get => _theIndexCuratorCollection; 
+            set { _theIndexCuratorCollection = value; 
+                OnPropertyChanged(nameof(TheIndexCuratorCollection)); } 
+        }
 
         private int _theIndexRadioCommunicationDirectorateCollection;
-        public int TheIndexRadioCommunicationDirectorateCollection { get => _theIndexRadioCommunicationDirectorateCollection; set { _theIndexRadioCommunicationDirectorateCollection = value; OnPropertyChanged(nameof(TheIndexRadioCommunicationDirectorateCollection)); } }
+        public int TheIndexRadioCommunicationDirectorateCollection { 
+            get => _theIndexRadioCommunicationDirectorateCollection; 
+            set { _theIndexRadioCommunicationDirectorateCollection = value; 
+                OnPropertyChanged(nameof(TheIndexRadioCommunicationDirectorateCollection)); } 
+        }
+
+        #region свойства
 
         private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+        }
+
         private string _sectionForeman;
+        public string SectionForeman
+        {
+            get => _sectionForeman;
+            set
+            {
+                _sectionForeman = value;
+                OnPropertyChanged(nameof(SectionForeman));
+            }
+        }
         private string _engineer;
+        public string Engineer
+        {
+            get => _engineer;
+            set
+            {
+                _engineer = value;
+                OnPropertyChanged(nameof(Engineer));
+            }
+        }
+
         private string _road;
+        public string Road
+        {
+            get => _road;
+            set
+            {
+                _road = value;
+                OnPropertyChanged(nameof(Road));
+            }
+        }
+
         private string _curator;
+        public string Curator
+        {
+            get => _curator;
+            set
+            {
+                _curator = value;
+                OnPropertyChanged(nameof(Curator));
+            }
+        }
+
         private string _radioCommunicationDirectorate;
+        public string RadioCommunicationDirectorate
+        {
+            get => _radioCommunicationDirectorate;
+            set
+            {
+                _radioCommunicationDirectorate = value;
+                OnPropertyChanged(nameof(RadioCommunicationDirectorate));
+            }
+        }
+
         private string _attorney;
+        public string Attorney
+        {
+            get => _attorney;
+            set
+            {
+                _attorney = value;
+                OnPropertyChanged(nameof(Attorney));
+            }
+        }
+
         private string _numberPrintDocument;
+        public string NumberPrintDocument
+        {
+            get => _numberPrintDocument;
+            set
+            {
+                _numberPrintDocument = value;
+                OnPropertyChanged(nameof(NumberPrintDocument));
+            }
+        }
+
         private string _message;
-        public int Id { get => _id; set { _id = value; OnPropertyChanged(nameof(Id)); } }
-        public string SectionForeman { 
-            get => _sectionForeman; 
-            set { _sectionForeman = value; 
-                OnPropertyChanged(nameof(SectionForeman)); } 
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged(nameof(Message));
+            }
         }
-        public string Engineer { 
-            get => _engineer; 
-            set { _engineer = value; 
-                OnPropertyChanged(nameof(Engineer)); } 
-        }
-        public string Road { 
-            get => _road; 
-            set { _road = value; 
-                OnPropertyChanged(nameof(Road)); } 
-        }
-        public string Curator { 
-            get => _curator; 
-            set { _curator = value; 
-                OnPropertyChanged(nameof(Curator)); } 
-        }
-        public string RadioCommunicationDirectorate { 
-            get => _radioCommunicationDirectorate; 
-            set { _radioCommunicationDirectorate = value; 
-                OnPropertyChanged(nameof(RadioCommunicationDirectorate)); } 
-        }
-        public string Attorney { 
-            get => _attorney; 
-            set { _attorney = value; 
-                OnPropertyChanged(nameof(Attorney)); } 
-        }
-        public string NumberPrintDocument { 
-            get => _numberPrintDocument; 
-            set { _numberPrintDocument = value; 
-                OnPropertyChanged(nameof(NumberPrintDocument)); } 
-        }
-        public string Message { 
-            get => _message; 
-            set { _message = value; 
-                OnPropertyChanged(nameof(Message)); } 
-        }
+
+        #endregion
 
         public ICommand AddStaffRegistrationDataBase { get; }
         public ICommand ChangeStaffRegistrationDataBase { get; }
@@ -141,10 +212,14 @@ namespace ServiceTelecom.ViewModels
             _roadDataBase = new RoadDataBaseRepository();
             RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
             GetStaffRegistrationsForUpdate();
-            AddStaffRegistrationDataBase = new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
-            ChangeStaffRegistrationDataBase = new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
-            DeleteStaffRegistrationDataBase = new ViewModelCommand(ExecuteDeleteStaffRegistrationDataBaseCommand);
-            UpdateStaffRegistrationDataBase = new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
+            AddStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
+            ChangeStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteChangeStaffRegistrationDataBaseCommand);
+            DeleteStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteDeleteStaffRegistrationDataBaseCommand);
+            UpdateStaffRegistrationDataBase = 
+                new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
             ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
         }
 
@@ -224,7 +299,8 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-        /// <summary> Проверка ввода значений пользователя </summary>
+        #region Проверка ввода значений пользователя
+
         private bool CheckingUserInputValues()
         {
             if (string.IsNullOrWhiteSpace(SectionForeman) 
@@ -234,7 +310,8 @@ namespace ServiceTelecom.ViewModels
                 || string.IsNullOrWhiteSpace(Attorney) 
                 || string.IsNullOrWhiteSpace(NumberPrintDocument))
                 return false;
-            if (!Regex.IsMatch(Attorney, @"^[0-9]{1,}[\/][0-9]{1,}[\s][о][т][\s][0-9]{2,2}[\.][0-9]{2,2}[\.][2][0][0-9]{2,2}[\s][г][о][д][а]$"))
+            if (!Regex.IsMatch(Attorney, 
+                @"^[0-9]{1,}[\/][0-9]{1,}[\s][о][т][\s][0-9]{2,2}[\.][0-9]{2,2}[\.][2][0][0-9]{2,2}[\s][г][о][д][а]$"))
             {
                 MessageBox.Show("Введите корректно \"Доверенность\"\n" +
                     "P.s. Пример: 53/53 от 10.01.2023 года", "Отмена",
@@ -253,7 +330,10 @@ namespace ServiceTelecom.ViewModels
             return true;
         }
 
-        /// <summary> Получаем данные о регистрации персонала для Обновления </summary>
+        #endregion
+
+        #region Получаем данные о регистрации персонала для Обновления
+
         private void GetStaffRegistrationsForUpdate()
         {
             if (StaffRegistrations.Count != 0 || Users.Count != 0 
@@ -304,5 +384,7 @@ namespace ServiceTelecom.ViewModels
             TheIndexCuratorCollection = 0;
             TheIndexRadioCommunicationDirectorateCollection = 0;
         }
+
+        #endregion
     }
 }

@@ -15,8 +15,10 @@ namespace ServiceTelecom.ViewModels
         TutorialEngineerDataBaseModel _tutorialEngineer;
         AddTutorialEngineerView addTutorial = null;
         ChangeTutorialEngineerView changeTutorial = null;
-        public ObservableCollection<TutorialEngineerDataBaseModel> TutorialsEngineer { get; set; }
-        public ObservableCollection<TutorialEngineerDataBaseModel> TemporaryTutorialsEngineer { get; set; }
+        public ObservableCollection<TutorialEngineerDataBaseModel> 
+            TutorialsEngineer { get; set; }
+        public ObservableCollection<TutorialEngineerDataBaseModel> 
+            TemporaryTutorialsEngineer { get; set; }
         public ObservableCollection<string> UserChoice { get; set; }
 
         private int _idTutorialEngineer;
@@ -280,7 +282,8 @@ namespace ServiceTelecom.ViewModels
 
         #endregion
 
-        /// <summary> Получить методички из БД </summary>
+        #region Получить методички из БД
+
         private void GetTutorialsEngineerForUpdate()
         {
             if (TutorialsEngineer.Count != 0 || UserChoice.Count != 0)
@@ -291,5 +294,7 @@ namespace ServiceTelecom.ViewModels
             TutorialsEngineer = tutorialEngineerRepository.GetTutorialsEngineerDataBase(
                 TutorialsEngineer);
         }
+
+        #endregion
     }
 }

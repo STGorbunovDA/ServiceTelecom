@@ -15,7 +15,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         Print printExcel;
-        private WorkRepositoryRadiostantionFull _workRepositoryRadiostantionFull;
+        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
 
         public IList RadiostationsForDocumentsMulipleSelectedDataGrid;
 
@@ -212,10 +212,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ContinuePrintRepair { get; }
         public ICommand CloseWindowCommand { get; }
 
-
         public PrintRepairViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRepositoryRadiostantionFull();
+            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             CloseWindowCommand =
                 new ViewModelCommand(ExecuteCloseWindowCommand);
@@ -299,69 +298,69 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (String.IsNullOrWhiteSpace(FullNameCompany))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Полное наименование предприятия\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Полное наименование предприятия\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (String.IsNullOrWhiteSpace(ChiefСompanyFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Руководитель ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(ChiefСompanyPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Руководитель Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(ChairmanСompanyFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Председатель ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(ChairmanСompanyPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Председатель Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(FirstMemberCommissionFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(FirstMemberCommissionPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(SecondMemberCommissionFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(SecondMemberCommissionPost))
             {
                 MessageBox.Show(
-                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", "Отмена",
-                      MessageBoxButton.OK, MessageBoxImage.Error);
+                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", 
+                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -370,16 +369,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(ThirdMemberCommissionFIO))
                 {
                     MessageBox.Show(
-                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", "Отмена",
-                         MessageBoxButton.OK, MessageBoxImage.Error);
+                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", 
+                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
 
                 }
                 if (String.IsNullOrWhiteSpace(ThirdMemberCommissionPost))
                 {
                     MessageBox.Show(
-                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", "Отмена",
-                          MessageBoxButton.OK, MessageBoxImage.Error);
+                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", 
+                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -501,69 +500,69 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (String.IsNullOrWhiteSpace(FullNameCompany))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Полное наименование предприятия\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Полное наименование предприятия\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (String.IsNullOrWhiteSpace(ChiefСompanyFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Руководитель ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(ChiefСompanyPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Руководитель Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(ChairmanСompanyFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Председатель ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(ChairmanСompanyPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"Председатель Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(FirstMemberCommissionFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(FirstMemberCommissionPost))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (String.IsNullOrWhiteSpace(SecondMemberCommissionFIO))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
             }
             if (String.IsNullOrWhiteSpace(SecondMemberCommissionPost))
             {
                 MessageBox.Show(
-                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", "Отмена",
-                      MessageBoxButton.OK, MessageBoxImage.Error);
+                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", 
+                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             //На случай третьего председателя комиссии
@@ -572,16 +571,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(ThirdMemberCommissionFIO))
                 {
                     MessageBox.Show(
-                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", "Отмена",
-                         MessageBoxButton.OK, MessageBoxImage.Error);
+                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", 
+                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
 
                 }
                 if (String.IsNullOrWhiteSpace(ThirdMemberCommissionPost))
                 {
                     MessageBox.Show(
-                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", "Отмена",
-                          MessageBoxButton.OK, MessageBoxImage.Error);
+                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", 
+                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }

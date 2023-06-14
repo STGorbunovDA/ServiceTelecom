@@ -18,8 +18,10 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         private ProblemModelRadiostantionRepository _problemModelRadiostantion;
         private TutorialEngineerRepository _tutorialEngineerRepository;
 
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
-        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> ProblemModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> 
+            ModelCollections { get; set; }
+        public ObservableCollection<ProblemModelRadiostantionDataBaseModel> 
+            ProblemModelCollections { get; set; }
 
         private string _model;
         public string Model
@@ -102,6 +104,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             AddTutorialEngineer = new ViewModelCommand(ExecuteAddTutorialEngineerCommand);
         }
 
+        #region GetModelDataBase
+
         private void GetModelDataBase()
         {
             TheIndexModelChoiceCollection = -1;
@@ -111,6 +115,10 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
                 _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
+
+        #endregion
+
+        #region GetProblemModelRadiostantion
 
         private void GetProblemModelRadiostantion()
         {
@@ -122,6 +130,8 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
                     ProblemModelCollections);
             TheIndexProblemChoiceCollection = ProblemModelCollections.Count - 1;
         }
+
+        #endregion
 
         #region AddTutorialEngineer
 

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class RoadDataBaseRepository : IRoadDataBase
+    internal class RoadDataBaseRepository : IRoadDataBaseRepository
     {
         public ObservableCollection<string> GetRoadDataBase(ObservableCollection<string> roadCollections)
         {

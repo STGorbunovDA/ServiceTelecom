@@ -6,7 +6,6 @@ namespace ServiceTelecom.View
 {
     public partial class AdminView : Window
     {
-
         public AdminView()
         {
             InitializeComponent();
