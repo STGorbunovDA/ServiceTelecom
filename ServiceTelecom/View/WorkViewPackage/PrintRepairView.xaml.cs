@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -70,12 +69,7 @@ namespace ServiceTelecom.View.WorkViewPackage
         private void PrintRepairView_Loader(object sender, RoutedEventArgs e)
         {
             if (DataContext is ICloseWindows vm)
-            {
-                vm.Close += () =>
-                {
-                    this.Close();
-                };
-            }
+                vm.Close += () =>{ Close();};
         }
     }
 }

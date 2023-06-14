@@ -14,7 +14,6 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
 
-
             foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
             {
                 if(road == item.RoadBase)

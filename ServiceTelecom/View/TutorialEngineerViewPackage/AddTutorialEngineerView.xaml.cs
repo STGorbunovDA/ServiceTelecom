@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.TutorialEngineerViewPackage
 {
-    /// <summary>
-    /// Логика взаимодействия для AddTutorialEngineerView.xaml
-    /// </summary>
     public partial class AddTutorialEngineerView : Window
     {
         public AddTutorialEngineerView()

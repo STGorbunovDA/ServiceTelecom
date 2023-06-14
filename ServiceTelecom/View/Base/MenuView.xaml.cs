@@ -8,12 +8,10 @@ namespace ServiceTelecom.View
     public partial class MenuView : Window
     {
         UserRepository userRepository;
-        //UserModel _user;
         public MenuView(UserModelStatic user)
         {
             userRepository = new UserRepository();
             InitializeComponent();
-            //_user = user;
         }
 
         void Window_MouseDown(object sender, MouseButtonEventArgs e)

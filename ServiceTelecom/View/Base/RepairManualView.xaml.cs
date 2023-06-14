@@ -3,9 +3,6 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.Base
 {
-    /// <summary>
-    /// Логика взаимодействия для RepairManualView.xaml
-    /// </summary>
     public partial class RepairManualView : Window
     {
         public RepairManualView(string model)

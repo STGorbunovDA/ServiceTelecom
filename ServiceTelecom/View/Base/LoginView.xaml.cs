@@ -3,9 +3,6 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginView.xaml
-    /// </summary>
     public partial class LoginView : Window
     {
         public LoginView()
@@ -27,7 +24,6 @@ namespace ServiceTelecom.View
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-        
+        }       
     }
 }

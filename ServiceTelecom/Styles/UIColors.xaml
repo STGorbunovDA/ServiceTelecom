@@ -20,8 +20,6 @@
     <SolidColorBrush x:Key="titleFontColor4">#D75596</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor5">#0D0C0C</SolidColorBrush>
 
-    
-    
     <!--Button Colors-->
     <SolidColorBrush x:Key="buttonFontColor1">#00C3FA</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor2">#72DEFD</SolidColorBrush>
@@ -37,4 +35,5 @@
     <SolidColorBrush x:Key="buttonFontColor13">#0185d8</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor14">#B3ECFF</SolidColorBrush>
     <SolidColorBrush x:Key="buttonFontColor15">#75ddff</SolidColorBrush>
+    
 </ResourceDictionary>

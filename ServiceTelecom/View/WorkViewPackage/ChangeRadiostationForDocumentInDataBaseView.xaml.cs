@@ -60,7 +60,6 @@ namespace ServiceTelecom.View.WorkViewPackage
 
             if (string.IsNullOrWhiteSpace(selectedRadiostation.DecommissionNumberAct))
                 txbDecommissionNumberAct.IsReadOnly = true;
-
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
