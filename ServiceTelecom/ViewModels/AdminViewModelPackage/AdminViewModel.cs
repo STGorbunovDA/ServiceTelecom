@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System;
 using System.Collections;
+using System.Windows;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -80,13 +81,13 @@ namespace ServiceTelecom.ViewModels
         private void ExecuteChangeUserDataBaseCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(Login) && String.IsNullOrWhiteSpace(Password)
-                && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 && Password.Length > 22)
+                && Login.Length < 3 && Password.Length < 3 && Login.Length > 22 
+                && Password.Length > 22)
             {
                 Message = "Error change user's";
                 return;
             }
-            bool flag = userRepository.ChangeUserDataBase(Id, Login, Password, Post);
-            if (flag)
+            if (userRepository.ChangeUserDataBase(Id, Login, Password, Post))
             {
                 Message = "Successfully delete user's";
                 Users.Clear();
@@ -102,7 +103,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteDeleteUserDataBaseCommand(object obj)
         {
-            if (UserMulipleSelectedDataGrid == null || UserMulipleSelectedDataGrid.Count == 0)
+            if (UserMulipleSelectedDataGrid == null || 
+                UserMulipleSelectedDataGrid.Count == 0)
                 return;
             foreach (UserDataBaseModel user in UserMulipleSelectedDataGrid)
                 userRepository.DeleteUsersDataBase(user);
@@ -118,23 +120,27 @@ namespace ServiceTelecom.ViewModels
         {
             if (!Login.Contains("-"))
             {
-                if (!Regex.IsMatch(Login, @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+                if (!Regex.IsMatch(Login,
+                    @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
                 {
-                    Message = "Введите корректно поле \"Логин\"P.s. пример: Иванов В.В.";
+                    MessageBox.Show("Введите корректно поле \"Login\" " +
+                        "пример Иванов И.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
             else if (Login.Contains("-"))
             {
-                if (!Regex.IsMatch(Login, @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
+                if (!Regex.IsMatch(Login, 
+                    @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
                 {
-                    //MessageBox.Show("Введите корректно поле \"Логин\"P.s. пример: Иванов-Петров В.В.", "Отмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Message = "Введите корректно поле \"Логин\"P.s. пример: Иванов-Петров В.В.";
+                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
+                        "пример Иванова-Сидорова Я.И.", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
-            bool flag = userRepository.AddUserDataBase(Login, Password, Post);
-            if (flag)
+            if (userRepository.AddUserDataBase(Login, Password, Post))
             {
                 Message = "Successfully adding a user";
                 Users.Clear();

@@ -11,21 +11,27 @@ namespace ServiceTelecom.ViewModels.Base
     {
         private ModelRadiostantionDataBaseModel _modelRadiostantion;
         private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelCollections { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> 
+            ModelCollections { get; set; }
 
         private string _model;
         public string Model { get => _model; 
             set { _model = value; OnPropertyChanged(nameof(Model)); } }
 
         private int _theIndexModelCollection;
-        public int TheIndexModelCollection { get => _theIndexModelCollection; set { _theIndexModelCollection = value; OnPropertyChanged(nameof(TheIndexModelCollection)); } }
+        public int TheIndexModelCollection { 
+            get => _theIndexModelCollection; 
+            set { _theIndexModelCollection = value; 
+                OnPropertyChanged(nameof(TheIndexModelCollection)); } 
+        }
         public ICommand AddModelDataBase { get; }
         public ICommand DeleteModelDataBase { get; }
 
         public ModelRadiostantionDataBaseModel SelectedModelRadiostantion
         {
             get => _modelRadiostantion;
-            set { _modelRadiostantion = value; OnPropertyChanged(nameof(SelectedModelRadiostantion)); }
+            set { _modelRadiostantion = value; 
+                OnPropertyChanged(nameof(SelectedModelRadiostantion)); }
         }
 
         public AddModelRadiostantionViewModel()
@@ -43,12 +49,12 @@ namespace ServiceTelecom.ViewModels.Base
         {
             if (ModelCollections.Count <= 0 && string.IsNullOrWhiteSpace(Model))
                 return;
-            bool flag = _modelDataBase.DeleteModelDataBase(Model);
-            if (flag) GetModelDataBaseForUpdate();
+            if (_modelDataBase.DeleteModelDataBase(Model)) GetModelDataBaseForUpdate();
             else
             {
                 Model = string.Empty;
-                MessageBox.Show("Ошибка удаления модели", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка удаления модели", "Отмена", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -62,21 +68,25 @@ namespace ServiceTelecom.ViewModels.Base
             var result = ModelCollections.FirstOrDefault(s => s.Model == Model);
             if (result != null)
                 return;
-            bool flag = _modelDataBase.AddModelDataBase(Model);
-            if (flag) GetModelDataBaseForUpdate();
-            
-            else MessageBox.Show("Ошибка добавления модели", "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (_modelDataBase.AddModelDataBase(Model)) GetModelDataBaseForUpdate();
+            else MessageBox.Show("Ошибка добавления модели", "Отмена", 
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
+
+        #region GetModelDataBaseForUpdate
 
         private void GetModelDataBaseForUpdate()
         {
             TheIndexModelCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
+            ModelCollections = _modelDataBase.
+                GetModelRadiostantionDataBase(ModelCollections);
             TheIndexModelCollection = ModelCollections.Count;
         }
+
+        #endregion
     }
 }
