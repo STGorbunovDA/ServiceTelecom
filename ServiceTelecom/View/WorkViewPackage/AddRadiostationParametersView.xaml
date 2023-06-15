@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
         Title="Рабочая форма" Height="700" Width="1200"
@@ -38,10 +39,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="290"/>
+                <RowDefinition Height="280"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
                 <Image Source="/Images/logo.png" 
@@ -118,7 +119,11 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
-                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="800"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="140"/>
                         <RowDefinition Height="140"/>
@@ -127,7 +132,7 @@
                         <ColumnDefinition Width="800"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0">
+                    <Grid>
                         <DockPanel Margin="6">
                             <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
@@ -263,7 +268,7 @@
                             </Border>
                         </DockPanel>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Grid.Column="0">
                         <DockPanel Margin="6">
                             <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
@@ -400,7 +405,62 @@
                             </Border>
                         </DockPanel>
                     </Grid>
-                    
+                </Grid>
+                <Grid Grid.Column="1">
+                    <DockPanel Margin="6">
+                        <Border CornerRadius="6"
+                            BorderBrush="{StaticResource titleFontColor3}" 
+                            Background="{StaticResource titleFontColor6}" 
+                            BorderThickness="2" 
+                            DockPanel.Dock="Top">
+                            <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0">
+                                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0">
+                                    <ComboBox x:Name="cmbFrequency"
+                                  Height="35"
+                                  Width="320"
+                                  Style="{StaticResource ComboBoxStyle2}"
+                                  ItemsSource="{Binding FrequencyCollections}"
+                                  SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
+                                  Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <ComboBox.Resources>
+                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+                                        </ComboBox.Resources>
+                                    </ComboBox>
+                                    <CheckBox 
+                                Name="CheckBoxRepeater"
+                                Style="{StaticResource CheckBoxStyle1}"
+                                IsChecked="{Binding CheckBoxRepeater}"
+                                Margin="10,3,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0">
+                                    <TextBox x:Name="txbFrequenciesTransmitter"
+                                            Height="180"
+                                            Width="180"
+                                            Margin="0,0,0,0"
+                                            Style="{StaticResource TextBoxStyle6}"
+                                            Text="{Binding FrequenciesTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    </TextBox>
+                                    <TextBox x:Name="txbFrequenciesReceiver"
+                                            Height="180"
+                                            Width="180"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource TextBoxStyle6}"
+                                            Text="{Binding FrequenciesReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DockPanel>
+
                 </Grid>
             </Grid>
         </Grid>
