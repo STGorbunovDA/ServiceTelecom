@@ -19,6 +19,7 @@
     <SolidColorBrush x:Key="titleFontColor3">#75ddff</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor4">#D75596</SolidColorBrush>
     <SolidColorBrush x:Key="titleFontColor5">#0D0C0C</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor6">#B3ECFF</SolidColorBrush>
 
     <!--Button Colors-->
     <SolidColorBrush x:Key="buttonFontColor1">#00C3FA</SolidColorBrush>
