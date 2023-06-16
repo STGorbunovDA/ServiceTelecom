@@ -70,6 +70,8 @@
         <Setter Property="BorderThickness" Value="0,0,0,4"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Padding" Value="0,5,0,0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
     </Style>
     
     <Style x:Key="TextBoxStyle5" TargetType="TextBox">
