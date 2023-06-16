@@ -39,7 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="280"/>
+                <RowDefinition Height="240"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -127,8 +127,8 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="140"/>
-                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="770"/>
@@ -418,62 +418,83 @@
                             <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Margin="0,10,0,0">
-                                <TextBlock Text="Дежурный режим, м.А"
+                                Margin="0,0,0,0">
+                                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                            Margin="0,20,0,0">
+                                    <TextBlock Text="Дежурн. режим :"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 VerticalAlignment="Center">
-                                </TextBlock>
-                                <TextBox x:Name="txbStandbyModeCurrentConsumption"
+                                    </TextBlock>
+                                    <TextBox x:Name="txbStandbyModeCurrentConsumption"
                                             HorizontalAlignment="Center"
                                             Height="35"
                                             Width="80"
-                                            Margin="0,5,0,0"
+                                            Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding StandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                </TextBox>
-                                <TextBlock Text="Режим приём, м.А"
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,10,0,0">
+                                    <TextBlock Text="Режим приём:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                </TextBlock>
-                                <TextBox x:Name="txbReceptionModeCurrentConsumption"
+                                    </TextBlock>
+                                    <TextBox x:Name="txbReceptionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
-                                            Margin="0,5,0,0"
+                                            Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding ReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                </TextBox>
-                                <TextBlock Text="Режим передачи, А"
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,45,0,0">
+                                    <TextBlock Text="Режим передачи:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                </TextBlock>
-                                <TextBox x:Name="txbTransmissionModeCurrentConsumption"
+                                    </TextBlock>
+                                    <TextBox x:Name="txbTransmissionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
-                                            Margin="0,5,0,0"
+                                            Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding TransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                </TextBox>
-                                <TextBlock Text="Разряд АКБ, В:"
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,10,0,0">
+                                    <TextBlock Text="Разряд АКБ:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                </TextBlock>
-                                <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
+                                    </TextBlock>
+                                    <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
-                                            Margin="0,5,0,0"
+                                            Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding BatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                </TextBox>
+                                    </TextBox>
+                                </StackPanel>
+                                    
                             </StackPanel>
                         </Border>
                     </DockPanel>
