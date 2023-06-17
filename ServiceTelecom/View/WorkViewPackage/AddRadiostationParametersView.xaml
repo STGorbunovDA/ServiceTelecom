@@ -94,25 +94,21 @@
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="0,0,0,0">
-                        Motorola GP-340
                     </TextBlock>
                     <TextBlock Text="{Binding SerialNumber}"
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="20,0,0,0">
-                        672TMNT890
                     </TextBlock>
                     <TextBlock Text="{Binding Company}"
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="20,0,0,0">
-                        ВЧДЭ-13
                     </TextBlock>
                     <TextBlock Text="{Binding NumberAct}"
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="20,0,0,0">
-                        53/240
                     </TextBlock>
 
                 </StackPanel>
