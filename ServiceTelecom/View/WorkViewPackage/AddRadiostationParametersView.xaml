@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="Рабочая форма" Height="700" Width="1330"
+        Title="Рабочая форма" Height="530" Width="1330"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -40,9 +40,8 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="240"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="180"/>
             </Grid.RowDefinitions>
-
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
                 <Image Source="/Images/logo.png" 
@@ -134,7 +133,7 @@
                         <ColumnDefinition Width="770"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid>
+                    <Grid Grid.Row="0">
                         <DockPanel Margin="6">
                             <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
@@ -409,95 +408,121 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="1">
-                    <DockPanel Margin="6">
-                        <Border CornerRadius="6"
-                            BorderBrush="{StaticResource titleFontColor3}" 
-                            Background="{StaticResource titleFontColor6}" 
-                            BorderThickness="2" 
-                            DockPanel.Dock="Top">
-                            <StackPanel Orientation="Vertical"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Margin="0,0,0,0">
-                                <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                            Margin="0,20,0,0">
-                                    <TextBlock Text="Дежурн. режим :"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <DockPanel Margin="6">
+                            <Border CornerRadius="6"
+                                BorderBrush="{StaticResource titleFontColor3}" 
+                                Background="{StaticResource titleFontColor6}" 
+                                BorderThickness="2" 
+                                DockPanel.Dock="Top">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,0">
+                                    <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,10,0,0">
+                                        <TextBlock Text="Дежурн. режим:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 VerticalAlignment="Center">
-                                    </TextBlock>
-                                    <TextBox x:Name="txbStandbyModeCurrentConsumption"
+                                        </TextBlock>
+                                        <TextBox x:Name="txbStandbyModeCurrentConsumption"
                                             HorizontalAlignment="Center"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding StandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                Margin="0,10,0,0">
-                                    <TextBlock Text="Режим приём:"
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,10,0,0">
+                                        <TextBlock Text="Режим приём:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                    </TextBlock>
-                                    <TextBox x:Name="txbReceptionModeCurrentConsumption"
+                                        </TextBlock>
+                                        <TextBox x:Name="txbReceptionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding ReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
+                                        </TextBox>
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Right"
-                                Margin="0,45,0,0">
-                                    <TextBlock Text="Режим передачи:"
+
+
+
+                            </Border>
+                        </DockPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <DockPanel Margin="6">
+                            <Border CornerRadius="6"
+                                BorderBrush="{StaticResource titleFontColor3}" 
+                                Background="{StaticResource titleFontColor6}" 
+                                BorderThickness="2" 
+                                DockPanel.Dock="Top">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Margin="0,0,0,0">
+                                    <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,10,0,0">
+                                        <TextBlock Text="Режим передачи:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                    </TextBlock>
-                                    <TextBox x:Name="txbTransmissionModeCurrentConsumption"
+                                        </TextBlock>
+                                        <TextBox x:Name="txbTransmissionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding TransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                    <TextBlock Text="Разряд АКБ:"
+                                        <TextBlock Text="Разряд АКБ:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                    </TextBlock>
-                                    <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
+                                        </TextBlock>
+                                        <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding BatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
+                                        </TextBox>
+                                    </StackPanel>
                                 </StackPanel>
-                                    
-                            </StackPanel>
-                        </Border>
-                    </DockPanel>
+
+
+
+                            </Border>
+                        </DockPanel>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="1" Grid.Column="2">
                     <DockPanel Margin="6">
@@ -538,7 +563,7 @@
                                     HorizontalAlignment="Center"
                                     Margin="0,5,0,0">
                                     <TextBox x:Name="txbFrequencies"
-                                            Height="200"
+                                            Height="165"
                                             Width="190"
                                             FontSize="12"
                                             Style="{StaticResource TextBoxStyle6}"
@@ -554,6 +579,141 @@
                         </Border>
                     </DockPanel>
 
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="770"/>
+                    <ColumnDefinition Width="275"/>
+                    <ColumnDefinition Width="275"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <DockPanel Margin="6">
+                        <Border CornerRadius="6"
+                            BorderBrush="{StaticResource titleFontColor3}" 
+                            Background="{StaticResource titleFontColor6}" 
+                            BorderThickness="2" 
+                            DockPanel.Dock="Top">
+                            <StackPanel Grid.Column="0" Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                                <TextBlock Text="Примечание"
+                                            Foreground="{StaticResource titleFontColor1}"
+                                            Style="{StaticResource messageTextBlockStyle2}"
+                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center">
+                                </TextBlock>
+                                <TextBox x:Name="txbNoteRadioStationParameters"
+                                            Height="120"
+                                            Width="730"
+                                            Margin="5,5,0,0"
+                                            Style="{StaticResource TextBoxStyle6}"
+                                            Text="{Binding NoteRadioStationParameters, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                </TextBox>
+                            </StackPanel>
+                        </Border>
+                    </DockPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <DockPanel Margin="6">
+                        <Border CornerRadius="6"
+                            BorderBrush="{StaticResource titleFontColor3}" 
+                            Background="{StaticResource titleFontColor6}" 
+                            BorderThickness="2" 
+                            DockPanel.Dock="Top">
+                            <StackPanel 
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <StackPanel
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right">
+                                    <TextBlock Text="З.У.:"
+                                            Foreground="{StaticResource titleFontColor1}"
+                                            Style="{StaticResource messageTextBlockStyle2}"
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center">
+                                    </TextBlock>
+                                    <ComboBox x:Name="cmbBatteryChargerAccessories"
+                                        Height="35"
+                                        Width="150"
+                                        Text="{Binding BatteryChargerAccessories}"
+                                        Style="{StaticResource ComboBoxStyle1}">
+                                        <ComboBoxItem Content="Исправно"/>
+                                        <ComboBoxItem Content="Неисправно"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,10,0,0">
+                                    <TextBlock Text="МАН.:"
+                                            Foreground="{StaticResource titleFontColor1}"
+                                            Style="{StaticResource messageTextBlockStyle2}"
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center">
+                                    </TextBlock>
+                                    <ComboBox x:Name="cmbManipulatorAccessories"
+                                        Height="35"
+                                        Width="150"
+                                        Text="{Binding ManipulatorAccessories}"
+                                        Style="{StaticResource ComboBoxStyle1}">
+                                        <ComboBoxItem Content="Исправно"/>
+                                        <ComboBoxItem Content="Неисправно"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,5,0,0">
+                                    <TextBlock Text="АКБ:"
+                                            Foreground="{StaticResource titleFontColor1}"
+                                            Style="{StaticResource messageTextBlockStyle2}"
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center">
+                                    </TextBlock>
+                                    <TextBox x:Name="txbPercentAKB"
+                                            HorizontalAlignment="Center"   
+                                            Height="35"
+                                            Width="114"
+                                            Margin="0,0,0,0"
+                                            Style="{StaticResource TextBoxStyle6}"
+                                            Text="{Binding PercentAKB, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                    </TextBox>
+                                    <CheckBox 
+                                        Name="CheckBoxFaulty"
+                                        Style="{StaticResource CheckBoxStyle1}"
+                                        IsChecked="{Binding CheckBoxFaulty}"
+                                        Margin="5,1,-5,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DockPanel>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <StackPanel 
+                            Orientation="Vertical"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                        <Button x:Name="btnAddRadiostationParameters"
+                            Command="{Binding AddRadiostationParameters}"
+                            Content="Добавить"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                        </Button>
+                        <Button x:Name="btnHandbookAddRadiostationParameters"
+                            Command="{Binding HandbookAddRadiostationParameters}"
+                            Content="Справочник"
+                            Margin ="0,10,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>
