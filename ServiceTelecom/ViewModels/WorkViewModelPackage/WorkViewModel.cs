@@ -745,8 +745,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             Timer();
         }
 
-
-
         #region AddRadiostationParameters
 
         private void ExecuteAddRadiostationParametersCommand(object obj)

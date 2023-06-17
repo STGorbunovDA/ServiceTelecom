@@ -156,6 +156,7 @@
     <Compile Include="Infrastructure\NameToBrushConverter.cs" />
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
+    <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\RadiostationParametersDataBaseModel.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
