@@ -31,8 +31,7 @@ namespace ServiceTelecom.Models
         private string _receptionModeCurrentConsumption;
         private string _transmissionModeCurrentConsumption;
         private string _batteryDischargeAlarmCurrentConsumption;
-        private string _transmitterFrequencies;
-        private string _receiverFrequencies;
+        private string _frequenciesCompletedForRadiostantion;
         private string _batteryChargerAccessories;
         private string _manipulatorAccessories;
         private string _nameAKB;
@@ -65,8 +64,7 @@ namespace ServiceTelecom.Models
         public string ReceptionModeCurrentConsumption { get => _receptionModeCurrentConsumption; set { _receptionModeCurrentConsumption = value; OnPropertyChanged(nameof(ReceptionModeCurrentConsumption)); } }
         public string TransmissionModeCurrentConsumption { get => _transmissionModeCurrentConsumption; set { _transmissionModeCurrentConsumption = value; OnPropertyChanged(nameof(TransmissionModeCurrentConsumption)); } }
         public string BatteryDischargeAlarmCurrentConsumption { get => _batteryDischargeAlarmCurrentConsumption; set { _batteryDischargeAlarmCurrentConsumption = value; OnPropertyChanged(nameof(BatteryDischargeAlarmCurrentConsumption)); } }
-        public string TransmitterFrequencies { get => _transmitterFrequencies; set { _transmitterFrequencies = value; OnPropertyChanged(nameof(TransmitterFrequencies)); } }
-        public string ReceiverFrequencies { get => _receiverFrequencies; set { _receiverFrequencies = value; OnPropertyChanged(nameof(ReceiverFrequencies)); } }
+        public string FrequenciesCompletedForRadiostantion { get => _frequenciesCompletedForRadiostantion; set { _frequenciesCompletedForRadiostantion = value; OnPropertyChanged(nameof(FrequenciesCompletedForRadiostantion)); } }
         public string BatteryChargerAccessories { get => _batteryChargerAccessories; set { _batteryChargerAccessories = value; OnPropertyChanged(nameof(BatteryChargerAccessories)); } }
         public string ManipulatorAccessories { get => _manipulatorAccessories; set { _manipulatorAccessories = value; OnPropertyChanged(nameof(ManipulatorAccessories)); } }
         public string NameAKB { get => _nameAKB; set { _nameAKB = value; OnPropertyChanged(nameof(NameAKB)); } }
@@ -86,7 +84,7 @@ namespace ServiceTelecom.Models
                 string standbyModeCurrentConsumption, string receptionModeCurrentConsumption,
                 string transmissionModeCurrentConsumption,
                 string batteryDischargeAlarmCurrentConsumption,
-                string transmitterFrequencies, string receiverFrequencies,
+                string frequenciesCompletedForRadiostantion, 
                 string batteryChargerAccessories, string manipulatorAccessories,
                 string nameAKB, string percentAKB, string noteRadioStationParameters,
                 string verifiedRST)
@@ -116,8 +114,7 @@ namespace ServiceTelecom.Models
             ReceptionModeCurrentConsumption = Encryption.DecryptCipherTextToPlainText(receptionModeCurrentConsumption);
             TransmissionModeCurrentConsumption = Encryption.DecryptCipherTextToPlainText(transmissionModeCurrentConsumption);
             BatteryDischargeAlarmCurrentConsumption = Encryption.DecryptCipherTextToPlainText(batteryDischargeAlarmCurrentConsumption);
-            TransmitterFrequencies = Encryption.DecryptCipherTextToPlainText(transmitterFrequencies);
-            ReceiverFrequencies = Encryption.DecryptCipherTextToPlainText(receiverFrequencies);
+            FrequenciesCompletedForRadiostantion = Encryption.DecryptCipherTextToPlainText(frequenciesCompletedForRadiostantion);
             BatteryChargerAccessories = Encryption.DecryptCipherTextToPlainText(batteryChargerAccessories);
             ManipulatorAccessories = Encryption.DecryptCipherTextToPlainText(manipulatorAccessories);
             NameAKB = Encryption.DecryptCipherTextToPlainText(nameAKB);
