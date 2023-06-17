@@ -1629,9 +1629,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RadiostationsParametersCollection =
                 _radiostationParameters.GetRadiostationsParametersCollection(
                     RadiostationsParametersCollection, road, city);
-            //if (RadiostationsParametersCollection.Count == 0)
-            //    MessageBox.Show("Коллекция параметров радиостацний пуста", "Информация",
-            //        MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         #endregion
