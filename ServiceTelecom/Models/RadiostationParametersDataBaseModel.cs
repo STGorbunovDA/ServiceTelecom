@@ -53,13 +53,13 @@ namespace ServiceTelecom.Models
         public string HighPowerLevelTransmitter { get => _highPowerLevelTransmitter; set { _highPowerLevelTransmitter = value; OnPropertyChanged(nameof(HighPowerLevelTransmitter)); } }
         public string FrequencyDeviationTransmitter { get => _frequencyDeviationTransmitter; set { _frequencyDeviationTransmitter = value; OnPropertyChanged(nameof(FrequencyDeviationTransmitter)); } }
         public string SensitivityTransmitter { get => _sensitivityTransmitter; set { _sensitivityTransmitter = value; OnPropertyChanged(nameof(SensitivityTransmitter)); } }
-        public string KniTransmitter { get => _kniTransmitter; set { _kniTransmitter = value; OnPropertyChanged(nameof(KniTransmitter)); } }
+        public string KNITransmitter { get => _kniTransmitter; set { _kniTransmitter = value; OnPropertyChanged(nameof(KNITransmitter)); } }
         public string DeviationTransmitter { get => _deviationTransmitter; set { _deviationTransmitter = value; OnPropertyChanged(nameof(DeviationTransmitter)); } }
         public string OutputPowerVoltReceiver { get => _outputPowerVoltReceiver; set { _outputPowerVoltReceiver = value; OnPropertyChanged(nameof(OutputPowerVoltReceiver)); } }
         public string OutputPowerWattReceiver { get => _outputPowerWattReceiver; set { _outputPowerWattReceiver = value; OnPropertyChanged(nameof(OutputPowerWattReceiver)); } }
         public string SelectivityReceiver { get => _selectivityReceiver; set { _selectivityReceiver = value; OnPropertyChanged(nameof(SelectivityReceiver)); } }
         public string SensitivityReceiver { get => _sensitivityReceiver; set { _sensitivityReceiver = value; OnPropertyChanged(nameof(SensitivityReceiver)); } }
-        public string KniReceiver { get => _kniReceiver; set { _kniReceiver = value; OnPropertyChanged(nameof(KniReceiver)); } }
+        public string KNIReceiver { get => _kniReceiver; set { _kniReceiver = value; OnPropertyChanged(nameof(KNIReceiver)); } }
         public string SuppressorReceiver { get => _suppressorReceiver; set { _suppressorReceiver = value; OnPropertyChanged(nameof(SuppressorReceiver)); } }
         public string StandbyModeCurrentConsumption { get => _standbyModeCurrentConsumption; set { _standbyModeCurrentConsumption = value; OnPropertyChanged(nameof(StandbyModeCurrentConsumption)); } }
         public string ReceptionModeCurrentConsumption { get => _receptionModeCurrentConsumption; set { _receptionModeCurrentConsumption = value; OnPropertyChanged(nameof(ReceptionModeCurrentConsumption)); } }
@@ -104,13 +104,13 @@ namespace ServiceTelecom.Models
             HighPowerLevelTransmitter = Encryption.DecryptCipherTextToPlainText(highPowerLevelTransmitter);
             FrequencyDeviationTransmitter = Encryption.DecryptCipherTextToPlainText(frequencyDeviationTransmitter);
             SensitivityTransmitter = Encryption.DecryptCipherTextToPlainText(sensitivityTransmitter);
-            KniTransmitter = Encryption.DecryptCipherTextToPlainText(kniTransmitter);
+            KNITransmitter = Encryption.DecryptCipherTextToPlainText(kniTransmitter);
             DeviationTransmitter = Encryption.DecryptCipherTextToPlainText(deviationTransmitter);
             OutputPowerVoltReceiver = Encryption.DecryptCipherTextToPlainText(outputPowerVoltReceiver);
             OutputPowerWattReceiver = Encryption.DecryptCipherTextToPlainText(outputPowerWattReceiver);
             SelectivityReceiver = Encryption.DecryptCipherTextToPlainText(selectivityReceiver);
             SensitivityReceiver = Encryption.DecryptCipherTextToPlainText(sensitivityReceiver);
-            KniReceiver = Encryption.DecryptCipherTextToPlainText(kniReceiver);
+            KNIReceiver = Encryption.DecryptCipherTextToPlainText(kniReceiver);
             SuppressorReceiver = Encryption.DecryptCipherTextToPlainText(suppressorReceiver);
             StandbyModeCurrentConsumption = Encryption.DecryptCipherTextToPlainText(standbyModeCurrentConsumption);
             ReceptionModeCurrentConsumption = Encryption.DecryptCipherTextToPlainText(receptionModeCurrentConsumption);
