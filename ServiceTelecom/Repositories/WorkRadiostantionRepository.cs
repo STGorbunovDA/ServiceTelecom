@@ -864,5 +864,12 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public bool ChangeStatusVerifiedRSTInRepair(
+            string road, string city, string serialNumber, 
+            string noteRadioStationParameters, string inRepairTechnicalServices)
+        {
+            
+        }
     }
 }

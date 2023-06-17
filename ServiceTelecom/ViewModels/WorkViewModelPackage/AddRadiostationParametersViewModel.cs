@@ -382,8 +382,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _checkBoxFaultyAKB = value;
                 if (value)
+                {
                     PercentAKB = "неисправен";
-                else PercentAKB = string.Empty;
+                    IsEnablePercentAKB = false;
+                }
+                else
+                {
+                    if (PercentAKB == "неисправен")
+                    {
+                        PercentAKB = string.Empty;
+                        IsEnablePercentAKB = true;
+                    }
+                }
+
                 OnPropertyChanged(nameof(CheckBoxFaultyAKB));
             }
         }
@@ -402,7 +413,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
         public ICommand AddRadiostationParameters { get; }
-
+        public ICommand ChangeStatusVerifiedRSTInRepair { get; }
         public AddRadiostationParametersViewModel()
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
@@ -411,6 +422,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
+
+            ChangeStatusVerifiedRSTInRepair =
+                new ViewModelCommand(ExecuteChangeStatusVerifiedRSTInRepairCommand);
 
             foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
@@ -477,17 +491,52 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         item.BatteryDischargeAlarmCurrentConsumption;
 
                     BatteryChargerAccessories = item.BatteryChargerAccessories;
+                    if (BatteryChargerAccessories == null)
+                        BatteryChargerAccessories = string.Empty;
+
                     ManipulatorAccessories = item.ManipulatorAccessories;
+                    if(ManipulatorAccessories == null)
+                        ManipulatorAccessories = string.Empty;
+                    
                     PercentAKB = item.PercentAKB;
+                    if (PercentAKB == null)
+                        PercentAKB = string.Empty;
 
                     if (PercentAKB == "неисправен")
                         CheckBoxFaultyAKB = true;
                     else CheckBoxFaultyAKB = false;
 
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
+                    if(NoteRadioStationParameters == null)
+                        NoteRadioStationParameters = string.Empty;
                 }
             }
+            else
+            {
+                NoteRadioStationParameters = string.Empty;
+            }
         }
+
+        #region ChangeStatusVerifiedRSTInRepairInRadiostationForDocumentIn
+
+        private void ExecuteChangeStatusVerifiedRSTInRepairCommand(object obj)
+        {
+            if (_workRadiostantionRepository.ChangeStatusVerifiedRSTInRepair(
+                    Road, City, SerialNumber, NoteRadioStationParameters,
+                    UserModelStatic.InRepairTechnicalServices))
+            { }
+            else
+            {
+                MessageBox.Show($"Ошибка добавления статуса \"в ремонт\" в " +
+                    $"radiostantion(рабочая таблица) и в radiostantionFull(общая таблица)",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBox.Show("Успешно", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        #endregion
 
         #region AddRadiostationParameters
 
@@ -495,10 +544,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             string dateMaintenanceDataBase =
                 Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
-            if (NoteRadioStationParameters == null)
-                NoteRadioStationParameters = string.Empty;
 
-            if (_radiostationParametersRepository.AddRadiostationParameters(
+            if (!_radiostationParametersRepository.
+                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            {
+                if (_radiostationParametersRepository.AddRadiostationParameters(
                 Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
                 LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                 FrequencyDeviationTransmitter, SensitivityTransmitter,
@@ -509,16 +559,40 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                 BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
                 NoteRadioStationParameters, UserModelStatic.PassedTechnicalServices))
-            { }
+                { }
+                else
+                {
+                    MessageBox.Show($"Ошибка добавления параметров",
+                       "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+            }
             else
             {
-                MessageBox.Show($"Ошибка добавления параметров",
-                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                if (_radiostationParametersRepository.ChangeRadiostationInRadiostationParameters(
+                    Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
+                    LowPowerLevelTransmitter, HighPowerLevelTransmitter,
+                    FrequencyDeviationTransmitter, SensitivityTransmitter,
+                    KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
+                    OutputPowerWattReceiver, SelectivityReceiver, SensitivityReceiver,
+                    KNIReceiver, SuppressorReceiver, FrequenciesCompletedForRadiostantion,
+                    StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
+                    TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
+                    BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
+                    NoteRadioStationParameters, UserModelStatic.PassedTechnicalServices))
+                { }
+                else
+                {
+                    MessageBox.Show($"Ошибка изменения параметров",
+                       "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
+
             if (_workRadiostantionRepository.AddStatusVerifiedRSTPassedTechnicalServices(
-                Road, City, SerialNumber,
-                UserModelStatic.PassedTechnicalServices))
+                    Road, City, SerialNumber,
+                    UserModelStatic.PassedTechnicalServices))
             { }
             else
             {
@@ -529,6 +603,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
 

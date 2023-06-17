@@ -712,8 +712,8 @@
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                         </Button>
-                        <Button x:Name="btnChangeStatusVerifiedRSTInRepairTechnicalServices"
-                            Command="{Binding btnChangeStatusVerifiedRSTInRepairTechnicalServices}"
+                        <Button x:Name="btnChangeStatusVerifiedRSTInRepair"
+                            Command="{Binding ChangeStatusVerifiedRSTInRepair}"
                             Content="В ремонт"
                             Margin ="0,10,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
