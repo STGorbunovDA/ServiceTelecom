@@ -2,6 +2,7 @@
 using ServiceTelecom.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,6 +20,51 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public string City { get; set; }
         public string Location { get; set; }
         public string NameAKB { get; set; }
+
+        private bool _isEnablePercentAKB;
+        public bool IsEnablePercentAKB
+        {
+            get => _isEnablePercentAKB;
+            set
+            {
+                _isEnablePercentAKB = value;
+                OnPropertyChanged(nameof(IsEnablePercentAKB));
+            }
+        }
+
+        private bool _isEnableCheckBoxFaultyAKB;
+        public bool IsEnableCheckBoxFaultyAKB
+        {
+            get => _isEnableCheckBoxFaultyAKB;
+            set
+            {
+                _isEnableCheckBoxFaultyAKB = value;
+                OnPropertyChanged(nameof(IsEnableCheckBoxFaultyAKB));
+            }
+        }
+
+        private bool _isEnabledChargerAccessories;
+        public bool IsEnabledChargerAccessories
+        {
+            get => _isEnabledChargerAccessories;
+            set
+            {
+                _isEnabledChargerAccessories = value;
+                OnPropertyChanged(nameof(IsEnabledChargerAccessories));
+            }
+        }
+
+        private bool _isEnabledManipulatorAccessories;
+        public bool IsEnabledManipulatorAccessories
+        {
+            get => _isEnabledManipulatorAccessories;
+            set
+            {
+                _isEnabledManipulatorAccessories = value;
+                OnPropertyChanged(nameof(IsEnabledManipulatorAccessories));
+            }
+        }
+
 
         private string _dateMaintenance;
         public string DateMaintenance
@@ -335,6 +381,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 _checkBoxFaultyAKB = value;
+                if (value)
+                    PercentAKB = "неисправен";
+                else PercentAKB = string.Empty;
                 OnPropertyChanged(nameof(CheckBoxFaultyAKB));
             }
         }
@@ -375,6 +424,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 Company = item.Company;
                 NumberAct = item.NumberAct;
                 NameAKB = item.Battery;
+
+                if (item.Charger == "-")
+                    IsEnabledChargerAccessories = false;
+                else IsEnabledChargerAccessories = true;
+                if (item.Manipulator == "-")
+                    IsEnabledManipulatorAccessories = false;
+                else IsEnabledManipulatorAccessories = true;
+                if (String.IsNullOrWhiteSpace(NameAKB))
+                {
+                    IsEnablePercentAKB = false;
+                    IsEnableCheckBoxFaultyAKB = false;
+                }
+                else
+                {
+                    IsEnablePercentAKB = true;
+                    IsEnableCheckBoxFaultyAKB = true;
+                }
             }
 
             if (UserModelStatic.ParametersRadiostationForAddRadiostationParametersView.Count != 0)
@@ -413,14 +479,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     BatteryChargerAccessories = item.BatteryChargerAccessories;
                     ManipulatorAccessories = item.ManipulatorAccessories;
                     PercentAKB = item.PercentAKB;
-                    
-                    if (PercentAKB == "неисправно")
+
+                    if (PercentAKB == "неисправен")
                         CheckBoxFaultyAKB = true;
                     else CheckBoxFaultyAKB = false;
 
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
                 }
-            }   
+            }
         }
 
         #region AddRadiostationParameters
@@ -450,7 +516,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if(_workRadiostantionRepository.AddStatusVerifiedRSTPassedTechnicalServices(
+            if (_workRadiostantionRepository.AddStatusVerifiedRSTPassedTechnicalServices(
                 Road, City, SerialNumber,
                 UserModelStatic.PassedTechnicalServices))
             { }
