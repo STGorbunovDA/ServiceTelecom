@@ -3,6 +3,7 @@ using ServiceTelecom.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -512,10 +513,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         NoteRadioStationParameters = string.Empty;
                 }
             }
-            else
-            {
-
-            }
         }
 
         #region ChangeStatusVerifiedRSTInRepairInRadiostationForDocumentIn
@@ -528,6 +525,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            Regex re = new Regex(Environment.NewLine);
+            NoteRadioStationParameters = re.Replace(NoteRadioStationParameters, " ");
+            NoteRadioStationParameters.Trim();
+
             if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
                     UserModelStatic.InRepairTechnicalServices))
@@ -551,6 +553,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             string dateMaintenanceDataBase =
                 Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
+
+            Regex re = new Regex(Environment.NewLine);
+            NoteRadioStationParameters = re.Replace(NoteRadioStationParameters, " ");
+            NoteRadioStationParameters.Trim();
 
             if (!_radiostationParametersRepository.
                 CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
