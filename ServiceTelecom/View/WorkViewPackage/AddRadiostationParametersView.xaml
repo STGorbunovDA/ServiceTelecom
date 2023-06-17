@@ -234,12 +234,12 @@
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
                                             </TextBlock>
-                                            <TextBox x:Name="txbKniTransmitter"
+                                            <TextBox x:Name="txbKNITransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
-                                            Text="{Binding KniTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            Text="{Binding KNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                             </TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
@@ -371,12 +371,12 @@
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
                                             </TextBlock>
-                                            <TextBox x:Name="txbKniReceiver"
+                                            <TextBox x:Name="txbKNIReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
-                                            Text="{Binding KniReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            Text="{Binding KNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                             </TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
@@ -423,7 +423,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                        <TextBlock Text="Дежурн. режим:"
+                                        <TextBlock Text="   Дежурн. режим:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 VerticalAlignment="Center">
@@ -563,7 +563,7 @@
                                             Width="190"
                                             FontSize="12"
                                             Style="{StaticResource TextBoxStyle6}"
-                                            Text="{Binding FrequenciesCompany, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            Text="{Binding FrequenciesCompletedForRadiostantion, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                     </TextBox>
                                     <CheckBox 
                                         Name="CheckBoxRepeater"
@@ -665,7 +665,7 @@
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
-                                        Margin="0,5,0,0">
+                                        Margin="0,8,0,0">
                                     <TextBlock Text="АКБ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
@@ -681,9 +681,9 @@
                                             Text="{Binding PercentAKB, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                     </TextBox>
                                     <CheckBox 
-                                        Name="CheckBoxFaulty"
+                                        Name="CheckBoxFaultyAKB"
                                         Style="{StaticResource CheckBoxStyle1}"
-                                        IsChecked="{Binding CheckBoxFaulty}"
+                                        IsChecked="{Binding CheckBoxFaultyAKB}"
                                         Margin="5,1,-5,0"/>
                                 </StackPanel>
                             </StackPanel>
