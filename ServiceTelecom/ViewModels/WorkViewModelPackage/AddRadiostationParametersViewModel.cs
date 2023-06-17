@@ -438,6 +438,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 Company = item.Company;
                 NumberAct = item.NumberAct;
                 NameAKB = item.Battery;
+                NoteRadioStationParameters = item.Comment;
 
                 if (item.Charger == "-")
                     IsEnabledChargerAccessories = false;
@@ -495,9 +496,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         BatteryChargerAccessories = string.Empty;
 
                     ManipulatorAccessories = item.ManipulatorAccessories;
-                    if(ManipulatorAccessories == null)
+                    if (ManipulatorAccessories == null)
                         ManipulatorAccessories = string.Empty;
-                    
+
                     PercentAKB = item.PercentAKB;
                     if (PercentAKB == null)
                         PercentAKB = string.Empty;
@@ -507,13 +508,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     else CheckBoxFaultyAKB = false;
 
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
-                    if(NoteRadioStationParameters == null)
+                    if (NoteRadioStationParameters == null)
                         NoteRadioStationParameters = string.Empty;
                 }
             }
             else
             {
-                NoteRadioStationParameters = string.Empty;
+
             }
         }
 
@@ -521,7 +522,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeStatusVerifiedRSTInRepairCommand(object obj)
         {
-            if (_workRadiostantionRepository.ChangeStatusVerifiedRSTInRepair(
+            if (String.IsNullOrWhiteSpace(NoteRadioStationParameters))
+            {
+                MessageBox.Show($"При добавлении в ремонт, поле \"Примечание\" не должно быть пустым",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
                     UserModelStatic.InRepairTechnicalServices))
             { }
@@ -590,8 +597,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 }
             }
 
-            if (_workRadiostantionRepository.AddStatusVerifiedRSTPassedTechnicalServices(
-                    Road, City, SerialNumber,
+            if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
+                    Road, City, SerialNumber, NoteRadioStationParameters,
                     UserModelStatic.PassedTechnicalServices))
             { }
             else

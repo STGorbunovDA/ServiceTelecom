@@ -50,5 +50,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string batteryChargerAccessories, string manipulatorAccessories,
             string nameAKB, string percentAKB, string noteRadioStationParameters,
             string passedTechnicalServices);
+
+       
     }
 }

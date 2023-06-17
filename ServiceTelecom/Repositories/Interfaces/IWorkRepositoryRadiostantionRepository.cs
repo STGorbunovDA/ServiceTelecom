@@ -110,9 +110,9 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary>Получение крайнего ремонта по дороге в radiostantion(рабочая таблица) </summary>
         string GetOfTheLastNumberActRepair(string road);
 
-        /// <summary> Добавление статуса прошла проверку в radiostantion(рабочая таблица) и в radiostantionFull(общую таблицу) </summary>
-        bool AddStatusVerifiedRSTPassedTechnicalServices(
+        /// <summary> Изменения статуса в ремонте в radiostantion(рабочая таблица) и в radiostantionFull(общую таблицу) </summary>
+        bool ChangeStatusVerifiedRST(
             string road, string city, string serialNumber,
-            string passedTechnicalServices);
+            string noteRadioStationParameters, string verifiedRST);
     }
 }

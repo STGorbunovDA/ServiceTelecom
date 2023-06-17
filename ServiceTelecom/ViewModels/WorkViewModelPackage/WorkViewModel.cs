@@ -807,6 +807,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             UserModelStatic.ParametersRadiostationForAddRadiostationParametersView = null;
             addRadiostationParametersView.Closed += (sender, args) =>
             GetRadiostations(Road, City);
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addRadiostationParametersView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
             addRadiostationParametersView.Show();
         }
 
