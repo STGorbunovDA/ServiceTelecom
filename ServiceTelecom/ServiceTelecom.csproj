@@ -156,6 +156,7 @@
     <Compile Include="Infrastructure\NameToBrushConverter.cs" />
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
+    <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\RadiostationParametersDataBaseModel.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddDecommissionNumberActViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationParametersViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeNumberActViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRepairRadiostationForDocumentInDataBaseViewModel.cs" />
@@ -247,6 +249,9 @@
     </Compile>
     <Compile Include="View\WorkViewPackage\AddDecommissionNumberActView.xaml.cs">
       <DependentUpon>AddDecommissionNumberActView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\AddRadiostationParametersView.xaml.cs">
+      <DependentUpon>AddRadiostationParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\ChangeNumberActView.xaml.cs">
       <DependentUpon>ChangeNumberActView.xaml</DependentUpon>
@@ -333,6 +338,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkViewPackage\AddDecommissionNumberActView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\AddRadiostationParametersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

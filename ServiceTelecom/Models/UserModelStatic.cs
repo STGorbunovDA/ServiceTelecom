@@ -45,6 +45,7 @@ namespace ServiceTelecom.Models
             StaffRegistrationsDataBaseModelCollection { get; set; }
 
         public static IList RadiostationsForDocumentsMulipleSelectedDataGrid;
+        public static IList ParametersRadiostationForAddRadiostationParametersView;
 
         public static string Login { get; private set; }
         public static string Post { get; private set; }//TODO продумать

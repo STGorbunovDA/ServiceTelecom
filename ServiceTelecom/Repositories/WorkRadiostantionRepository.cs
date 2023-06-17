@@ -833,6 +833,36 @@ namespace ServiceTelecom.Repositories
             }
             catch { return numberActRepair; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }     
+        }
+
+        public bool AddStatusVerifiedRSTPassedTechnicalServices(
+            string road,string city,string serialNumber,
+            string passedTechnicalServices)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "AddStatusVerifiedRSTPassedTechnicalServices",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"passedTechnicalServicesUser",
+                        Encryption.EncryptPlainTextToCipherText(passedTechnicalServices));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }

@@ -20,8 +20,8 @@ namespace ServiceTelecom
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
 
-            //var addRadiostationForDocumentInDataBaseView = new AddRepairRadiostationForDocumentInDataBaseView();
-            //addRadiostationForDocumentInDataBaseView.Show();
+            //var addRadiostationParametersView = new AddRadiostationParametersView();
+            //addRadiostationParametersView.Show();
 
             var loginView = new LoginView();
             loginView.Show();

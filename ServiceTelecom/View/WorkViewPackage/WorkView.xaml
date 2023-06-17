@@ -641,52 +641,59 @@
                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRadiostationParameters"
+                            Command="{Binding AddRadiostationParameters}"
+                            Content="Параметры"
+                            Margin ="0,0,0,5"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
                     <Button x:Name="btnAddRadiostationForDocumentInDataBase"
                             Command="{Binding AddRadiostationForDocumentInDataBase}"
                             Content="Добавить"
-                            Margin ="10,0,0,3"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnChangeRadiostationForDocumentInDataBase"
                             Command="{Binding ChangeRadiostationForDocumentInDataBase}"
                             Content="Изменить"
-                            Margin ="10,0,0,3"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnDeleteRadiostationForDocumentInDataBase"
                             Command="{Binding DeleteRadiostationForDocumentInDataBase}"
                             Content="Удалить"
-                            Margin ="10,0,0,0"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnAddRepairRadiostationForDocumentInDataBase"
                             Command="{Binding AddRepairRadiostationForDocumentInDataBase}"
                             Content="Ремонт"
-                            Margin ="10,0,0,3"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnUpdateRadiostationForDocumentInDataBase"
                             Command="{Binding UpdateRadiostationForDocumentInDataBase}"
                             Content="Обновить"
-                            Margin ="10,0,0,3"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnSaveRadiostationForDocumentInDataBase"
                             Command="{Binding SaveCollectionRadiostationsForDocument}"
                             Content="Сохранить"
-                            Margin ="10,0,0,0"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnAddDecommissionNumberActRadiostationForDocumentInDataBase"
                             Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"
                             Content="Списать"
-                            Margin ="10,0,0,0"
+                            Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                     </Button>
