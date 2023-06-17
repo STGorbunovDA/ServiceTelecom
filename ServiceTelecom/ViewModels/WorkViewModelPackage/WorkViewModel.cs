@@ -806,7 +806,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addRadiostationParametersView.Closed += (sender, args) =>
             UserModelStatic.ParametersRadiostationForAddRadiostationParametersView = null;
             addRadiostationParametersView.Closed += (sender, args) =>
-            GetRadiostationsParametersCollection(Road, City);
+            GetRadiostations(Road, City);
             addRadiostationParametersView.Show();
         }
 
@@ -1265,7 +1265,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             { }
             else
                 MessageBox.Show($"Ошибка удаления номера акта ремонта радиостанции " +
-                    $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая база)",
+                    $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая таблица)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
             if (_workRepositoryRadiostantion.DeleteRepairRadiostationForDocumentInDataBase(

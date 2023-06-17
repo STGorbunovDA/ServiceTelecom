@@ -1,14 +1,24 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRadiostationParametersViewModel : ViewModelBase
     {
-
+        RadiostationParametersRepository _radiostationParametersRepository;
+        WorkRadiostantionRepository _workRadiostantionRepository;
         public List<FrequencyModel> FrequencyCollections { get; set; }
 
         #region свойства
+
+        public string Road { get; set; }
+        public string City { get; set; }
+        public string Location { get; set; }
+        public string NameAKB { get; set; }
 
         private string _dateMaintenance;
         public string DateMaintenance
@@ -95,6 +105,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _frequencyDeviationTransmitter = value;
                 OnPropertyChanged(nameof(FrequencyDeviationTransmitter));
+            }
+        }
+
+        private string _sensitivityTransmitter;
+        public string SensitivityTransmitter
+        {
+            get => _sensitivityTransmitter;
+            set
+            {
+                _sensitivityTransmitter = value;
+                OnPropertyChanged(nameof(SensitivityTransmitter));
             }
         }
 
@@ -331,25 +352,120 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
+        public ICommand AddRadiostationParameters { get; }
+
         public AddRadiostationParametersViewModel()
         {
+            _radiostationParametersRepository = new RadiostationParametersRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
             FrequencyCollections = new List<FrequencyModel>();
 
-            foreach (RadiostationForDocumentsDataBaseModel item 
+            AddRadiostationParameters =
+                 new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
+
+            foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
             {
+                Road = item.Road;
+                City = item.City;
                 DateMaintenance = item.DateMaintenance;
+                Location = item.Location;
                 Model = item.Model;
                 SerialNumber = item.SerialNumber;
                 Company = item.Company;
                 NumberAct = item.NumberAct;
+                NameAKB = item.Battery;
             }
-            foreach (RadiostationParametersDataBaseModel item 
-                in UserModelStatic.ParametersRadiostationForAddRadiostationParametersView)
-            {
-                //Передатчик
 
-            }
+            if (UserModelStatic.ParametersRadiostationForAddRadiostationParametersView.Count != 0)
+            {
+                foreach (RadiostationParametersDataBaseModel item
+                    in UserModelStatic.ParametersRadiostationForAddRadiostationParametersView)
+                {
+
+                    LowPowerLevelTransmitter = item.LowPowerLevelTransmitter;
+                    HighPowerLevelTransmitter = item.HighPowerLevelTransmitter;
+                    FrequencyDeviationTransmitter = item.FrequencyDeviationTransmitter;
+                    SensitivityTransmitter = item.SensitivityTransmitter;
+                    KNITransmitter = item.KNITransmitter;
+                    DeviationTransmitter = item.DeviationTransmitter;
+
+                    OutputPowerVoltReceiver = item.OutputPowerVoltReceiver;
+                    OutputPowerWattReceiver = item.OutputPowerWattReceiver;
+                    SelectivityReceiver = item.SelectivityReceiver;
+                    SensitivityReceiver = item.SensitivityReceiver;
+                    KNIReceiver = item.KNIReceiver;
+                    SuppressorReceiver = item.SuppressorReceiver;
+
+                    FrequenciesCompletedForRadiostantion
+                        = item.FrequenciesCompletedForRadiostantion;
+                    if (FrequenciesCompletedForRadiostantion.Contains("/"))
+                        CheckBoxRepeater = true;
+                    else CheckBoxRepeater = false;
+
+                    StandbyModeCurrentConsumption = item.StandbyModeCurrentConsumption;
+                    ReceptionModeCurrentConsumption = item.ReceptionModeCurrentConsumption;
+                    TransmissionModeCurrentConsumption =
+                        item.TransmissionModeCurrentConsumption;
+                    BatteryDischargeAlarmCurrentConsumption =
+                        item.BatteryDischargeAlarmCurrentConsumption;
+
+                    BatteryChargerAccessories = item.BatteryChargerAccessories;
+                    ManipulatorAccessories = item.ManipulatorAccessories;
+                    PercentAKB = item.PercentAKB;
+                    
+                    if (PercentAKB == "неисправно")
+                        CheckBoxFaultyAKB = true;
+                    else CheckBoxFaultyAKB = false;
+
+                    NoteRadioStationParameters = item.NoteRadioStationParameters;
+                }
+            }   
         }
+
+        #region AddRadiostationParameters
+
+        private void ExecuteAddRadiostationParametersCommand(object obj)
+        {
+            string dateMaintenanceDataBase =
+                Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
+            if (NoteRadioStationParameters == null)
+                NoteRadioStationParameters = string.Empty;
+
+            if (_radiostationParametersRepository.AddRadiostationParameters(
+                Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
+                LowPowerLevelTransmitter, HighPowerLevelTransmitter,
+                FrequencyDeviationTransmitter, SensitivityTransmitter,
+                KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
+                OutputPowerWattReceiver, SelectivityReceiver, SensitivityReceiver,
+                KNIReceiver, SuppressorReceiver, FrequenciesCompletedForRadiostantion,
+                StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
+                TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
+                BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
+                NoteRadioStationParameters, UserModelStatic.PassedTechnicalServices))
+            { }
+            else
+            {
+                MessageBox.Show($"Ошибка добавления параметров",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if(_workRadiostantionRepository.AddStatusVerifiedRSTPassedTechnicalServices(
+                Road, City, SerialNumber,
+                UserModelStatic.PassedTechnicalServices))
+            { }
+            else
+            {
+                MessageBox.Show($"Ошибка добавления статуса \"прошла проверку\" в " +
+                    $"radiostantion(рабочая таблица) и в radiostantionFull(общую таблицу)",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBox.Show("Успешно", "Информация",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        #endregion
     }
 }
