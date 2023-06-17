@@ -641,6 +641,13 @@
                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
+                    <Button x:Name="btnAddRadiostationParameters"
+                            Command="{Binding AddRadiostationParameters}"
+                            Content="Параметры"
+                            Margin ="0,0,0,5"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                    </Button>
                     <Button x:Name="btnAddRadiostationForDocumentInDataBase"
                             Command="{Binding AddRadiostationForDocumentInDataBase}"
                             Content="Добавить"
