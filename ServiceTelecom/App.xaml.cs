@@ -20,17 +20,17 @@ namespace ServiceTelecom
             //StaticConfig.word = ConfigurationSettings.AppSettings["word"];
 
 
-            var addRadiostationParametersView = new AddRadiostationParametersView();
-            addRadiostationParametersView.Show();
+            //var addRadiostationParametersView = new AddRadiostationParametersView();
+            //addRadiostationParametersView.Show();
 
-            //var loginView = new LoginView();
-            //loginView.Show();
+            var loginView = new LoginView();
+            loginView.Show();
 
-            //loginView.IsVisibleChanged += (s, ev) =>
-            //{
-            //    if (loginView.IsVisible == false && loginView.IsLoaded)
-            //        loginView.Close();
-            //};
+            loginView.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginView.IsVisible == false && loginView.IsLoaded)
+                    loginView.Close();
+            };
         }
     }
 }
