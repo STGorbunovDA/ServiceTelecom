@@ -10,14 +10,15 @@ namespace ServiceTelecom.Repositories.Base
     internal class ModelDataBaseRepository : IModelDataBaseRepository
     {
         public ObservableCollection<ModelRadiostantionDataBaseModel> 
-            GetModelRadiostantionDataBase(ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)
+            GetModelRadiostantionDataBase(
+            ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return modelCollections;
 
-                using (MySqlCommand command = new MySqlCommand("GetModelDataBase",
+                using (MySqlCommand command = new MySqlCommand("GetModelRadiostantionDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();

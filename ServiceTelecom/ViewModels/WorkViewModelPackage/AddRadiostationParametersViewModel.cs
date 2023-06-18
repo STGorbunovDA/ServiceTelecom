@@ -1,8 +1,9 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.View.Base;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -13,7 +14,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         RadiostationParametersRepository _radiostationParametersRepository;
         WorkRadiostantionRepository _workRadiostantionRepository;
-        public List<FrequencyModel> FrequencyCollections { get; set; }
+        FrequenciesDataBaseRepository _frequenciesDataBase;
+
+        AddFrequencyRadiostantionView addFrequencyRadiostantionView;
+        public List<FrequencyModel> FrequenciesCollections { get; set; }
 
         #region свойства
 
@@ -415,17 +419,23 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ICommand AddRadiostationParameters { get; }
         public ICommand ChangeStatusVerifiedRSTInRepair { get; }
+        public ICommand AddFrequency { get; }
         public AddRadiostationParametersViewModel()
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
-            FrequencyCollections = new List<FrequencyModel>();
+            _frequenciesDataBase = new FrequenciesDataBaseRepository();
+            
+            FrequenciesCollections = new List<FrequencyModel>();
 
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
 
             ChangeStatusVerifiedRSTInRepair =
                 new ViewModelCommand(ExecuteChangeStatusVerifiedRSTInRepairCommand);
+
+            AddFrequency =
+                new ViewModelCommand(ExecuteAddFrequencyCommand);
 
             foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
@@ -513,7 +523,25 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         NoteRadioStationParameters = string.Empty;
                 }
             }
+            GetFrequencyDataBase();
         }
+
+        #region AddFrequency
+
+        private void ExecuteAddFrequencyCommand(object obj)
+        {
+            if (addFrequencyRadiostantionView == null)
+            {
+                addFrequencyRadiostantionView = new AddFrequencyRadiostantionView();
+                addFrequencyRadiostantionView.Closed += (sender, args) =>
+                addFrequencyRadiostantionView = null;
+                addFrequencyRadiostantionView.Closed += (sender, args) =>
+                GetFrequencyDataBase();
+                addFrequencyRadiostantionView.Show();
+            }
+        }
+
+        #endregion
 
         #region ChangeStatusVerifiedRSTInRepairInRadiostationForDocumentIn
 
@@ -619,6 +647,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         }
 
+
+        #endregion
+
+        #region GetFrequencyDataBase
+
+        private void GetFrequencyDataBase()
+        {
+            if (FrequencyCollections.Count != 0)
+                FrequencyCollections.Clear();
+            FrequenciesCollections =
+                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
+            TheIndexFrequencyCollection = 0;
+        }
 
         #endregion
     }

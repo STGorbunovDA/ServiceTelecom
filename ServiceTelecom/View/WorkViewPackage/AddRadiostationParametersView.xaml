@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="Рабочая форма" Height="530" Width="1330"
+        Title="Добавить параметры" Height="530" Width="1330"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -539,15 +539,15 @@
                                             Height="40"
                                             Width="190"
                                             Style="{StaticResource ComboBoxStyle2}"
-                                            ItemsSource="{Binding FrequencyCollections}"
+                                            ItemsSource="{Binding FrequenciesCollections}"
                                             SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
                                             Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                         <ComboBox.Resources>
                                             <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
                                         </ComboBox.Resources>
                                     </ComboBox>
-                                    <Button x:Name="btnAddFrequencyDataBase"
-                                        Command="{Binding AddFrequencyDataBase}"
+                                    <Button x:Name="btnAddFrequency"
+                                        Command="{Binding AddFrequency}"
                                         Content="➕"
                                         Margin ="5,0,0,0"
                                         Style="{StaticResource menuButtonStyleCheck}" 

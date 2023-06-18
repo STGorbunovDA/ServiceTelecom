@@ -165,9 +165,11 @@
     <Compile Include="Models\RepairManualRadiostantion.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
+    <Compile Include="Repositories\Base\FrequenciesDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Base\RepairManualModelRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IFrequenciesDataBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModelDataBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRadiostationParametersRepository.cs" />
@@ -214,6 +216,9 @@
     <Compile Include="ViewModels\WorkViewModelPackage\PrintRepairViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\PrintTagTechnicalWorkViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
+    <Compile Include="View\Base\AddFrequencyRadiostantionView.xaml.cs">
+      <DependentUpon>AddFrequencyRadiostantionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
     </Compile>
@@ -290,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\UIColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\AddFrequencyRadiostantionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
