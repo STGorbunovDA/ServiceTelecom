@@ -25,10 +25,8 @@ namespace ServiceTelecom.Models
 
         public int CompareTo(FrequencyModel other)
         {
-            int result = this.Frequency.CompareTo(other.Frequency);
-            if (result == 0)
-                result = this.Frequency.CompareTo(other.Frequency);
-            return result;
+            if (this.Frequency == other.Frequency) return 0;
+            return this.Frequency.CompareTo(other.Frequency);
         }
     }
 }
