@@ -97,7 +97,6 @@
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
                                   ItemsSource="{Binding ModelCollections}"
-                                  SelectedItem="{Binding SelectedModelRadiostantion}"
                                   SelectedIndex="{Binding TheIndexModelCollection, Mode=TwoWay}"
                                   Text="{Binding Model}">
                         <ComboBox.Resources>

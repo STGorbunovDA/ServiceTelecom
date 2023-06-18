@@ -9,7 +9,6 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddModelRadiostantionViewModel : ViewModelBase
     {
-        private ModelRadiostantionDataBaseModel _modelRadiostantion;
         private ModelDataBaseRepository _modelDataBase;
         public ObservableCollection<ModelRadiostantionDataBaseModel> 
             ModelCollections { get; set; }
@@ -26,13 +25,6 @@ namespace ServiceTelecom.ViewModels.Base
         }
         public ICommand AddModelDataBase { get; }
         public ICommand DeleteModelDataBase { get; }
-
-        public ModelRadiostantionDataBaseModel SelectedModelRadiostantion
-        {
-            get => _modelRadiostantion;
-            set { _modelRadiostantion = value; 
-                OnPropertyChanged(nameof(SelectedModelRadiostantion)); }
-        }
 
         public AddModelRadiostantionViewModel()
         {
