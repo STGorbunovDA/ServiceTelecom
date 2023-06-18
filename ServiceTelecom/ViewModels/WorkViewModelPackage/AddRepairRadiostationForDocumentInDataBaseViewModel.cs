@@ -19,7 +19,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         RepairManualView repairManualView = null;
 
-        public ObservableCollection<RepairManualRadiostantion>
+        public ObservableCollection<RepairManualRadiostantionModel>
             RepairManualRadiostantionsCollections
         { get; set; }
         public ObservableCollection<string> CompletedWorksCollections { get; set; }
@@ -412,7 +412,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections = 
-                new ObservableCollection<RepairManualRadiostantion>();
+                new ObservableCollection<RepairManualRadiostantionModel>();
             CompletedWorksCollections = new ObservableCollection<string>();
             ChangeNumberActRepairBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand);

@@ -2,23 +2,25 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 
 namespace ServiceTelecom.Repositories.Base
 {
-    internal class ModelDataBaseRepository : IModelDataBaseRepository
+    internal class FrequenciesDataBaseRepository : IFrequenciesDataBaseRepository
     {
-        public ObservableCollection<ModelRadiostantionDataBaseModel> 
-            GetModelRadiostantionDataBase(
-            ObservableCollection<ModelRadiostantionDataBaseModel> modelCollections)
+        public ObservableCollection<FrequencyModel> GetFrequencyDataBase(
+            ObservableCollection<FrequencyModel> frequenciesCollection)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return modelCollections;
+                    return frequenciesCollection;
 
-                using (MySqlCommand command = new MySqlCommand("GetModelRadiostantionDataBase",
+                using (MySqlCommand command = new MySqlCommand("GetFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -28,35 +30,46 @@ namespace ServiceTelecom.Repositories.Base
                         {
                             while (reader.Read())
                             {
-                                ModelRadiostantionDataBaseModel modelRadiostantion = new ModelRadiostantionDataBaseModel
+                                FrequencyModel frequencyModel =
+                                    new FrequencyModel
                                     (reader.GetInt32(0), reader.GetString(1));
-                                modelCollections.Add(modelRadiostantion);
+                                frequenciesCollection.Add(frequencyModel);
                             }
                             reader.Close();
-                            return modelCollections;
+
+                            var tempFrequenciesCollection =
+                                 new ObservableCollection<FrequencyModel>
+                                 (frequenciesCollection.OrderBy(i => i));
+
+                            frequenciesCollection.Clear();
+                            foreach (var item in tempFrequenciesCollection)
+                                frequenciesCollection.Add(item);
+
+                            tempFrequenciesCollection = null;
+
+                            return frequenciesCollection;
                         }
                     }
                 }
-                return modelCollections;
+                return frequenciesCollection;
             }
-            catch { return modelCollections; }
+            catch { return frequenciesCollection; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddModelDataBase(string modelUser)
+        public bool AddFrequencyDataBase(string frequency)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
-                using (MySqlCommand command = new MySqlCommand("AddModelDataBase",
+                using (MySqlCommand command = new MySqlCommand("AddFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"modelUser", 
-                        Encryption.EncryptPlainTextToCipherText(modelUser));
+                    command.Parameters.AddWithValue($"frequencyUser",
+                        Encryption.EncryptPlainTextToCipherText(frequency));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -65,22 +78,22 @@ namespace ServiceTelecom.Repositories.Base
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool DeleteModelDataBase(string modelUser)
+        public bool DeleteFrequencyDataBase(int idBase)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-                using (MySqlCommand command = new MySqlCommand("DeleteModelDataBase",
+                using (MySqlCommand command = new MySqlCommand("DeleteFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"modelUser",
-                        Encryption.EncryptPlainTextToCipherText(modelUser));
+                    command.Parameters.AddWithValue($"idBaseUser", idBase);
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
+
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

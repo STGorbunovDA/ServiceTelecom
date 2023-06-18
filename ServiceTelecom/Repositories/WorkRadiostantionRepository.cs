@@ -835,16 +835,17 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddStatusVerifiedRSTPassedTechnicalServices(
-            string road,string city,string serialNumber,
-            string passedTechnicalServices)
+        
+        public bool ChangeStatusVerifiedRST(
+            string road, string city, string serialNumber, 
+            string noteRadioStationParameters, string verifiedRST)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
                 using (MySqlCommand command = new MySqlCommand(
-                    "AddStatusVerifiedRSTPassedTechnicalServices",
+                    "ChangeStatusVerifiedRST",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -855,8 +856,10 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(city));
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
-                    command.Parameters.AddWithValue($"passedTechnicalServicesUser",
-                        Encryption.EncryptPlainTextToCipherText(passedTechnicalServices));
+                    command.Parameters.AddWithValue($"noteRadioStationParametersUser",
+                       Encryption.EncryptPlainTextToCipherText(noteRadioStationParameters));
+                    command.Parameters.AddWithValue($"VerifiedRSTUser",
+                        Encryption.EncryptPlainTextToCipherText(verifiedRST));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

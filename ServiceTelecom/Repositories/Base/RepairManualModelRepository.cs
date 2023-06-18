@@ -9,9 +9,9 @@ namespace ServiceTelecom.Repositories.Base
 {
     internal class RepairManualModelRepository : IRepairManualModelRepository
     {
-        public ObservableCollection<RepairManualRadiostantion>
+        public ObservableCollection<RepairManualRadiostantionModel>
             GetRepairManualRadiostantionsCollections(
-            ObservableCollection<RepairManualRadiostantion>
+            ObservableCollection<RepairManualRadiostantionModel>
             repairManualRadiostantionsCollections, string model)
         {
             try
@@ -32,9 +32,9 @@ namespace ServiceTelecom.Repositories.Base
                         {
                             while (reader.Read())
                             {
-                                RepairManualRadiostantion
+                                RepairManualRadiostantionModel
                                     repairManualRadiostantion =
-                                    new RepairManualRadiostantion(
+                                    new RepairManualRadiostantionModel(
                                     reader.GetInt32(0),
                                     reader.GetString(1),
                                     reader.GetString(2),

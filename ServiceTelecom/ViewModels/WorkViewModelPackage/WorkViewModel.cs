@@ -807,6 +807,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             UserModelStatic.ParametersRadiostationForAddRadiostationParametersView = null;
             addRadiostationParametersView.Closed += (sender, args) =>
             GetRadiostations(Road, City);
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
+            addRadiostationParametersView.Closed += (sender, args) =>
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
             addRadiostationParametersView.Show();
         }
 
@@ -1626,9 +1629,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RadiostationsParametersCollection =
                 _radiostationParameters.GetRadiostationsParametersCollection(
                     RadiostationsParametersCollection, road, city);
-            //if (RadiostationsParametersCollection.Count == 0)
-            //    MessageBox.Show("Коллекция параметров радиостацний пуста", "Информация",
-            //        MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         #endregion

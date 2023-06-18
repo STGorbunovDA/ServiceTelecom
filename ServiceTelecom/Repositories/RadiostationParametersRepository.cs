@@ -159,5 +159,133 @@ namespace ServiceTelecom.Repositories
             catch (Exception) { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public bool CheckSerialNumberInRadiostationParameters(
+            string road, string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckSerialNumberInRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return true;
+                        else return false;
+                    }
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+
+        public bool ChangeRadiostationInRadiostationParameters(
+            string road, string city, string dateMaintenance, string location,
+            string model, string serialNumber, string company,
+            string numberAct, string lowPowerLevelTransmitter,
+            string highPowerLevelTransmitter, string frequencyDeviationTransmitter,
+            string sensitivityTransmitter, string KNITransmitter,
+            string deviationTransmitter, string outputPowerVoltReceiver,
+            string outputPowerWattReceiver, string selectivityReceiver,
+            string sensitivityReceiver, string KNIReceiver,
+            string suppressorReceiver, string frequenciesCompletedForRadiostantion,
+            string standbyModeCurrentConsumption, string receptionModeCurrentConsumption,
+            string transmissionModeCurrentConsumption,
+            string batteryDischargeAlarmCurrentConsumption,
+            string batteryChargerAccessories, string manipulatorAccessories,
+            string nameAKB, string percentAKB, string noteRadioStationParameters,
+            string passedTechnicalServices)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeRadiostationInRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"companyUser",
+                        Encryption.EncryptPlainTextToCipherText(company));
+                    command.Parameters.AddWithValue($"locationUser",
+                       Encryption.EncryptPlainTextToCipherText(location));
+                    command.Parameters.AddWithValue($"numberActUser",
+                        Encryption.EncryptPlainTextToCipherText(numberAct));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"dateMaintenanceUser",
+                        dateMaintenance);
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"lowPowerLevelTransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(lowPowerLevelTransmitter));
+                    command.Parameters.AddWithValue($"highPowerLevelTransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(highPowerLevelTransmitter));
+                    command.Parameters.AddWithValue($"frequencyDeviationTransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(frequencyDeviationTransmitter));
+                    command.Parameters.AddWithValue($"sensitivityTransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(sensitivityTransmitter));
+                    command.Parameters.AddWithValue($"KNITransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(KNITransmitter));
+                    command.Parameters.AddWithValue($"deviationTransmitterUser",
+                        Encryption.EncryptPlainTextToCipherText(deviationTransmitter));
+                    command.Parameters.AddWithValue($"outputPowerVoltReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(outputPowerVoltReceiver));
+                    command.Parameters.AddWithValue($"outputPowerWattReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(outputPowerWattReceiver));
+                    command.Parameters.AddWithValue($"selectivityReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(selectivityReceiver));
+                    command.Parameters.AddWithValue($"sensitivityReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(sensitivityReceiver));
+                    command.Parameters.AddWithValue($"KNIReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(KNIReceiver));
+                    command.Parameters.AddWithValue($"suppressorReceiverUser",
+                        Encryption.EncryptPlainTextToCipherText(suppressorReceiver));
+                    command.Parameters.AddWithValue($"frequenciesCompletedForRadiostantionUser",
+                        Encryption.EncryptPlainTextToCipherText(frequenciesCompletedForRadiostantion));
+                    command.Parameters.AddWithValue($"standbyModeCurrentConsumptionUser",
+                        Encryption.EncryptPlainTextToCipherText(standbyModeCurrentConsumption));
+                    command.Parameters.AddWithValue($"receptionModeCurrentConsumptionUser",
+                        Encryption.EncryptPlainTextToCipherText(receptionModeCurrentConsumption));
+                    command.Parameters.AddWithValue($"transmissionModeCurrentConsumptionUser",
+                        Encryption.EncryptPlainTextToCipherText(transmissionModeCurrentConsumption));
+                    command.Parameters.AddWithValue($"batteryDischargeAlarmCurrentConsumptionUser",
+                        Encryption.EncryptPlainTextToCipherText(batteryDischargeAlarmCurrentConsumption));
+                    command.Parameters.AddWithValue($"batteryChargerAccessoriesUser",
+                        Encryption.EncryptPlainTextToCipherText(batteryChargerAccessories));
+                    command.Parameters.AddWithValue($"manipulatorAccessoriesUser",
+                        Encryption.EncryptPlainTextToCipherText(manipulatorAccessories));
+                    command.Parameters.AddWithValue($"nameAKBUser",
+                        Encryption.EncryptPlainTextToCipherText(nameAKB));
+                    command.Parameters.AddWithValue($"percentAKBUser",
+                        Encryption.EncryptPlainTextToCipherText(percentAKB));
+                    command.Parameters.AddWithValue($"noteRadioStationParametersUser",
+                        Encryption.EncryptPlainTextToCipherText(noteRadioStationParameters));
+                    command.Parameters.AddWithValue($"passedTechnicalServicesUser",
+                        Encryption.EncryptPlainTextToCipherText(passedTechnicalServices));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }

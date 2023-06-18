@@ -28,5 +28,29 @@ namespace ServiceTelecom.Repositories.Interfaces
              string batteryChargerAccessories, string manipulatorAccessories,
              string nameAKB, string percentAKB, string noteRadioStationParameters,
              string passedTechnicalServices);
+
+        /// <summary> проверка наличия радиостанции в radiostation_parameters </summary>
+        bool CheckSerialNumberInRadiostationParameters(
+            string road, string serialNumber);
+
+        /// <summary> изменение параметров в radiostation_parameters </summary>
+        bool ChangeRadiostationInRadiostationParameters(
+            string road, string city, string dateMaintenance, string location,
+            string model, string serialNumber, string company,
+            string numberAct, string lowPowerLevelTransmitter,
+            string highPowerLevelTransmitter, string frequencyDeviationTransmitter,
+            string sensitivityTransmitter, string KNITransmitter,
+            string deviationTransmitter, string outputPowerVoltReceiver,
+            string outputPowerWattReceiver, string selectivityReceiver,
+            string sensitivityReceiver, string KNIReceiver,
+            string suppressorReceiver, string frequenciesCompletedForRadiostantion,
+            string standbyModeCurrentConsumption, string receptionModeCurrentConsumption,
+            string transmissionModeCurrentConsumption,
+            string batteryDischargeAlarmCurrentConsumption,
+            string batteryChargerAccessories, string manipulatorAccessories,
+            string nameAKB, string percentAKB, string noteRadioStationParameters,
+            string passedTechnicalServices);
+
+       
     }
 }

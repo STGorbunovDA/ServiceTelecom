@@ -1,4 +1,4 @@
-﻿<Window x:Class="ServiceTelecom.View.Base.AddModelRadiostantionView"
+﻿<Window x:Class="ServiceTelecom.View.Base.AddFrequencyRadiostantionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,7 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
     <Window.DataContext>
-        <viewModel:AddModelRadiostantionViewModel/>
+        <viewModel:AddFrequencyRadiostantionViewModel/>
     </Window.DataContext>
     <Border CornerRadius="12"
             BorderThickness="3"
@@ -77,13 +77,13 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                    <TextBlock Text="Добавить модель"
+                    <TextBlock Text="Добавить частоту"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
                                Margin="50,0,0,0">
                     </TextBlock>
                 </StackPanel>
-                
+
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -91,15 +91,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <ComboBox x:Name="cmbModel"
-                                  Height="35"
+                    <ComboBox x:Name="cmbFrequenciesCollections"
+                                  Height="40"
                                   Width="250"
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding ModelCollections}"
-                                  SelectedItem="{Binding SelectedModelRadiostantionDataBaseModel}"
-                                  SelectedIndex="{Binding TheIndexModelCollection, Mode=TwoWay}"
-                                  Text="{Binding Model}">
+                                  ItemsSource="{Binding FrequenciesCollection}"
+                                  SelectedItem="{Binding SelectedFrequencyModel}"
+                                  SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
+                                  Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ComboBox.Resources>
                             <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
                         </ComboBox.Resources>
@@ -109,22 +109,21 @@
                     <StackPanel Orientation="Vertical"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                        <Button x:Name="btnAddModelDataBase"
-                            Command="{Binding AddModelDataBase}"
+                        <Button x:Name="btnAddFrequencyDataBase"
+                            Command="{Binding AddFrequencyDataBase}"
                             Content="Добавить"
-                            Margin ="0,0,0,10"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                        </Button>
-                        <Button x:Name="btnDeleteModelDataBase"
-                            Command="{Binding DeleteModelDataBase}"
-                            Content="Удалить"
                             Margin ="0,0,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                         </Button>
+                        <Button x:Name="btnDeleteFrequencyDataBase"
+                            Command="{Binding DeleteFrequencyDataBase}"
+                            Content="Удалить"
+                            Margin ="0,5,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                            Cursor="Hand">
+                        </Button>
                     </StackPanel>
-                    
                 </Grid>
             </Grid>
         </Grid>

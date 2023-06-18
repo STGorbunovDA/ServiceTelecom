@@ -1,14 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace ServiceTelecom.View.WorkViewPackage
+namespace ServiceTelecom.View.Base
 {
-    public partial class AddRadiostationParametersView : Window
+    public partial class AddFrequencyRadiostantionView : Window
     {
-        public AddRadiostationParametersView()
+        public AddFrequencyRadiostantionView()
         {
             InitializeComponent();
-            cmbFrequency.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

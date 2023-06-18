@@ -3,7 +3,7 @@ using ServiceTelecom.ViewModels;
 
 namespace ServiceTelecom.Models
 {
-    internal class RepairManualRadiostantion : ViewModelBase
+    internal class RepairManualRadiostantionModel : ViewModelBase
     {
         private int _id;
         private string _model;
@@ -13,7 +13,7 @@ namespace ServiceTelecom.Models
         public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
         public string CompletedWorks { get => _completedWorks; set { _completedWorks = value; OnPropertyChanged(nameof(CompletedWorks)); } }
         public string Parts { get => _parts; set { _parts = value; OnPropertyChanged(nameof(Parts)); } }
-        public RepairManualRadiostantion(int idBase, 
+        public RepairManualRadiostantionModel(int idBase, 
             string model, string completedWorks, string parts)
         {
             IdBase = idBase;
