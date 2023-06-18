@@ -6,18 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 
 namespace ServiceTelecom.Repositories.Base
 {
     internal class FrequenciesDataBaseRepository : IFrequenciesDataBaseRepository
     {
         public ObservableCollection<FrequencyModel> GetFrequencyDataBase(
-            ObservableCollection<FrequencyModel> FrequenciesCollections)
+            ObservableCollection<FrequencyModel> frequenciesCollection)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return FrequenciesCollections;
+                    return frequenciesCollection;
 
                 using (MySqlCommand command = new MySqlCommand("GetFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -29,19 +30,30 @@ namespace ServiceTelecom.Repositories.Base
                         {
                             while (reader.Read())
                             {
-                                FrequencyModel frequencyModel = 
+                                FrequencyModel frequencyModel =
                                     new FrequencyModel
                                     (reader.GetInt32(0), reader.GetString(1));
-                                FrequenciesCollections.Add(frequencyModel);
+                                frequenciesCollection.Add(frequencyModel);
                             }
                             reader.Close();
-                            return FrequenciesCollections;
+
+                            var tempFrequenciesCollection =
+                                 new ObservableCollection<FrequencyModel>
+                                 (frequenciesCollection.OrderBy(i => i));
+
+                            frequenciesCollection.Clear();
+                            foreach (var item in tempFrequenciesCollection)
+                                frequenciesCollection.Add(item);
+
+                            tempFrequenciesCollection = null;
+
+                            return frequenciesCollection;
                         }
                     }
                 }
-                return FrequenciesCollections;
+                return frequenciesCollection;
             }
-            catch { return FrequenciesCollections; }
+            catch { return frequenciesCollection; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
