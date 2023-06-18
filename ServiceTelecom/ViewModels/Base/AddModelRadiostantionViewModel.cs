@@ -23,6 +23,20 @@ namespace ServiceTelecom.ViewModels.Base
             set { _theIndexModelCollection = value; 
                 OnPropertyChanged(nameof(TheIndexModelCollection)); } 
         }
+
+        ModelRadiostantionDataBaseModel _selectedModelRadiostantionDataBaseModel;
+        public ModelRadiostantionDataBaseModel SelectedModelRadiostantionDataBaseModel
+        {
+            get => _selectedModelRadiostantionDataBaseModel;
+            set
+            {
+                if (value == null)
+                    return;
+                _selectedModelRadiostantionDataBaseModel = value;
+                OnPropertyChanged(nameof(SelectedModelRadiostantionDataBaseModel));
+            }
+        }
+
         public ICommand AddModelDataBase { get; }
         public ICommand DeleteModelDataBase { get; }
 
@@ -39,8 +53,11 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteDeleteModelDataBaseCommand(object obj)
         {
-            if (ModelCollections.Count <= 0 && string.IsNullOrWhiteSpace(Model))
+            if (ModelCollections.Count <= 0)
                 return;
+            if (string.IsNullOrWhiteSpace(Model))
+                return;
+            if(SelectedModelRadiostantionDataBaseModel.Model != Model) return;
             if (_modelDataBase.DeleteModelDataBase(Model)) GetModelDataBaseForUpdate();
             else
             {

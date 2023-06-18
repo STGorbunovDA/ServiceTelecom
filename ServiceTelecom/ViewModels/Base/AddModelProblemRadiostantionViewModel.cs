@@ -39,6 +39,20 @@ namespace ServiceTelecom.ViewModels.Base
         public ICommand AddProblemModelDataBase { get; }
         public ICommand DeleteProblemModelDataBase { get; }
 
+
+        ProblemModelRadiostantionDataBaseModel _selectedProblemModelRadiostantionDataBaseModel;
+        public ProblemModelRadiostantionDataBaseModel SelectedProblemModelRadiostantionDataBaseModel
+        {
+            get => _selectedProblemModelRadiostantionDataBaseModel;
+            set
+            {
+                if (value == null)
+                    return;
+                _selectedProblemModelRadiostantionDataBaseModel = value;
+                OnPropertyChanged(nameof(SelectedProblemModelRadiostantionDataBaseModel));
+            }
+        }
+
         public AddModelProblemRadiostantionViewModel()
         {
             ProblemModelCollections =
@@ -56,7 +70,10 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteDeleteProblemModelDataBaseCommand(object obj)
         {
-            if (ProblemModelCollections.Count <= 0 && string.IsNullOrWhiteSpace(Problem))
+            if(ProblemModelCollections.Count <= 0) return; 
+            if (string.IsNullOrWhiteSpace(Problem))
+                return;
+            if (SelectedProblemModelRadiostantionDataBaseModel.Problem != Problem)
                 return;
             if (_problemModelRadiostantionDataBase.DeleteProblemModelDataBase(Problem))
                 GetProblemModelDataBaseForUpdate();
