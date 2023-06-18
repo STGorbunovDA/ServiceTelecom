@@ -2,6 +2,10 @@
 using ServiceTelecom.Repositories.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.Base
@@ -9,7 +13,7 @@ namespace ServiceTelecom.ViewModels.Base
     internal class AddFrequencyRadiostantionViewModel : ViewModelBase
     {
         FrequenciesDataBaseRepository _frequenciesDataBase;
-        public List<FrequencyModel> FrequenciesCollections { get; set; }
+        public ObservableCollection<FrequencyModel> FrequenciesCollections { get; set; }
 
         private string _frequency;
         public string Frequency
@@ -36,7 +40,7 @@ namespace ServiceTelecom.ViewModels.Base
         public AddFrequencyRadiostantionViewModel()
         {
             _frequenciesDataBase = new FrequenciesDataBaseRepository();
-            FrequenciesCollections = new List<FrequencyModel>();
+            FrequenciesCollections = new ObservableCollection<FrequencyModel>();
             GetFrequencyDataBase();
             AddFrequencyDataBase = new ViewModelCommand(ExecuteAddFrequencyDataBaseCommand);
             ChangeFrequencyDataBase = new ViewModelCommand(ExecuteChangeFrequencyDataBaseCommand);
@@ -67,7 +71,21 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteAddFrequencyDataBaseCommand(object obj)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(Frequency)) return;
+            var result = FrequenciesCollections.FirstOrDefault(s => s.Frequency == Frequency);
+            if (result != null)
+                return;
+            if (!Regex.IsMatch(Frequency,
+                @"^[1][0-9]{1,1}[0-9]{1,1}[.][0-9]{1,1}[0-9]{1,1}[0-9]{1,1}$"))
+            {
+                MessageBox.Show($"Введите корректно поле: \"Частота\"\nПример: 151.825",
+                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (_frequenciesDataBase.AddFrequencyDataBase(Frequency)) GetFrequencyDataBase();
+            else MessageBox.Show("Ошибка добавления модели", "Отмена",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
@@ -81,7 +99,9 @@ namespace ServiceTelecom.ViewModels.Base
                 FrequenciesCollections.Clear();
             FrequenciesCollections =
                 _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
-            TheIndexFrequencyCollection = 0;
+            FrequenciesCollections = 
+                new ObservableCollection<FrequencyModel>(FrequenciesCollections.OrderBy(i => i));
+            TheIndexFrequencyCollection = FrequenciesCollections.Count - 1;
         }
 
         #endregion
