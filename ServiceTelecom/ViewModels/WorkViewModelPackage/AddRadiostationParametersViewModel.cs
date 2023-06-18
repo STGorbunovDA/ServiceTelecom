@@ -654,8 +654,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetFrequencyDataBase()
         {
-            if (FrequencyCollections.Count != 0)
-                FrequencyCollections.Clear();
+            if (FrequenciesCollections.Count != 0)
+                FrequenciesCollections.Clear();
             FrequenciesCollections =
                 _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
             TheIndexFrequencyCollection = 0;

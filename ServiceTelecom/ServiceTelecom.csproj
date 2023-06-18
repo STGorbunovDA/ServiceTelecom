@@ -195,6 +195,7 @@
     <Compile Include="Repositories\WorkRadiostantionRepository.cs" />
     <Compile Include="Repositories\WorkRadiostantionFullRepository.cs" />
     <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
+    <Compile Include="ViewModels\Base\AddFrequencyRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
