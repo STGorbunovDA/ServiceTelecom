@@ -76,7 +76,7 @@ namespace ServiceTelecom.ViewModels.Base
                 ModelCollections.Clear();
             ModelCollections = _modelDataBase.
                 GetModelRadiostantionDataBase(ModelCollections);
-            TheIndexModelCollection = ModelCollections.Count;
+            TheIndexModelCollection = ModelCollections.Count-1;
         }
 
         #endregion
