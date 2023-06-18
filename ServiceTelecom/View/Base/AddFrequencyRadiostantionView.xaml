@@ -92,13 +92,13 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <ComboBox x:Name="cmbFrequenciesCollections"
-                                  Height="35"
+                                  Height="40"
                                   Width="250"
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
                                   ItemsSource="{Binding FrequenciesCollections}"
                                   SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
-                                  Text="{Binding Frequency}">
+                                  Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ComboBox.Resources>
                             <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
                         </ComboBox.Resources>

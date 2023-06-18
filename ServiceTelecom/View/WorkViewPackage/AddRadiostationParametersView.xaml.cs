@@ -8,7 +8,7 @@ namespace ServiceTelecom.View.WorkViewPackage
         public AddRadiostationParametersView()
         {
             InitializeComponent();
-            cmbFrequency.SelectedIndex= 0;
+            cmbFrequency.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
