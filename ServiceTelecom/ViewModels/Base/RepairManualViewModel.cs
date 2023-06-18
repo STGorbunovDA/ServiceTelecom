@@ -15,7 +15,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         RepairManualModelRepository _repairManualModelRepository;
 
-        public ObservableCollection<RepairManualRadiostantion>
+        public ObservableCollection<RepairManualRadiostantionModel>
             RepairManualRadiostantionsCollections
         { get; set; }
 
@@ -63,8 +63,8 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private RepairManualRadiostantion _repairManual;
-        public RepairManualRadiostantion SelectedRepairManualRadiostantion
+        private RepairManualRadiostantionModel _repairManual;
+        public RepairManualRadiostantionModel SelectedRepairManualRadiostantion
         {
             get => _repairManual;
             set
@@ -98,7 +98,7 @@ namespace ServiceTelecom.ViewModels.Base
         {
             _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections = 
-                new ObservableCollection<RepairManualRadiostantion>();
+                new ObservableCollection<RepairManualRadiostantionModel>();
             AddRepairManualModelRadiostationForDocumentInDB =
                 new ViewModelCommand(
                     ExecuteAddRepairManualModelRadiostationForDocumentInDBCommand);
@@ -122,7 +122,7 @@ namespace ServiceTelecom.ViewModels.Base
                 RepairManualMulipleSelectedDataGrid.Count == 0)
                 return;
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRepairManualDataGrid;
-            foreach (RepairManualRadiostantion repairManualRadiostantion
+            foreach (RepairManualRadiostantionModel repairManualRadiostantion
                 in RepairManualMulipleSelectedDataGrid)
                 _repairManualModelRepository.
                     DeleteRepairManualModelRadiostationForDocumentInDB(

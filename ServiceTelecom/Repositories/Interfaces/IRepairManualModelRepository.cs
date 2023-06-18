@@ -6,9 +6,9 @@ namespace ServiceTelecom.Repositories.Interfaces
     internal interface IRepairManualModelRepository
     {
         /// <summary> Получение справочника ремонтов радиостанций по модели </summary>
-        ObservableCollection<RepairManualRadiostantion>
+        ObservableCollection<RepairManualRadiostantionModel>
             GetRepairManualRadiostantionsCollections(
-            ObservableCollection<RepairManualRadiostantion>
+            ObservableCollection<RepairManualRadiostantionModel>
             repairManualRadiostantionsCollections, string model);
 
         /// <summary> добавление детали и работы в справочника ремонтов радиостанций </summary>

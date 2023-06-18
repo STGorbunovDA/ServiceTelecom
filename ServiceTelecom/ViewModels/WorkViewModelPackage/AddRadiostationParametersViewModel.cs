@@ -21,6 +21,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
         public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
+        public ObservableCollection<HandbookParametersModelRadiostationModel> 
+            HandbookParametersModelRadiostation { get; set; }
+
         #region свойства
 
         public string Road { get; set; }
@@ -431,7 +434,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _frequenciesDataBase = new FrequenciesDataBaseRepository();
             
             FrequenciesCollection = new ObservableCollection<FrequencyModel>();
-
+            
+            HandbookParametersModelRadiostation = 
+                new ObservableCollection<HandbookParametersModelRadiostationModel>();
+            
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
 

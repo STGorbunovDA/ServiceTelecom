@@ -157,12 +157,13 @@
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Models\FrequencyModel.cs" />
+    <Compile Include="Models\HandbookParametersModelRadiostationModel.cs" />
     <Compile Include="Models\RadiostationParametersDataBaseModel.cs" />
     <Compile Include="Models\ModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\ProblemModelRadiostantionDataBaseModel.cs" />
     <Compile Include="Models\RadiostationForDocumentsDataBaseModel.cs" />
     <Compile Include="Models\RepairDataCompanyModel.cs" />
-    <Compile Include="Models\RepairManualRadiostantion.cs" />
+    <Compile Include="Models\RepairManualRadiostantionModel.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Base\FrequenciesDataBaseRepository.cs" />
