@@ -97,6 +97,7 @@
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
                                   ItemsSource="{Binding FrequenciesCollection}"
+                                  SelectedItem="{Binding SelectedFrequencyModel}"
                                   SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
                                   Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ComboBox.Resources>
@@ -112,13 +113,6 @@
                             Command="{Binding AddFrequencyDataBase}"
                             Content="Добавить"
                             Margin ="0,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
-                            Cursor="Hand">
-                        </Button>
-                        <Button x:Name="btnChangeFrequencyDataBase"
-                            Command="{Binding ChangeFrequencyDataBase}"
-                            Content="Изменить"
-                            Margin ="0,5,0,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                             Cursor="Hand">
                         </Button>

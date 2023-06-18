@@ -75,10 +75,28 @@ namespace ServiceTelecom.Repositories.Base
                 }
             }
             catch { return false; }
-            finally
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool DeleteFrequencyDataBase(int idBase)
+        {
+            try
             {
-                RepositoryDataBase.GetInstance.CloseConnection();
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand("DeleteFrequencyDataBase",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"idBaseUser", idBase);
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+
             }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
     }
 }

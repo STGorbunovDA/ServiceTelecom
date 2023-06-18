@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Base;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,13 +12,13 @@ namespace ServiceTelecom.ViewModels.Base
     internal class AddFrequencyRadiostantionViewModel : ViewModelBase
     {
         FrequenciesDataBaseRepository _frequenciesDataBase;
-        public ObservableCollection<FrequencyModel> FrequenciesCollections { get; set; }
+        public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
         private string _frequency;
         public string Frequency
         {
             get => _frequency;
-            set { _frequency = value; OnPropertyChanged(nameof(Frequency)); }
+            set { _frequency = value; }
         }
 
         private int _theIndexFrequencyCollection;
@@ -33,17 +32,28 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
+        FrequencyModel _selectedFrequencyModel;
+        public FrequencyModel SelectedFrequencyModel
+        {
+            get => _selectedFrequencyModel;
+            set
+            {
+                if (value == null)
+                    return;
+                _selectedFrequencyModel = value;
+                OnPropertyChanged(nameof(SelectedFrequencyModel));
+            }
+        }
+
         public ICommand AddFrequencyDataBase { get; }
-        public ICommand ChangeFrequencyDataBase { get; }
         public ICommand DeleteFrequencyDataBase { get; }
 
         public AddFrequencyRadiostantionViewModel()
         {
             _frequenciesDataBase = new FrequenciesDataBaseRepository();
-            FrequenciesCollections = new ObservableCollection<FrequencyModel>();
+            FrequenciesCollection = new ObservableCollection<FrequencyModel>();
             GetFrequencyDataBase();
             AddFrequencyDataBase = new ViewModelCommand(ExecuteAddFrequencyDataBaseCommand);
-            ChangeFrequencyDataBase = new ViewModelCommand(ExecuteChangeFrequencyDataBaseCommand);
             DeleteFrequencyDataBase = new ViewModelCommand(ExecuteDeleteFrequencyDataBaseCommand);
         }
 
@@ -53,16 +63,14 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteDeleteFrequencyDataBaseCommand(object obj)
         {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region ChangeFrequencyDataBase
-
-        private void ExecuteChangeFrequencyDataBaseCommand(object obj)
-        {
-            throw new NotImplementedException();
+            if (FrequenciesCollection.Count <= 0)
+                return;
+            if (String.IsNullOrWhiteSpace(Frequency)) return;
+            if (SelectedFrequencyModel.Frequency != Frequency) return;
+            if (_frequenciesDataBase.DeleteFrequencyDataBase(SelectedFrequencyModel.IdBase))
+                GetFrequencyDataBase();
+            else MessageBox.Show("Ошибка удаления частоты", "Отмена",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
@@ -72,7 +80,7 @@ namespace ServiceTelecom.ViewModels.Base
         private void ExecuteAddFrequencyDataBaseCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Frequency)) return;
-            var result = FrequenciesCollections.FirstOrDefault(s => s.Frequency == Frequency);
+            var result = FrequenciesCollection.FirstOrDefault(s => s.Frequency == Frequency);
             if (result != null)
                 return;
             if (!Regex.IsMatch(Frequency,
@@ -83,8 +91,9 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
 
-            if (_frequenciesDataBase.AddFrequencyDataBase(Frequency)) GetFrequencyDataBase();
-            else MessageBox.Show("Ошибка добавления модели", "Отмена",
+            if (_frequenciesDataBase.AddFrequencyDataBase(Frequency))
+                GetFrequencyDataBase();
+            else MessageBox.Show("Ошибка добавления частоты", "Отмена",
                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -95,13 +104,11 @@ namespace ServiceTelecom.ViewModels.Base
         private void GetFrequencyDataBase()
         {
             TheIndexFrequencyCollection = -1;
-            if (FrequenciesCollections.Count != 0)
-                FrequenciesCollections.Clear();
-            FrequenciesCollections =
-                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
-            FrequenciesCollections = 
-                new ObservableCollection<FrequencyModel>(FrequenciesCollections.OrderBy(i => i));
-            TheIndexFrequencyCollection = FrequenciesCollections.Count - 1;
+            if (FrequenciesCollection.Count != 0)
+                FrequenciesCollection.Clear();
+            FrequenciesCollection =
+                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
+            TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
         }
 
         #endregion

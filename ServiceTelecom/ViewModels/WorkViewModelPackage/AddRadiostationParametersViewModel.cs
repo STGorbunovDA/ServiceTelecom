@@ -19,7 +19,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         FrequenciesDataBaseRepository _frequenciesDataBase;
 
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
-        public ObservableCollection<FrequencyModel> FrequenciesCollections { get; set; }
+        public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
         #region свойства
 
@@ -422,13 +422,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRadiostationParameters { get; }
         public ICommand ChangeStatusVerifiedRSTInRepair { get; }
         public ICommand AddFrequency { get; }
+
+        public ICommand HandbookAddRadiostationParameters { get; }
         public AddRadiostationParametersViewModel()
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBase = new FrequenciesDataBaseRepository();
             
-            FrequenciesCollections = new ObservableCollection<FrequencyModel>();
+            FrequenciesCollection = new ObservableCollection<FrequencyModel>();
 
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
@@ -438,6 +440,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             AddFrequency =
                 new ViewModelCommand(ExecuteAddFrequencyCommand);
+
+            HandbookAddRadiostationParameters =
+                 new ViewModelCommand(ExecuteHandbookAddRadiostationParametersCommand);
 
             foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
@@ -527,6 +532,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             GetFrequencyDataBase();
         }
+
+
+
+        #region HandbookAddRadiostationParameters
+
+        private void ExecuteHandbookAddRadiostationParametersCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
         #region AddFrequency
 
@@ -657,13 +673,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private void GetFrequencyDataBase()
         {
             TheIndexFrequencyCollection = -1;
-            if (FrequenciesCollections.Count != 0)
-                FrequenciesCollections.Clear();
-            FrequenciesCollections =
-                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
-            FrequenciesCollections =
-                new ObservableCollection<FrequencyModel>(FrequenciesCollections.OrderBy(i => i));
-            TheIndexFrequencyCollection = FrequenciesCollections.Count - 1;
+            if (FrequenciesCollection.Count != 0)
+                FrequenciesCollection.Clear();
+            FrequenciesCollection =
+                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
+            TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
         }
 
         #endregion

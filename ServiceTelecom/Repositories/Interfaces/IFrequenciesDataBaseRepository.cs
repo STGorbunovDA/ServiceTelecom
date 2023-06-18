@@ -5,11 +5,14 @@ namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IFrequenciesDataBaseRepository
     {
-        /// <summary> Получение частот радиостанции </summary>
+        /// <summary> Получение частот </summary>
         ObservableCollection<FrequencyModel> GetFrequencyDataBase(
             ObservableCollection<FrequencyModel> FrequenciesCollections);
 
-        /// <summary> Добавление частоты радиостанции</summary>
+        /// <summary> Добавление частоты /summary>
         bool AddFrequencyDataBase(string frequency);
+
+        /// <summary> Удаление частоты</summary>
+        bool DeleteFrequencyDataBase(int idBase);
     }
 }
