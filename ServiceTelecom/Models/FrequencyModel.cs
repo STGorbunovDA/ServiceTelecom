@@ -1,9 +1,10 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.ViewModels;
+using System;
 
 namespace ServiceTelecom.Models
 {
-    internal class FrequencyModel : ViewModelBase
+    internal class FrequencyModel : ViewModelBase, IComparable<FrequencyModel>
     {
         private int _id;
         private string _frequency;
@@ -14,12 +15,20 @@ namespace ServiceTelecom.Models
         public FrequencyModel(int idBase, string frequency)
         {
             IdBase = idBase;
-            Frequency = Encryption.DecryptCipherTextToPlainText(Frequency);
+            Frequency = Encryption.DecryptCipherTextToPlainText(frequency);
         }
 
         public override string ToString()
         {
             return $"{Frequency}";
+        }
+
+        public int CompareTo(FrequencyModel other)
+        {
+            int result = this.Frequency.CompareTo(other.Frequency);
+            if (result == 0)
+                result = this.Frequency.CompareTo(other.Frequency);
+            return result;
         }
     }
 }

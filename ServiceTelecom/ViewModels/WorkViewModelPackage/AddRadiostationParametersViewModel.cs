@@ -4,6 +4,8 @@ using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -17,7 +19,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         FrequenciesDataBaseRepository _frequenciesDataBase;
 
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
-        public List<FrequencyModel> FrequenciesCollections { get; set; }
+        public ObservableCollection<FrequencyModel> FrequenciesCollections { get; set; }
 
         #region свойства
 
@@ -426,7 +428,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBase = new FrequenciesDataBaseRepository();
             
-            FrequenciesCollections = new List<FrequencyModel>();
+            FrequenciesCollections = new ObservableCollection<FrequencyModel>();
 
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
@@ -654,11 +656,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetFrequencyDataBase()
         {
+            TheIndexFrequencyCollection = -1;
             if (FrequenciesCollections.Count != 0)
                 FrequenciesCollections.Clear();
             FrequenciesCollections =
                 _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollections);
-            TheIndexFrequencyCollection = 0;
+            FrequenciesCollections =
+                new ObservableCollection<FrequencyModel>(FrequenciesCollections.OrderBy(i => i));
+            TheIndexFrequencyCollection = FrequenciesCollections.Count - 1;
         }
 
         #endregion
