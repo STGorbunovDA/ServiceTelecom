@@ -96,7 +96,7 @@
                                   Width="250"
                                   Margin="5,0,20,0"
                                   Style="{StaticResource ComboBoxStyle2}"
-                                  ItemsSource="{Binding FrequenciesCollections}"
+                                  ItemsSource="{Binding FrequenciesCollection}"
                                   SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
                                   Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <ComboBox.Resources>

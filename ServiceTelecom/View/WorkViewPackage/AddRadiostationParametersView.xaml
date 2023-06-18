@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
-        Title="Добавить параметры" Height="530" Width="1330"
+        Title="Добавить параметры" Height="620" Width="1330"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -39,8 +39,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="240"/>
-                <RowDefinition Height="180"/>
+                <RowDefinition Height="450"/>
+                <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -115,612 +115,626 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="770"/>
-                    <ColumnDefinition Width="275"/>
-                    <ColumnDefinition Width="275"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="275"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="120"/>
-                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="240"/>
+                        <RowDefinition Height="210"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="770"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0">
-                        <DockPanel Margin="6">
-                            <Border CornerRadius="6"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="770"/>
+                            <ColumnDefinition Width="275"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="120"/>
+                                <RowDefinition Height="120"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="770"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0">
+                                <DockPanel Margin="6">
+                                    <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
                             Background="{StaticResource titleFontColor6}" 
                             BorderThickness="2" 
                             DockPanel.Dock="Top">
-                                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                                    <StackPanel Orientation="Vertical"
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text="Низкий, Вт.:"
+                                                    <TextBlock Text="Низкий, Вт.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbLowPowerLevelTransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbLowPowerLevelTransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding LowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text="Высокий, Вт.:"
+                                                    <TextBlock Text="Высокий, Вт.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbHighPowerLevelTransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbHighPowerLevelTransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding HighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center"
                                     Margin="10,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text="Отклонение, Гц:"
+                                                    <TextBlock Text="Отклонение, Гц:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbFrequencyDeviationTransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbFrequencyDeviationTransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding FrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text="  Чувствительност., мВ:"
+                                                    <TextBlock Text="  Чувствительност., мВ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbSensitivityTransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbSensitivityTransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding SensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center"
                                     Margin="10,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                            <TextBlock Text="КНИ, %:"
+                                                    <TextBlock Text="КНИ, %:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbKNITransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbKNITransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding KNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Right"
                                             Margin="0,10,0,0">
-                                            <TextBlock Text="Девиация, кГЦ:"
+                                                    <TextBlock Text="Девиация, кГЦ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbDeviationTransmitter"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbDeviationTransmitter"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding DeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DockPanel>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <DockPanel Margin="6">
-                            <Border CornerRadius="6"
+                                    </Border>
+                                </DockPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <DockPanel Margin="6">
+                                    <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
                             Background="{StaticResource titleFontColor6}" 
                             BorderThickness="2" 
                             DockPanel.Dock="Top">
-                                <StackPanel Grid.Column="0" 
+                                        <StackPanel Grid.Column="0" 
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                                    <StackPanel Orientation="Vertical"
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Left">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,19,0">
-                                            <TextBlock Text="Выx. Мощ., В.:"
+                                                    <TextBlock Text="Выx. Мощ., В.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txboOutputPowerVoltReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txboOutputPowerVoltReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding OutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="-3,10,18,0">
-                                            <TextBlock Text="Выx. Мощ., Вт.:"
+                                                    <TextBlock Text="Выx. Мощ., Вт.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbOutputPowerWattReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbOutputPowerWattReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding OutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center"
                                     Margin="10,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text=" Избирательност., дБ:"
+                                                    <TextBlock Text=" Избирательност., дБ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbSelectivityReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbSelectivityReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding SelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,10,0,0">
-                                            <TextBlock Text="Чувствительн., мкВ:"
+                                                    <TextBlock Text="Чувствительн., мкВ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbSensitivityReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbSensitivityReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding SensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical"
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Center"
                                     Margin="10,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
+                                                <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                            <TextBlock Text="КНИ, %:"
+                                                    <TextBlock Text="КНИ, %:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbKNIReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbKNIReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding KNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
+                                                    </TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Right"
                                             Margin="0,10,0,0">
-                                            <TextBlock Text="    Шумоп., мкВ:"
+                                                    <TextBlock Text="    Шумоп., мкВ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbSuppressorReceiver"
+                                                    </TextBlock>
+                                                    <TextBox x:Name="txbSuppressorReceiver"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding SuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                                    </TextBox>
+                                                </StackPanel>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DockPanel>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="120"/>
-                        <RowDefinition Height="120"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <DockPanel Margin="6">
-                            <Border CornerRadius="6"
+                                    </Border>
+                                </DockPanel>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="120"/>
+                                <RowDefinition Height="120"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <DockPanel Margin="6">
+                                    <Border CornerRadius="6"
                                 BorderBrush="{StaticResource titleFontColor3}" 
                                 Background="{StaticResource titleFontColor6}" 
                                 BorderThickness="2" 
                                 DockPanel.Dock="Top">
-                                <StackPanel Orientation="Vertical"
+                                        <StackPanel Orientation="Vertical"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             Margin="0,0,0,0">
-                                    <StackPanel Orientation="Horizontal"
+                                            <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                        <TextBlock Text="  Деж. режим, мА.:"
+                                                <TextBlock Text="  Деж. режим, мА.:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 VerticalAlignment="Center">
-                                        </TextBlock>
-                                        <TextBox x:Name="txbStandbyModeCurrentConsumption"
+                                                </TextBlock>
+                                                <TextBox x:Name="txbStandbyModeCurrentConsumption"
                                             HorizontalAlignment="Center"
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding StandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                        <TextBlock Text="Реж. приём, мА.:"
+                                                <TextBlock Text="Реж. приём, мА.:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                        </TextBlock>
-                                        <TextBox x:Name="txbReceptionModeCurrentConsumption"
+                                                </TextBlock>
+                                                <TextBox x:Name="txbReceptionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding ReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        </TextBox>
-                                    </StackPanel>
-                                </StackPanel>
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
 
 
 
-                            </Border>
-                        </DockPanel>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <DockPanel Margin="6">
-                            <Border CornerRadius="6"
+                                    </Border>
+                                </DockPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <DockPanel Margin="6">
+                                    <Border CornerRadius="6"
                                 BorderBrush="{StaticResource titleFontColor3}" 
                                 Background="{StaticResource titleFontColor6}" 
                                 BorderThickness="2" 
                                 DockPanel.Dock="Top">
-                                <StackPanel Orientation="Vertical"
+                                        <StackPanel Orientation="Vertical"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             Margin="0,0,0,0">
-                                    <StackPanel Orientation="Horizontal"
+                                            <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                        <TextBlock Text=" Реж. передачи, A:"
+                                                <TextBlock Text=" Реж. передачи, A:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                        </TextBlock>
-                                        <TextBox x:Name="txbTransmissionModeCurrentConsumption"
+                                                </TextBlock>
+                                                <TextBox x:Name="txbTransmissionModeCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding TransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        </TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                        <TextBlock Text="Разряд АКБ, В.:"
+                                                <TextBlock Text="Разряд АКБ, В.:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
                                                 Margin="0,10,0,0">
-                                        </TextBlock>
-                                        <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
+                                                </TextBlock>
+                                                <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
                                             HorizontalAlignment="Center"   
                                             Height="35"
                                             Width="80"
                                             Margin="5,0,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding BatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        </TextBox>
-                                    </StackPanel>
-                                </StackPanel>
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
 
 
 
-                            </Border>
-                        </DockPanel>
+                                    </Border>
+                                </DockPanel>
+                            </Grid>
+                        </Grid>
+
                     </Grid>
-                </Grid>
-                <Grid Grid.Row="1" Grid.Column="2">
-                    <DockPanel Margin="6">
-                        <Border CornerRadius="6"
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="770"/>
+                            <ColumnDefinition Width="275"/>
+                            <ColumnDefinition Width="275"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <DockPanel Margin="6">
+                                <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
                             Background="{StaticResource titleFontColor6}" 
                             BorderThickness="2" 
                             DockPanel.Dock="Top">
-                            <StackPanel Orientation="Vertical"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,0,0">
-                                <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,0,0,0">
-                                    <ComboBox x:Name="cmbFrequency"
-                                            Height="40"
-                                            Width="190"
-                                            Style="{StaticResource ComboBoxStyle2}"
-                                            ItemsSource="{Binding FrequenciesCollections}"
-                                            SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
-                                            Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                        <ComboBox.Resources>
-                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                                        </ComboBox.Resources>
-                                    </ComboBox>
-                                    <Button x:Name="btnAddFrequency"
-                                        Command="{Binding AddFrequency}"
-                                        Content="➕"
-                                        Margin ="5,0,0,0"
-                                        Style="{StaticResource menuButtonStyleCheck}" 
-                                        Cursor="Hand">
-                                    </Button>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,5,0,0">
-                                    <TextBox x:Name="txbFrequencies"
-                                            Height="165"
-                                            Width="190"
-                                            FontSize="12"
-                                            Style="{StaticResource TextBoxStyle6}"
-                                            Text="{Binding FrequenciesCompletedForRadiostantion, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
-                                    <CheckBox 
-                                        Name="CheckBoxRepeater"
-                                        Style="{StaticResource CheckBoxStyle1}"
-                                        IsChecked="{Binding CheckBoxRepeater}"
-                                        Margin="10,0,0,0"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </DockPanel>
-
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="770"/>
-                    <ColumnDefinition Width="275"/>
-                    <ColumnDefinition Width="275"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <DockPanel Margin="6">
-                        <Border CornerRadius="6"
-                            BorderBrush="{StaticResource titleFontColor3}" 
-                            Background="{StaticResource titleFontColor6}" 
-                            BorderThickness="2" 
-                            DockPanel.Dock="Top">
-                            <StackPanel Grid.Column="0" Orientation="Vertical"
+                                    <StackPanel Grid.Column="0" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                                <TextBlock Text="Примечание"
+                                        <TextBlock Text="Примечание"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,0,0"
                                             HorizontalAlignment="Center">
-                                </TextBlock>
-                                <TextBox x:Name="txbNoteRadioStationParameters"
-                                            Height="120"
+                                        </TextBlock>
+                                        <TextBox x:Name="txbNoteRadioStationParameters"
+                                            Height="145"
                                             Width="730"
-                                            Margin="5,5,0,0"
+                                            Margin="5,10,0,0"
                                             Style="{StaticResource TextBoxStyle6}"
                                             Text="{Binding NoteRadioStationParameters, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                </TextBox>
-                            </StackPanel>
-                        </Border>
-                    </DockPanel>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <DockPanel Margin="6">
-                        <Border CornerRadius="6"
+                                        </TextBox>
+                                    </StackPanel>
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <DockPanel Margin="6">
+                                <Border CornerRadius="6"
                             BorderBrush="{StaticResource titleFontColor3}" 
                             Background="{StaticResource titleFontColor6}" 
                             BorderThickness="2" 
                             DockPanel.Dock="Top">
-                            <StackPanel 
+                                    <StackPanel 
                                         Orientation="Vertical"
                                         VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                                <StackPanel
+                                        HorizontalAlignment="Right"
+                                        Margin="0,0,10,0">
+                                        <StackPanel
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right">
-                                    <TextBlock Text="З.У.:"
+                                            <TextBlock Text="З.У.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,5,0"
                                             VerticalAlignment="Center">
-                                    </TextBlock>
-                                    <ComboBox x:Name="cmbBatteryChargerAccessories"
+                                            </TextBlock>
+                                            <ComboBox x:Name="cmbBatteryChargerAccessories"
                                         Height="35"
                                         Width="170"
                                         IsEnabled="{Binding IsEnabledChargerAccessories}"
                                         Text="{Binding BatteryChargerAccessories}"
                                         Style="{StaticResource ComboBoxStyle1}">
-                                        <ComboBoxItem Content="Исправно"/>
-                                        <ComboBoxItem Content="Неисправно"/>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel
+                                                <ComboBoxItem Content="Исправно"/>
+                                                <ComboBoxItem Content="Неисправно"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Margin="0,10,0,0">
-                                    <TextBlock Text="МАН.:"
+                                            <TextBlock Text="МАН.:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,5,0"
                                             VerticalAlignment="Center">
-                                    </TextBlock>
-                                    <ComboBox x:Name="cmbManipulatorAccessories"
+                                            </TextBlock>
+                                            <ComboBox x:Name="cmbManipulatorAccessories"
                                         Height="35"
                                         Width="170"
                                         IsEnabled="{Binding IsEnabledManipulatorAccessories}"
                                         Text="{Binding ManipulatorAccessories}"
                                         Style="{StaticResource ComboBoxStyle1}">
-                                        <ComboBoxItem Content="Исправно"/>
-                                        <ComboBoxItem Content="Неисправно"/>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel
+                                                <ComboBoxItem Content="Исправно"/>
+                                                <ComboBoxItem Content="Неисправно"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"
                                         Margin="0,8,0,0">
-                                    <TextBlock Text="АКБ:"
+                                            <TextBlock Text="АКБ:"
                                             Foreground="{StaticResource titleFontColor1}"
                                             Style="{StaticResource messageTextBlockStyle2}"
                                             Margin="0,0,5,0"
                                             VerticalAlignment="Center">
-                                    </TextBlock>
-                                    <TextBox x:Name="txbPercentAKB"
+                                            </TextBlock>
+                                            <TextBox x:Name="txbPercentAKB"
                                             HorizontalAlignment="Center"
                                             Height="35"
                                             Width="134"
                                             IsEnabled="{Binding IsEnablePercentAKB}"
                                             Style="{StaticResource TextBoxStyle7}"
                                             Text="{Binding PercentAKB, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                    </TextBox>
-                                    <CheckBox 
+                                            </TextBox>
+                                            <CheckBox 
                                         Name="CheckBoxFaultyAKB"
                                         Style="{StaticResource CheckBoxStyle1}"
                                         IsChecked="{Binding CheckBoxFaultyAKB}"
                                         Margin="5,1,-5,0"
                                         IsEnabled="{Binding IsEnableCheckBoxFaultyAKB}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </DockPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Column="2">
-                    <StackPanel 
-                            Orientation="Vertical"
+                <Grid Grid.Column="1">
+                    <Grid Grid.Column="2">
+                        <DockPanel Margin="6">
+                            <Border CornerRadius="6"
+                            BorderBrush="{StaticResource titleFontColor3}" 
+                            Background="{StaticResource titleFontColor6}" 
+                            BorderThickness="2" 
+                            DockPanel.Dock="Top">
+                                <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,0">
+                                        <ComboBox x:Name="cmbFrequency"
+                                            Height="40"
+                                            Width="190"
+                                            Style="{StaticResource ComboBoxStyle4}"
+                                            ItemsSource="{Binding FrequenciesCollection}"
+                                            SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
+                                            Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <ComboBox.Resources>
+                                                <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+                                            </ComboBox.Resources>
+                                        </ComboBox>
+                                        <Button x:Name="btnAddFrequency"
+                                        Command="{Binding AddFrequency}"
+                                        Content="➕"
+                                        Margin ="5,0,0,0"
+                                        Style="{StaticResource menuButtonStyleCheck}" 
+                                        Cursor="Hand">
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,5,0,0">
+                                        <TextBox x:Name="txbFrequencies"
+                                            Height="370"
+                                            Width="190"
+                                            Style="{StaticResource TextBoxStyle6}"
+                                            Text="{Binding FrequenciesCompletedForRadiostantion, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        </TextBox>
+                                        <CheckBox 
+                                        Name="CheckBoxRepeater"
+                                        Style="{StaticResource CheckBoxStyle1}"
+                                        IsChecked="{Binding CheckBoxRepeater}"
+                                        Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DockPanel>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <StackPanel 
+                            Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                        <Button x:Name="btnAddRadiostationParameters"
+                    <Button x:Name="btnAddRadiostationParameters"
                             Command="{Binding AddRadiostationParameters}"
-                            Content="Добавить"
+                            Content="Добавить параметры"
                             Margin ="0,0,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
+                            Style="{StaticResource menuButtonStyleSeven}" 
                             Cursor="Hand">
-                        </Button>
-                        <Button x:Name="btnHandbookAddRadiostationParameters"
+                    </Button>
+                    <Button x:Name="btnHandbookAddRadiostationParameters"
                             Command="{Binding HandbookAddRadiostationParameters}"
-                            Content="Справочник"
-                            Margin ="0,10,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
+                            Content="Добавить справочник"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleSeven}" 
                             Cursor="Hand">
-                        </Button>
-                        <Button x:Name="btnChangeStatusVerifiedRSTInRepair"
+                    </Button>
+                    <Button x:Name="btnChangeStatusVerifiedRSTInRepair"
                             Command="{Binding ChangeStatusVerifiedRSTInRepair}"
-                            Content="В ремонт"
-                            Margin ="0,10,0,0"
-                            Style="{StaticResource menuButtonStyleAll}" 
+                            Content="Добавить в ремонт"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleSeven}" 
                             Cursor="Hand">
-                        </Button>
-                    </StackPanel>
-                </Grid>
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
