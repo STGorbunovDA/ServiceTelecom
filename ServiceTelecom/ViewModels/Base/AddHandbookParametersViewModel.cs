@@ -1,7 +1,12 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.View.Base;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.Base
 {
@@ -12,6 +17,14 @@ namespace ServiceTelecom.ViewModels.Base
         public ObservableCollection<HandbookParametersModelRadiostationModel>
            HandbookParametersAllModelRadiostationCollection
         { get; set; }
+
+
+        AddModelRadiostantionView addModelRadiostantion = null;
+        private ModelDataBaseRepository _modelDataBase;
+        public ObservableCollection<ModelRadiostantionDataBaseModel>
+            ModelCollections
+        { get; set; }
+
 
         #region Свойства
 
@@ -51,7 +64,7 @@ namespace ServiceTelecom.ViewModels.Base
         private string _maxTransmissionModeCurrentConsumption;
         private string _minBatteryDischargeAlarmCurrentConsumption;
         private string _maxBatteryDischargeAlarmCurrentConsumption;
- 
+
         public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
         public string MinLowPowerLevelTransmitter { get => _minLowPowerLevelTransmitter; set { _minLowPowerLevelTransmitter = value; OnPropertyChanged(nameof(MinLowPowerLevelTransmitter)); } }
         public string MaxLowPowerLevelTransmitter { get => _maxLowPowerLevelTransmitter; set { _maxLowPowerLevelTransmitter = value; OnPropertyChanged(nameof(MaxLowPowerLevelTransmitter)); } }
@@ -122,84 +135,84 @@ namespace ServiceTelecom.ViewModels.Base
                 {
                     Model = _selectedHandbookParametersModel.Model;
 
-                    MinLowPowerLevelTransmitter = 
+                    MinLowPowerLevelTransmitter =
                         _selectedHandbookParametersModel.MinLowPowerLevelTransmitter;
-                    MaxLowPowerLevelTransmitter = 
+                    MaxLowPowerLevelTransmitter =
                         _selectedHandbookParametersModel.MaxLowPowerLevelTransmitter;
 
-                    MinHighPowerLevelTransmitter = 
+                    MinHighPowerLevelTransmitter =
                         _selectedHandbookParametersModel.MinHighPowerLevelTransmitter;
-                    MaxHighPowerLevelTransmitter = 
+                    MaxHighPowerLevelTransmitter =
                         _selectedHandbookParametersModel.MaxHighPowerLevelTransmitter;
 
-                    MinFrequencyDeviationTransmitter = 
+                    MinFrequencyDeviationTransmitter =
                         _selectedHandbookParametersModel.MinFrequencyDeviationTransmitter;
-                    MaxFrequencyDeviationTransmitter = 
+                    MaxFrequencyDeviationTransmitter =
                         _selectedHandbookParametersModel.MaxFrequencyDeviationTransmitter;
 
-                    MinSensitivityTransmitter = 
+                    MinSensitivityTransmitter =
                         _selectedHandbookParametersModel.MinSensitivityTransmitter;
-                    MaxSensitivityTransmitter = 
+                    MaxSensitivityTransmitter =
                         _selectedHandbookParametersModel.MaxSensitivityTransmitter;
 
-                    MinKNITransmitter = 
+                    MinKNITransmitter =
                         _selectedHandbookParametersModel.MinKNITransmitter;
-                    MaxKNITransmitter = 
+                    MaxKNITransmitter =
                         _selectedHandbookParametersModel.MaxKNITransmitter;
 
-                    MinDeviationTransmitter = 
+                    MinDeviationTransmitter =
                         _selectedHandbookParametersModel.MinDeviationTransmitter;
-                    MaxDeviationTransmitter = 
+                    MaxDeviationTransmitter =
                         _selectedHandbookParametersModel.MaxDeviationTransmitter;
 
                     MinOutputPowerVoltReceiver =
                         _selectedHandbookParametersModel.MinOutputPowerVoltReceiver;
-                    MaxOutputPowerVoltReceiver = 
+                    MaxOutputPowerVoltReceiver =
                         _selectedHandbookParametersModel.MaxOutputPowerVoltReceiver;
 
-                    MinOutputPowerWattReceiver = 
+                    MinOutputPowerWattReceiver =
                         _selectedHandbookParametersModel.MinOutputPowerWattReceiver;
-                    MaxOutputPowerWattReceiver = 
+                    MaxOutputPowerWattReceiver =
                         _selectedHandbookParametersModel.MaxOutputPowerWattReceiver;
 
-                    MinSelectivityReceiver = 
+                    MinSelectivityReceiver =
                         _selectedHandbookParametersModel.MinSelectivityReceiver;
-                    MaxSelectivityReceiver = 
+                    MaxSelectivityReceiver =
                         _selectedHandbookParametersModel.MaxSelectivityReceiver;
 
-                    MinSensitivityReceiver = 
+                    MinSensitivityReceiver =
                         _selectedHandbookParametersModel.MinSensitivityReceiver;
-                    MaxSensitivityReceiver = 
+                    MaxSensitivityReceiver =
                         _selectedHandbookParametersModel.MaxSensitivityReceiver;
 
-                    MinKNIReceiver = 
+                    MinKNIReceiver =
                         _selectedHandbookParametersModel.MinKNIReceiver;
-                    MaxKNIReceiver = 
+                    MaxKNIReceiver =
                         _selectedHandbookParametersModel.MaxKNIReceiver;
 
-                    MinSuppressorReceiver = 
+                    MinSuppressorReceiver =
                         _selectedHandbookParametersModel.MinSuppressorReceiver;
-                    MaxSuppressorReceiver = 
+                    MaxSuppressorReceiver =
                         _selectedHandbookParametersModel.MaxSuppressorReceiver;
 
-                    MinStandbyModeCurrentConsumption = 
+                    MinStandbyModeCurrentConsumption =
                         _selectedHandbookParametersModel.MinStandbyModeCurrentConsumption;
-                    MaxStandbyModeCurrentConsumption = 
+                    MaxStandbyModeCurrentConsumption =
                         _selectedHandbookParametersModel.MaxStandbyModeCurrentConsumption;
 
-                    MinReceptionModeCurrentConsumption = 
+                    MinReceptionModeCurrentConsumption =
                         _selectedHandbookParametersModel.MinReceptionModeCurrentConsumption;
-                    MaxReceptionModeCurrentConsumption = 
+                    MaxReceptionModeCurrentConsumption =
                         _selectedHandbookParametersModel.MaxReceptionModeCurrentConsumption;
 
-                    MinTransmissionModeCurrentConsumption = 
+                    MinTransmissionModeCurrentConsumption =
                         _selectedHandbookParametersModel.MinTransmissionModeCurrentConsumption;
-                    MaxTransmissionModeCurrentConsumption = 
+                    MaxTransmissionModeCurrentConsumption =
                         _selectedHandbookParametersModel.MaxTransmissionModeCurrentConsumption;
 
-                    MinBatteryDischargeAlarmCurrentConsumption = 
+                    MinBatteryDischargeAlarmCurrentConsumption =
                         _selectedHandbookParametersModel.MinBatteryDischargeAlarmCurrentConsumption;
-                    MaxBatteryDischargeAlarmCurrentConsumption = 
+                    MaxBatteryDischargeAlarmCurrentConsumption =
                         _selectedHandbookParametersModel.MaxBatteryDischargeAlarmCurrentConsumption;
                 }
 
@@ -210,12 +223,110 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
+        private int _theIndexModelChoiceCollection;
+        public int TheIndexModelChoiceCollection
+        {
+            get => _theIndexModelChoiceCollection;
+            set
+            {
+                _theIndexModelChoiceCollection = value;
+                OnPropertyChanged(nameof(TheIndexModelChoiceCollection));
+            }
+        }
+
+        public ICommand AddModelDataBase { get; }
+        public ICommand GetHandbookParametersByModelForRadiostationCollection { get; }
+        public ICommand AddHandbookParametersForModel { get; }
         public AddHandbookParametersViewModel()
         {
-            _handbookParametersModelRadiostationRepository 
+            ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
+            _modelDataBase = new ModelDataBaseRepository();
+            AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
+            GetHandbookParametersByModelForRadiostationCollection =
+                new ViewModelCommand(ExecuteGetHandbookParametersByModelForRadiostationCollectionCommand);
+            _handbookParametersModelRadiostationRepository
                 = new HandbookParametersModelRadiostationRepository();
-            HandbookParametersAllModelRadiostationCollection = 
+            HandbookParametersAllModelRadiostationCollection =
                 new ObservableCollection<HandbookParametersModelRadiostationModel>();
+            AddHandbookParametersForModel = 
+                new ViewModelCommand(ExecuteAddHandbookParametersForModelCommand);
+
+            GetModelDataBase();
+            GetHandbookParametersAllModelForCollection();
         }
+
+        #region AddHandbookParametersForModel
+
+        private void ExecuteAddHandbookParametersForModelCommand(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
+        #region GetHandbookParametersAllModelForCollection
+
+        private void GetHandbookParametersAllModelForCollection()
+        {
+            if (HandbookParametersAllModelRadiostationCollection.Count != 0)
+                HandbookParametersAllModelRadiostationCollection.Clear();
+            HandbookParametersAllModelRadiostationCollection =
+                _handbookParametersModelRadiostationRepository.
+                GetHandbookParametersAllModelForCollection(
+                    HandbookParametersAllModelRadiostationCollection);
+        }
+
+        #endregion
+
+        #region GetHandbookParametersByModelForRadiostationCollection
+
+        private void ExecuteGetHandbookParametersByModelForRadiostationCollectionCommand(object obj)
+        {
+            if (String.IsNullOrWhiteSpace(Model))
+            {
+                MessageBox.Show($"Модель пуста",
+                  "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (HandbookParametersAllModelRadiostationCollection.Count != 0)
+                HandbookParametersAllModelRadiostationCollection.Clear();
+            HandbookParametersAllModelRadiostationCollection =
+                _handbookParametersModelRadiostationRepository.
+                GetHandbookParametersByModelForCollection(
+                    HandbookParametersAllModelRadiostationCollection, Model);
+           
+        }
+
+        #endregion
+
+        #region AddModelDataBase
+
+        private void ExecuteAddModelDataBaseCommand(object obj)
+        {
+            if (addModelRadiostantion == null)
+            {
+                addModelRadiostantion = new AddModelRadiostantionView();
+                addModelRadiostantion.Closed += (sender, args) =>
+                addModelRadiostantion = null;
+                addModelRadiostantion.Closed += (sender, args) =>
+                GetModelDataBase();
+                addModelRadiostantion.Show();
+            }
+        }
+
+        #endregion
+
+        #region GetModelDataBase
+
+        private void GetModelDataBase()
+        {
+            if (ModelCollections.Count != 0)
+                ModelCollections.Clear();
+            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
+                ModelCollections);
+        }
+
+        #endregion
     }
 }

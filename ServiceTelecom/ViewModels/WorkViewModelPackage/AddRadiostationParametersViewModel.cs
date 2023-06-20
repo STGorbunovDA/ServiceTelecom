@@ -712,7 +712,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 HandbookParametersModelRadiostationCollection.Clear();
             HandbookParametersModelRadiostationCollection =
                 _handbookParametersModelRadiostationRepository.
-                GetHandbookParametersAtModelForCollection(
+                GetHandbookParametersByModelForCollection(
                     HandbookParametersModelRadiostationCollection, Model);
             if(HandbookParametersModelRadiostationCollection.Count == 0)
             {
