@@ -274,7 +274,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinLowPowerLevelTransmitter, @"^[2-2]{1,1}[.][0]{1,1}[0]$"))
+            if (!Regex.IsMatch(MinLowPowerLevelTransmitter, @"^[2-2][.][0][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min Low P, W\"\n" +
                     "Пример: 2.00", "Отмена",
@@ -287,7 +287,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MaxLowPowerLevelTransmitter, @"^[2-2]{1,1}[.][2]{1,1}[0]$"))
+            if (!Regex.IsMatch(MaxLowPowerLevelTransmitter, @"^[2-2][.][2][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max Low P, W\"\n" +
                     "Пример: 2.20", "Отмена",
@@ -300,7 +300,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinHighPowerLevelTransmitter, @"^[2-2]{1,1}[.][0]{1,1}[0]$"))
+            if (!Regex.IsMatch(MinHighPowerLevelTransmitter, @"^[2-2][.][0][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min High P, W\"\n" +
                     "Пример: 2.00", "Отмена",
@@ -313,7 +313,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MaxHighPowerLevelTransmitter, @"^[5]{1,1}[.][0-9]{2,2}$"))
+            if (!Regex.IsMatch(MaxHighPowerLevelTransmitter, @"^[5][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max High P, W\"\n" +
                     "Пример: 5.99", "Отмена",
@@ -329,7 +329,7 @@ namespace ServiceTelecom.ViewModels.Base
             if (!Regex.IsMatch(MinFrequencyDeviationTransmitter, @"^[-][0-9]{1,3}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min δf, Hz\"\n" +
-                    "Пример: -750", "Отмена",
+                    "Пример: -999", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -342,7 +342,7 @@ namespace ServiceTelecom.ViewModels.Base
             if (!Regex.IsMatch(MaxFrequencyDeviationTransmitter, @"^[+][0-9]{1,3}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max δf, Hz\"\n" +
-                    "Пример: +750", "Отмена",
+                    "Пример: +999", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -352,7 +352,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinSensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{2,2}$"))
+            if (!Regex.IsMatch(MinSensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{1,1}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min ЧУВ, mV\"\n" +
                     "Пример: 7.5", "Отмена",
@@ -365,10 +365,10 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MaxSensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{2,2}$"))
+            if (!Regex.IsMatch(MaxSensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{1,1}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max ЧУВ, mV\"\n" +
-                    "Пример: 7.5", "Отмена",
+                    "Пример: 17.5", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -378,7 +378,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinKNITransmitter, @"^[0]{1,1}[.][3][0]$"))
+            if (!Regex.IsMatch(MinKNITransmitter, @"^[0][.][3][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min KNI, %\"\n" +
                     "Пример: 0.30", "Отмена",
@@ -391,7 +391,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MaxKNITransmitter, @"^[4]{1,1}[.][9][9]$"))
+            if (!Regex.IsMatch(MaxKNITransmitter, @"^[4][.][9][9]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max KNI, %\"\n" +
                     "Пример: 4.99", "Отмена",
@@ -404,7 +404,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinDeviationTransmitter, @"^[3]{1,1}[.][0-9]{1,2}$"))
+            if (!Regex.IsMatch(MinDeviationTransmitter, @"^[3][.][0][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min ΔF, kHz\"\n" +
                     "Пример: 3.00", "Отмена",
@@ -417,17 +417,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MaxDeviationTransmitter, @"^[5]{1,1}[.][0][0]$"))
+            if (!Regex.IsMatch(MaxDeviationTransmitter, @"^[5][.][0][0]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Max ΔF, kHz\"\n" +
                     "Пример: 5.00", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
             if (String.IsNullOrWhiteSpace(MinOutputPowerVoltReceiver))
             {
                 MessageBox.Show("Поле \"Min P НЧ, V\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinOutputPowerVoltReceiver, @"^[2][.][6][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min P НЧ, V\"\n" +
+                    "Пример: 2.60", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -437,9 +443,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxOutputPowerVoltReceiver, @"^[5][.][5][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max P НЧ, V\"\n" +
+                    "Пример: 5.50", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinOutputPowerWattReceiver))
             {
                 MessageBox.Show("Поле \"Min P НЧ, W\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinOutputPowerWattReceiver, @"^[0][.][4]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min P НЧ, W\"\n" +
+                    "Пример: 0.4", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -449,9 +469,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxOutputPowerWattReceiver, @"^[0][.][5]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max P НЧ, W\"\n" +
+                    "Пример: 0.5", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinSelectivityReceiver))
             {
                 MessageBox.Show("Поле \"Min ИЗ, dB\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinSelectivityReceiver, @"^[7][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min ИЗ, dB\"\n" +
+                    "Пример: 70", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -461,9 +495,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxSelectivityReceiver, @"^[7][6]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max ИЗ, dB\"\n" +
+                    "Пример: 76", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinSensitivityReceiver))
             {
                 MessageBox.Show("Поле \"Min ЧУВ, mkV\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinSensitivityReceiver, @"^[0][.][1][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min ЧУВ, mkV\"\n" +
+                    "Пример: 0.10", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -473,9 +521,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxSensitivityReceiver, @"^[0][.][2][7]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max ЧУВ, mkV\"\n" +
+                    "Пример: 0.27", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinKNIReceiver))
             {
                 MessageBox.Show("Поле \"Min KNI, %\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinKNIReceiver, @"^[0][.][3][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min KNI, %\"\n" +
+                    "Пример: 0.30", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -485,9 +547,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxKNIReceiver, @"^[4][.][9][9]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max KNI, %\"\n" +
+                    "Пример: 4.99", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinSuppressorReceiver))
             {
                 MessageBox.Show("Поле \"Min Ш, mkV\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinSensitivityReceiver, @"^[0][.][1][1]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min ЧУВ, mkV\"\n" +
+                    "Пример: 0.11", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -497,9 +573,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxSuppressorReceiver, @"^[0][.][2][5]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max Ш, mkV\"\n" +
+                    "Пример: 0.25", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinStandbyModeCurrentConsumption))
             {
                 MessageBox.Show("Поле \"Min Standby, mA\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinStandbyModeCurrentConsumption, @"^[3-9]{1,1}[0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min Standby, mA\"\n" +
+                    "Пример: 30", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -509,9 +599,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxStandbyModeCurrentConsumption, @"^[1][1-5]{1,1}[0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max Standby, mA\"\n" +
+                    "Пример: 150", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinReceptionModeCurrentConsumption))
             {
                 MessageBox.Show("Поле \"Min Reception, mA\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinReceptionModeCurrentConsumption, @"^[1][1-9]{1,1}[0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min Reception, mA\"\n" +
+                    "Пример: 110", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -521,9 +625,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxReceptionModeCurrentConsumption, @"^[4][1-9]{1,1}[0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max Reception, mA\"\n" +
+                    "Пример: 490", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinTransmissionModeCurrentConsumption))
             {
                 MessageBox.Show("Поле \"Min Transmission, A\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinTransmissionModeCurrentConsumption, @"^[1][.][1][0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min Transmission, A\"\n" +
+                    "Пример: 1.10", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -533,9 +651,23 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (!Regex.IsMatch(MaxTransmissionModeCurrentConsumption, @"^[1][.][9][0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max Transmission, A\"\n" +
+                    "Пример: 1.99", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             if (String.IsNullOrWhiteSpace(MinBatteryDischargeAlarmCurrentConsumption))
             {
                 MessageBox.Show("Поле \"Min Battery Discharge, V\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(MinBatteryDischargeAlarmCurrentConsumption, @"^[6][.][0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Min Battery Discharge, V\"\n" +
+                    "Пример: 6.0", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -545,7 +677,13 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            
+            if (!Regex.IsMatch(MaxBatteryDischargeAlarmCurrentConsumption, @"^[6][.][5]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Max Battery Discharge, V\"\n" +
+                    "Пример: 6.5", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             #endregion
         }
 
