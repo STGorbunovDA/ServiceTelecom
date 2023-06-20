@@ -84,7 +84,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
                     <Button x:Name="btnAddHandbookParametersForModel"
-                            Command="{Binding AddHandbookParametersForModel}"
+                            Command="{Binding AddRadiostationForDocumentInDataBase}"
                             Content="Добавить"
                             Margin ="10,0,15,0"
                             Style="{StaticResource menuButtonStyleAll}" 
@@ -264,7 +264,7 @@
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
                                                             Margin="0,10,0,0">
-                                                <TextBlock Text="Min Sens., mV:"
+                                                <TextBlock Text="   Min ЧУВ, mV:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -281,7 +281,7 @@
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
                                                         Margin="0,10,0,0">
-                                                <TextBlock Text="Max Sens., mV:"
+                                                <TextBlock Text="Max ЧУВ, mV:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -389,7 +389,7 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
-                                                    Margin="25,0,0,0">
+                                                    Margin="24,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
@@ -472,7 +472,7 @@
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
                                                             Margin="0,10,0,0">
-                                                <TextBlock Text="Min SF, dB:"
+                                                <TextBlock Text="Min ИЗ, dB:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -489,7 +489,7 @@
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
                                                         Margin="0,10,0,0">
-                                                <TextBlock Text="Max SF, dB:"
+                                                <TextBlock Text="Max ИЗ, dB:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -511,7 +511,7 @@
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
                                                             Margin="0,10,0,0">
-                                                <TextBlock Text="Min Sen., mkV:"
+                                                <TextBlock Text="Min ЧУВ, mkV:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -528,7 +528,7 @@
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
                                                         Margin="0,10,0,0">
-                                                <TextBlock Text="Max Sen., mkV:"
+                                                <TextBlock Text="Max ЧУВ, mkV:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -680,12 +680,12 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Right"
-                                                    Margin="41,0,0,0">
+                                                    Margin="42,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
                                                             Margin="0,10,0,0">
-                                                <TextBlock Text="Min. Reception, mA:"
+                                                <TextBlock Text="Min Reception, mA:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
@@ -702,7 +702,7 @@
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
                                                         Margin="0,10,0,0">
-                                                <TextBlock Text="Max. Reception, mA:"
+                                                <TextBlock Text="Max Reception, mA:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
