@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.ViewModels;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.ViewModels;
 
 namespace ServiceTelecom.Models
 {
@@ -100,39 +101,71 @@ namespace ServiceTelecom.Models
             string maxBatteryDischargeAlarmCurrentConsumption)
         {
             IdBase = idBase;
-            Model = model;
-            MinLowPowerLevelTransmitter = minLowPowerLevelTransmitter;
-            MaxLowPowerLevelTransmitter = maxLowPowerLevelTransmitter;
-            MinHighPowerLevelTransmitter = minHighPowerLevelTransmitter;
-            MaxHighPowerLevelTransmitter = maxHighPowerLevelTransmitter;
-            MinFrequencyDeviationTransmitter = minFrequencyDeviationTransmitter;
-            MaxFrequencyDeviationTransmitter = maxFrequencyDeviationTransmitter;
-            MinSensitivityTransmitter = minSensitivityTransmitter;
-            MaxSensitivityTransmitter = maxSensitivityTransmitter;
-            MinKNITransmitter = minKNITransmitter;
-            MaxKNITransmitter = maxKNITransmitter;
-            MinDeviationTransmitter = minDeviationTransmitter;
-            MaxDeviationTransmitter = maxDeviationTransmitter;
-            MinOutputPowerVoltReceiver = minOutputPowerVoltReceiver;
-            MaxOutputPowerVoltReceiver = maxOutputPowerVoltReceiver;
-            MinOutputPowerWattReceiver = minOutputPowerWattReceiver;
-            MaxOutputPowerWattReceiver = maxOutputPowerWattReceiver;
-            MinSelectivityReceiver = minSelectivityReceiver;
-            MaxSelectivityReceiver = maxSelectivityReceiver;
-            MinSensitivityReceiver = minSensitivityReceiver;
-            MaxSensitivityReceiver = maxSensitivityReceiver;
-            MinKNIReceiver = minKNIReceiver;
-            MaxKNIReceiver = maxKNIReceiver;
-            MinSuppressorReceiver = minSuppressorReceiver;
-            MaxSuppressorReceiver = maxSuppressorReceiver;
-            MinStandbyModeCurrentConsumption = minStandbyModeCurrentConsumption;
-            MaxStandbyModeCurrentConsumption = maxStandbyModeCurrentConsumption;
-            MinReceptionModeCurrentConsumption = minReceptionModeCurrentConsumption;
-            MaxReceptionModeCurrentConsumption = maxReceptionModeCurrentConsumption;
-            MinTransmissionModeCurrentConsumption = minTransmissionModeCurrentConsumption;
-            MaxTransmissionModeCurrentConsumption = maxTransmissionModeCurrentConsumption;
-            MinBatteryDischargeAlarmCurrentConsumption = minBatteryDischargeAlarmCurrentConsumption;
-            MaxBatteryDischargeAlarmCurrentConsumption = maxBatteryDischargeAlarmCurrentConsumption;
+            Model = Encryption.DecryptCipherTextToPlainText(model);
+            MinLowPowerLevelTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(minLowPowerLevelTransmitter);
+            MaxLowPowerLevelTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxLowPowerLevelTransmitter);
+            MinHighPowerLevelTransmitter =
+                Encryption.DecryptCipherTextToPlainText(minHighPowerLevelTransmitter);
+            MaxHighPowerLevelTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxHighPowerLevelTransmitter);
+            MinFrequencyDeviationTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(minFrequencyDeviationTransmitter);
+            MaxFrequencyDeviationTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxFrequencyDeviationTransmitter);
+            MinSensitivityTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(minSensitivityTransmitter);
+            MaxSensitivityTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxSensitivityTransmitter);
+            MinKNITransmitter = 
+                Encryption.DecryptCipherTextToPlainText(minKNITransmitter);
+            MaxKNITransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxKNITransmitter);
+            MinDeviationTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(minDeviationTransmitter);
+            MaxDeviationTransmitter = 
+                Encryption.DecryptCipherTextToPlainText(maxDeviationTransmitter);
+            MinOutputPowerVoltReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minOutputPowerVoltReceiver);
+            MaxOutputPowerVoltReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxOutputPowerVoltReceiver);
+            MinOutputPowerWattReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minOutputPowerWattReceiver);
+            MaxOutputPowerWattReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxOutputPowerWattReceiver);
+            MinSelectivityReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minSelectivityReceiver);
+            MaxSelectivityReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxSelectivityReceiver);
+            MinSensitivityReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minSensitivityReceiver);
+            MaxSensitivityReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxSensitivityReceiver);
+            MinKNIReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minKNIReceiver);
+            MaxKNIReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxKNIReceiver);
+            MinSuppressorReceiver = 
+                Encryption.DecryptCipherTextToPlainText(minSuppressorReceiver);
+            MaxSuppressorReceiver = 
+                Encryption.DecryptCipherTextToPlainText(maxSuppressorReceiver);
+            MinStandbyModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(minStandbyModeCurrentConsumption);
+            MaxStandbyModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(maxStandbyModeCurrentConsumption);
+            MinReceptionModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(minReceptionModeCurrentConsumption);
+            MaxReceptionModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(maxReceptionModeCurrentConsumption);
+            MinTransmissionModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(minTransmissionModeCurrentConsumption);
+            MaxTransmissionModeCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(maxTransmissionModeCurrentConsumption);
+            MinBatteryDischargeAlarmCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(minBatteryDischargeAlarmCurrentConsumption);
+            MaxBatteryDischargeAlarmCurrentConsumption = 
+                Encryption.DecryptCipherTextToPlainText(maxBatteryDischargeAlarmCurrentConsumption);
         }
     }
 }

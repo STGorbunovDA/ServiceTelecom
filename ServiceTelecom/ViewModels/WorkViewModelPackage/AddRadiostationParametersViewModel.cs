@@ -3,9 +3,7 @@ using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -16,13 +14,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         RadiostationParametersRepository _radiostationParametersRepository;
         WorkRadiostantionRepository _workRadiostantionRepository;
-        FrequenciesDataBaseRepository _frequenciesDataBase;
+        FrequenciesDataBaseRepository _frequenciesDataBaseRepository;
+        HandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
 
+        AddHandbookParametersView addHandbookParametersView;
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
         public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
         public ObservableCollection<HandbookParametersModelRadiostationModel> 
-            HandbookParametersModelRadiostation { get; set; }
+            HandbookParametersModelRadiostationCollection { get; set; }
 
         #region свойства
 
@@ -431,11 +431,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
-            _frequenciesDataBase = new FrequenciesDataBaseRepository();
-            
+            _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
+            _handbookParametersModelRadiostationRepository = 
+                new HandbookParametersModelRadiostationRepository();
+
             FrequenciesCollection = new ObservableCollection<FrequencyModel>();
-            
-            HandbookParametersModelRadiostation = 
+            HandbookParametersModelRadiostationCollection = 
                 new ObservableCollection<HandbookParametersModelRadiostationModel>();
             
             AddRadiostationParameters =
@@ -537,6 +538,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 }
             }
             GetFrequencyDataBase();
+            GetHandbookParametersModelRadiostationCollection();
         }
 
 
@@ -545,7 +547,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteHandbookAddRadiostationParametersCommand(object obj)
         {
-            throw new NotImplementedException();
+            if (addHandbookParametersView == null)
+            {
+                addHandbookParametersView = new AddHandbookParametersView();
+                addHandbookParametersView.Closed += (sender, args) =>
+                addHandbookParametersView = null;
+                addHandbookParametersView.Closed += (sender, args) =>
+                GetHandbookParametersModelRadiostationCollection();
+                addHandbookParametersView.Show();
+            }
         }
 
         #endregion
@@ -682,8 +692,36 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (FrequenciesCollection.Count != 0)
                 FrequenciesCollection.Clear();
             FrequenciesCollection =
-                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
+                _frequenciesDataBaseRepository.GetFrequencyDataBase(FrequenciesCollection);
             TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
+        }
+
+        #endregion
+
+        #region GetHandbookParametersModelRadiostationCollection
+
+        private void GetHandbookParametersModelRadiostationCollection()
+        {
+            if(String.IsNullOrWhiteSpace(Model))
+            {
+                MessageBox.Show($"Модель пуста",
+                  "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            } 
+            if (HandbookParametersModelRadiostationCollection.Count != 0)
+                HandbookParametersModelRadiostationCollection.Clear();
+            HandbookParametersModelRadiostationCollection =
+                _handbookParametersModelRadiostationRepository.
+                GetHandbookParametersByModelForCollection(
+                    HandbookParametersModelRadiostationCollection, Model);
+            if(HandbookParametersModelRadiostationCollection.Count == 0)
+            {
+                MessageBox.Show($"Отсутствует справочник на модель радиостанции. " +
+                    $"Сохранение параметров невозможно!",
+                  "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
         }
 
         #endregion

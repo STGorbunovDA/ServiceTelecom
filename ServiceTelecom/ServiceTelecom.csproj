@@ -170,7 +170,9 @@
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Base\RepairManualModelRepository.cs" />
+    <Compile Include="Repositories\Base\HandbookParametersModelRadiostationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFrequenciesDataBaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IHandbookParametersModelRadiostationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IModelDataBaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProblemModelRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRadiostationParametersRepository.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Repositories\WorkRadiostantionFullRepository.cs" />
     <Compile Include="ViewModels\AdminViewModelPackage\AdminViewModel.cs" />
     <Compile Include="ViewModels\Base\AddFrequencyRadiostantionViewModel.cs" />
+    <Compile Include="ViewModels\Base\AddHandbookParametersViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
@@ -220,6 +223,9 @@
     <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
     <Compile Include="View\Base\AddFrequencyRadiostantionView.xaml.cs">
       <DependentUpon>AddFrequencyRadiostantionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Base\AddHandbookParametersView.xaml.cs">
+      <DependentUpon>AddHandbookParametersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Base\AddModelRadiostantionView.xaml.cs">
       <DependentUpon>AddModelRadiostantionView.xaml</DependentUpon>
@@ -301,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Base\AddFrequencyRadiostantionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\AddHandbookParametersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
