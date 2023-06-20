@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.Base"
         Title="Добавить параметры" Height="768" Width="1366"
         WindowStyle="None"
@@ -38,9 +39,9 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="300"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="355"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -82,19 +83,47 @@
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <TextBlock x:Name="txbModel"
-                               Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                               Foreground="{StaticResource titleFontColor1}"
-                               Style="{StaticResource messageTextBlockStyle3}"
-                               Margin="0,0,0,0">
-                    </TextBlock>
+                    <Button x:Name="btnAddHandbookParametersForModel"
+                            Command="{Binding AddHandbookParametersForModel}"
+                            Content="Добавить"
+                            Margin ="10,0,15,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnGetHandbookParametersByModelForRadiostationCollection"
+                            Command="{Binding GetHandbookParametersByModelForRadiostationCollection}"
+                            Content="✔"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                    </Button>
+                    <ComboBox x:Name="cmbModel"
+                                  Height="35"
+                                  Width="270"
+                                  Margin="10,0,10,0"
+                                  Style="{StaticResource ComboBoxStyle1}"
+                                  ItemsSource="{Binding ModelCollections}"
+                                  SelectedIndex="{Binding TheIndexModelChoiceCollection, Mode=TwoWay}"
+                                  Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ComboBox.Resources>
+                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                    <Button x:Name="btnAddModelDataBase"
+                            Command="{Binding AddModelDataBase}"
+                            Content="➕"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                    </Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="900"/>
-                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition Width="458"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -360,7 +389,7 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
-                                                    Margin="21,0,0,0">
+                                                    Margin="25,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
@@ -616,7 +645,7 @@
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
-                                                            Margin="36,10,0,0">
+                                                            Margin="42,10,0,0">
                                                 <TextBlock Text="Min Standby, mA:"
                                                                     Foreground="{StaticResource titleFontColor1}"
                                                                     Style="{StaticResource messageTextBlockStyle9}"
@@ -651,7 +680,7 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Right"
-                                                    Margin="42,0,0,0">
+                                                    Margin="41,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
@@ -787,19 +816,14 @@
             </Grid>
             <Grid Grid.Row="3">
                 <local:CustomDataGrid x:Name="dataGrid1"
-                              Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridCentAl2}"
+                              Style="{StaticResource dataGridStyle}"
                               ItemsSource="{Binding HandbookParametersAllModelRadiostationCollection}"
                               SelectedItem="{Binding SelectedHandbookParametersModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
                               SelectedIndex="{Binding SelectedIndexHandbookParametersModel}"
                               SelectionMode="Extended"
                               SelectedItemsList="{Binding HandbookParametersModelMulipleSelectedDataGrid, Mode=TwoWay}">
-                    <DataGrid.Resources>
-                        <Style TargetType="TextBlock" x:Key="WrapText">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
@@ -901,6 +925,9 @@
                                                 Binding="{Binding MaxBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="120" />
                     </DataGrid.Columns>
+                    
+                       
+                    
                 </local:CustomDataGrid>
             </Grid>
         </Grid>

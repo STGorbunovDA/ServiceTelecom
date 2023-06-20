@@ -8,6 +8,7 @@ namespace ServiceTelecom.View.Base
         public AddHandbookParametersView()
         {
             InitializeComponent();
+            cmbModel.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
