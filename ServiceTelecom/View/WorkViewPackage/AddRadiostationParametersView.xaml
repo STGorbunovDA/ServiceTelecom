@@ -431,8 +431,8 @@
                                             <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
-                                    Margin="0,10,0,0">
-                                                <TextBlock Text="  Деж. режим, мА.:"
+                                    Margin="10,10,0,0">
+                                                <TextBlock Text="Деж. режим, мА:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 VerticalAlignment="Center">
@@ -450,7 +450,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                                <TextBlock Text="Реж. приём, мА.:"
+                                                <TextBlock Text="Реж. приём, мА:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
@@ -466,9 +466,6 @@
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
-
-
-
                                     </Border>
                                 </DockPanel>
                             </Grid>
@@ -486,8 +483,8 @@
                                             <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
-                                    Margin="0,10,0,0">
-                                                <TextBlock Text=" Реж. передачи, A:"
+                                    Margin="5,10,0,0">
+                                                <TextBlock Text="Реж. передачи, A:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
@@ -506,7 +503,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Margin="0,10,0,0">
-                                                <TextBlock Text="Разряд АКБ, В.:"
+                                                <TextBlock Text="Разряд АКБ, В:"
                                                 Foreground="{StaticResource titleFontColor1}"
                                                 Style="{StaticResource messageTextBlockStyle2}"
                                                 HorizontalAlignment="Center"
