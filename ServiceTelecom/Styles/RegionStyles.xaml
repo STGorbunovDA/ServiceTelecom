@@ -257,21 +257,10 @@
         <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
     </Style>
 
-    <Style x:Key="dataGridStyle4" TargetType="DataGrid">
-        <Setter Property="AutoGenerateColumns" Value="False" />
-        <Setter Property="Margin" Value="1,0,1,0" />
-        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource buttonFontColor3}" />
-        <Setter Property="Background" Value="White" />
-        <Setter Property="RowBackground" Value="{StaticResource buttonFontColor2}" />
-        <Setter Property="AlternatingRowBackground" Value="White" />
-        <Setter Property="IsReadOnly" Value="True" />
-        <Setter Property="RowHeight" Value="60"/>
-        <Setter Property="HorizontalScrollBarVisibility" Value="Visible"/>
-    </Style>
-    
     <Style x:Key="dataGridCentAl" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="Romul"/>
+        
     </Style>
 
     <Style x:Key="dataGridCentAl2" TargetType="DataGridColumnHeader">
