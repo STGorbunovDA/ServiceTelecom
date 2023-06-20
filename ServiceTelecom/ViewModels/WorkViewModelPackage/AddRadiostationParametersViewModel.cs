@@ -549,7 +549,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (addHandbookParametersView == null)
             {
-                addHandbookParametersView = new AddHandbookParametersView(Model);
+                addHandbookParametersView = new AddHandbookParametersView();
                 addHandbookParametersView.Closed += (sender, args) =>
                 addHandbookParametersView = null;
                 addHandbookParametersView.Closed += (sender, args) =>
