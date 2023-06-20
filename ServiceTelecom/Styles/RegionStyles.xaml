@@ -274,6 +274,12 @@
         <Setter Property="FontFamily" Value="Romul"/>
     </Style>
 
+    <Style x:Key="dataGridCentAl2" TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="Bonche Light"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
     <!--#endregion-->
 
     <!--#region Style Button-->
@@ -686,6 +692,20 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontFamily" Value="Romul"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="messageTextBlockStyle8" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Romul"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="messageTextBlockStyle9" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Bonche Light"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
