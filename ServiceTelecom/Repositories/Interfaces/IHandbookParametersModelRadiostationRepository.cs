@@ -5,10 +5,16 @@ namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IHandbookParametersModelRadiostationRepository
     {
-        /// <summary> Получение справочника параметров на модель </summary>
+        /// <summary> Получение справочника параметров для и по модели </summary>
         ObservableCollection<HandbookParametersModelRadiostationModel>
-            GetHandbookParametersAtModelForCollection(
+            GetHandbookParametersByModelForCollection(
             ObservableCollection<HandbookParametersModelRadiostationModel>
             handbookParametersModelRadiostationCollection, string model);
+
+        /// <summary> Получение справочника параметров для всех типов моделей </summary>
+        ObservableCollection<HandbookParametersModelRadiostationModel>
+            GetHandbookParametersAllModelForCollection(
+            ObservableCollection<HandbookParametersModelRadiostationModel>
+            handbookParametersModelCollection);
     }
 }
