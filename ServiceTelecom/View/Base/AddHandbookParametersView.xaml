@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:ServiceTelecom.Infrastructure"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.Base"
-        Title="Добавить параметры" Height="350" Width="1050"
+        Title="Добавить параметры" Height="768" Width="1366"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -39,7 +39,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="240"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="300"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
@@ -92,14 +93,13 @@
             <Grid Grid.Row="2">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="770"/>
-                        <ColumnDefinition Width="275"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="900"/>
+                        <ColumnDefinition Width="450"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="120"/>
-                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <DockPanel Margin="6">
@@ -108,128 +108,238 @@
                                     Background="{StaticResource titleFontColor6}" 
                                     BorderThickness="2" 
                                     DockPanel.Dock="Top">
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
                                         <StackPanel Orientation="Vertical"
-                                                    VerticalAlignment="Top"
+                                                    VerticalAlignment="Center"
                                                     HorizontalAlignment="Center">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
                                                             Margin="0,10,0,0">
-                                                <TextBlock Text="Низкий, Вт.:"
+                                                <TextBlock Text="Min Low P, W:"
                                                                     Foreground="{StaticResource titleFontColor1}"
-                                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                                    Margin="0,0,0,0"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
                                                                     VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbLowPowerLevelTransmitter"
+                                                <TextBox x:Name="txbMinLowPowerLevelTransmitter"
                                                                     Height="35"
-                                                                    Width="80"
+                                                                    Width="50"
                                                                     Margin="5,0,0,0"
                                                                     Style="{StaticResource TextBoxStyle8}"
-                                                                    Text="{Binding LowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                                    Text="{Binding MinLowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,0,0">
-                                                <TextBlock Text="Высокий, Вт.:"
-                                                        Foreground="{StaticResource titleFontColor1}"
-                                                        Style="{StaticResource messageTextBlockStyle2}"
-                                                        Margin="0,0,0,0"
-                                                        VerticalAlignment="Center">
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Low P, W:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbHighPowerLevelTransmitter"
-                                                        Height="35"
-                                                        Width="80"
-                                                        Margin="5,0,0,0"
-                                                        Style="{StaticResource TextBoxStyle8}"
-                                                        Text="{Binding HighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                                </TextBox>
-                                            </StackPanel>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Center"
-                                                Margin="10,0,0,0">
-                                            <StackPanel Orientation="Horizontal"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Right"
-                                                    Margin="0,10,0,0">
-                                                <TextBlock Text="Отклонение, Гц:"
-                                                        Foreground="{StaticResource titleFontColor1}"
-                                                        Style="{StaticResource messageTextBlockStyle2}"
-                                                        Margin="0,0,0,0"
-                                                        VerticalAlignment="Center">
-                                                </TextBlock>
-                                                <TextBox x:Name="txbFrequencyDeviationTransmitter"
-                                                        Height="35"
-                                                        Width="80"
-                                                        Margin="5,0,0,0"
-                                                        Style="{StaticResource TextBoxStyle8}"
-                                                        Text="{Binding FrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                                </TextBox>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Right"
-                                                    Margin="0,10,0,0">
-                                                <TextBlock Text="  Чувствительност., мВ:"
-                                                        Foreground="{StaticResource titleFontColor1}"
-                                                        Style="{StaticResource messageTextBlockStyle2}"
-                                                        Margin="0,0,0,0"
-                                                        VerticalAlignment="Center">
-                                                </TextBlock>
-                                                <TextBox x:Name="txbSensitivityTransmitter"
-                                                        Height="35"
-                                                        Width="80"
-                                                        Margin="5,0,0,0"
-                                                        Style="{StaticResource TextBoxStyle8}"
-                                                        Text="{Binding SensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMaxLowPowerLevelTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxLowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical"
-                                                VerticalAlignment="Top"
-                                                HorizontalAlignment="Center"
-                                                Margin="10,0,0,0">
-                                            <StackPanel Orientation="Horizontal"
                                                     VerticalAlignment="Center"
-                                                    HorizontalAlignment="Right"
-                                                    Margin="0,10,0,0">
-                                                <TextBlock Text="КНИ, %:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min High P, W:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbKNITransmitter"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding KNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMinHighPowerLevelTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinHighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
-                                                    VerticalAlignment="Center"
-                                                    HorizontalAlignment="Right"
-                                                    Margin="0,10,0,0">
-                                                <TextBlock Text="Девиация, кГЦ:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max High P, W:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbDeviationTransmitter"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding DeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMaxHighPowerLevelTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxHighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min δf, Hz:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinFrequencyDeviationTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinFrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max δf, Hz:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxFrequencyDeviationTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxFrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min Sens., mV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinSensitivityTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinSensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Sens., mV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxSensitivityTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxSensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="10,10,0,0">
+                                                <TextBlock Text="Min KNI, %:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinKNITransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinKNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max KNI, %:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxKNITransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxKNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min ΔF, kHz:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinDeviationTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max ΔF, kHz:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxDeviationTransmitter"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
@@ -244,129 +354,239 @@
                                     Background="{StaticResource titleFontColor6}" 
                                     BorderThickness="2" 
                                     DockPanel.Dock="Top">
-                                    <StackPanel Grid.Column="0" 
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center">
-                                        <StackPanel Orientation="Vertical"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Left">
-                                            <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,19,0">
-                                                <TextBlock Text="Выx. Мощ., В.:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="21,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min P НЧ, V:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txboOutputPowerVoltReceiver"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding OutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMinOutputPowerVoltReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinOutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Right"
-                                        Margin="-3,10,18,0">
-                                                <TextBlock Text="Выx. Мощ., Вт.:"
-                                            Foreground="{StaticResource titleFontColor1}"
-                                            Style="{StaticResource messageTextBlockStyle2}"
-                                            Margin="0,0,0,0"
-                                            VerticalAlignment="Center">
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max P НЧ, V:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbOutputPowerWattReceiver"
-                                            Height="35"
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            Style="{StaticResource TextBoxStyle8}"
-                                            Text="{Binding OutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMaxOutputPowerVoltReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxOutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Center"
-                                            Margin="10,0,0,0">
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="20,0,0,0">
                                             <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,0,0">
-                                                <TextBlock Text=" Избирательност., дБ:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min P НЧ, W:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbSelectivityReceiver"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding SelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMinOutputPowerWattReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinOutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,0,0">
-                                                <TextBlock Text="Чувствительн., мкВ:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max P НЧ, W:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbSensitivityReceiver"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding SensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMaxOutputPowerWattReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxOutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical"
-                                            VerticalAlignment="Top"
-                                            HorizontalAlignment="Center"
-                                            Margin="10,0,0,0">
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="6,0,0,0">
                                             <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,0,0">
-                                                <TextBlock Text="КНИ, %:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min SF, dB:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbKNIReceiver"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding KNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMinSelectivityReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinSelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                Margin="0,10,0,0">
-                                                <TextBlock Text="    Шумоп., мкВ:"
-                                                    Foreground="{StaticResource titleFontColor1}"
-                                                    Style="{StaticResource messageTextBlockStyle2}"
-                                                    Margin="0,0,0,0"
-                                                    VerticalAlignment="Center">
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max SF, dB:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
                                                 </TextBlock>
-                                                <TextBox x:Name="txbSuppressorReceiver"
-                                                    Height="35"
-                                                    Width="80"
-                                                    Margin="5,0,0,0"
-                                                    Style="{StaticResource TextBoxStyle8}"
-                                                    Text="{Binding SuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                <TextBox x:Name="txbMaxSelectivityReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxSelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min Sen., mkV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinSensitivityReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinSensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Sen., mkV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxSensitivityReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxSensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="10,10,0,0">
+                                                <TextBlock Text="Min KNI, %:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinKNIReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinKNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max KNI, %:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxKNIReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxKNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="7,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min Ш, mkV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinSuppressorReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinSuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Ш, mkV:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxSuppressorReceiver"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxSuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                 </TextBox>
                                             </StackPanel>
                                         </StackPanel>
@@ -377,8 +597,8 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="120"/>
-                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
                             <DockPanel Margin="6">
@@ -387,46 +607,85 @@
                                         Background="{StaticResource titleFontColor6}" 
                                         BorderThickness="2" 
                                         DockPanel.Dock="Top">
-                                    <StackPanel Orientation="Vertical"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Margin="0,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,10,0,0">
-                                            <TextBlock Text="  Деж. режим, мА.:"
-                                                Foreground="{StaticResource titleFontColor1}"
-                                                Style="{StaticResource messageTextBlockStyle2}"
-                                                VerticalAlignment="Center">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbStandbyModeCurrentConsumption"
-                                                HorizontalAlignment="Center"
-                                                Height="35"
-                                                Width="80"
-                                                Margin="5,0,0,0"
-                                                Style="{StaticResource TextBoxStyle8}"
-                                                Text="{Binding StandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="36,10,0,0">
+                                                <TextBlock Text="Min Standby, mA:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinStandbyModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinStandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Standby, mA:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxStandbyModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxStandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,10,0,0">
-                                            <TextBlock Text="Реж. приём, мА.:"
-                                                Foreground="{StaticResource titleFontColor1}"
-                                                Style="{StaticResource messageTextBlockStyle2}"
-                                                HorizontalAlignment="Center"
-                                                Margin="0,10,0,0">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbReceptionModeCurrentConsumption"
-                                                HorizontalAlignment="Center"   
-                                                Height="35"
-                                                Width="80"
-                                                Margin="5,0,0,0"
-                                                Style="{StaticResource TextBoxStyle8}"
-                                                Text="{Binding ReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Right"
+                                                    Margin="42,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min. Reception, mA:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinReceptionModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max. Reception, mA:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxReceptionModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
@@ -439,47 +698,85 @@
                                         Background="{StaticResource titleFontColor6}" 
                                         BorderThickness="2" 
                                         DockPanel.Dock="Top">
-                                    <StackPanel Orientation="Vertical"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Margin="0,0,0,0">
-                                        <StackPanel Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,10,0,0">
-                                            <TextBlock Text=" Реж. передачи, A:"
-                                                Foreground="{StaticResource titleFontColor1}"
-                                                Style="{StaticResource messageTextBlockStyle2}"
-                                                HorizontalAlignment="Center"
-                                                Margin="0,10,0,0">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbTransmissionModeCurrentConsumption"
-                                                HorizontalAlignment="Center"   
-                                                Height="35"
-                                                Width="80"
-                                                Margin="5,0,0,0"
-                                                Style="{StaticResource TextBoxStyle8}"
-                                                Text="{Binding TransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min Transmission, A:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinTransmissionModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinTransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Transmission, A:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxTransmissionModeCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxTransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Right"
-                                            Margin="0,10,0,0">
-                                            <TextBlock Text="Разряд АКБ, В.:"
-                                                Foreground="{StaticResource titleFontColor1}"
-                                                Style="{StaticResource messageTextBlockStyle2}"
-                                                HorizontalAlignment="Center"
-                                                Margin="0,10,0,0">
-                                            </TextBlock>
-                                            <TextBox x:Name="txbBatteryDischargeAlarmCurrentConsumption"
-                                                HorizontalAlignment="Center"   
-                                                Height="35"
-                                                Width="80"
-                                                Margin="5,0,0,0"
-                                                Style="{StaticResource TextBoxStyle8}"
-                                                Text="{Binding BatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                                            </TextBox>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal"
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right"
+                                                            Margin="0,10,0,0">
+                                                <TextBlock Text="Min Battery Discharge, V:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMinBatteryDischargeAlarmCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MinBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="0,10,0,0">
+                                                <TextBlock Text="Max Battery Discharge, V:"
+                                                                    Foreground="{StaticResource titleFontColor1}"
+                                                                    Style="{StaticResource messageTextBlockStyle9}"
+                                                                    VerticalAlignment="Center">
+                                                </TextBlock>
+                                                <TextBox x:Name="txbMaxBatteryDischargeAlarmCurrentConsumption"
+                                                                    Height="35"
+                                                                    Width="50"
+                                                                    Margin="5,0,0,0"
+                                                                    Style="{StaticResource TextBoxStyle8}"
+                                                                    Text="{Binding MaxBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                </TextBox>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>
@@ -487,6 +784,124 @@
                         </Grid>
                     </Grid>
                 </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <local:CustomDataGrid x:Name="dataGrid1"
+                              Style="{StaticResource dataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource dataGridCentAl2}"
+                              ItemsSource="{Binding HandbookParametersAllModelRadiostationCollection}"
+                              SelectedItem="{Binding SelectedHandbookParametersModel}"
+                              CellStyle="{StaticResource DataGridContentCellCentering2}"
+                              SelectedIndex="{Binding SelectedIndexHandbookParametersModel}"
+                              SelectionMode="Extended"
+                              SelectedItemsList="{Binding HandbookParametersModelMulipleSelectedDataGrid, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <Style TargetType="TextBlock" x:Key="WrapText">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" 
+                                                Binding="{Binding IdBase}" 
+                                                Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Min. Low P., W." 
+                                                Binding="{Binding MinLowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. Low P., W." 
+                                                Binding="{Binding MaxLowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. High P., W." 
+                                                Binding="{Binding MinHighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. High P., W." 
+                                                Binding="{Binding MaxHighPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. δf., Hz."
+                                                Binding="{Binding MinFrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. δf., Hz."
+                                                Binding="{Binding MaxFrequencyDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. Sens., mV."
+                                                Binding="{Binding MinSensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. Sens., mV."
+                                                Binding="{Binding MaxSensitivityTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. KNI T., %"
+                                                Binding="{Binding MinKNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. KNI T., %"
+                                                Binding="{Binding MaxKNITransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. ΔF., kHz."
+                                                Binding="{Binding MinDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. ΔF., kHz." 
+                                                Binding="{Binding MaxDeviationTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. P. НЧ, V."
+                                                Binding="{Binding MinOutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. P. НЧ, V."
+                                                Binding="{Binding MaxOutputPowerVoltReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. P. НЧ, W." 
+                                                Binding="{Binding MinOutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. P. НЧ, W." 
+                                                Binding="{Binding MaxOutputPowerWattReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. S.F., dB." 
+                                                Binding="{Binding MinSelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. S.F., dB." 
+                                                Binding="{Binding MaxSelectivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. Sen., mkV." 
+                                                Binding="{Binding MinSensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100" />
+                        <DataGridTextColumn Header="Max. Sen., mkV." 
+                                                Binding="{Binding MaxSensitivityReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100" />
+                        <DataGridTextColumn Header="Min. KNI R., %" 
+                                                Binding="{Binding MinKNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. KNI R., %" 
+                                                Binding="{Binding MaxKNIReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. Supp., mkV." 
+                                                Binding="{Binding MinSuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. Supp., mkV." 
+                                                Binding="{Binding MaxSuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. Standby, mA." 
+                                                Binding="{Binding MinStandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Max. Standby, mA." 
+                                                Binding="{Binding MaxStandbyModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="100"/>
+                        <DataGridTextColumn Header="Min. Reception, mA." 
+                                                Binding="{Binding MinReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120"/>
+                        <DataGridTextColumn Header="Max. Reception, mA."
+                                                Binding="{Binding MaxReceptionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120" />
+                        <DataGridTextColumn Header="Min. Transmission, A." 
+                                                Binding="{Binding MinTransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120"/>
+                        <DataGridTextColumn Header="Max. Transmission, A."
+                                                Binding="{Binding MaxTransmissionModeCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120" />
+                        <DataGridTextColumn Header="Min. Battery Discharge, V." 
+                                                Binding="{Binding MinBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120"/>
+                        <DataGridTextColumn Header="Max. Battery Discharge, V."
+                                                Binding="{Binding MaxBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                Width="120" />
+                    </DataGrid.Columns>
+                </local:CustomDataGrid>
             </Grid>
         </Grid>
     </Border>

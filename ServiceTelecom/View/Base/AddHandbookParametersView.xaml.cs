@@ -5,10 +5,9 @@ namespace ServiceTelecom.View.Base
 {
     public partial class AddHandbookParametersView : Window
     {
-        public AddHandbookParametersView(string model)
+        public AddHandbookParametersView()
         {
             InitializeComponent();
-            txbModel.Text = model;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
