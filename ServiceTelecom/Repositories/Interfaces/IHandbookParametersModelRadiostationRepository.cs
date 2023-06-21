@@ -36,5 +36,8 @@ namespace ServiceTelecom.Repositories.Interfaces
             string minTransmissionModeCurrentConsumption, string maxTransmissionModeCurrentConsumption,
             string minBatteryDischargeAlarmCurrentConsumption,
             string maxBatteryDischargeAlarmCurrentConsumption);
+
+        /// <summary> Проверка нахождения модели в справочнике </summary>
+        bool CheckModelInHandbookParameters(string model);
     }
 }

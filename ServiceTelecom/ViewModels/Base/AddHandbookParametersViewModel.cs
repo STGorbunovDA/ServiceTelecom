@@ -686,6 +686,14 @@ namespace ServiceTelecom.ViewModels.Base
             }
             #endregion
 
+            if (!_handbookParametersModelRadiostationRepository.
+                CheckModelInHandbookParameters(Model))
+            {
+                MessageBox.Show($"Нельзя добавить {Model}! Присутствует в справочнике с параметрами!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if(_handbookParametersModelRadiostationRepository.AddHandbookParametersForModel(
                     Model, MinLowPowerLevelTransmitter, MaxLowPowerLevelTransmitter,
                     MinHighPowerLevelTransmitter, MaxHighPowerLevelTransmitter,

@@ -222,5 +222,32 @@ namespace ServiceTelecom.Repositories
                 else return false;
             }    
         }
+
+        public bool CheckModelInHandbookParameters(string model)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "CheckModelInHandbookParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+                        if (table.Rows.Count > 0) return false;
+                        else return true;
+                    }
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }
