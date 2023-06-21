@@ -842,10 +842,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([6][7][2]([A-Z]{3,3}[0-9]{4,4}))?([6][7][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской №\"\n" +
-                        "Пример: Motorola GP-340 - \"672TTD0000 или 672TTDE000\"",
-                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola GP-360")
@@ -853,10 +853,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([7][4][9]([A-Z]{3,3}[0-9]{4,4}))?([7][4][9][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola GP-360 \"749TTD0000 или 749TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola DP-2400е" || Model == "Motorola DP-2400")
@@ -864,10 +864,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([4][4][6]([A-Z]{3,3}[0-9]{4,4}))?([4][4][6][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola DP-2400 - \"446TTD0000 или 446TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Comrade R5")
@@ -875,18 +875,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([2][0][1][0][R][5]([0-9]{6,6}))?([2][2][1][0][R][5][V][T]([0-9]{5,5}))*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Comrade R5 - \"2010R5107867\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Icom IC-F3GS")
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[5][4]([0-9]{5,5})$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
@@ -895,8 +895,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0][4]([0-9]{5,5})$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
@@ -905,8 +905,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0][7]([0-9]{5,5})$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
@@ -915,8 +915,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[1][0]([0-9]{4,4})$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
@@ -925,9 +925,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -935,9 +935,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -946,9 +946,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{2,2}[.][0-9]{4,4}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} введено " +
-                        $"некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -957,9 +957,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{1,2}[.][0-9]{4,4}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -968,9 +968,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^[0-9]{1,20}((([\S][0-9])*$)?([\s][0-9]{2,2}[.]?[0-9]{2,2}?)*$)"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -979,10 +979,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([8][0][7]([A-Z]{3,3}[0-9]{4,4}))?([8][0][7][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola DP-4400 - \"807TTD0000 или 807TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola DP-1400")
@@ -990,10 +990,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([7][5][2]([A-Z]{3,3}[0-9]{4,4}))?([7][5][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola DP-1400 - \"752TTD0000 или 752TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola GP-320")
@@ -1001,10 +1001,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([6][3][8]([A-Z]{3,3}[0-9]{4,4}))?([6][3][8][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola GP-320 - \"000TTD0000 или 000TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola GP-300")
@@ -1012,10 +1012,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([1][7][4]([A-Z]{3,3}[0-9]{4,4}))?([1][7][4][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola GP-300 - \"174TTD0000 или 174TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola P080")
@@ -1023,10 +1023,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola P080 - \"452TTD0000 или 452TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Motorola P040")
@@ -1034,19 +1034,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
-                    MessageBox.Show("Введите корректно поле \"Заводской номер\"\n" +
-                        "Пример: Motorola P040 - \"452TTD0000 или 452TTDE000\"", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return;
                 }
             }
             else if (Model == "Гранит Р33П-1")
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{5,5}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -1054,9 +1054,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{6,6}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -1064,9 +1064,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (!Regex.IsMatch(SerialNumber, @"^[0-9]{6,6}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -1075,9 +1075,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} " +
-                        $"введено некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }
@@ -1086,9 +1086,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (!Regex.IsMatch(SerialNumber, 
                     @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
                 {
-                    if (MessageBox.Show($"Поле \"Заводской номер\" для {Model} введено " +
-                        $"некорректно. Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                         return;
                 }
             }

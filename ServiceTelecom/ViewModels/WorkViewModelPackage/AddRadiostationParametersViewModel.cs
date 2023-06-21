@@ -547,6 +547,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteHandbookAddRadiostationParametersCommand(object obj)
         {
+            if (UserModelStatic.Login != "Admin")
+                return;
             if (addHandbookParametersView == null)
             {
                 addHandbookParametersView = new AddHandbookParametersView();
