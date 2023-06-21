@@ -508,7 +508,7 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
-                                                    Margin="6,0,0,0">
+                                                    Margin="5,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
@@ -547,7 +547,7 @@
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
-                                                    Margin="10,0,0,0">
+                                                    Margin="13,0,0,0">
                                             <StackPanel Orientation="Horizontal"
                                                             VerticalAlignment="Center"
                                                             HorizontalAlignment="Right"
@@ -863,8 +863,7 @@
                               SelectedItem="{Binding SelectedHandbookParametersModel}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
                               SelectedIndex="{Binding SelectedIndexHandbookParametersModel}"
-                              SelectionMode="Extended"
-                              SelectedItemsList="{Binding HandbookParametersModelMulipleSelectedDataGrid, Mode=TwoWay}">
+                              SelectionMode="Extended">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
@@ -969,9 +968,6 @@
                                                 Binding="{Binding MaxBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="120" />
                     </DataGrid.Columns>
-
-
-
                 </local:CustomDataGrid>
             </Grid>
         </Grid>
