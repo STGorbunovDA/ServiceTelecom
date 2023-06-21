@@ -560,7 +560,7 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(MinSensitivityReceiver, @"^[0][.][1][1]$"))
+            if (!Regex.IsMatch(MinSuppressorReceiver, @"^[0][.][1][1]$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Min ЧУВ, mkV\"\n" +
                     "Пример: 0.11", "Отмена",
@@ -685,6 +685,30 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
             #endregion
+
+            if(_handbookParametersModelRadiostationRepository.AddHandbookParametersForModel(
+                    Model, MinLowPowerLevelTransmitter, MaxLowPowerLevelTransmitter,
+                    MinHighPowerLevelTransmitter, MaxHighPowerLevelTransmitter,
+                    MinFrequencyDeviationTransmitter, MaxFrequencyDeviationTransmitter,
+                    MinSensitivityTransmitter, MaxSensitivityTransmitter, MinKNITransmitter,
+                    MaxKNITransmitter, MinDeviationTransmitter, MaxDeviationTransmitter,
+                    MinOutputPowerVoltReceiver, MaxOutputPowerVoltReceiver,
+                    MinOutputPowerWattReceiver, MaxOutputPowerWattReceiver,
+                    MinSelectivityReceiver, MaxSelectivityReceiver, MinSensitivityReceiver,
+                    MaxSensitivityReceiver, MinKNIReceiver, MaxKNIReceiver, MinSuppressorReceiver,
+                    MaxSuppressorReceiver, MinStandbyModeCurrentConsumption,
+                    MaxStandbyModeCurrentConsumption, MinReceptionModeCurrentConsumption,
+                    MaxReceptionModeCurrentConsumption, MinTransmissionModeCurrentConsumption,
+                    MaxTransmissionModeCurrentConsumption, MinBatteryDischargeAlarmCurrentConsumption,
+                    MaxBatteryDischargeAlarmCurrentConsumption))
+            {
+                GetHandbookParametersAllModelForCollection();
+                MessageBox.Show("Успешно!", "Информация",
+                       MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else MessageBox.Show($"Ошибка добавления параметров в справочник!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
 
         #endregion
