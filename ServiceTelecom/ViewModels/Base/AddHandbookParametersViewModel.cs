@@ -133,6 +133,8 @@ namespace ServiceTelecom.ViewModels.Base
             get => _selectedHandbookParametersModel;
             set
             {
+                _selectedHandbookParametersModel = value;
+
                 #region получение в контролы
 
                 if (_selectedHandbookParametersModel != null)
@@ -222,7 +224,6 @@ namespace ServiceTelecom.ViewModels.Base
 
                 #endregion
 
-                _selectedHandbookParametersModel = value;
                 OnPropertyChanged(nameof(SelectedHandbookParametersModel));
             }
         }
