@@ -84,9 +84,9 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
                     <Button x:Name="btnAddHandbookParametersForModel"
-                            Command="{Binding AddRadiostationForDocumentInDataBase}"
+                            Command="{Binding AddHandbookParametersForModel}"
                             Content="Добавить"
-                            Margin ="10,0,15,0"
+                            Margin ="0,0,15,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                         HorizontalAlignment="Center"    
                         Cursor="Hand">
@@ -828,6 +828,9 @@
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
                                                 Width="50" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Model" 
+                                                Binding="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Width="200"/>
                         <DataGridTextColumn Header="Min. Low P., W." 
                                                 Binding="{Binding MinLowPowerLevelTransmitter, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                 Width="100"/>
