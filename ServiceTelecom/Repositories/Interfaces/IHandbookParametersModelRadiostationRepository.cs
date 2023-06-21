@@ -39,5 +39,25 @@ namespace ServiceTelecom.Repositories.Interfaces
 
         /// <summary> Проверка нахождения модели в справочнике </summary>
         bool CheckModelInHandbookParameters(string model);
+
+        /// <summary> изменение справочника параметров для выбранного типа модели </summary>
+        bool ChangeHandbookParametersForModel(
+            string model, string minLowPowerLevelTransmitter,
+            string maxLowPowerLevelTransmitter, string minHighPowerLevelTransmitter,
+            string maxHighPowerLevelTransmitter, string minFrequencyDeviationTransmitter,
+            string maxFrequencyDeviationTransmitter, string minSensitivityTransmitter,
+            string maxSensitivityTransmitter, string minKNITransmitter, string maxKNITransmitter,
+            string minDeviationTransmitter, string maxDeviationTransmitter,
+            string minOutputPowerVoltReceiver, string maxOutputPowerVoltReceiver,
+            string minOutputPowerWattReceiver, string maxOutputPowerWattReceiver,
+            string minSelectivityReceiver, string maxSelectivityReceiver,
+            string minSensitivityReceiver, string maxSensitivityReceiver,
+            string minKNIReceiver, string maxKNIReceiver, string minSuppressorReceiver,
+            string maxSuppressorReceiver, string minStandbyModeCurrentConsumption,
+            string maxStandbyModeCurrentConsumption, string minReceptionModeCurrentConsumption,
+            string maxReceptionModeCurrentConsumption, string minTransmissionModeCurrentConsumption,
+            string maxTransmissionModeCurrentConsumption,
+            string minBatteryDischargeAlarmCurrentConsumption,
+            string maxBatteryDischargeAlarmCurrentConsumption);
     }
 }
