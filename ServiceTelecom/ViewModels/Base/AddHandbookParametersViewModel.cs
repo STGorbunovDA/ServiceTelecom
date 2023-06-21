@@ -116,17 +116,6 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private IList _selectedModels = new ArrayList();
-        public IList HandbookParametersModelMulipleSelectedDataGrid
-        {
-            get => _selectedModels;
-            set
-            {
-                _selectedModels = value;
-                OnPropertyChanged(nameof(HandbookParametersModelMulipleSelectedDataGrid));
-            }
-        }
-
         HandbookParametersModelRadiostationModel _selectedHandbookParametersModel;
         public HandbookParametersModelRadiostationModel SelectedHandbookParametersModel
         {
@@ -244,6 +233,7 @@ namespace ServiceTelecom.ViewModels.Base
         public ICommand AddHandbookParametersForModel { get; }
         public ICommand UpdateHandbookParametersForModel { get; }
         public ICommand ChangeHandbookParametersForModel { get; }
+        public ICommand DeleteHandbookParametersForModel { get; }
         public AddHandbookParametersViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
@@ -255,16 +245,42 @@ namespace ServiceTelecom.ViewModels.Base
                 = new HandbookParametersModelRadiostationRepository();
             HandbookParametersAllModelRadiostationCollection =
                 new ObservableCollection<HandbookParametersModelRadiostationModel>();
-            AddHandbookParametersForModel = 
+            AddHandbookParametersForModel =
                 new ViewModelCommand(ExecuteAddHandbookParametersForModelCommand);
             UpdateHandbookParametersForModel =
                 new ViewModelCommand(ExecuteUpdateHandbookParametersForModelCommand);
             ChangeHandbookParametersForModel =
                 new ViewModelCommand(ExecuteChangeHandbookParametersForModelCommand);
+            DeleteHandbookParametersForModel =
+                new ViewModelCommand(ExecuteDeleteHandbookParametersForModelCommand);
             GetModelDataBase();
             GetHandbookParametersAllModelForCollection();
         }
 
+
+
+        #region DeleteHandbookParametersForModel
+
+        private void ExecuteDeleteHandbookParametersForModelCommand(object obj)
+        {
+            if (SelectedHandbookParametersModel == null)
+                return;
+            if (MessageBox.Show($"Подтверждаете удаление справочника у модели: " +
+                $"\"{SelectedHandbookParametersModel.Model}\"?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+            if (_handbookParametersModelRadiostationRepository.
+                DeleteHandbookParametersForModel(SelectedHandbookParametersModel.IdBase))
+            {
+                GetHandbookParametersAllModelForCollection();
+                MessageBox.Show("Успешно!", "Информация",
+                       MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else MessageBox.Show($"Ошибка удаления справочника модели!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        #endregion
 
 
         #region ChangeHandbookParametersForModel
@@ -826,7 +842,7 @@ namespace ServiceTelecom.ViewModels.Base
                 MessageBox.Show("Поле \"Min P НЧ, V\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
-            }           
+            }
             if (String.IsNullOrWhiteSpace(MaxOutputPowerVoltReceiver))
             {
                 MessageBox.Show("Поле \"Max P НЧ, V\" не должно быть пустым", "Отмена",
@@ -941,8 +957,8 @@ namespace ServiceTelecom.ViewModels.Base
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            
-            if(!CheckBoxRepeater)
+
+            if (!CheckBoxRepeater)
             {
                 if (!Regex.IsMatch(MinLowPowerLevelTransmitter, @"^[2-2][.][0][0]$"))
                 {
@@ -1181,7 +1197,7 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
 
-            if(_handbookParametersModelRadiostationRepository.AddHandbookParametersForModel(
+            if (_handbookParametersModelRadiostationRepository.AddHandbookParametersForModel(
                     Model, MinLowPowerLevelTransmitter, MaxLowPowerLevelTransmitter,
                     MinHighPowerLevelTransmitter, MaxHighPowerLevelTransmitter,
                     MinFrequencyDeviationTransmitter, MaxFrequencyDeviationTransmitter,
@@ -1238,7 +1254,7 @@ namespace ServiceTelecom.ViewModels.Base
                 _handbookParametersModelRadiostationRepository.
                 GetHandbookParametersByModelForCollection(
                     HandbookParametersAllModelRadiostationCollection, Model);
-           
+
         }
 
         #endregion
@@ -1268,6 +1284,7 @@ namespace ServiceTelecom.ViewModels.Base
                 ModelCollections.Clear();
             ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
                 ModelCollections);
+            TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
 
         #endregion

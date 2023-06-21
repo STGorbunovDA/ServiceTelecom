@@ -59,5 +59,8 @@ namespace ServiceTelecom.Repositories.Interfaces
             string maxTransmissionModeCurrentConsumption,
             string minBatteryDischargeAlarmCurrentConsumption,
             string maxBatteryDischargeAlarmCurrentConsumption);
+
+        /// <summary> удаление справочника параметров модели </summary>
+        bool DeleteHandbookParametersForModel(int idBase);
     }
 }
