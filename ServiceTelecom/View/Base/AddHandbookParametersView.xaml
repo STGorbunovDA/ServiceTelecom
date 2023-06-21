@@ -53,7 +53,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
@@ -61,32 +61,56 @@
                 <TextBlock Text="Добавление справочника"
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
-                               Margin="215,0,0,0"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center">
-                </TextBlock>
+                               VerticalAlignment="Center" 
+                               Margin="255,0,0,0"/>
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" 
+                            >
+                    <CheckBox Name="CheckBoxDisableRegex"
+                              Style="{StaticResource CheckBoxStyle1}"
+                              IsChecked="{Binding CheckBoxRepeater}"
+                              Margin="0,0,0,0"/>
+                    <TextBlock Text="Отключить Regex"
+                               Foreground="{StaticResource titleFontColor1}"
+                               Style="{StaticResource messageTextBlockStyle8}"
+                               Margin="10,2,0,0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                    </TextBlock>
+
+                </StackPanel>
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"
                             Content="-"
                             Grid.Column="2"
                             Click="BtnMinimize_Click" 
-                            Cursor="Hand">
+                            Cursor="Hand" Height="18" Width="18">
                 </Button>
                 <Button x:Name="btnClose"
                             Style="{StaticResource menuButtonStyleThree}"
                             Content="x"
                             Grid.Column="3"
-                            Click="BtnClose_Click">
+                            Click="BtnClose_Click" Height="18" Width="18">
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
+                    <Button x:Name="btnChangeHandbookParametersForModel"
+                            Command="{Binding ChangeHandbookParametersForModel}"
+                            Content="Изменить"
+                            Margin ="0,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
                     <Button x:Name="btnAddHandbookParametersForModel"
                             Command="{Binding AddHandbookParametersForModel}"
                             Content="Добавить"
-                            Margin ="0,0,15,0"
+                            Margin ="10,0,3,0"
                             Style="{StaticResource menuButtonStyleAll}" 
                         HorizontalAlignment="Center"    
                         Cursor="Hand">
@@ -94,7 +118,7 @@
                     <Button x:Name="btnGetHandbookParametersByModelForRadiostationCollection"
                             Command="{Binding GetHandbookParametersByModelForRadiostationCollection}"
                             Content="✔"
-                            Margin ="0,0,0,0"
+                            Margin ="10,0,0,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
                             Cursor="Hand">
                     </Button>
@@ -116,6 +140,23 @@
                             Margin ="0,0,0,0"
                             Style="{StaticResource menuButtonStyleCheck}" 
                             Cursor="Hand">
+                    </Button>
+
+                    <Button x:Name="btnUpdateHandbookParametersForModel"
+                            Command="{Binding UpdateHandbookParametersForModel}"
+                            Content="Обновить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
+                    </Button>
+                    <Button x:Name="btnDeleteHandbookParametersForModel"
+                            Command="{Binding DeleteHandbookParametersForModel}"
+                            Content="Удалить"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleAll}" 
+                        HorizontalAlignment="Center"    
+                        Cursor="Hand">
                     </Button>
                 </StackPanel>
             </Grid>
@@ -928,9 +969,9 @@
                                                 Binding="{Binding MaxBatteryDischargeAlarmCurrentConsumption, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                                 Width="120" />
                     </DataGrid.Columns>
-                    
-                       
-                    
+
+
+
                 </local:CustomDataGrid>
             </Grid>
         </Grid>
