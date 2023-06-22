@@ -21,8 +21,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
         public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
-        public ObservableCollection<HandbookParametersModelRadiostationModel> 
-            HandbookParametersModelRadiostationCollection { get; set; }
+        public ObservableCollection<HandbookParametersModelRadiostationModel>
+            HandbookParametersModelRadiostationCollection
+        { get; set; }
 
         #region свойства
 
@@ -432,13 +433,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
-            _handbookParametersModelRadiostationRepository = 
+            _handbookParametersModelRadiostationRepository =
                 new HandbookParametersModelRadiostationRepository();
 
             FrequenciesCollection = new ObservableCollection<FrequencyModel>();
-            HandbookParametersModelRadiostationCollection = 
+            HandbookParametersModelRadiostationCollection =
                 new ObservableCollection<HandbookParametersModelRadiostationModel>();
-            
+
             AddRadiostationParameters =
                  new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
 
@@ -539,6 +540,31 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             GetFrequencyDataBase();
             GetHandbookParametersModelRadiostationCollection();
+
+            if (!String.IsNullOrWhiteSpace(LowPowerLevelTransmitter))
+                return;
+            if (HandbookParametersModelRadiostationCollection.Count == 0)
+                return;
+            foreach (var item in HandbookParametersModelRadiostationCollection)
+            {
+                LowPowerLevelTransmitter = item.MinLowPowerLevelTransmitter;
+                HighPowerLevelTransmitter = item.MaxHighPowerLevelTransmitter;
+                FrequencyDeviationTransmitter = item.MinFrequencyDeviationTransmitter;
+                SensitivityTransmitter = item.MinSensitivityTransmitter;
+                KNITransmitter = item.MinKNITransmitter;
+                DeviationTransmitter = item.MaxDeviationTransmitter;
+                OutputPowerVoltReceiver = item.MaxOutputPowerVoltReceiver;
+                OutputPowerWattReceiver = item.MaxOutputPowerWattReceiver;
+                SelectivityReceiver = item.MaxSelectivityReceiver;
+                SensitivityReceiver = item.MaxSensitivityReceiver;
+                KNIReceiver = item.MinKNIReceiver;
+                SuppressorReceiver = item.MinSuppressorReceiver;
+                StandbyModeCurrentConsumption = item.MinStandbyModeCurrentConsumption;
+                ReceptionModeCurrentConsumption = item.MaxReceptionModeCurrentConsumption;
+                TransmissionModeCurrentConsumption = item.MaxTransmissionModeCurrentConsumption;
+                BatteryDischargeAlarmCurrentConsumption = item.MinBatteryDischargeAlarmCurrentConsumption;
+            }
+
         }
 
 
@@ -704,19 +730,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetHandbookParametersModelRadiostationCollection()
         {
-            if(String.IsNullOrWhiteSpace(Model))
+            if (String.IsNullOrWhiteSpace(Model))
             {
                 MessageBox.Show($"Модель пуста",
                   "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            } 
+            }
             if (HandbookParametersModelRadiostationCollection.Count != 0)
                 HandbookParametersModelRadiostationCollection.Clear();
             HandbookParametersModelRadiostationCollection =
                 _handbookParametersModelRadiostationRepository.
                 GetHandbookParametersByModelForCollection(
                     HandbookParametersModelRadiostationCollection, Model);
-            if(HandbookParametersModelRadiostationCollection.Count == 0)
+            if (HandbookParametersModelRadiostationCollection.Count == 0)
             {
                 MessageBox.Show($"Отсутствует справочник на модель радиостанции. " +
                     $"Сохранение параметров невозможно!",
