@@ -595,15 +595,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        RadiostationForDocumentsDataBaseModel _selectedRadiostationModel;
+        RadiostationForDocumentsDataBaseModel _selectedRadiostation;
         public RadiostationForDocumentsDataBaseModel SelectedRadiostation
         {
-            get => _selectedRadiostationModel;
+            get => _selectedRadiostation;
             set
             {
                 if (value == null)
                     return;
-                _selectedRadiostationModel = value;
+                _selectedRadiostation = value;
                 OnPropertyChanged(nameof(SelectedRadiostation));
             }
         }
