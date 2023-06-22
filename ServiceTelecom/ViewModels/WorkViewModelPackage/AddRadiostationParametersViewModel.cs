@@ -275,14 +275,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _frequenciesCompletedForRadiostantion;
-        public string FrequenciesCompletedForRadiostantion
+        private string _allFrequenciesCompleted;
+        public string AllFrequenciesCompleted
         {
-            get => _frequenciesCompletedForRadiostantion;
+            get => _allFrequenciesCompleted;
             set
             {
-                _frequenciesCompletedForRadiostantion = value;
-                OnPropertyChanged(nameof(FrequenciesCompletedForRadiostantion));
+                _allFrequenciesCompleted = value;
+                OnPropertyChanged(nameof(AllFrequenciesCompleted));
             }
         }
 
@@ -394,12 +394,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _checkBoxFaultyAKB = value;
                 if (value)
                 {
-                    PercentAKB = "неисправен";
+                    PercentAKB = "0";
                     IsEnablePercentAKB = false;
                 }
                 else
                 {
-                    if (PercentAKB == "неисправен")
+                    if (PercentAKB == "0")
                     {
                         PercentAKB = string.Empty;
                         IsEnablePercentAKB = true;
@@ -423,11 +423,26 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
+        private string _selectedItemFrequency;
+        public string SelectedItemFrequency
+        {
+            get => _selectedItemFrequency;
+            set
+            {
+                _selectedItemFrequency = value;
+
+                if(value != null)
+                    AllFrequenciesCompleted += value + "\n";
+                  
+                OnPropertyChanged(nameof(SelectedItemFrequency));
+            }
+        }
+
         public ICommand AddRadiostationParameters { get; }
         public ICommand ChangeStatusVerifiedRSTInRepair { get; }
         public ICommand AddFrequency { get; }
-
         public ICommand HandbookAddRadiostationParameters { get; }
+
         public AddRadiostationParametersViewModel()
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
@@ -504,9 +519,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     KNIReceiver = item.KNIReceiver;
                     SuppressorReceiver = item.SuppressorReceiver;
 
-                    FrequenciesCompletedForRadiostantion
+                    AllFrequenciesCompleted
                         = item.FrequenciesCompletedForRadiostantion;
-                    if (FrequenciesCompletedForRadiostantion.Contains("/"))
+                    if (AllFrequenciesCompleted.Contains("/"))
                         CheckBoxRepeater = true;
                     else CheckBoxRepeater = false;
 
@@ -564,10 +579,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 TransmissionModeCurrentConsumption = item.MaxTransmissionModeCurrentConsumption;
                 BatteryDischargeAlarmCurrentConsumption = item.MinBatteryDischargeAlarmCurrentConsumption;
             }
-
         }
-
-
 
         #region HandbookAddRadiostationParameters
 
@@ -657,7 +669,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 FrequencyDeviationTransmitter, SensitivityTransmitter,
                 KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
                 OutputPowerWattReceiver, SelectivityReceiver, SensitivityReceiver,
-                KNIReceiver, SuppressorReceiver, FrequenciesCompletedForRadiostantion,
+                KNIReceiver, SuppressorReceiver, AllFrequenciesCompleted,
                 StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                 TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                 BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
@@ -679,7 +691,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     FrequencyDeviationTransmitter, SensitivityTransmitter,
                     KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
                     OutputPowerWattReceiver, SelectivityReceiver, SensitivityReceiver,
-                    KNIReceiver, SuppressorReceiver, FrequenciesCompletedForRadiostantion,
+                    KNIReceiver, SuppressorReceiver, AllFrequenciesCompleted,
                     StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                     TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                     BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
