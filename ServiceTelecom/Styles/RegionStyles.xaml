@@ -76,7 +76,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Margin" Value="0,0,0,0"/>
-        <Setter Property="IsReadOnly" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="IsEditable" Value="True"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center" />
         <Setter Property="Padding" Value="27,7,0,0"/>
