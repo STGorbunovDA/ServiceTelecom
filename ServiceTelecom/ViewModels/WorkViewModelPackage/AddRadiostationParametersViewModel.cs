@@ -425,14 +425,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _theIndexDefectiveFaultyCollection;
-        public int TheIndexDefectiveFaultyCollection
+        private int _theIndexBatteryChargerAccessories;
+        public int TheIndexBatteryChargerAccessories
         {
-            get => _theIndexDefectiveFaultyCollection;
+            get => _theIndexBatteryChargerAccessories;
             set
             {
-                _theIndexDefectiveFaultyCollection = value;
-                OnPropertyChanged(nameof(TheIndexDefectiveFaultyCollection));
+                _theIndexBatteryChargerAccessories = value;
+                OnPropertyChanged(nameof(TheIndexBatteryChargerAccessories));
+            }
+        }
+        private int _theIndexManipulatorAccessories;
+        public int TheIndexManipulatorAccessories
+        {
+            get => _theIndexManipulatorAccessories;
+            set
+            {
+                _theIndexManipulatorAccessories = value;
+                OnPropertyChanged(nameof(TheIndexManipulatorAccessories));
             }
         }
 
@@ -527,8 +537,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     IsEnabledManipulatorAccessories = false;
                 else IsEnabledManipulatorAccessories = true;
 
-                TheIndexDefectiveFaultyCollection = -1;
-
+                TheIndexBatteryChargerAccessories = -1;
+                TheIndexManipulatorAccessories = -1;
                 if (String.IsNullOrWhiteSpace(NameAKB))
                 {
                     IsEnablePercentAKB = false;
@@ -594,7 +604,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     if (PercentAKB == null)
                         PercentAKB = string.Empty;
 
-                    if (PercentAKB == "неисправен")
+                    if (PercentAKB == "0")
                         CheckBoxFaultyAKB = true;
                     else CheckBoxFaultyAKB = false;
 
@@ -728,6 +738,245 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationParametersCommand(object obj)
         {
+
+            #region проверка контролов 
+
+            if (String.IsNullOrWhiteSpace(LowPowerLevelTransmitter))
+            {
+                MessageBox.Show("Поле \"Низкий, W.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(HighPowerLevelTransmitter))
+            {
+                MessageBox.Show("Поле \"Высокий, W.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(FrequencyDeviationTransmitter))
+            {
+                MessageBox.Show("Поле \"Отклонение, Hz.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(SensitivityTransmitter))
+            {
+                MessageBox.Show("Поле \"Чувствительность, mV.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(KNITransmitter))
+            {
+                MessageBox.Show("Поле \"КНИ передатчика, %. \" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(DeviationTransmitter))
+            {
+                MessageBox.Show("Девиация, kHz.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(OutputPowerVoltReceiver))
+            {
+                MessageBox.Show("Выx. мощ., V.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(OutputPowerWattReceiver))
+            {
+                MessageBox.Show("Выx. мощ., W.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(SelectivityReceiver))
+            {
+                MessageBox.Show("Избирательность, dB.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(SensitivityReceiver))
+            {
+                MessageBox.Show("Чувствительность, mkV.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(KNIReceiver))
+            {
+                MessageBox.Show("Поле \"КНИ приёмника, %.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(SuppressorReceiver))
+            {
+                MessageBox.Show("Поле \"Шумод., mkV.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(StandbyModeCurrentConsumption))
+            {
+                MessageBox.Show("Поле \"Деж. режим, мА.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(ReceptionModeCurrentConsumption))
+            {
+                MessageBox.Show("Поле \"Реж. приём, мА.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(TransmissionModeCurrentConsumption))
+            {
+                MessageBox.Show("Поле \"Реж. передачи, A.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(BatteryDischargeAlarmCurrentConsumption))
+            {
+                MessageBox.Show("Поле \"Разряд АКБ, V.\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if(IsEnabledChargerAccessories)
+            {
+                if (String.IsNullOrWhiteSpace(BatteryChargerAccessories))
+                {
+                    MessageBox.Show("Поле \"З.У.\" не должно быть пустым", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (IsEnabledManipulatorAccessories)
+            {
+                if (String.IsNullOrWhiteSpace(ManipulatorAccessories))
+                {
+                    MessageBox.Show("Поле \"МАН.\" не должно быть пустым", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (IsEnablePercentAKB)
+            {
+                if (String.IsNullOrWhiteSpace(PercentAKB))
+                {
+                    MessageBox.Show("Поле \"АКБ\" не должно быть пустым", "Отмена",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+            if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
+            {
+                MessageBox.Show("Поле \"Частоты\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (!Regex.IsMatch(LowPowerLevelTransmitter, @"^[2][.][0-9]{1,1}[0-9]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Низкий, W.\"\n" +
+                    "Пример: от 2.00 Вт. до 2.99 Вт.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(HighPowerLevelTransmitter, @"^[2-5]{1,1}[.][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Высокий, W.\"\n" +
+                    "Пример: от 2.00 Вт. до 5.99 Вт.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(FrequencyDeviationTransmitter, @"^[+?-][0-9]{1,3}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Отклонение, Hz.\"\n" +
+                    "Пример: от -999 до +900", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(SensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Чувствительность передатчика, mV.\"\n" +
+                    "Пример: от 7.5 до 18.0", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(KNITransmitter, @"^[0-4]{1,1}[.][0-9]{1,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"КНИ передатчика, %\"\n" +
+                    "Пример: от 0.30 до 4.99", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(DeviationTransmitter, @"^[4]{1,1}[.][0-9]{1,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Девиация, kHz.\"\n" +
+                    "Пример: от 4.00 кГЦ. до 5.00 кГЦ.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+
+
+            foreach (var item in HandbookParametersModelRadiostationCollection)
+            {
+                if(Convert.ToDouble(item.MinLowPowerLevelTransmitter) > Convert.ToDouble(LowPowerLevelTransmitter) ||
+                   Convert.ToDouble(item.MaxLowPowerLevelTransmitter) < Convert.ToDouble(LowPowerLevelTransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Низкий, W.\"." +
+                    $"Диапазон: от {item.MinLowPowerLevelTransmitter} Вт. " +
+                    $"до {item.MaxLowPowerLevelTransmitter} Вт. для {Model}!", 
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinHighPowerLevelTransmitter) > Convert.ToDouble(HighPowerLevelTransmitter) ||
+                   Convert.ToDouble(item.MaxHighPowerLevelTransmitter) < Convert.ToDouble(HighPowerLevelTransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Высокий, W.\"." +
+                    $"Диапазон: от {item.MinHighPowerLevelTransmitter} Вт. " +
+                    $"до {item.MaxHighPowerLevelTransmitter} Вт. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToInt32(item.MinFrequencyDeviationTransmitter) > Convert.ToInt32(FrequencyDeviationTransmitter) ||
+                   Convert.ToInt32(item.MaxFrequencyDeviationTransmitter) < Convert.ToInt32(FrequencyDeviationTransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Отклонение, Hz.\"." +
+                    $"Диапазон: от {item.MinFrequencyDeviationTransmitter} Вт. " +
+                    $"до {item.MaxFrequencyDeviationTransmitter} Вт. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinSensitivityTransmitter) > Convert.ToDouble(SensitivityTransmitter) ||
+                   Convert.ToDouble(item.MaxSensitivityTransmitter) < Convert.ToDouble(SensitivityTransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Чувствительность передатчика, mV.\"." +
+                    $"Диапазон: от {item.MinSensitivityTransmitter} Вт. " +
+                    $"до {item.MaxSensitivityTransmitter} Вт. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinKNITransmitter) > Convert.ToDouble(KNITransmitter) ||
+                   Convert.ToDouble(item.MaxKNITransmitter) < Convert.ToDouble(KNITransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"КНИ передатчика, %\"." +
+                    $"Диапазон: от {item.MinKNITransmitter} Вт. " +
+                    $"до {item.MaxKNITransmitter} Вт. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinDeviationTransmitter) > Convert.ToDouble(DeviationTransmitter) ||
+                   Convert.ToDouble(item.MaxDeviationTransmitter) < Convert.ToDouble(DeviationTransmitter))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Девиация, kHz.\"." +
+                    $"Диапазон: от {item.MinDeviationTransmitter} Вт. " +
+                    $"до {item.MaxDeviationTransmitter} Вт. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+
+            #endregion
+
+
             string dateMaintenanceDataBase =
                 Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
