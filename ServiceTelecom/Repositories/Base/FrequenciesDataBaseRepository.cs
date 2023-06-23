@@ -57,12 +57,12 @@ namespace ServiceTelecom.Repositories.Base
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public bool AddFrequencyDataBase(string frequency)
+        public string AddFrequencyDataBase(string frequency)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return false;
+                    return string.Empty;
                 using (MySqlCommand command = new MySqlCommand("AddFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -70,11 +70,11 @@ namespace ServiceTelecom.Repositories.Base
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"frequencyUser",
                         Encryption.EncryptPlainTextToCipherText(frequency));
-                    if (command.ExecuteNonQuery() == 1) return true;
-                    else return false;
+                    if (command.ExecuteNonQuery() == 1) return frequency;
+                    else return string.Empty;
                 }
             }
-            catch { return false; }
+            catch { return string.Empty; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 

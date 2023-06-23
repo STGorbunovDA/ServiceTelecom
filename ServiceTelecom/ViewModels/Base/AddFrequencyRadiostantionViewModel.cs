@@ -91,8 +91,13 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
 
-            if (_frequenciesDataBase.AddFrequencyDataBase(Frequency))
+            UserModelStatic.FREQUENCY = _frequenciesDataBase.AddFrequencyDataBase(Frequency);
+            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+            {
                 GetFrequencyDataBase();
+                MessageBox.Show("Успешно!", "Информация",
+                       MessageBoxButton.OK, MessageBoxImage.Information);
+            }  
             else MessageBox.Show("Ошибка добавления частоты", "Отмена",
                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -108,7 +113,10 @@ namespace ServiceTelecom.ViewModels.Base
                 FrequenciesCollection.Clear();
             FrequenciesCollection =
                 _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
-            TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
+            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+                Frequency = UserModelStatic.FREQUENCY;
+            else TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
+            
         }
 
         #endregion
