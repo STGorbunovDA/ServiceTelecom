@@ -386,17 +386,17 @@
                                                         HorizontalAlignment="Right"
                                                         Margin="8,10,0,0">
                                                     <TextBlock Text="Шумод., mkV.:"
-                                            Foreground="{StaticResource titleFontColor1}"
-                                            Style="{StaticResource messageTextBlockStyle10}"
-                                            Margin="0,0,0,0"
-                                            VerticalAlignment="Center">
+                                                            Foreground="{StaticResource titleFontColor1}"
+                                                            Style="{StaticResource messageTextBlockStyle10}"
+                                                            Margin="0,0,0,0"
+                                                            VerticalAlignment="Center">
                                                     </TextBlock>
                                                     <TextBox x:Name="txbSuppressorReceiver"
-                                            Height="35"
-                                            Width="80"
-                                            Margin="5,0,0,0"
-                                            Style="{StaticResource TextBoxStyle9}"
-                                            Text="{Binding SuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            Height="35"
+                                                            Width="80"
+                                                            Margin="5,0,0,0"
+                                                            Style="{StaticResource TextBoxStyle9}"
+                                                            Text="{Binding SuppressorReceiver, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                                     </TextBox>
                                                 </StackPanel>
                                             </StackPanel>
@@ -572,7 +572,7 @@
                                             <ComboBox x:Name="cmbBatteryChargerAccessories"
                                                     Height="35"
                                                     Width="170"
-                                                    SelectedIndex="{Binding TheIndexDefectiveFaultyCollection, Mode=TwoWay}"
+                                                    SelectedIndex="{Binding TheIndexBatteryChargerAccessories, Mode=TwoWay}"
                                                     ItemsSource="{Binding DefectiveFaultyCollection}"
                                                     IsEnabled="{Binding IsEnabledChargerAccessories}"
                                                     Text="{Binding BatteryChargerAccessories}"
@@ -592,6 +592,7 @@
                                             <ComboBox x:Name="cmbManipulatorAccessories"
                                                         Height="35"
                                                         Width="170"
+                                                        SelectedIndex="{Binding TheIndexManipulatorAccessories, Mode=TwoWay}"
                                                         ItemsSource="{Binding DefectiveFaultyCollection}"
                                                         IsEnabled="{Binding IsEnabledManipulatorAccessories}"
                                                         Text="{Binding ManipulatorAccessories}"
