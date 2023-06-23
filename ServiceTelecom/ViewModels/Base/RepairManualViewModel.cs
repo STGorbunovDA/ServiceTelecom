@@ -193,7 +193,7 @@ namespace ServiceTelecom.ViewModels.Base
                 RepairManualRadiostantionsCollections.Clear();
             RepairManualRadiostantionsCollections =
                 _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
-                    RepairManualRadiostantionsCollections, UserModelStatic.model);
+                    RepairManualRadiostantionsCollections, UserModelStatic.MODEL);
         }
 
         #endregion

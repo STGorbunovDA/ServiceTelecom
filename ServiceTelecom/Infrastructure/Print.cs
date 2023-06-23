@@ -48,7 +48,7 @@ namespace ServiceTelecom.Infrastructure
                     string engineer = string.Empty;
 
                     foreach (var item in UserModelStatic.
-                        StaffRegistrationsDataBaseModelCollection)
+                        STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     {
                         if (radiostantionsCollection[0].Road == item.RoadBase)
                         {
@@ -1627,7 +1627,7 @@ namespace ServiceTelecom.Infrastructure
                     string engineer = string.Empty;
 
                     foreach (var item in UserModelStatic.
-                        StaffRegistrationsDataBaseModelCollection)
+                        STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     {
                         if (road == item.RoadBase)
                         {
@@ -2846,7 +2846,7 @@ namespace ServiceTelecom.Infrastructure
             string year2 = dateTag.AddYears(1).ToString("yyyy");
             string engineer = string.Empty;
 
-            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                 engineer = item.EngineerBase;
 
             var items = new Dictionary<string, string>

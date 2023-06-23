@@ -36,7 +36,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(
                     ExecuteChangeNumberActRadiostationsForDocumentInDBCommand);
             foreach (var item in
-                        UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+                        UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                 NewNumberAct = item.NumberPrintDocumentBase + "/";
         }
 
@@ -63,7 +63,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
 
             foreach (RadiostationForDocumentsDataBaseModel item 
-                in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
+                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 if (_workRepositoryRadiostantionFull.
                 ChangeNumberActBySerialNumberInDBRadiostationFull(
@@ -87,7 +87,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     break;
                 }         
             }
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             MessageBox.Show("Успешно", "Информация",
                         MessageBoxButton.OK, MessageBoxImage.Information);
         }

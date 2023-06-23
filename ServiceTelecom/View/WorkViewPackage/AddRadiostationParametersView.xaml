@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels.WorkViewModelPackage"
         Title="Добавить параметры" Height="600" Width="1330"
         WindowStyle="None"
@@ -92,8 +93,7 @@
                                 HorizontalAlignment="Center">
                     <TextBlock Text="{Binding Model}"
                                Foreground="{StaticResource titleFontColor1}"
-                               Style="{StaticResource messageTextBlockStyle3}"
-                               Margin="0,0,0,0">
+                               Style="{StaticResource messageTextBlockStyle3}">
                     </TextBlock>
                     <TextBlock Text="{Binding SerialNumber}"
                                Foreground="{StaticResource titleFontColor1}"
@@ -572,11 +572,11 @@
                                             <ComboBox x:Name="cmbBatteryChargerAccessories"
                                                     Height="35"
                                                     Width="170"
+                                                    SelectedIndex="{Binding TheIndexDefectiveFaultyCollection, Mode=TwoWay}"
+                                                    ItemsSource="{Binding DefectiveFaultyCollection}"
                                                     IsEnabled="{Binding IsEnabledChargerAccessories}"
                                                     Text="{Binding BatteryChargerAccessories}"
                                                     Style="{StaticResource ComboBoxStyle6}">
-                                                <ComboBoxItem Content="Исправно"/>
-                                                <ComboBoxItem Content="Неисправно"/>
                                             </ComboBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
@@ -589,14 +589,13 @@
                                                     Margin="0,0,5,0"
                                                     VerticalAlignment="Center">
                                             </TextBlock>
-                                                <ComboBox x:Name="cmbManipulatorAccessories"
+                                            <ComboBox x:Name="cmbManipulatorAccessories"
                                                         Height="35"
                                                         Width="170"
+                                                        ItemsSource="{Binding DefectiveFaultyCollection}"
                                                         IsEnabled="{Binding IsEnabledManipulatorAccessories}"
                                                         Text="{Binding ManipulatorAccessories}"
                                                         Style="{StaticResource ComboBoxStyle6}">
-                                                <ComboBoxItem Content="Исправно"/>
-                                                <ComboBoxItem Content="Неисправно"/>
                                             </ComboBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal"
@@ -650,7 +649,6 @@
                                                 Width="190"
                                                 Style="{StaticResource ComboBoxStyle5}"
                                                 ItemsSource="{Binding FrequenciesCollection}"
-                                                SelectedItem="{Binding SelectedItemFrequency}"
                                                 SelectedIndex="{Binding TheIndexFrequencyCollection, Mode=TwoWay}"
                                                 Text="{Binding Frequency, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                             <ComboBox.Resources>
@@ -667,18 +665,132 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Top"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Right"
                                                 Margin="0,5,0,0">
+                                        <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Right"
+                                                Margin="0,4,2,0">
+                                            <TextBlock Text="1:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="2:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="3:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="4:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="5:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="6:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="7:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="8:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="9:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="10:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="11:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="12:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="13:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="14:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="15:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                            <TextBlock Text="16:"
+                                                        Foreground="{StaticResource titleFontColor1}"
+                                                        Style="{StaticResource messageTextBlockStyle10}"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,2,0,0">
+                                            </TextBlock>
+                                        </StackPanel>
                                         <TextBox x:Name="txbAllFrequenciesCompleted"
-                                            Height="357"
-                                            Width="190"
-                                            Style="{StaticResource TextBoxStyle10}"
-                                            Text="{Binding AllFrequenciesCompleted, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                Height="357"
+                                                Width="170"
+                                                Margin="0,0,1,0"
+                                                Style="{StaticResource TextBoxStyle10}"
+                                                Text="{Binding AllFrequenciesCompleted, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                         </TextBox>
-                                        <CheckBox Name="CheckBoxRepeater"
-                                            Style="{StaticResource CheckBoxStyle1}"
-                                            IsChecked="{Binding CheckBoxRepeater}"
-                                            Margin="10,0,0,0"/>
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalAlignment="Center">
+                                            <Button x:Name="btnAddFrequencyInAllFrequenciesCompleted"
+                                                    Command="{Binding AddFrequencyInAllFrequenciesCompleted}"
+                                                    Content="✔"
+                                                    Style="{StaticResource menuButtonStyleCheck}" 
+                                                    Cursor="Hand"
+                                                    Margin="5,0,5,0">
+                                            </Button>
+                                            <CheckBox Name="CheckBoxRepeater"
+                                                    Style="{StaticResource CheckBoxStyle1}"
+                                                    IsChecked="{Binding CheckBoxRepeater}"
+                                                    Margin="11,5,0,0"/>
+                                        </StackPanel>
+                                        
                                     </StackPanel>
                                 </StackPanel>
                             </Border>

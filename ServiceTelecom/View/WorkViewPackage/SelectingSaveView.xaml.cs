@@ -44,7 +44,7 @@ namespace ServiceTelecom.View.WorkViewPackage
 
         private void SaveRadiostationsFull(object sender, RoutedEventArgs e)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             SaveCSV.GetInstance.SaveRadiostationsFull(city, radiostationsForDocumentsCollection);
         }

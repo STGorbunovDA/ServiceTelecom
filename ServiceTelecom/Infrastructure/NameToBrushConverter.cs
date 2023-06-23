@@ -16,11 +16,11 @@ namespace ServiceTelecom.Infrastructure
             string input = (string)value;
             switch (input)
             {
-                case UserModelStatic.InRepairTechnicalServices:
+                case UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES:
                     return "#D2D235";
-                case UserModelStatic.PassedTechnicalServices:
+                case UserModelStatic.PASSED_TECHNICAL_SERVICES:
                     return Brushes.LightGreen;
-                case UserModelStatic.decommissionRadiostantion:
+                case UserModelStatic.DECOMMISSION_RADIOSTANTION:
                     return "#ed6825";
                 default:
                     return DependencyProperty.UnsetValue;

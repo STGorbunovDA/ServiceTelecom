@@ -35,16 +35,16 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteWorkCommand(object obj)
         {
-            if(UserModelStatic.Post == "Начальник участка" ||
-               UserModelStatic.Post == "Инженер" || 
-               UserModelStatic.Post == "Куратор" ||
-               UserModelStatic.Post == "Дирекция связи")
+            if(UserModelStatic.POST == "Начальник участка" ||
+               UserModelStatic.POST == "Инженер" || 
+               UserModelStatic.POST == "Куратор" ||
+               UserModelStatic.POST == "Дирекция связи")
             {
-                UserModelStatic.StaffRegistrationsDataBaseModelCollection =
+                UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION =
                     staffRegistrationRepository.GetStaffRegistrationsDataBasePerLogin(
-                        UserModelStatic.Login,
-                    UserModelStatic.StaffRegistrationsDataBaseModelCollection);
-                if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
+                        UserModelStatic.LOGIN,
+                    UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION);
+                if (UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
                 {
                     MessageBox.Show("Тебя нет в списке сформированных бригад, " +
                         "сообщи об этом руководителю", "Информация",
@@ -57,14 +57,14 @@ namespace ServiceTelecom.ViewModels
                 work = new WorkView();
                 work.Closed += (sender, args) => work = null;
                 work.Closed += (sender, args) => 
-                UserModelStatic.StaffRegistrationsDataBaseModelCollection.Clear();
+                UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Clear();
                 work.Show();
             }
         }
 
         private void ExecuteTutorialCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             else if (tutorialEngineer == null)
             {
@@ -76,8 +76,8 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteRegistrationCommand(object obj)
         {
-            if (UserModelStatic.Post == "Admin" || 
-                UserModelStatic.Post == "Руководитель")
+            if (UserModelStatic.POST == "Admin" || 
+                UserModelStatic.POST == "Руководитель")
             {
                 if (staffRegistration == null)
                 {
@@ -91,7 +91,7 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteAdminkaCommand(object obj)
         {
-            if (UserModelStatic.Post != "Admin")
+            if (UserModelStatic.POST != "Admin")
                 return;
             else if (admin == null)
             {

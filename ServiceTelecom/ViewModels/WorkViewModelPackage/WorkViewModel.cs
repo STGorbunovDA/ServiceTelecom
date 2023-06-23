@@ -749,7 +749,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationParametersCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -779,7 +779,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (SelectedRadiostationForAddRadiostationParametersViewCollection.Count > 1)
                 return;
 
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
                 SelectedRadiostationForAddRadiostationParametersViewCollection;
 
             #endregion
@@ -793,7 +793,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (SelectedRadiostation.SerialNumber == item.SerialNumber)
                     ParametersRadiostationForAddRadiostationParametersViewCollection.Add(item);
 
-            UserModelStatic.ParametersRadiostationForAddRadiostationParametersView =
+            UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW =
                 ParametersRadiostationForAddRadiostationParametersViewCollection;
 
             #endregion
@@ -802,9 +802,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             addRadiostationParametersView.Closed += (sender, args) =>
             addRadiostationParametersView = null;
             addRadiostationParametersView.Closed += (sender, args) =>
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             addRadiostationParametersView.Closed += (sender, args) =>
-            UserModelStatic.ParametersRadiostationForAddRadiostationParametersView = null;
+            UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW = null;
             addRadiostationParametersView.Closed += (sender, args) =>
             GetRadiostations(Road, City);
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
@@ -819,13 +819,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintTagTechnicalWorkCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (printTagTechnicalWorkView != null)
                 return;
 
-            UserModelStatic.road = SelectedRadiostation.Road;
-            UserModelStatic.city = SelectedRadiostation.City;
+            UserModelStatic.ROAD = SelectedRadiostation.Road;
+            UserModelStatic.CITY = SelectedRadiostation.City;
             printTagTechnicalWorkView = new PrintTagTechnicalWorkView();
             printTagTechnicalWorkView.Closed += (sender, args) =>
             printTagTechnicalWorkView = null;
@@ -840,7 +840,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintWordDecommissionNumberActCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -886,7 +886,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -912,13 +912,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (PrintExcelNumberActRepairCollection.Count > 1)
                 return;
 
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
                 PrintExcelNumberActRepairCollection;
 
             printRepairView = new PrintRepairView();
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             printRepairView.Show();
         }
 
@@ -933,7 +933,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (SelectedRadiostation == null)
                 return;
@@ -987,7 +987,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
 
             if (CmbChoiseSearch == "№ акта ТО")
@@ -1014,7 +1014,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 if (printRepairView != null)
                     return;
-                if (UserModelStatic.Post == "Дирекция связи")
+                if (UserModelStatic.POST == "Дирекция связи")
                     return;
                 if (CHECK_HOW_MUCH)
                     return;
@@ -1039,18 +1039,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (PrintExcelNumberActRepairCollection.Count > 1)
                     return;
 
-                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid =
+                UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
                     PrintExcelNumberActRepairCollection;
 
                 printRepairView = new PrintRepairView();
                 printRepairView.Closed += (sender, args) => printRepairView = null;
                 printRepairView.Closed += (sender, args) =>
-                UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+                UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
                 printRepairView.Show();
             }
             if (CmbChoiseSearch == "№ акта списания")
             {
-                if (UserModelStatic.Post == "Дирекция связи")
+                if (UserModelStatic.POST == "Дирекция связи")
                     return;
                 if (CHECK_HOW_MUCH)
                     return;
@@ -1089,7 +1089,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (CHECK_HOW_MUCH)
                 return;
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
 
             new Thread(() =>
@@ -1120,7 +1120,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeNumberActAtRadiostationsInDBCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1144,14 +1144,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (changeNumberActView != null)
                 return;
 
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID
                 = RadiostationsForDocumentsMulipleSelectedDataGrid;
 
             changeNumberActView = new ChangeNumberActView(
                 SelectedRadiostation.NumberAct);
             changeNumberActView.Closed += (sender, args) => changeNumberActView = null;
             changeNumberActView.Closed += (sender, args) =>
-            UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid = null;
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             changeNumberActView.Closed += (sender, args) =>
             RadiostationsForDocumentsMulipleSelectedDataGrid = null;
             changeNumberActView.Closed += (sender, args) =>
@@ -1168,7 +1168,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteDeleteDecommissionNumberActRadiostationInDBCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1206,7 +1206,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1250,7 +1250,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1319,7 +1319,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsMulipleSelectedDataGrid == null ||
                RadiostationsForDocumentsMulipleSelectedDataGrid.Count == 0)
                 return;
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1344,7 +1344,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1361,10 +1361,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (addRepairRadiostationForDocumentInDataBaseView != null)
                 return;
 
-            UserModelStatic.road = SelectedRadiostation.Road;
-            UserModelStatic.city = SelectedRadiostation.City;
-            UserModelStatic.model = SelectedRadiostation.Model;
-            UserModelStatic.serialNumber = SelectedRadiostation.SerialNumber;
+            UserModelStatic.ROAD = SelectedRadiostation.Road;
+            UserModelStatic.CITY = SelectedRadiostation.City;
+            UserModelStatic.MODEL = SelectedRadiostation.Model;
+            UserModelStatic.SERIAL_NUMBER = SelectedRadiostation.SerialNumber;
 
             addRepairRadiostationForDocumentInDataBaseView =
                 new AddRepairRadiostationForDocumentInDataBaseView(
@@ -1388,10 +1388,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ClearUserModelStaticRoadCitySerialNumber()
         {
-            UserModelStatic.road = null;
-            UserModelStatic.city = null;
-            UserModelStatic.model = null;
-            UserModelStatic.serialNumber = null;
+            UserModelStatic.ROAD = null;
+            UserModelStatic.CITY = null;
+            UserModelStatic.MODEL = null;
+            UserModelStatic.SERIAL_NUMBER = null;
         }
 
         #endregion
@@ -1400,7 +1400,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1433,7 +1433,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -1478,12 +1478,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (RoadsCollection.Count != 0)
                 RoadsCollection.Clear();
-            if (UserModelStatic.StaffRegistrationsDataBaseModelCollection.Count == 0)
+            if (UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
             {
                 _roadDataBase = new RoadDataBaseRepository();
                 RoadsCollection = _roadDataBase.GetRoadDataBase(RoadsCollection);
             }
-            else foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+            else foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     RoadsCollection.Add(item.RoadBase);
         }
 
@@ -1535,7 +1535,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (Road == null)
                 return;
@@ -1968,7 +1968,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //В работе
             int inWorkRadiostantions = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (item.VerifiedRST == UserModelStatic.InWorkTechnicalServices)
+                if (item.VerifiedRST == UserModelStatic.IN_WORK_TECHNICAL_SERVICES)
                 {
                     if (!String.IsNullOrWhiteSpace(item.DecommissionNumberAct))
                         continue;
@@ -1980,14 +1980,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //Прошла проверку
             int verifiedRadiostantions = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (item.VerifiedRST == UserModelStatic.PassedTechnicalServices)
+                if (item.VerifiedRST == UserModelStatic.PASSED_TECHNICAL_SERVICES)
                     verifiedRadiostantions++;
             CounterVerifiedRadiostantions = verifiedRadiostantions.ToString() + " шт.";
 
             //в ремонт
             int inRepairRadiostantionsTechnicalServices = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (item.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
+                if (item.VerifiedRST == UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES)
                     inRepairRadiostantionsTechnicalServices++;
             CounterInRepairRadiostantionsTechnicalServices
                 = inRepairRadiostantionsTechnicalServices.ToString() + " шт.";
@@ -1995,7 +1995,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             //списаний
             int decommissionNumberActs = 0;
             foreach (var item in RadiostationsForDocumentsCollection)
-                if (item.VerifiedRST == UserModelStatic.decommissionRadiostantion)
+                if (item.VerifiedRST == UserModelStatic.DECOMMISSION_RADIOSTANTION)
                     decommissionNumberActs++;
             CounterDecommissionNumberActs = decommissionNumberActs.ToString() + " шт.";
         }
@@ -2008,7 +2008,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddNumberActInFillOutCollectionsCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -2063,7 +2063,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetNumberActForFillOutCollections()
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             string addRegistry =
              getSetRegistryServiceTelecomSetting.
@@ -2107,7 +2107,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteRemoveFromFillOutCollectionsCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -2133,7 +2133,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -2169,7 +2169,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteAddNumberActInSignCollectionsCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -2223,7 +2223,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetNumberActForSignCollections()
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             string addRegistry =
              getSetRegistryServiceTelecomSetting.
@@ -2266,7 +2266,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteRemoveFromSignCollectionsCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;
@@ -2292,7 +2292,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand(object obj)
         {
-            if (UserModelStatic.Post == "Дирекция связи")
+            if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
                 return;

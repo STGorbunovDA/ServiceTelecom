@@ -25,6 +25,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             HandbookParametersModelRadiostationCollection
         { get; set; }
 
+        public ObservableCollection<string> DefectiveFaultyCollection { get; set; }
+
         #region свойства
 
         public string Road { get; set; }
@@ -423,18 +425,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _selectedItemFrequency;
-        public string SelectedItemFrequency
+        private int _theIndexDefectiveFaultyCollection;
+        public int TheIndexDefectiveFaultyCollection
         {
-            get => _selectedItemFrequency;
+            get => _theIndexDefectiveFaultyCollection;
             set
             {
-                _selectedItemFrequency = value;
-
-                if(value != null)
-                    AllFrequenciesCompleted += value + "\n";
-                  
-                OnPropertyChanged(nameof(SelectedItemFrequency));
+                _theIndexDefectiveFaultyCollection = value;
+                OnPropertyChanged(nameof(TheIndexDefectiveFaultyCollection));
             }
         }
 
@@ -442,16 +440,25 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ChangeStatusVerifiedRSTInRepair { get; }
         public ICommand AddFrequency { get; }
         public ICommand HandbookAddRadiostationParameters { get; }
+        public ICommand AddFrequencyInAllFrequenciesCompleted { get; }
 
         public AddRadiostationParametersViewModel()
         {
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
+            
             _handbookParametersModelRadiostationRepository =
                 new HandbookParametersModelRadiostationRepository();
 
             FrequenciesCollection = new ObservableCollection<FrequencyModel>();
+
+            DefectiveFaultyCollection = new ObservableCollection<string>
+            {
+                "Исправно",
+                "Неисправно"
+            };
+
             HandbookParametersModelRadiostationCollection =
                 new ObservableCollection<HandbookParametersModelRadiostationModel>();
 
@@ -467,8 +474,40 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             HandbookAddRadiostationParameters =
                  new ViewModelCommand(ExecuteHandbookAddRadiostationParametersCommand);
 
+            AddFrequencyInAllFrequenciesCompleted =
+                new ViewModelCommand(ExecuteAddFrequencyInAllFrequenciesCompletedCommand);
+
+            AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel();
+            AssigningParametersInEditorsFromUserModelStaticParametersRadiostation();
+            GetFrequencyDataBase();
+            GetHandbookParametersModelRadiostationCollection();
+            AssigningParametersInEditorsFromHandbookParameters();
+
+            
+        }
+
+        #region AddFrequencyInAllFrequenciesCompleted
+
+        private void ExecuteAddFrequencyInAllFrequenciesCompletedCommand(object obj)
+        {
+            if (Regex.IsMatch(Frequency,
+                @"^[1][0-9]{1,1}[0-9]{1,1}[.][0-9]{1,1}[0-9]{1,1}[0-9]{1,1}$"))
+            {
+                if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
+                    AllFrequenciesCompleted = string.Empty;
+
+                AllFrequenciesCompleted += Frequency + "\n";
+            }
+        }
+
+        #endregion
+
+        #region AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel
+
+        private void AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel()
+        {
             foreach (RadiostationForDocumentsDataBaseModel item
-                in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
+                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 Road = item.Road;
                 City = item.City;
@@ -487,6 +526,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (item.Manipulator == "-")
                     IsEnabledManipulatorAccessories = false;
                 else IsEnabledManipulatorAccessories = true;
+
+                TheIndexDefectiveFaultyCollection = -1;
+
                 if (String.IsNullOrWhiteSpace(NameAKB))
                 {
                     IsEnablePercentAKB = false;
@@ -498,11 +540,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     IsEnableCheckBoxFaultyAKB = true;
                 }
             }
+        }
 
-            if (UserModelStatic.ParametersRadiostationForAddRadiostationParametersView.Count != 0)
+
+        #endregion
+
+        #region AssigningParametersInEditorsFromUserModelStatic
+
+        private void AssigningParametersInEditorsFromUserModelStaticParametersRadiostation()
+        {
+            if (UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW.Count != 0)
             {
                 foreach (RadiostationParametersDataBaseModel item
-                    in UserModelStatic.ParametersRadiostationForAddRadiostationParametersView)
+                    in UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW)
                 {
 
                     LowPowerLevelTransmitter = item.LowPowerLevelTransmitter;
@@ -553,13 +603,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         NoteRadioStationParameters = string.Empty;
                 }
             }
-            GetFrequencyDataBase();
-            GetHandbookParametersModelRadiostationCollection();
+        }
 
+
+        #endregion
+
+        #region AssigningParametersInEditorsFromHandbookParameters
+
+        private void AssigningParametersInEditorsFromHandbookParameters()
+        {
             if (!String.IsNullOrWhiteSpace(LowPowerLevelTransmitter))
                 return;
+
             if (HandbookParametersModelRadiostationCollection.Count == 0)
                 return;
+
             foreach (var item in HandbookParametersModelRadiostationCollection)
             {
                 LowPowerLevelTransmitter = item.MinLowPowerLevelTransmitter;
@@ -581,11 +639,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
+        #endregion
+
         #region HandbookAddRadiostationParameters
 
         private void ExecuteHandbookAddRadiostationParametersCommand(object obj)
         {
-            if (UserModelStatic.Login != "Admin")
+            if (UserModelStatic.LOGIN != "Admin")
                 return;
             if (addHandbookParametersView == null)
             {
@@ -611,7 +671,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 addFrequencyRadiostantionView = null;
                 addFrequencyRadiostantionView.Closed += (sender, args) =>
                 GetFrequencyDataBase();
+                addFrequencyRadiostantionView.Closed += (sender, args) =>
+                AssigningAllFrequenciesCompletedForUserModelStaticFrequency();
                 addFrequencyRadiostantionView.Show();
+            }
+        }
+
+        #endregion
+
+        #region AssigningAllFrequenciesCompletedForUserModelStaticFrequency
+
+        private void AssigningAllFrequenciesCompletedForUserModelStaticFrequency()
+        {
+            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+            {
+                AllFrequenciesCompleted += UserModelStatic.FREQUENCY + "\n";
+                UserModelStatic.FREQUENCY = null;
             }
         }
 
@@ -634,7 +709,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
-                    UserModelStatic.InRepairTechnicalServices))
+                    UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES))
             { }
             else
             {
@@ -673,7 +748,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                 TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                 BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
-                NoteRadioStationParameters, UserModelStatic.PassedTechnicalServices))
+                NoteRadioStationParameters, UserModelStatic.PASSED_TECHNICAL_SERVICES))
                 { }
                 else
                 {
@@ -695,7 +770,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                     TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                     BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
-                    NoteRadioStationParameters, UserModelStatic.PassedTechnicalServices))
+                    NoteRadioStationParameters, UserModelStatic.PASSED_TECHNICAL_SERVICES))
                 { }
                 else
                 {
@@ -707,7 +782,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
-                    UserModelStatic.PassedTechnicalServices))
+                    UserModelStatic.PASSED_TECHNICAL_SERVICES))
             { }
             else
             {

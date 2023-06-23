@@ -223,10 +223,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddInRegistryInformationCompanyCommand);
             ContinuePrintRepair =
                 new ViewModelCommand(ExecuteContinuePrintRepairCommand);
-            if (UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid == null)
+            if (UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID == null)
                 return;
             foreach (RadiostationForDocumentsDataBaseModel item
-                in UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid)
+                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 Road = item.Road;
                 City= item.City;
@@ -234,7 +234,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 Company = item.Company;
             }
             RadiostationsForDocumentsMulipleSelectedDataGrid 
-                = UserModelStatic.RadiostationsForDocumentsMulipleSelectedDataGrid;
+                = UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
             GetProductNameInDataBase();
             GetPrimaryMeansInDataBase();
         }
