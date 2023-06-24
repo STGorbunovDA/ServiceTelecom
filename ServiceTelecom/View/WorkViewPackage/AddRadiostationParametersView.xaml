@@ -542,7 +542,7 @@
                                                 Height="123"
                                                 Width="730"
                                                 Margin="5,10,0,0"
-                                                Style="{StaticResource TextBoxStyle9}"
+                                                Style="{StaticResource TextBoxStyle2}"
                                                 Text="{Binding NoteRadioStationParameters, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                         </TextBox>
                                     </StackPanel>

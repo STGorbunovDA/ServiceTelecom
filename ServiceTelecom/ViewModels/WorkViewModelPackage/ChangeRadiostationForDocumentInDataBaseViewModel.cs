@@ -14,6 +14,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         private WorkRadiostantionRepository _workRepositoryRadiostantion;
         private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        private RadiostationParametersRepository _radiostationParametersRepository;
 
         AddModelRadiostantionView addModelRadiostantion = null;
         private ModelDataBaseRepository _modelDataBase;
@@ -321,6 +322,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _radiostationParametersRepository = new RadiostationParametersRepository();
             _modelDataBase = new ModelDataBaseRepository();
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
@@ -691,7 +693,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(NumberAct, 
+            if (!Regex.IsMatch(NumberAct,
                 @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
             {
                 MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
@@ -704,14 +706,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(DateMaintenance, 
+            if (!Regex.IsMatch(DateMaintenance,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            string dateMaintenanceDataBase = 
+            string dateMaintenanceDataBase =
                 Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
             if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate,
@@ -721,7 +723,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            string dateOfIssuanceOfTheCertificateDataBase = 
+            string dateOfIssuanceOfTheCertificateDataBase =
                 Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
             if (String.IsNullOrWhiteSpace(Representative))
@@ -732,7 +734,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (!Representative.Contains("-"))
             {
-                if (!Regex.IsMatch(Representative, 
+                if (!Regex.IsMatch(Representative,
                     @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
                 {
                     MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
@@ -743,7 +745,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (Representative.Contains("-"))
             {
-                if (!Regex.IsMatch(Representative, 
+                if (!Regex.IsMatch(Representative,
                     @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
                 {
                     MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
@@ -801,7 +803,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(Location, 
+            if (!Regex.IsMatch(Location,
                 @"^[с][т][.][\s][А-Я][а-я]*(([\s-]?[0-9])*$)?([\s-]?[А-Я][а-я]*)*$"))
             {
                 if (MessageBox.Show("Поле \"Станция\" введено некорректно. " +
@@ -839,7 +841,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (Model == "Motorola GP-340")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([6][7][2]([A-Z]{3,3}[0-9]{4,4}))?([6][7][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -850,7 +852,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola GP-360")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([7][4][9]([A-Z]{3,3}[0-9]{4,4}))?([7][4][9][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -861,7 +863,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola DP-2400е" || Model == "Motorola DP-2400")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([4][4][6]([A-Z]{3,3}[0-9]{4,4}))?([4][4][6][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -872,7 +874,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Comrade R5")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([2][0][1][0][R][5]([0-9]{6,6}))?([2][2][1][0][R][5][V][T]([0-9]{5,5}))*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -943,7 +945,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Комбат T-44")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{2,2}[.][0-9]{4,4}$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -954,7 +956,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Шеврон T-44 V2")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{1,2}[.][0-9]{4,4}$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -965,7 +967,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "РН311М")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^[0-9]{1,20}((([\S][0-9])*$)?([\s][0-9]{2,2}[.]?[0-9]{2,2}?)*$)"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -976,7 +978,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola DP-4400")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([8][0][7]([A-Z]{3,3}[0-9]{4,4}))?([8][0][7][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -987,7 +989,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola DP-1400")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([7][5][2]([A-Z]{3,3}[0-9]{4,4}))?([7][5][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -998,7 +1000,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola GP-320")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([6][3][8]([A-Z]{3,3}[0-9]{4,4}))?([6][3][8][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1009,7 +1011,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola GP-300")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([1][7][4]([A-Z]{3,3}[0-9]{4,4}))?([1][7][4][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1020,7 +1022,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola P080")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1031,7 +1033,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "Motorola P040")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1072,7 +1074,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "РНД-500")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1083,7 +1085,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else if (Model == "РНД-512")
             {
-                if (!Regex.IsMatch(SerialNumber, 
+                if (!Regex.IsMatch(SerialNumber,
                     @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
                 {
                     if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
@@ -1134,6 +1136,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
+
+            if (_radiostationParametersRepository.
+                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            {
+                if (!_radiostationParametersRepository.ChangeСharacteristicsRadiostantionForRadiostationParameters
+                    (Road, City, Company, Location, NumberAct, Model, Comment, Battery, SerialNumber))
+                    MessageBox.Show("Ошибка изменения юридических параметров радиостанции " +
+                        "в radiostation_parameters(таблица)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
             if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(
                     Road, NumberAct, dateMaintenanceDataBase, Representative,
                     NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
@@ -1141,16 +1154,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
                     Manipulator, Antenna, Charger, Remont))
             { }
-            else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(БД)",
+            else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(таблица)",
                 "Отмена", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxImage.Error);     
 
             if (_workRepositoryRadiostantion.ChangeRadiostationForDocumentInDataBase(
-                Road, NumberAct, dateMaintenanceDataBase, Representative,
-                NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
-                PhoneNumber, Post, Comment, City, Location, Poligon, Company,
-                Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
-                Manipulator, Antenna, Charger, Remont))
+            Road, NumberAct, dateMaintenanceDataBase, Representative,
+            NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
+            PhoneNumber, Post, Comment, City, Location, Poligon, Company,
+            Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
+            Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
                     MessageBoxImage.Information);
             else

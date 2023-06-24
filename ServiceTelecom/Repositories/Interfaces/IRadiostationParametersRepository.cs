@@ -51,6 +51,12 @@ namespace ServiceTelecom.Repositories.Interfaces
             string nameAKB, string percentAKB, string noteRadioStationParameters,
             string passedTechnicalServices);
 
-       
+        /// <summary> изменение юридических характеристик(параметров) в radiostation_parameters из ChangeRadiostationForDocumentInDataBaseViewModel </summary>
+        bool ChangeСharacteristicsRadiostantionForRadiostationParameters(
+            string road, string city, string company, string location,
+            string numberAct, string model, string comment, string battery, string serialNumber);
+
+
+
     }
 }
