@@ -910,9 +910,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (PrintStatementParametersCollection.Count != 0)
                 PrintStatementParametersCollection.Clear();
 
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberAct == item.NumberAct)
+                {
+                    if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+                    {
+                        MessageBox.Show(
+                        $"Нельзя напечатать ведомость т.к. есть радиостанция " +
+                        $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            
+
             foreach (var item in RadiostationsParametersCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
                     PrintStatementParametersCollection.Add(item);
+                
 
             if (PrintStatementParametersCollection.Count == 0)
                 return;
