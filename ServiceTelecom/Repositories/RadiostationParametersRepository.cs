@@ -191,7 +191,7 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public bool ChangeRadiostationInRadiostationParameters(
+        public bool ChangeRadiostationParameters(
             string road, string city, string dateMaintenance, string location,
             string model, string serialNumber, string company,
             string numberAct, string lowPowerLevelTransmitter,
@@ -213,7 +213,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return false;
                 using (MySqlCommand command = new MySqlCommand(
-                    "ChangeRadiostationInRadiostationParameters",
+                    "ChangeRadiostationParameters",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
@@ -283,6 +283,74 @@ namespace ServiceTelecom.Repositories
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeСharacteristicsRadiostantionForRadiostationParameters(
+            string road, string city, string company, string location, 
+            string numberAct, string model, string comment, string battery, 
+            string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeСharacteristicsRadiostantionForRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                        Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"companyUser",
+                        Encryption.EncryptPlainTextToCipherText(company));
+                    command.Parameters.AddWithValue($"locationUser",
+                       Encryption.EncryptPlainTextToCipherText(location));
+                    command.Parameters.AddWithValue($"numberActUser",
+                        Encryption.EncryptPlainTextToCipherText(numberAct));
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"commentUser",
+                        Encryption.EncryptPlainTextToCipherText(comment));
+                    command.Parameters.AddWithValue($"batteryUser",
+                        Encryption.EncryptPlainTextToCipherText(battery));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool ChangeNumberActForRadiostationParameters(
+            string road, string serialNumber, string newNumberAct)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeNumberActForRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                       Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"newNumberActUser",
+                       Encryption.EncryptPlainTextToCipherText(newNumberAct));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }    
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

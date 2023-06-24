@@ -31,18 +31,18 @@ namespace ServiceTelecom.View.WorkViewPackage
             {
                 cmbCategory.Text = radiostation.Category;
                 txbPriceRepair.Text = radiostation.PriceRemont;
-                if (txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_3 ||
-                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_4 ||
-                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_5 ||
-                    txbPriceRepair.Text == UserModelStatic.priceRepairAnalogCategory_6)
+                if (txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_3 ||
+                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_4 ||
+                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_5 ||
+                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6)
                     CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 else CheckBoxChoicePriceAnalogDigital.IsChecked = false;
             }
             else
             {
-                cmbCategory.Text = UserModelStatic.Category_6;
+                cmbCategory.Text = UserModelStatic.CATEGORY_6;
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
-                txbPriceRepair.Text = UserModelStatic.priceRepairAnalogCategory_6;
+                txbPriceRepair.Text = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6;
             }
 
             cmbCompletedWorks_1.Text = radiostation.CompletedWorks_1;

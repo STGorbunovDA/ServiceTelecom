@@ -10,7 +10,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             ObservableCollection<FrequencyModel> FrequenciesCollections);
 
         /// <summary> Добавление частоты /summary>
-        bool AddFrequencyDataBase(string frequency);
+        string AddFrequencyDataBase(string frequency);
 
         /// <summary> Удаление частоты</summary>
         bool DeleteFrequencyDataBase(int idBase);

@@ -1,10 +1,12 @@
-﻿using ServiceTelecom.Infrastructure.Interfaces;
+﻿using MySql.Data.MySqlClient;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
@@ -48,7 +50,7 @@ namespace ServiceTelecom.Infrastructure
                     string engineer = string.Empty;
 
                     foreach (var item in UserModelStatic.
-                        StaffRegistrationsDataBaseModelCollection)
+                        STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     {
                         if (radiostantionsCollection[0].Road == item.RoadBase)
                         {
@@ -1538,7 +1540,7 @@ namespace ServiceTelecom.Infrastructure
             string firstMemberCommissionFIO, string firstMemberCommissionPost,
             string secondMemberCommissionFIO, string secondMemberCommissionPost,
             string thirdMemberCommissionFIO, string thirdMemberCommissionPost,
-            string primaryMeans, string productName, 
+            string primaryMeans, string productName,
             IList RadiostationsForDocumentsMulipleSelectedDataGrid)
         {
             Excel.Application exApp = new Excel.Application();
@@ -1627,7 +1629,7 @@ namespace ServiceTelecom.Infrastructure
                     string engineer = string.Empty;
 
                     foreach (var item in UserModelStatic.
-                        StaffRegistrationsDataBaseModelCollection)
+                        STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     {
                         if (road == item.RoadBase)
                         {
@@ -2841,12 +2843,12 @@ namespace ServiceTelecom.Infrastructure
             {
                 day = dateTag.ToString("dd");
                 day2 = dateTag.AddDays(1).ToString("dd");
-            } 
+            }
             string year = dateTag.ToString("yyyy");
             string year2 = dateTag.AddYears(1).ToString("yyyy");
             string engineer = string.Empty;
 
-            foreach (var item in UserModelStatic.StaffRegistrationsDataBaseModelCollection)
+            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                 engineer = item.EngineerBase;
 
             var items = new Dictionary<string, string>
@@ -2944,6 +2946,986 @@ namespace ServiceTelecom.Infrastructure
                 GC.WaitForPendingFinalizers();
                 MessageBox.Show(ex.ToString());
                 Environment.Exit(0);
+            }
+        }
+
+        public void PrintStatementParameters(
+            List<RadiostationParametersDataBaseModel> radiostantionsCollection)
+        {
+            Excel.Application exApp = new Excel.Application();
+
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType == null)
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    exApp.SheetsInNewWorkbook = 2;
+                    exApp.Workbooks.Add();
+                    exApp.DisplayAlerts = false;
+
+                    Excel.Worksheet workSheet = (Excel.Worksheet)exApp.Worksheets.get_Item(1);
+                    Excel.Worksheet workSheet2 = (Excel.Worksheet)exApp.Worksheets.get_Item(2);
+
+                    string numberAct = radiostantionsCollection[0].NumberAct;
+                    string dateMaintenance = radiostantionsCollection[0].DateMaintenance;
+                    string company = radiostantionsCollection[0].Company;
+                    string city = radiostantionsCollection[0].City;
+                    string location = "ст. " + city;
+                    string engineer = string.Empty;
+
+                    foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                        if (radiostantionsCollection[0].Road == item.RoadBase)
+                            engineer = item.EngineerBase;
+
+                    workSheet.Name = $"Накладная №{numberAct.Replace('/', '.')}";
+                    workSheet2.Name = $"Все частоты ведомости № {numberAct.Replace('/', '.')}";
+
+                    #region Ведомость То 2 Item
+
+                    workSheet.PageSetup.Zoom = false;
+                    workSheet.PageSetup.FitToPagesWide = 1;
+                    workSheet.PageSetup.FitToPagesTall = 1;
+                    workSheet.Rows.Font.Size = 15;
+                    workSheet.Rows.Font.Name = "Times New Roman";
+                    workSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet.PageSetup.CenterHorizontally = true;
+                    workSheet.PageSetup.CenterVertically = true;
+                    workSheet.PageSetup.TopMargin = 0;
+                    workSheet.PageSetup.BottomMargin = 0;
+                    workSheet.PageSetup.LeftMargin = 0;
+                    workSheet.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells200 = (Excel.Range)workSheet.get_Range("A1", "G1").Cells;
+                    Excel.Range _excelCells201 = (Excel.Range)workSheet.get_Range("H1", "I1").Cells;
+                    Excel.Range _excelCells202 = (Excel.Range)workSheet.get_Range("J1", "K1").Cells;
+                    Excel.Range _excelCells203 = (Excel.Range)workSheet.get_Range("L1", "M1").Cells;
+                    Excel.Range _excelCells204 = (Excel.Range)workSheet.get_Range("T1", "Y1").Cells;
+                    Excel.Range _excelCells205 = (Excel.Range)workSheet.get_Range("A2", "A19").Cells;
+                    Excel.Range _excelCells206 = (Excel.Range)workSheet.get_Range("B2", "C2").Cells;
+                    Excel.Range _excelCells207 = (Excel.Range)workSheet.get_Range("B3", "B19").Cells;
+                    Excel.Range _excelCells208 = (Excel.Range)workSheet.get_Range("C3", "C19").Cells;
+                    Excel.Range _excelCells209 = (Excel.Range)workSheet.get_Range("D2", "I2").Cells;
+                    Excel.Range _excelCells210 = (Excel.Range)workSheet.get_Range("D3", "E6").Cells;
+                    Excel.Range _excelCells211 = (Excel.Range)workSheet.get_Range("D7", "D19").Cells;
+                    Excel.Range _excelCells212 = (Excel.Range)workSheet.get_Range("E7", "E19").Cells;
+                    Excel.Range _excelCells213 = (Excel.Range)workSheet.get_Range("F3", "F19").Cells;
+                    Excel.Range _excelCells214 = (Excel.Range)workSheet.get_Range("G3", "G19").Cells;
+                    Excel.Range _excelCells215 = (Excel.Range)workSheet.get_Range("H3", "H19").Cells;
+                    Excel.Range _excelCells216 = (Excel.Range)workSheet.get_Range("I3", "I19").Cells;
+                    Excel.Range _excelCells217 = (Excel.Range)workSheet.get_Range("J2", "O2").Cells;
+                    Excel.Range _excelCells218 = (Excel.Range)workSheet.get_Range("J3", "J19").Cells;
+                    Excel.Range _excelCells219 = (Excel.Range)workSheet.get_Range("K3", "L18").Cells;
+                    Excel.Range _excelCells220 = (Excel.Range)workSheet.get_Range("K19").Cells;
+                    Excel.Range _excelCells221 = (Excel.Range)workSheet.get_Range("L19").Cells;
+                    Excel.Range _excelCells222 = (Excel.Range)workSheet.get_Range("M3", "M19").Cells;
+                    Excel.Range _excelCells223 = (Excel.Range)workSheet.get_Range("N3", "N19").Cells;
+                    Excel.Range _excelCells224 = (Excel.Range)workSheet.get_Range("O3", "O19").Cells;
+                    Excel.Range _excelCells225 = (Excel.Range)workSheet.get_Range("P2", "R5").Cells;
+                    Excel.Range _excelCells226 = (Excel.Range)workSheet.get_Range("P6", "P19").Cells;
+                    Excel.Range _excelCells227 = (Excel.Range)workSheet.get_Range("Q6", "Q19").Cells;
+                    Excel.Range _excelCells228 = (Excel.Range)workSheet.get_Range("R6", "R19").Cells;
+                    Excel.Range _excelCells229 = (Excel.Range)workSheet.get_Range("S2", "S19").Cells;
+                    Excel.Range _excelCells230 = (Excel.Range)workSheet.get_Range("T2", "U4").Cells;
+                    Excel.Range _excelCells231 = (Excel.Range)workSheet.get_Range("T5", "T19").Cells;
+                    Excel.Range _excelCells232 = (Excel.Range)workSheet.get_Range("U5", "U19").Cells;
+                    Excel.Range _excelCells233 = (Excel.Range)workSheet.get_Range("V2", "Y2").Cells;
+                    Excel.Range _excelCells234 = (Excel.Range)workSheet.get_Range("V3", "W3").Cells;
+                    Excel.Range _excelCells235 = (Excel.Range)workSheet.get_Range("X3", "Y3").Cells;
+                    Excel.Range _excelCells238 = (Excel.Range)workSheet.get_Range("A2", "U39").Cells;
+                    Excel.Range _excelCells240 = (Excel.Range)workSheet.get_Range("V4", "Y39").Cells;
+                    Excel.Range _excelCells241 = (Excel.Range)workSheet.get_Range("V3", "Y3").Cells;
+                    Excel.Range _excelCells243 = (Excel.Range)workSheet.get_Range("A41").Cells;
+                    Excel.Range _excelCells244 = (Excel.Range)workSheet.get_Range("B41", "G41").Cells;
+                    Excel.Range _excelCells245 = (Excel.Range)workSheet.get_Range("H41", "J41").Cells;
+                    Excel.Range _excelCells246 = (Excel.Range)workSheet.get_Range("K41", "P41").Cells;
+                    Excel.Range _excelCells247 = (Excel.Range)workSheet.get_Range("T41", "Y41").Cells;
+                    Excel.Range _excelCells248 = (Excel.Range)workSheet.get_Range("B42", "G42").Cells;
+                    Excel.Range _excelCells249 = (Excel.Range)workSheet.get_Range("H42", "J42").Cells;
+                    Excel.Range _excelCells250 = (Excel.Range)workSheet.get_Range("K42", "P42").Cells;
+                    Excel.Range _excelCells251 = (Excel.Range)workSheet.get_Range("B44", "G44").Cells;
+                    Excel.Range _excelCells252 = (Excel.Range)workSheet.get_Range("H44", "J44").Cells;
+                    Excel.Range _excelCells253 = (Excel.Range)workSheet.get_Range("K44", "P44").Cells;
+                    Excel.Range _excelCells254 = (Excel.Range)workSheet.get_Range("B45", "G45").Cells;
+                    Excel.Range _excelCells255 = (Excel.Range)workSheet.get_Range("H45", "J45").Cells;
+                    Excel.Range _excelCells256 = (Excel.Range)workSheet.get_Range("K45", "P45").Cells;
+                    Excel.Range _excelCells257 = (Excel.Range)workSheet.get_Range("T42", "Y42").Cells;
+                    Excel.Range _excelCells258 = (Excel.Range)workSheet.get_Range("S44", "U44").Cells;
+                    Excel.Range _excelCells259 = (Excel.Range)workSheet.get_Range("V44", "X44").Cells;
+                    Excel.Range _excelCells260 = (Excel.Range)workSheet.get_Range("B47", "F47").Cells;
+                    Excel.Range _excelCells261 = (Excel.Range)workSheet.get_Range("H47", "L47").Cells;
+                    Excel.Range _excelCells262 = (Excel.Range)workSheet.get_Range("D2", "I39").Cells;
+                    Excel.Range _excelCells263 = (Excel.Range)workSheet.get_Range("J2", "O39").Cells;
+                    Excel.Range _excelCells264 = (Excel.Range)workSheet.get_Range("B2", "C39").Cells;
+                    Excel.Range _excelCells265 = (Excel.Range)workSheet.get_Range("P2", "S39").Cells;
+                    Excel.Range _excelCells266 = (Excel.Range)workSheet.get_Range("A2", "A39").Cells;
+                    Excel.Range _excelCells267 = (Excel.Range)workSheet.get_Range("T2", "U39").Cells;
+                    Excel.Range _excelCells268 = (Excel.Range)workSheet.get_Range("V2", "Y39").Cells;
+                    Excel.Range _excelCells269 = (Excel.Range)workSheet.get_Range("A20", "U39").Cells;
+                    Excel.Range _excelCells271 = (Excel.Range)workSheet.get_Range("X4", "Y19").Cells;
+
+                    _excelCells200.Merge(Type.Missing);
+                    _excelCells201.Merge(Type.Missing);
+                    _excelCells202.Merge(Type.Missing);
+                    _excelCells203.Merge(Type.Missing);
+                    _excelCells204.Merge(Type.Missing);
+                    _excelCells205.Merge(Type.Missing);
+                    _excelCells206.Merge(Type.Missing);
+                    _excelCells207.Merge(Type.Missing);
+                    _excelCells208.Merge(Type.Missing);
+                    _excelCells209.Merge(Type.Missing);
+                    _excelCells210.Merge(Type.Missing);
+                    _excelCells211.Merge(Type.Missing);
+                    _excelCells212.Merge(Type.Missing);
+                    _excelCells213.Merge(Type.Missing);
+                    _excelCells214.Merge(Type.Missing);
+                    _excelCells215.Merge(Type.Missing);
+                    _excelCells216.Merge(Type.Missing);
+                    _excelCells217.Merge(Type.Missing);
+                    _excelCells218.Merge(Type.Missing);
+                    _excelCells219.Merge(Type.Missing);
+                    _excelCells222.Merge(Type.Missing);
+                    _excelCells223.Merge(Type.Missing);
+                    _excelCells224.Merge(Type.Missing);
+                    _excelCells225.Merge(Type.Missing);
+                    _excelCells226.Merge(Type.Missing);
+                    _excelCells227.Merge(Type.Missing);
+                    _excelCells228.Merge(Type.Missing);
+                    _excelCells229.Merge(Type.Missing);
+                    _excelCells230.Merge(Type.Missing);
+                    _excelCells231.Merge(Type.Missing);
+                    _excelCells232.Merge(Type.Missing);
+                    _excelCells233.Merge(Type.Missing);
+                    _excelCells234.Merge(Type.Missing);
+                    _excelCells235.Merge(Type.Missing);
+                    _excelCells244.Merge(Type.Missing);
+                    _excelCells245.Merge(Type.Missing);
+                    _excelCells246.Merge(Type.Missing);
+                    _excelCells247.Merge(Type.Missing);
+                    _excelCells248.Merge(Type.Missing);
+                    _excelCells249.Merge(Type.Missing);
+                    _excelCells250.Merge(Type.Missing);
+                    _excelCells251.Merge(Type.Missing);
+                    _excelCells252.Merge(Type.Missing);
+                    _excelCells253.Merge(Type.Missing);
+                    _excelCells254.Merge(Type.Missing);
+                    _excelCells255.Merge(Type.Missing);
+                    _excelCells256.Merge(Type.Missing);
+                    _excelCells257.Merge(Type.Missing);
+                    _excelCells258.Merge(Type.Missing);
+                    _excelCells259.Merge(Type.Missing);
+                    _excelCells260.Merge(Type.Missing);
+                    _excelCells261.Merge(Type.Missing);
+
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells238.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _excelCells233.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells233.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells233.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells233.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _excelCells241.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells241.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells241.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells241.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells240.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _excelCells244.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells245.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells246.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells247.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells251.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells252.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells253.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells259.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _excelCells262.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells262.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells262.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells262.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells263.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells263.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells263.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells263.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells264.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells264.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells264.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells264.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells265.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells265.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells265.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells265.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells266.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells266.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells266.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells266.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells267.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells267.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells267.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells267.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells268.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells268.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells268.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells268.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells269.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                    _excelCells271.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                    _excelCells271.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+
+                    _excelCells200.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells201.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                    _excelCells202.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells203.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                    _excelCells204.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells205.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells205.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells206.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells207.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells207.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells207.Orientation = 90;
+
+                    _excelCells208.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells208.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells208.Orientation = 90;
+
+                    _excelCells209.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells210.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells210.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells211.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells211.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells211.Orientation = 90;
+
+                    _excelCells212.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells212.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells212.Orientation = 90;
+
+                    _excelCells213.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells213.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells213.Orientation = 90;
+
+                    _excelCells214.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells214.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells214.Orientation = 90;
+
+                    _excelCells215.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells215.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells215.Orientation = 90;
+
+                    _excelCells216.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells216.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells216.Orientation = 90;
+
+                    _excelCells217.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells218.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells218.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells218.Orientation = 90;
+
+                    _excelCells219.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells219.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells219.Orientation = 90;
+
+                    _excelCells220.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells221.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells222.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells222.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells222.Orientation = 90;
+
+                    _excelCells223.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells223.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells223.Orientation = 90;
+
+                    _excelCells224.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells224.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells224.Orientation = 90;
+
+                    _excelCells225.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells225.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells226.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells226.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells226.Orientation = 90;
+
+                    _excelCells227.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells227.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells227.Orientation = 90;
+
+                    _excelCells228.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells228.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells228.Orientation = 90;
+
+                    _excelCells229.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells229.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells229.Orientation = 90;
+
+                    _excelCells230.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells230.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells231.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells231.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells231.Orientation = 90;
+
+                    _excelCells232.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells232.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells232.Orientation = 90;
+
+                    _excelCells233.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells234.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells235.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells243.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells244.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells246.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells247.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells248.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells249.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells250.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells251.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells252.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells253.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells254.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells255.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells256.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells257.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells258.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells259.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells260.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells261.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells269.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells271.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    Excel.Range rowHeight200 = workSheet.get_Range("A1", "G1");
+                    rowHeight200.EntireRow.RowHeight = 15;
+
+                    Excel.Range rowColum200 = workSheet.get_Range("A1", "G1");
+                    rowColum200.EntireColumn.ColumnWidth = 5;
+
+                    Excel.Range rowHeight201 = workSheet.get_Range("A2", "A19");
+                    rowHeight201.EntireRow.RowHeight = 15;
+
+                    Excel.Range rowColum201 = workSheet.get_Range("A2", "A19");
+                    rowColum201.EntireColumn.ColumnWidth = 25;
+
+                    Excel.Range rowColum202 = workSheet.get_Range("B2", "C2");
+                    rowColum202.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum203 = workSheet.get_Range("D7", "E7");
+                    rowColum203.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum204 = workSheet.get_Range("F3", "F14");
+                    rowColum204.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum205 = workSheet.get_Range("G3", "G14");
+                    rowColum205.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum206 = workSheet.get_Range("H3", "H14");
+                    rowColum206.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum207 = workSheet.get_Range("I3", "I14");
+                    rowColum207.EntireColumn.ColumnWidth = 8;
+
+                    Excel.Range rowColum209 = workSheet.get_Range("X3", "Y3");
+                    rowColum209.EntireColumn.ColumnWidth = 15;
+
+                    Excel.Range rowHeight210 = workSheet.get_Range("A20", "A39");
+                    rowHeight210.EntireRow.RowHeight = 25;
+
+                    Excel.Range rowHeight211 = workSheet.get_Range("A42", "Y42");
+                    rowHeight211.EntireRow.RowHeight = 12;
+
+                    Excel.Range rowHeight212 = workSheet.get_Range("A45", "P45");
+                    rowHeight212.EntireRow.RowHeight = 12;
+
+                    Excel.Range rowHeight213 = workSheet.get_Range("B47", "L47");
+                    rowHeight213.EntireRow.RowHeight = 12;
+
+                    Excel.Range rowColum214 = workSheet.get_Range("V3", "W3");
+                    rowColum214.EntireColumn.ColumnWidth = 2;
+
+                    Excel.Range rowColum208 = workSheet.get_Range("V4", "W19");
+                    rowColum208.EntireColumn.ColumnWidth = 0.8;
+
+                    Excel.Range rowHeight215 = workSheet.get_Range("V4", "V19");
+                    rowHeight215.EntireRow.RowHeight = 20;
+
+                    Excel.Range rowColum216 = workSheet.get_Range("B3", "B19");
+                    rowColum216.EntireColumn.ColumnWidth = 15;
+
+                    Excel.Range rowHeight217 = workSheet.get_Range("A1", "Y1");
+                    rowHeight217.EntireRow.RowHeight = 25;
+
+                    Excel.Range rowHeight218 = workSheet.get_Range("A2", "Y2");
+                    rowHeight218.EntireRow.RowHeight = 20;
+
+                    Excel.Range rowHeight219 = workSheet.get_Range("A20", "A39");
+                    rowHeight219.EntireRow.RowHeight = 25;
+
+                    Excel.Range rowColum220 = workSheet.get_Range("Y4", "Y19");
+                    rowColum220.EntireColumn.ColumnWidth = 16;
+
+                    Excel.Range range_Consolidated200 = workSheet.Rows.get_Range("H1", "I1");
+                    Excel.Range range_Consolidated201 = workSheet.Rows.get_Range("L1", "M1");
+                    Excel.Range range_Consolidated202 = workSheet.Rows.get_Range("T1", "V1");
+                    Excel.Range range_Consolidated203 = workSheet.Rows.get_Range("V4", "V19");
+                    Excel.Range range_Consolidated204 = workSheet.Rows.get_Range("A42", "Y42");
+                    Excel.Range range_Consolidated205 = workSheet.Rows.get_Range("A45", "P45");
+                    Excel.Range range_Consolidated206 = workSheet.Rows.get_Range("V44", "X44");
+                    Excel.Range range_Consolidated207 = workSheet.Rows.get_Range("B47", "L47");
+                    Excel.Range range_Consolidated208 = workSheet.Rows.get_Range("A2", "U19");
+                    Excel.Range range_Consolidated209 = workSheet.Rows.get_Range("A1", "G1");
+                    Excel.Range range_Consolidated210 = workSheet.Rows.get_Range("A20", "A39");
+                    Excel.Range range_Consolidated211 = workSheet.Rows.get_Range("K41", "P41");
+                    Excel.Range range_Consolidated212 = workSheet.Rows.get_Range("T41", "Y41");
+                    Excel.Range range_Consolidated213 = workSheet.Rows.get_Range("A20", "A39");
+                    Excel.Range range_Consolidated243 = workSheet.Rows.get_Range("B20", "B39");
+                    Excel.Range range_Consolidated244 = workSheet.Rows.get_Range("C20", "Y40");
+                    Excel.Range range_Consolidated245 = workSheet.Rows.get_Range("X4", "Y19");
+
+
+                    range_Consolidated200.Font.Size = 18;
+                    range_Consolidated200.Font.Bold = true;
+                    range_Consolidated201.Font.Size = 18;
+                    range_Consolidated201.Font.Bold = true;
+                    range_Consolidated202.Font.Size = 18;
+                    range_Consolidated202.Font.Bold = true;
+                    range_Consolidated203.Font.Size = 10;
+                    range_Consolidated203.Font.Bold = true;
+                    range_Consolidated204.Font.Size = 10;
+                    range_Consolidated205.Font.Size = 10;
+                    range_Consolidated206.Font.Bold = true;
+                    range_Consolidated207.Font.Size = 10;
+                    range_Consolidated208.Font.Bold = true;
+                    range_Consolidated209.Font.Size = 16;
+                    range_Consolidated210.Font.Size = 18;
+                    range_Consolidated210.Font.Bold = true;
+                    range_Consolidated211.Font.Bold = true;
+                    range_Consolidated212.Font.Bold = true;
+                    range_Consolidated213.NumberFormat = "@";
+                    range_Consolidated243.Font.Size = 12;
+                    range_Consolidated243.NumberFormat = "@";
+                    range_Consolidated244.Font.Size = 13;
+                    range_Consolidated244.NumberFormat = "@";
+                    range_Consolidated245.Font.Size = 14;
+                    range_Consolidated245.NumberFormat = "@";
+
+                    workSheet.Cells[1, 1] = $"Ведомость проверки параметров радиостанций №:";
+                    workSheet.Cells[1, 8] = $"{numberAct}";
+                    workSheet.Cells[1, 10] = $"Предприятие:";
+                    workSheet.Cells[1, 12] = $"{company}";
+                    workSheet.Cells[1, 20] = $"{location}";
+                    workSheet.Cells[2, 1] = $"№ р/с";
+                    workSheet.Cells[2, 2] = $"АКБ";
+                    workSheet.Cells[3, 2] = $"серия, № АКБ";
+                    workSheet.Cells[3, 3] = $"Остаточная ёмкость АКБ, %";
+                    workSheet.Cells[2, 4] = $"Параметры передатчика";
+                    workSheet.Cells[3, 4] = $"Выходная\n мощность передатчика, Вт";
+                    workSheet.Cells[7, 4] = $"Низкий уровень";
+                    workSheet.Cells[7, 5] = $"Высокий уровень";
+                    workSheet.Cells[3, 6] = $"Отклонение частоты\n от номинала, Гц";
+                    workSheet.Cells[3, 7] = $"КНИ, %";
+                    workSheet.Cells[3, 8] = $"Чувствительность\n модуляционного входа, мВ";
+                    workSheet.Cells[3, 9] = $"Максимальная девиация\n частоты, кГц";
+                    workSheet.Cells[2, 10] = $"Параметры приёмника";
+                    workSheet.Cells[3, 10] = $"Чувствительность\n приемника, мкВ";
+                    workSheet.Cells[3, 11] = $"Выходная мощность приёмника, В";
+                    workSheet.Cells[19, 11] = $"В";
+                    workSheet.Cells[19, 12] = $"Вт";
+                    workSheet.Cells[3, 13] = $"Избирательность\n по соседнему каналу, дБ";
+                    workSheet.Cells[3, 14] = $"КНИ, %";
+                    workSheet.Cells[3, 15] = $"Порог срабатывания\n шумоподавителя, мкВ";
+                    workSheet.Cells[2, 16] = $"Потребляемый ток";
+                    workSheet.Cells[6, 16] = $"\"Дежурный режим\", мА";
+                    workSheet.Cells[6, 17] = $"\"Режим приём, мА\", мА";
+                    workSheet.Cells[6, 18] = $"\"Режим передачи\n (высокая мощность)\", А";
+                    workSheet.Cells[2, 19] = $"Сигнализация разряда АКБ, В";
+                    workSheet.Cells[2, 20] = $"Аксессуары \n(при наличии)";
+                    workSheet.Cells[5, 20] = $"ЗУ испр / неиспр";
+                    workSheet.Cells[5, 21] = $"Манипулятор: \n испр / неиспр";
+                    workSheet.Cells[2, 22] = $"Частоты (МГц)";
+                    workSheet.Cells[3, 22] = $"";
+                    workSheet.Cells[3, 24] = $"передача / приём    ";
+                    workSheet.Cells[41, 1] = $"Исполнитель работ:";
+                    workSheet.Cells[41, 2] = $"Инженер по ТО и ремонту СРС";
+                    workSheet.Cells[41, 8] = $"/                                     /";
+                    workSheet.Cells[41, 11] = $"{engineer}";
+                    workSheet.Cells[41, 20] = $"{dateMaintenance} г.";
+                    workSheet.Cells[42, 2] = $"должность";
+                    workSheet.Cells[42, 8] = $"подпись";
+                    workSheet.Cells[42, 11] = $"расшифровка подписи";
+                    workSheet.Cells[42, 20] = $"дата проведения технического обслуживания";
+                    workSheet.Cells[44, 1] = $"Представитель РЦС:";
+                    workSheet.Cells[44, 2] = $"";
+                    workSheet.Cells[44, 8] = $"/                                     /";
+                    workSheet.Cells[44, 11] = $"";
+                    workSheet.Cells[45, 2] = $"должность";
+                    workSheet.Cells[45, 8] = $"подпись";
+                    workSheet.Cells[45, 11] = $"расшифровка подписи";
+                    workSheet.Cells[44, 19] = $"Частота проверки:";
+                    workSheet.Cells[44, 22] = $"151.825";
+                    workSheet.Cells[47, 2] = $"Примечание: 1. \" - \" - не предоставлено для ТО";
+                    workSheet.Cells[47, 8] = $"2. \" б/н \" - без номера (номер отсутсвует)";
+
+                    int s3 = 1;
+                    int j3 = 4;
+
+                    for (int i = 0; i < 16; i++)
+                    {
+                        workSheet.Cells[3 + s3, 22] = s3;
+                        Excel.Range _excelCells236 = (Excel.Range)workSheet.get_Range($"V{j3}", $"W{j3}").Cells;
+                        _excelCells236.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        _excelCells236.Merge(Type.Missing);
+
+                        s3++;
+                        j3++;
+                    }
+
+                    int j4 = 20;
+                    int s4 = 1;
+
+
+                    List<string> fList = new List<string>();
+                    string[] frequenciesArray = fList.ToArray();
+                    string[] temporaryFrequenciesArray = fList.ToArray();
+
+                    for (int i = 0; i < radiostantionsCollection.Count; i++)
+                    {
+                        Excel.Range _excelCells242 = (Excel.Range)workSheet.get_Range($"A{j4}", $"Y{j4}").Cells;
+                        _excelCells242.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells242.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        string serialNumber = radiostantionsCollection[i].SerialNumber;
+                        string lowPowerLevelTransmitter = radiostantionsCollection[i].LowPowerLevelTransmitter;
+                        string highPowerLevelTransmitter = radiostantionsCollection[i].HighPowerLevelTransmitter;
+                        string frequencyDeviationTransmitter = radiostantionsCollection[i].FrequencyDeviationTransmitter;
+                        string sensitivityTransmitter = radiostantionsCollection[i].SensitivityTransmitter;
+                        string KNITransmitter = radiostantionsCollection[i].KNITransmitter;
+                        string deviationTransmitter = radiostantionsCollection[i].DeviationTransmitter;
+                        string outputPowerVoltReceiver = radiostantionsCollection[i].OutputPowerVoltReceiver;
+                        string outputPowerWattReceiver = radiostantionsCollection[i].OutputPowerWattReceiver;
+                        string selectivityReceiver = radiostantionsCollection[i].SelectivityReceiver;
+                        string sensitivityReceiver = radiostantionsCollection[i].SensitivityReceiver;
+                        string KNIReceiver = radiostantionsCollection[i].KNIReceiver;
+                        string suppressorReceiver = radiostantionsCollection[i].SuppressorReceiver;
+                        string standbyModeCurrentConsumption = radiostantionsCollection[i].StandbyModeCurrentConsumption;
+                        string receptionModeCurrentConsumption = radiostantionsCollection[i].ReceptionModeCurrentConsumption;
+                        string transmissionModeCurrentConsumption = radiostantionsCollection[i].TransmissionModeCurrentConsumption;
+                        string batteryDischargeAlarmCurrentConsumption = radiostantionsCollection[i].BatteryDischargeAlarmCurrentConsumption;
+                        string Frequencies = radiostantionsCollection[i].FrequenciesCompletedForRadiostantion;
+                        string batteryChargerAccessories = radiostantionsCollection[i].BatteryChargerAccessories;
+                        string manipulatorAccessories = radiostantionsCollection[i].ManipulatorAccessories;
+                        string nameAKB = radiostantionsCollection[i].NameAKB;
+                        string percentAKB = radiostantionsCollection[i].PercentAKB;
+
+                        workSheet.Cells[19 + s4, 1] = serialNumber;
+                        Excel.Range _excelCells239 = (Excel.Range)workSheet.get_Range($"V{j4}", $"Y{j4}").Cells;
+                        _excelCells239.Merge(Type.Missing);
+
+                        workSheet.Cells[19 + s4, 2] = nameAKB;
+                        workSheet.Cells[19 + s4, 3] = percentAKB;
+                        workSheet.Cells[19 + s4, 4] = lowPowerLevelTransmitter;
+                        workSheet.Cells[19 + s4, 5] = highPowerLevelTransmitter;
+                        workSheet.Cells[19 + s4, 6] = frequencyDeviationTransmitter;
+                        workSheet.Cells[19 + s4, 7] = KNITransmitter;
+                        workSheet.Cells[19 + s4, 8] = sensitivityTransmitter;
+                        workSheet.Cells[19 + s4, 9] = deviationTransmitter;
+                        workSheet.Cells[19 + s4, 10] = sensitivityReceiver;
+                        workSheet.Cells[19 + s4, 11] = outputPowerVoltReceiver;
+                        workSheet.Cells[19 + s4, 12] = outputPowerWattReceiver;
+                        workSheet.Cells[19 + s4, 13] = selectivityReceiver;
+                        workSheet.Cells[19 + s4, 14] = KNIReceiver;
+                        workSheet.Cells[19 + s4, 15] = suppressorReceiver;
+                        workSheet.Cells[19 + s4, 16] = standbyModeCurrentConsumption;
+                        workSheet.Cells[19 + s4, 17] = receptionModeCurrentConsumption;
+                        workSheet.Cells[19 + s4, 18] = transmissionModeCurrentConsumption;
+                        workSheet.Cells[19 + s4, 19] = batteryDischargeAlarmCurrentConsumption;
+                        workSheet.Cells[19 + s4, 20] = batteryChargerAccessories;
+                        workSheet.Cells[19 + s4, 21] = manipulatorAccessories;
+
+                        if (i == 0)
+                        {
+                            frequenciesArray = Frequencies.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+                            frequenciesArray = frequenciesArray.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+                            workSheet.Cells[19 + s4, 22] = $"1 - {frequenciesArray.Length}";
+                        }
+                        else
+                        {
+                            Array.Clear(temporaryFrequenciesArray, 0, temporaryFrequenciesArray.Length);
+
+                            temporaryFrequenciesArray = Frequencies.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+                            temporaryFrequenciesArray = temporaryFrequenciesArray.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+                            frequenciesArray = frequenciesArray.Union(temporaryFrequenciesArray, StringComparer.InvariantCultureIgnoreCase).ToArray();
+                        }
+                        s4++;
+                        j4++;
+                    }
+                    while (s4 <= 20)
+                    {
+                        Excel.Range _excelCells239 = (Excel.Range)workSheet.get_Range($"V{j4}", $"Y{j4}").Cells;
+                        _excelCells239.Merge(Type.Missing);
+                        s4++;
+                        j4++;
+                    }
+
+                    int count = 1;
+                    int countCell = 4;
+                    for (int u = 0; u < frequenciesArray.Length && u < 16; u++)
+                    {
+                        try
+                        {
+                            if (frequenciesArray[u].Contains("/"))
+                            {
+                                Excel.Range _excelCells300 = (Excel.Range)workSheet.get_Range($"X{countCell}", $"Y{countCell}").Cells;
+                                _excelCells300.Merge(Type.Missing);
+                            }
+                            workSheet.Cells[3 + count, 24] = frequenciesArray[u];
+                            workSheet.Cells[3 + count, 25] = frequenciesArray[u];
+                            count++;
+                            countCell++;
+                        }
+                        catch
+                        {
+                            count++;
+                            countCell++;
+                            continue;
+                        }
+                    }
+
+                    int count2 = 1;
+
+                    for (int i = 0; i < radiostantionsCollection.Count; i++)
+                    {
+                        Array.Clear(temporaryFrequenciesArray, 0, temporaryFrequenciesArray.Length);
+
+                        temporaryFrequenciesArray = radiostantionsCollection[i].FrequenciesCompletedForRadiostantion.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+                        temporaryFrequenciesArray = temporaryFrequenciesArray.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+                        string frequency = String.Empty;
+                        int p = 0;
+                        for (int k = 0; k < frequenciesArray.Length;)
+                        {
+                            if (frequenciesArray[k] == temporaryFrequenciesArray[p])
+                            {
+                                if (p == temporaryFrequenciesArray.Length - 1)
+                                {
+                                    frequency += $"{k + 1}";
+                                    break;
+                                }
+                                else
+                                {
+                                    frequency += $"{k + 1}, ";
+                                    k = 0;
+                                    p++;
+                                }
+                            }
+                            else k++;
+                        }
+                        Excel.Range range_Consolidated246 = workSheet.Rows.get_Range($"V{19 + count2}");
+                        range_Consolidated246.NumberFormat = "@";
+                        if (frequency.Length > 53)
+                            range_Consolidated246.Font.Size = 7.5;
+                        else range_Consolidated246.Font.Size = 10;
+
+                        workSheet.Cells[19 + count2, 22] = frequency;
+                        count2++;
+                    }
+
+
+                    #endregion
+
+                    #region Частоты
+
+                    workSheet2.PageSetup.Zoom = false;
+                    workSheet2.PageSetup.FitToPagesWide = 1;
+                    workSheet2.PageSetup.FitToPagesTall = 1;
+
+                    workSheet2.Rows.Font.Size = 16;
+                    workSheet2.Rows.Font.Name = "Times New Roman";
+
+                    workSheet2.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet2.PageSetup.TopMargin = 0;
+                    workSheet2.PageSetup.BottomMargin = 0;
+                    workSheet2.PageSetup.LeftMargin = 0;
+                    workSheet2.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells500 = (Excel.Range)workSheet2.get_Range("A1", "H1").Cells;
+                    Excel.Range _excelCells501 = (Excel.Range)workSheet2.get_Range("I1", "J1").Cells;
+                    Excel.Range _excelCells502 = (Excel.Range)workSheet2.get_Range("K1", "L1").Cells;
+                    Excel.Range _excelCells503 = (Excel.Range)workSheet2.get_Range("M1", "N1").Cells;
+                    Excel.Range _excelCells504 = (Excel.Range)workSheet2.get_Range("T1", "Y1").Cells;
+                    Excel.Range _excelCells507 = (Excel.Range)workSheet2.get_Range("B3", "F3").Cells;
+                    Excel.Range _excelCells509 = (Excel.Range)workSheet2.get_Range("B4", "F4").Cells;
+
+                    _excelCells500.Merge(Type.Missing);
+                    _excelCells501.Merge(Type.Missing);
+                    _excelCells502.Merge(Type.Missing);
+                    _excelCells503.Merge(Type.Missing);
+                    _excelCells504.Merge(Type.Missing);
+                    _excelCells507.Merge(Type.Missing);
+                    _excelCells509.Merge(Type.Missing);
+
+                    _excelCells500.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells501.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                    _excelCells502.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                    _excelCells503.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                    _excelCells504.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells507.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells507.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells509.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells509.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                    _excelCells507.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    Excel.Range _excelCells551 = (Excel.Range)workSheet2.get_Range($"B3", $"F4").Cells;
+                    _excelCells551.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells551.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells551.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells551.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells551.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                    _excelCells551.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                    _excelCells509.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    Excel.Range range_Consolidated500 = workSheet2.Rows.get_Range("I1", "J1");
+                    Excel.Range range_Consolidated501 = workSheet2.Rows.get_Range("M1", "N1");
+                    Excel.Range range_Consolidated502 = workSheet2.Rows.get_Range("T1", "V1");
+                    Excel.Range range_Consolidated503 = workSheet2.Rows.get_Range("A3");
+
+                    range_Consolidated500.Font.Size = 18;
+                    range_Consolidated500.Font.Bold = true;
+                    range_Consolidated501.Font.Size = 18;
+                    range_Consolidated501.Font.Bold = true;
+                    range_Consolidated502.Font.Size = 18;
+                    range_Consolidated502.Font.Bold = true;
+                    range_Consolidated503.Font.Size = 18;
+                    range_Consolidated503.Font.Bold = true;
+
+                    Excel.Range rowColum503 = workSheet2.get_Range("B1");
+                    rowColum503.EntireColumn.ColumnWidth = 4; //
+
+                    Excel.Range rowColum504 = workSheet2.get_Range("A1");
+                    rowColum504.EntireColumn.ColumnWidth = 1; //
+
+                    Excel.Range rowColum550 = workSheet2.get_Range("G1");
+                    rowColum550.EntireColumn.ColumnWidth = 25; //
+
+                    workSheet2.Cells[1, 1] = $"Приложение № 2 (Все частоты) к ведомости №:";
+                    workSheet2.Cells[1, 9] = $"{numberAct}";
+                    workSheet2.Cells[1, 11] = $"Предприятие:";
+                    workSheet2.Cells[1, 13] = $"{company}";
+                    workSheet2.Cells[1, 20] = $"{location}";
+                    workSheet2.Cells[3, 2] = $"Частоты (МГц)";
+                    workSheet2.Cells[4, 2] = $"передача / приём";
+
+                    int ss3 = 1;
+                    int jj3 = 5;
+                    int dd3 = 3;
+
+                    for (int i = 0; i < frequenciesArray.Length; i++)
+                    {
+                        workSheet2.Cells[4 + ss3, 2] = ss3;
+
+                        Excel.Range range_Consolidated505 = workSheet2.Rows.get_Range($"C{jj3}", $"F{jj3}");
+                        range_Consolidated505.Font.Size = 13;
+                        range_Consolidated505.NumberFormat = "@";
+
+                        Excel.Range _excelCells506 = (Excel.Range)workSheet2.get_Range($"B{jj3}").Cells;
+                        _excelCells506.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells506.Font.Size = 10;
+
+                        Excel.Range _excelCells508 = (Excel.Range)workSheet2.get_Range($"B{jj3}", $"F{jj3}").Cells;
+                        _excelCells508.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells508.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells508.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells508.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells508.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells508.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                        Excel.Range _excelCells510 = (Excel.Range)workSheet2.get_Range($"C{jj3}", $"D{jj3}").Cells;
+                        _excelCells510.Merge(Type.Missing);
+                        _excelCells510.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        _excelCells510.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells510.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        Excel.Range _excelCells511 = (Excel.Range)workSheet2.get_Range($"E{jj3}", $"F{jj3}").Cells;
+                        _excelCells511.Merge(Type.Missing);
+
+                        _excelCells511.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < frequenciesArray.Length - 1)
+                        {
+                            _excelCells506.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            _excelCells508.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            _excelCells510.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            _excelCells511.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        }
+
+                        ss3++;
+                        jj3++;
+                        dd3++;
+                    }
+
+                    int countDop = 1;
+                    int countCellTwo = 5;
+                    for (int u = 0; u < frequenciesArray.Length; u++)
+                    {
+                        try
+                        {
+                            if (frequenciesArray[u].Contains("/"))
+                            {
+                                Excel.Range _excelCells301 = (Excel.Range)workSheet2.get_Range($"C{countCellTwo}", $"F{countCellTwo}").Cells;
+                                _excelCells301.Merge(Type.Missing);
+                            }
+                            workSheet2.Cells[4 + countDop, 3] = frequenciesArray[u];
+                            workSheet2.Cells[4 + countDop, 5] = frequenciesArray[u];
+                            countDop++;
+                            countCellTwo++;
+                        }
+                        catch
+                        {
+                            countCellTwo++;
+                            countDop++;
+                            continue;
+                        }
+                    }
+
+
+                    jj3 = 5;
+                    for (int i = 0; i < radiostantionsCollection.Count; i++)
+                    {
+                        Excel.Range _excelCells512 = (Excel.Range)workSheet2.get_Range($"G{jj3}", $"P{jj3}").Cells;
+
+                        _excelCells512.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells512.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells512.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDouble;
+                        _excelCells512.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDouble;
+
+                        Excel.Range _excelCells513 = (Excel.Range)workSheet2.get_Range($"H{jj3}", $"P{jj3}").Cells;
+                        _excelCells513.Merge(Type.Missing);
+                        _excelCells513.Font.Size = 13;
+                        _excelCells513.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells513.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+
+                        Excel.Range _excelCells514 = (Excel.Range)workSheet2.get_Range($"G{jj3}").Cells;
+                        _excelCells514.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells514.Font.Bold = true;
+                        _excelCells514.NumberFormat = "@";
+
+
+                        if (i < radiostantionsCollection.Count - 1)
+                        {
+                            _excelCells513.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                            _excelCells514.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        }
+                        jj3++;
+                    }
+
+                    count2 = 1;
+                    s4 = 1;
+                    for (int i = 0; i < radiostantionsCollection.Count; i++)
+                    {
+                        string serialNumber = radiostantionsCollection[i].SerialNumber;
+                        workSheet2.Cells[4 + s4, 7] = serialNumber;
+
+                        Array.Clear(temporaryFrequenciesArray, 0, temporaryFrequenciesArray.Length);
+
+                        temporaryFrequenciesArray = radiostantionsCollection[i].FrequenciesCompletedForRadiostantion.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+                        temporaryFrequenciesArray = temporaryFrequenciesArray.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+
+                        string frequency = String.Empty;
+                        int p = 0;
+                        for (int k = 0; k < frequenciesArray.Length;)
+                        {
+                            if (frequenciesArray[k] == temporaryFrequenciesArray[p])
+                            {
+                                if (p == temporaryFrequenciesArray.Length - 1)
+                                {
+                                    frequency += $"{k + 1}";
+                                    break;
+                                }
+                                else
+                                {
+                                    frequency += $"{k + 1}, ";
+                                    k = 0;
+                                    p++;
+                                }
+                            }
+                            else k++;
+                        }
+                        workSheet2.Cells[4 + count2, 8] = frequency;
+                        s4++;
+                        count2++;
+                    }
+
+                    #endregion
+
+                    string file = $"{numberAct.Replace('/', '.')}-{company}_Ведомость_с_параметрами.xlsx";
+
+                    if (!File.Exists($@"С:\ServiceTelekom\Ведомости\{city}\"))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory($@"C:\ServiceTelekom\Ведомости\{city}\");
+                            workSheet.SaveAs($@"C:\ServiceTelekom\Ведомости\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            workSheet.SaveAs($@"C:\ServiceTelekom\Ведомости\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    exApp.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (exApp != null)
+                    exApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Environment.Exit(0);
+                MessageBox.Show(ex.ToString());
             }
         }
     }

@@ -98,7 +98,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
         {
             if (string.IsNullOrWhiteSpace(Info) || string.IsNullOrWhiteSpace(Actions)
                 || string.IsNullOrWhiteSpace(Model) || string.IsNullOrWhiteSpace(Problem)
-                || string.IsNullOrWhiteSpace(UserModelStatic.Login))
+                || string.IsNullOrWhiteSpace(UserModelStatic.LOGIN))
                 return;
 
             Regex re = new Regex(Environment.NewLine);
@@ -110,7 +110,7 @@ namespace ServiceTelecom.ViewModels.TutorialEngineerViewModelPackage
             Actions.Trim();
 
             if (_tutorialEngineerRepository.ChangeTutorialEngineer(IdText, Model, Problem,
-                Info, Actions, UserModelStatic.Login))
+                Info, Actions, UserModelStatic.LOGIN))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
                     MessageBoxImage.Information);
             else

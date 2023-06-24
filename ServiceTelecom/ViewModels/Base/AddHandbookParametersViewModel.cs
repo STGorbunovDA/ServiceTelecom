@@ -282,7 +282,6 @@ namespace ServiceTelecom.ViewModels.Base
 
         #endregion
 
-
         #region ChangeHandbookParametersForModel
 
         private void ExecuteChangeHandbookParametersForModelCommand(object obj)

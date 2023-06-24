@@ -34,7 +34,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string road, string serialNumber);
 
         /// <summary> изменение параметров в radiostation_parameters </summary>
-        bool ChangeRadiostationInRadiostationParameters(
+        bool ChangeRadiostationParameters(
             string road, string city, string dateMaintenance, string location,
             string model, string serialNumber, string company,
             string numberAct, string lowPowerLevelTransmitter,
@@ -51,6 +51,14 @@ namespace ServiceTelecom.Repositories.Interfaces
             string nameAKB, string percentAKB, string noteRadioStationParameters,
             string passedTechnicalServices);
 
-       
+        /// <summary> изменение юридических характеристик(параметров) в radiostation_parameters из ChangeRadiostationForDocumentInDataBaseViewModel </summary>
+        bool ChangeСharacteristicsRadiostantionForRadiostationParameters(
+            string road, string city, string company, string location,
+            string numberAct, string model, string comment, string battery, string serialNumber);
+
+        /// <summary> изменение № акта в radiostation_parameters </summary>
+        bool ChangeNumberActForRadiostationParameters(
+             string road, string serialNumber, string newNumberAct);
+
     }
 }

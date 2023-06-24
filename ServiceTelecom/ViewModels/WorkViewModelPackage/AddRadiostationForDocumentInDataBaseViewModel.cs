@@ -267,8 +267,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 if (value == true)
-                    Price = UserModelStatic.priceAnalogTO;
-                else Price = UserModelStatic.priceDigitalTO;
+                    Price = UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES;
+                else Price = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
                 _сheckBoxPriceViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
@@ -371,16 +371,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Battery = item.Battery;
                     Price = item.Price;
 
-                    if (Price == UserModelStatic.priceAnalogTO)
+                    if (Price == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
-                    if (item.VerifiedRST == UserModelStatic.InRepairTechnicalServices)
+                    if (item.VerifiedRST == UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES)
                         CheckBoxRemontViewModel = true;
-                    if (item.Manipulator == UserModelStatic.UnitMeasureForCheckBox)
+                    if (item.Manipulator == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxManipulatorViewModel = true;
-                    if (item.Antenna == UserModelStatic.UnitMeasureForCheckBox)
+                    if (item.Antenna == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxAntennaViewModel = true;
-                    if (item.Charger == UserModelStatic.UnitMeasureForCheckBox)
+                    if (item.Charger == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxChargerViewModel = true;
                 }
             }
@@ -840,20 +840,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
 
             if (CheckBoxManipulatorViewModel)
-                Manipulator = UserModelStatic.UnitMeasureForCheckBox;
+                Manipulator = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
             else Manipulator = "-";
 
             if (CheckBoxAntennaViewModel)
-                Antenna = UserModelStatic.UnitMeasureForCheckBox;
+                Antenna = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
             else Antenna = "-";
 
             if (CheckBoxChargerViewModel)
-                Charger = UserModelStatic.UnitMeasureForCheckBox;
+                Charger = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
             else Charger = "-";
 
             if (CheckBoxRemontViewModel)
-                Remont = UserModelStatic.InRepairTechnicalServices;
-            else Remont = UserModelStatic.InWorkTechnicalServices;  
+                Remont = UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES;
+            else Remont = UserModelStatic.IN_WORK_TECHNICAL_SERVICES;  
             
             #endregion
 

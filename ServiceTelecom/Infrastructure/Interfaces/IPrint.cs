@@ -29,5 +29,9 @@ namespace ServiceTelecom.Infrastructure.Interfaces
         /// <summary> Печать бирок </summary>
         void PrintTagTechnicalWorkRadiostantion(string road, string city,
             string dateMaintenance, string check);
+
+        /// <summary> Печать заполненной ведомости с параметрами </summary>
+        void PrintStatementParameters(
+            List<RadiostationParametersDataBaseModel> printStatementParametersCollection);
     }
 }

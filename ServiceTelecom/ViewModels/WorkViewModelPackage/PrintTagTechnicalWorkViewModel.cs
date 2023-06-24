@@ -42,8 +42,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             PrintTagTechnicalWorkManipulator =
                 new ViewModelCommand(ExecutePrintTagTechnicalWorkManipulatorCommand);
             print = new Print();
-            Road = UserModelStatic.road;
-            City = UserModelStatic.city;
+            Road = UserModelStatic.ROAD;
+            City = UserModelStatic.CITY;
         }
 
 

@@ -84,15 +84,20 @@ namespace ServiceTelecom.ViewModels.Base
             if (result != null)
                 return;
             if (!Regex.IsMatch(Frequency,
-                @"^[1][0-9]{1,1}[0-9]{1,1}[.][0-9]{1,1}[0-9]{1,1}[0-9]{1,1}$"))
+                @"^[1][0-9]{2,2}[.][0-9]{3,3}$"))
             {
                 MessageBox.Show($"Введите корректно поле: \"Частота\"\nПример: 151.825",
                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (_frequenciesDataBase.AddFrequencyDataBase(Frequency))
+            UserModelStatic.FREQUENCY = _frequenciesDataBase.AddFrequencyDataBase(Frequency);
+            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+            {
                 GetFrequencyDataBase();
+                MessageBox.Show("Успешно!", "Информация",
+                       MessageBoxButton.OK, MessageBoxImage.Information);
+            }  
             else MessageBox.Show("Ошибка добавления частоты", "Отмена",
                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -108,7 +113,10 @@ namespace ServiceTelecom.ViewModels.Base
                 FrequenciesCollection.Clear();
             FrequenciesCollection =
                 _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
-            TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
+            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+                Frequency = UserModelStatic.FREQUENCY;
+            else TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
+            
         }
 
         #endregion
