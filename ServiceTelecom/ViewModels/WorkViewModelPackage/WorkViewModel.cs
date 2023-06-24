@@ -500,6 +500,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             PrintExcelNumberActRepairCollection
         { get; set; }
 
+        public List<RadiostationParametersDataBaseModel>
+            PrintStatementParametersCollection
+        { get; set; }
+
         public List<RadiostationForDocumentsDataBaseModel>
             PrintExcelNumberActTechnicalWorkCollection
         { get; set; }
@@ -660,7 +664,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ShowNumberActRepair { get; }
         public ICommand PrintTagTechnicalWork { get; }
         public ICommand AddRadiostationParameters { get; }
-
+        public ICommand PrintStatementParameters { get; }
         public WorkViewModel()
         {
             printExcel = new Print();
@@ -681,6 +685,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new List<RadiostationForDocumentsDataBaseModel>();
             PrintExcelNumberActTechnicalWorkCollection =
                 new List<RadiostationForDocumentsDataBaseModel>();
+            PrintStatementParametersCollection =
+                new List<RadiostationParametersDataBaseModel>();
             SelectedRadiostationForAddRadiostationParametersViewCollection =
                 new List<RadiostationForDocumentsDataBaseModel>();
             ParametersRadiostationForAddRadiostationParametersViewCollection =
@@ -734,6 +740,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
             PrintWordDecommissionNumberAct =
                 new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
+            PrintStatementParameters =
+                new ViewModelCommand(ExecutePrintStatementParametersCommand);
             ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
@@ -874,7 +882,57 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             { IsBackground = true }.Start();
         }
 
-        #endregion 
+        #endregion
+
+        #region PrintStatementParameters
+
+        private void ExecutePrintStatementParametersCommand(object obj)
+        {
+            if (RadiostationsForDocumentsCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+            if (UserModelStatic.POST == "Дирекция связи")
+                return;
+            if (SelectedRadiostation == null)
+                return;
+
+            if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+            {
+                MessageBox.Show(
+                    $"Нельзя напечатать ремонт на радиостанцию " +
+                    $"{SelectedRadiostation.SerialNumber} " +
+                    $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (PrintStatementParametersCollection.Count != 0)
+                PrintStatementParametersCollection.Clear();
+
+            foreach (var item in RadiostationsParametersCollection)
+                if (SelectedRadiostation.NumberAct == item.NumberAct)
+                    PrintStatementParametersCollection.Add(item);
+
+            if (PrintStatementParametersCollection.Count == 0)
+                return;
+            if (PrintStatementParametersCollection.Count > 20)
+                return;
+
+            PrintStatementParametersCollection.Sort();
+
+            printExcel.PrintStatementParameters(
+                PrintStatementParametersCollection);
+
+            //new Thread(() =>
+            //{
+            //    printExcel.PrintStatementParameters(
+            //    PrintStatementParametersCollection);
+            //})
+            //{ IsBackground = true }.Start();
+        }
+
+        #endregion
 
         #region PrintExcelNumberActRepair
 
@@ -919,6 +977,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
+            
             printRepairView.Show();
         }
 
