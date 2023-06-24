@@ -328,5 +328,32 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
+
+        public bool ChangeNumberActForRadiostationParameters(
+            string road, string serialNumber, string newNumberAct)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "ChangeNumberActForRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                       Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"newNumberActUser",
+                       Encryption.EncryptPlainTextToCipherText(newNumberAct));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }    
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
     }
 }

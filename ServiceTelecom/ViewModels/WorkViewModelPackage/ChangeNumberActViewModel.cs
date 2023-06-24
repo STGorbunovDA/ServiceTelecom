@@ -11,6 +11,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         WorkRadiostantionRepository _workRepositoryRadiostantion;
         WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        RadiostationParametersRepository _radiostationParametersRepository;
 
         #region свойства
 
@@ -28,10 +29,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #endregion
 
         public ICommand ChangeNumberActRadiostationsForDocumentInDB { get; }
-        public ChangeNumberActViewModel() 
+        public ChangeNumberActViewModel()
         {
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _radiostationParametersRepository = new RadiostationParametersRepository();
             ChangeNumberActRadiostationsForDocumentInDB =
                 new ViewModelCommand(
                     ExecuteChangeNumberActRadiostationsForDocumentInDBCommand);
@@ -62,9 +64,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            foreach (RadiostationForDocumentsDataBaseModel item 
+            foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
+                if (_radiostationParametersRepository.
+                CheckSerialNumberInRadiostationParameters(item.Road, item.SerialNumber))
+                {
+                    if (!_radiostationParametersRepository.ChangeNumberActForRadiostationParameters
+                    (item.Road, item.SerialNumber, NewNumberAct))
+                        MessageBox.Show("Ошибка изменения номера акта радиостанции " +
+                            "в radiostation_parameters(таблица)", "Отмена", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+
                 if (_workRepositoryRadiostantionFull.
                 ChangeNumberActBySerialNumberInDBRadiostationFull(
                 item.Road, item.City, item.SerialNumber, NewNumberAct))
@@ -85,7 +97,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBox.Show("Ошибка изменения номера акта радиостанции",
                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
-                }         
+                }
             }
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             MessageBox.Show("Успешно", "Информация",

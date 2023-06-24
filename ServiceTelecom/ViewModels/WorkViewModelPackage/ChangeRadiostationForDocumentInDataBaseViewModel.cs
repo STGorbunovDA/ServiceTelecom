@@ -1156,7 +1156,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             { }
             else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(таблица)",
                 "Отмена", MessageBoxButton.OK,
-                MessageBoxImage.Error);     
+                MessageBoxImage.Error);
 
             if (_workRepositoryRadiostantion.ChangeRadiostationForDocumentInDataBase(
             Road, NumberAct, dateMaintenanceDataBase, Representative,
@@ -1261,6 +1261,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
+            }
+
+            if (_radiostationParametersRepository.
+                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            {
+                if (!_radiostationParametersRepository.ChangeNumberActForRadiostationParameters
+                (Road, SerialNumber, NumberAct))
+                    MessageBox.Show("Ошибка изменения номера акта радиостанции " +
+                        "в radiostation_parameters(таблица)", "Отмена", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
 
             if (_workRepositoryRadiostantionFull.

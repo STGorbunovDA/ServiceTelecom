@@ -56,7 +56,9 @@ namespace ServiceTelecom.Repositories.Interfaces
             string road, string city, string company, string location,
             string numberAct, string model, string comment, string battery, string serialNumber);
 
-
+        /// <summary> изменение № акта в radiostation_parameters </summary>
+        bool ChangeNumberActForRadiostationParameters(
+             string road, string serialNumber, string newNumberAct);
 
     }
 }
