@@ -4,7 +4,7 @@ using System;
 
 namespace ServiceTelecom.Models
 {
-    public class RadiostationForDocumentsDataBaseModel : ViewModelBase ,
+    public class RadiostationForDocumentsDataBaseModel : ViewModelBase,
         IComparable<RadiostationForDocumentsDataBaseModel>
     {
         private int _id;
