@@ -9,7 +9,6 @@ namespace ServiceTelecom.View.WorkViewPackage
         {
             InitializeComponent();
             cmbFrequency.SelectedIndex = 0;
-            txbAllFrequenciesCompleted.Text = string.Empty;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
