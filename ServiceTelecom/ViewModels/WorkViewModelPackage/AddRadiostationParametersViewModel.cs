@@ -586,17 +586,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         item.BatteryDischargeAlarmCurrentConsumption;
 
                     BatteryChargerAccessories = item.BatteryChargerAccessories;
-                    if (BatteryChargerAccessories == null)
-                        BatteryChargerAccessories = string.Empty;
-
+                    if(!IsEnabledChargerAccessories && BatteryChargerAccessories == "испр.")
+                        BatteryChargerAccessories = "-";
+                    if (!IsEnabledChargerAccessories && BatteryChargerAccessories == "неиспр.")
+                        BatteryChargerAccessories = "-";
+                    if (IsEnabledChargerAccessories && BatteryChargerAccessories == "-")
+                        TheIndexBatteryChargerAccessories = -1;
+                    
                     ManipulatorAccessories = item.ManipulatorAccessories;
-                    if (ManipulatorAccessories == null)
-                        ManipulatorAccessories = string.Empty;
+                    if (!IsEnabledManipulatorAccessories && ManipulatorAccessories == "испр.")
+                        ManipulatorAccessories = "-";
+                    if (!IsEnabledManipulatorAccessories && ManipulatorAccessories == "неиспр.")
+                        ManipulatorAccessories = "-";
+                    if (IsEnabledManipulatorAccessories && ManipulatorAccessories == "-")
+                        TheIndexManipulatorAccessories = -1;
 
-                    PercentAKB = item.PercentAKB;
-                    if (PercentAKB == null)
-                        PercentAKB = string.Empty;
-
+                    if (!IsEnablePercentAKB)
+                        PercentAKB = "-";
+                    else PercentAKB = item.PercentAKB;
                     if (PercentAKB == "0")
                         CheckBoxFaultyAKB = true;
                     else CheckBoxFaultyAKB = false;
@@ -859,6 +866,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
+            else ManipulatorAccessories = "-";
             if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
             {
                 MessageBox.Show("Поле \"Частоты\" не должно быть пустым", "Отмена",
