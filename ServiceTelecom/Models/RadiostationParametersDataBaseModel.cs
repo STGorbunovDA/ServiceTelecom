@@ -4,7 +4,8 @@ using System;
 
 namespace ServiceTelecom.Models
 {
-    internal class RadiostationParametersDataBaseModel : ViewModelBase
+    internal class RadiostationParametersDataBaseModel : ViewModelBase,
+        IComparable<RadiostationParametersDataBaseModel>
     {
         private int _id;
         private string _road;
@@ -121,6 +122,14 @@ namespace ServiceTelecom.Models
             PercentAKB = Encryption.DecryptCipherTextToPlainText(percentAKB);
             NoteRadioStationParameters = Encryption.DecryptCipherTextToPlainText(noteRadioStationParameters);
             VerifiedRST = Encryption.DecryptCipherTextToPlainText(verifiedRST);
+        }
+
+        public int CompareTo(RadiostationParametersDataBaseModel other)
+        {
+            int result = this.Model.CompareTo(other.Model);
+            if (result == 0)
+                result = this.Model.CompareTo(other.Model);
+            return result;
         }
     }
 }
