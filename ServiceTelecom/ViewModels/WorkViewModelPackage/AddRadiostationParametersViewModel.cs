@@ -492,7 +492,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetFrequencyDataBase();
             GetHandbookParametersModelRadiostationCollection();
             AssigningParametersInEditorsFromHandbookParameters();
-
             
         }
 
@@ -610,7 +609,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
                     if (NoteRadioStationParameters == null)
-                        NoteRadioStationParameters = string.Empty;
+                        NoteRadioStationParameters = string.Empty;          
                 }
             }
         }
@@ -913,7 +912,48 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
+            if (!Regex.IsMatch(OutputPowerVoltReceiver, @"^[0-9]{1,1}[.][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Выx. мощ., V.\"\n" +
+                    "Пример: от 2.60 В. до 5.50 В.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(OutputPowerWattReceiver, @"^([0][.][4]{1,1}[0-9]{1,1})?([0][.][5]{1,1}[0-9]{1,1})*$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Выx. мощ., W.\"\n" +
+                    "Пример: от 0.40 В. до 0.59 В.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(SelectivityReceiver, @"^[7-8][0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Избирательность, dB.\"\n" +
+                    "Пример: от 70 dB. до 89 dB.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(SensitivityReceiver, @"^[0][.][1-2]{1,1}[0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Чувствительность, mkV.\"\n" +
+                    "Пример: от 0.10 мкВ. до 0.29 мкВ.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(KNIReceiver, @"^[0-4]{1,1}[.][0-9]{1,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"КНИ приёмника, %\"\n" +
+                    "Пример: от 0.30 до 4.99", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(SuppressorReceiver, @"^[0][.][1-2]{1,1}[0-9]{1,1}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Шумод., mkV.\"\n" +
+                    "Пример: от 0.10 мкВ. до 0.29 мкВ.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
 
             foreach (var item in HandbookParametersModelRadiostationCollection)
@@ -922,8 +962,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToDouble(item.MaxLowPowerLevelTransmitter) < Convert.ToDouble(LowPowerLevelTransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"Низкий, W.\"." +
-                    $"Диапазон: от {item.MinLowPowerLevelTransmitter} Вт. " +
-                    $"до {item.MaxLowPowerLevelTransmitter} Вт. для {Model}!", 
+                    $"Диапазон: от {item.MinLowPowerLevelTransmitter} W. " +
+                    $"до {item.MaxLowPowerLevelTransmitter} W. для {Model}!", 
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
@@ -931,8 +971,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToDouble(item.MaxHighPowerLevelTransmitter) < Convert.ToDouble(HighPowerLevelTransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"Высокий, W.\"." +
-                    $"Диапазон: от {item.MinHighPowerLevelTransmitter} Вт. " +
-                    $"до {item.MaxHighPowerLevelTransmitter} Вт. для {Model}!",
+                    $"Диапазон: от {item.MinHighPowerLevelTransmitter} W. " +
+                    $"до {item.MaxHighPowerLevelTransmitter} W. для {Model}!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
@@ -940,8 +980,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToInt32(item.MaxFrequencyDeviationTransmitter) < Convert.ToInt32(FrequencyDeviationTransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"Отклонение, Hz.\"." +
-                    $"Диапазон: от {item.MinFrequencyDeviationTransmitter} Вт. " +
-                    $"до {item.MaxFrequencyDeviationTransmitter} Вт. для {Model}!",
+                    $"Диапазон: от {item.MinFrequencyDeviationTransmitter} Hz. " +
+                    $"до {item.MaxFrequencyDeviationTransmitter} Hz. для {Model}!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
@@ -949,8 +989,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToDouble(item.MaxSensitivityTransmitter) < Convert.ToDouble(SensitivityTransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"Чувствительность передатчика, mV.\"." +
-                    $"Диапазон: от {item.MinSensitivityTransmitter} Вт. " +
-                    $"до {item.MaxSensitivityTransmitter} Вт. для {Model}!",
+                    $"Диапазон: от {item.MinSensitivityTransmitter} mV. " +
+                    $"до {item.MaxSensitivityTransmitter} mV. для {Model}!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
@@ -958,8 +998,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToDouble(item.MaxKNITransmitter) < Convert.ToDouble(KNITransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"КНИ передатчика, %\"." +
-                    $"Диапазон: от {item.MinKNITransmitter} Вт. " +
-                    $"до {item.MaxKNITransmitter} Вт. для {Model}!",
+                    $"Диапазон: от {item.MinKNITransmitter} % " +
+                    $"до {item.MaxKNITransmitter} % для {Model}!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
@@ -967,8 +1007,62 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    Convert.ToDouble(item.MaxDeviationTransmitter) < Convert.ToDouble(DeviationTransmitter))
                 {
                     MessageBox.Show("Введите корректно поле: \"Девиация, kHz.\"." +
-                    $"Диапазон: от {item.MinDeviationTransmitter} Вт. " +
-                    $"до {item.MaxDeviationTransmitter} Вт. для {Model}!",
+                    $"Диапазон: от {item.MinDeviationTransmitter} kHz. " +
+                    $"до {item.MaxDeviationTransmitter} kHz. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinOutputPowerVoltReceiver) > Convert.ToDouble(OutputPowerVoltReceiver) ||
+                   Convert.ToDouble(item.MaxOutputPowerVoltReceiver) < Convert.ToDouble(OutputPowerVoltReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Выx. мощ., V.\"." +
+                    $"Диапазон: от {item.MinOutputPowerVoltReceiver} V. " +
+                    $"до {item.MaxOutputPowerVoltReceiver} V. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinOutputPowerWattReceiver) > Convert.ToDouble(OutputPowerWattReceiver) ||
+                   Convert.ToDouble(item.MaxOutputPowerWattReceiver) < Convert.ToDouble(OutputPowerWattReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Выx. мощ., W.\"." +
+                    $"Диапазон: от {item.MinOutputPowerWattReceiver} W. " +
+                    $"до {item.MaxOutputPowerWattReceiver} W. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinSelectivityReceiver) > Convert.ToDouble(SelectivityReceiver) ||
+                   Convert.ToDouble(item.MaxSelectivityReceiver) < Convert.ToDouble(SelectivityReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Избирательность, dB.\"." +
+                    $"Диапазон: от {item.MinSelectivityReceiver} dB. " +
+                    $"до {item.MaxSelectivityReceiver} dB. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinSensitivityReceiver) > Convert.ToDouble(SensitivityReceiver) ||
+                   Convert.ToDouble(item.MaxSensitivityReceiver) < Convert.ToDouble(SensitivityReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Чувствительность, mkV.\"." +
+                    $"Диапазон: от {item.MinSensitivityReceiver} mkV. " +
+                    $"до {item.MaxSensitivityReceiver} mkV. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinKNIReceiver) > Convert.ToDouble(KNIReceiver) ||
+                   Convert.ToDouble(item.MaxKNIReceiver) < Convert.ToDouble(KNIReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"КНИ передатчика, %\"." +
+                    $"Диапазон: от {item.MinKNIReceiver} % " +
+                    $"до {item.MaxKNIReceiver} % для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                if (Convert.ToDouble(item.MinSuppressorReceiver) > Convert.ToDouble(SuppressorReceiver) ||
+                   Convert.ToDouble(item.MaxSuppressorReceiver) < Convert.ToDouble(SuppressorReceiver))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Шумод., mkV.\"." +
+                    $"Диапазон: от {item.MinSuppressorReceiver} mkV. " +
+                    $"до {item.MaxSuppressorReceiver} mkV. для {Model}!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
