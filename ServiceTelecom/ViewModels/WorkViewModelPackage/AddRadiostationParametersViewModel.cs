@@ -456,8 +456,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             DefectiveFaultyCollection = new ObservableCollection<string>
             {
-                "Исправно",
-                "Неисправно"
+                "испр.",
+                "неиспр."
             };
 
             HandbookParametersModelRadiostationCollection =
@@ -521,10 +521,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 NoteRadioStationParameters = item.Comment;
 
                 if (item.Charger == "-")
+                {
+                    BatteryChargerAccessories = "-";
                     IsEnabledChargerAccessories = false;
+                } 
                 else IsEnabledChargerAccessories = true;
+
                 if (item.Manipulator == "-")
+                {
+                    ManipulatorAccessories = "-";
                     IsEnabledManipulatorAccessories = false;
+                }
                 else IsEnabledManipulatorAccessories = true;
 
                 TheIndexBatteryChargerAccessories = -1;
@@ -832,6 +839,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
+            else BatteryChargerAccessories = "-";
             if (IsEnabledManipulatorAccessories)
             {
                 if (String.IsNullOrWhiteSpace(ManipulatorAccessories))
@@ -841,6 +849,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
+            else ManipulatorAccessories = "-";
             if (IsEnablePercentAKB)
             {
                 if (String.IsNullOrWhiteSpace(PercentAKB))
