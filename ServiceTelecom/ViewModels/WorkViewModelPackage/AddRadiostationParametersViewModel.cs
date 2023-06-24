@@ -3,7 +3,9 @@ using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -288,17 +290,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _checkBoxRepeater;
-        public bool CheckBoxRepeater
-        {
-            get => _checkBoxRepeater;
-            set
-            {
-                _checkBoxRepeater = value;
-                OnPropertyChanged(nameof(CheckBoxRepeater));
-            }
-        }
-
         private string _standbyModeCurrentConsumption;
         public string StandbyModeCurrentConsumption
         {
@@ -457,7 +448,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
-            
+
             _handbookParametersModelRadiostationRepository =
                 new HandbookParametersModelRadiostationRepository();
 
@@ -492,7 +483,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetFrequencyDataBase();
             GetHandbookParametersModelRadiostationCollection();
             AssigningParametersInEditorsFromHandbookParameters();
-            
+
         }
 
         #region AddFrequencyInAllFrequenciesCompleted
@@ -579,10 +570,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
                     AllFrequenciesCompleted
                         = item.FrequenciesCompletedForRadiostantion;
-                    if (AllFrequenciesCompleted.Contains("/"))
-                        CheckBoxRepeater = true;
-                    else CheckBoxRepeater = false;
-
+                    
                     StandbyModeCurrentConsumption = item.StandbyModeCurrentConsumption;
                     ReceptionModeCurrentConsumption = item.ReceptionModeCurrentConsumption;
                     TransmissionModeCurrentConsumption =
@@ -608,7 +596,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
                     if (NoteRadioStationParameters == null)
-                        NoteRadioStationParameters = string.Empty;          
+                        NoteRadioStationParameters = string.Empty;
                 }
             }
         }
@@ -835,7 +823,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if(IsEnabledChargerAccessories)
+            if (IsEnabledChargerAccessories)
             {
                 if (String.IsNullOrWhiteSpace(BatteryChargerAccessories))
                 {
@@ -982,12 +970,31 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
+            List<string> fList = new List<string>();
+            string[] frequenciesArray = fList.ToArray();
+
+            frequenciesArray = AllFrequenciesCompleted.Split(new string[] { "\n", "\r" }, StringSplitOptions.None);
+            frequenciesArray = frequenciesArray.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+            for (int i = 0; i < frequenciesArray.Length; i++)
+            {
+                if (!Regex.IsMatch(frequenciesArray[i], @"^[1][0-9]{2,2}[.][0-9]{3,3}$"))
+                {
+                    if (!Regex.IsMatch(frequenciesArray[i], @"^[1][0-9]{2,2}[.][0-9]{3,3}[/][1][0-9]{2,2}[.][0-9]{3,3}$"))
+                    {
+                        MessageBox.Show("Введите корректно частоту:\n" +
+                            $"Пример: 151.825 или 155.700/151.825, № {i + 1}", "Отмена",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                }
+            }
+
 
             foreach (var item in HandbookParametersModelRadiostationCollection)
             {
                 try
                 {
-
                     if (Convert.ToDouble(item.MinLowPowerLevelTransmitter) > Convert.ToDouble(LowPowerLevelTransmitter) ||
                        Convert.ToDouble(item.MaxLowPowerLevelTransmitter) < Convert.ToDouble(LowPowerLevelTransmitter))
                     {
@@ -1143,7 +1150,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             #endregion
 
-
             string dateMaintenanceDataBase =
                 Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
 
@@ -1155,12 +1161,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
             {
                 if (_radiostationParametersRepository.AddRadiostationParameters(
-                Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
+                Road, City, dateMaintenanceDataBase, Location, Model, 
+                SerialNumber, Company, NumberAct,
                 LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                 FrequencyDeviationTransmitter, SensitivityTransmitter,
                 KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
                 OutputPowerWattReceiver, SelectivityReceiver, SensitivityReceiver,
-                KNIReceiver, SuppressorReceiver, AllFrequenciesCompleted,
+                KNIReceiver, SuppressorReceiver, AllFrequenciesCompleted.Trim(),
                 StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                 TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                 BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
@@ -1172,12 +1179,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
             }
             else
             {
                 if (_radiostationParametersRepository.ChangeRadiostationParameters(
-                    Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
+                    Road, City, dateMaintenanceDataBase, Location, Model, 
+                    SerialNumber, Company, NumberAct,
                     LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                     FrequencyDeviationTransmitter, SensitivityTransmitter,
                     KNITransmitter, DeviationTransmitter, OutputPowerVoltReceiver,
@@ -1209,9 +1216,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-
         }
-
 
         #endregion
 

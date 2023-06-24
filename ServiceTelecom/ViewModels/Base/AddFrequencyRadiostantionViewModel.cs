@@ -84,7 +84,7 @@ namespace ServiceTelecom.ViewModels.Base
             if (result != null)
                 return;
             if (!Regex.IsMatch(Frequency,
-                @"^[1][0-9]{1,1}[0-9]{1,1}[.][0-9]{1,1}[0-9]{1,1}[0-9]{1,1}$"))
+                @"^[1][0-9]{2,2}[.][0-9]{3,3}$"))
             {
                 MessageBox.Show($"Введите корректно поле: \"Частота\"\nПример: 151.825",
                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
