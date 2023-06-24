@@ -786,12 +786,7 @@
                                                     Cursor="Hand"
                                                     Margin="5,0,5,0">
                                             </Button>
-                                            <CheckBox Name="CheckBoxRepeater"
-                                                    Style="{StaticResource CheckBoxStyle1}"
-                                                    IsChecked="{Binding CheckBoxRepeater}"
-                                                    Margin="11,5,0,0"/>
                                         </StackPanel>
-                                        
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
