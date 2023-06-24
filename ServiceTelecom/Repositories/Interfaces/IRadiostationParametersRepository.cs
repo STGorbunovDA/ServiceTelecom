@@ -34,7 +34,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             string road, string serialNumber);
 
         /// <summary> изменение параметров в radiostation_parameters </summary>
-        bool ChangeRadiostationInRadiostationParameters(
+        bool ChangeRadiostationParameters(
             string road, string city, string dateMaintenance, string location,
             string model, string serialNumber, string company,
             string numberAct, string lowPowerLevelTransmitter,

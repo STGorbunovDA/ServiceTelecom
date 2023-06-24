@@ -563,7 +563,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 foreach (RadiostationParametersDataBaseModel item
                     in UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW)
                 {
-
                     LowPowerLevelTransmitter = item.LowPowerLevelTransmitter;
                     HighPowerLevelTransmitter = item.HighPowerLevelTransmitter;
                     FrequencyDeviationTransmitter = item.FrequencyDeviationTransmitter;
@@ -870,7 +869,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            if (!Regex.IsMatch(LowPowerLevelTransmitter, @"^[2][.][0-9]{1,1}[0-9]$"))
+            if (!Regex.IsMatch(LowPowerLevelTransmitter, @"^[2][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Низкий, W.\"\n" +
                     "Пример: от 2.00 Вт. до 2.99 Вт.", "Отмена",
@@ -894,18 +893,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (!Regex.IsMatch(SensitivityTransmitter, @"^[0-9]{1,2}[.][0-9]{1,1}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Чувствительность передатчика, mV.\"\n" +
-                    "Пример: от 7.5 до 18.0", "Отмена",
+                    "Пример: от 5.5 до 18.0", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(KNITransmitter, @"^[0-4]{1,1}[.][0-9]{1,2}$"))
+            if (!Regex.IsMatch(KNITransmitter, @"^[0-4]{1,1}[.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"КНИ передатчика, %\"\n" +
                     "Пример: от 0.30 до 4.99", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(DeviationTransmitter, @"^[4]{1,1}[.][0-9]{1,2}$"))
+            if (!Regex.IsMatch(DeviationTransmitter, @"^[4][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Девиация, kHz.\"\n" +
                     "Пример: от 4.00 кГЦ. до 5.00 кГЦ.", "Отмена",
@@ -919,10 +918,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(OutputPowerWattReceiver, @"^([0][.][4]{1,1}[0-9]{1,1})?([0][.][5]{1,1}[0-9]{1,1})*$"))
+            if (!Regex.IsMatch(OutputPowerWattReceiver, @"^([0][.][4])?([0][.][5])*$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Выx. мощ., W.\"\n" +
-                    "Пример: от 0.40 В. до 0.59 В.", "Отмена",
+                    "Пример: от 0.4 В. до 0.5 В.", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -940,7 +939,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(KNIReceiver, @"^[0-4]{1,1}[.][0-9]{1,2}$"))
+            if (!Regex.IsMatch(KNIReceiver, @"^[0-4]{1,1}[.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"КНИ приёмника, %\"\n" +
                     "Пример: от 0.30 до 4.99", "Отмена",
@@ -951,6 +950,34 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 MessageBox.Show("Введите корректно поле: \"Шумод., mkV.\"\n" +
                     "Пример: от 0.10 мкВ. до 0.29 мкВ.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(StandbyModeCurrentConsumption, @"^([3-9][0])?([1][1-5]{1,1}[0])*$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Деж. режим, мА.\"\n" +
+                    "Пример: от 30 mA. до 150 mA.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(ReceptionModeCurrentConsumption, @"^[1-9]{1,1}[0-9]{1,1}[0]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Реж. приём, мА.\"\n" +
+                    "Пример: от 120 mA. до 460 mA.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(TransmissionModeCurrentConsumption, @"^[1][.][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Реж. передачи, A.\"\n" +
+                    "Пример: от 1.00 A. до 1.99 A.", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (!Regex.IsMatch(BatteryDischargeAlarmCurrentConsumption, @"^[6][.][0-9]$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Разряд АКБ, V.\"\n" +
+                    "Пример: от 6.0 V. до 6.5 V.", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -1066,6 +1093,47 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
+                
+                if (Convert.ToDouble(item.MinStandbyModeCurrentConsumption) > Convert.ToDouble(StandbyModeCurrentConsumption) ||
+                   Convert.ToDouble(item.MaxStandbyModeCurrentConsumption) < Convert.ToDouble(StandbyModeCurrentConsumption))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Деж. режим, мА.\"." +
+                    $"Диапазон: от {item.MinStandbyModeCurrentConsumption} mA. " +
+                    $"до {item.MaxStandbyModeCurrentConsumption} mA. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                
+                if (Convert.ToDouble(item.MinReceptionModeCurrentConsumption) > Convert.ToDouble(ReceptionModeCurrentConsumption) ||
+                   Convert.ToDouble(item.MaxReceptionModeCurrentConsumption) < Convert.ToDouble(ReceptionModeCurrentConsumption))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Реж. приём, мА.\"." +
+                    $"Диапазон: от {item.MinReceptionModeCurrentConsumption} mA. " +
+                    $"до {item.MaxReceptionModeCurrentConsumption} mA. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                
+                if (Convert.ToDouble(item.MinTransmissionModeCurrentConsumption) > Convert.ToDouble(TransmissionModeCurrentConsumption) ||
+                   Convert.ToDouble(item.MaxTransmissionModeCurrentConsumption) < Convert.ToDouble(TransmissionModeCurrentConsumption))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Реж. передачи, A.\"." +
+                    $"Диапазон: от {item.MinTransmissionModeCurrentConsumption} A. " +
+                    $"до {item.MaxTransmissionModeCurrentConsumption} A. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                if (Convert.ToDouble(item.MinBatteryDischargeAlarmCurrentConsumption) > Convert.ToDouble(BatteryDischargeAlarmCurrentConsumption) ||
+                   Convert.ToDouble(item.MaxBatteryDischargeAlarmCurrentConsumption) < Convert.ToDouble(BatteryDischargeAlarmCurrentConsumption))
+                {
+                    MessageBox.Show("Введите корректно поле: \"Разряд АКБ, V.\"." +
+                    $"Диапазон: от {item.MinBatteryDischargeAlarmCurrentConsumption} A. " +
+                    $"до {item.MaxBatteryDischargeAlarmCurrentConsumption} V. для {Model}!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
             }
 
             #endregion
@@ -1103,7 +1171,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else
             {
-                if (_radiostationParametersRepository.ChangeRadiostationInRadiostationParameters(
+                if (_radiostationParametersRepository.ChangeRadiostationParameters(
                     Road, City, dateMaintenanceDataBase, Location, Model, SerialNumber, Company, NumberAct,
                     LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                     FrequencyDeviationTransmitter, SensitivityTransmitter,

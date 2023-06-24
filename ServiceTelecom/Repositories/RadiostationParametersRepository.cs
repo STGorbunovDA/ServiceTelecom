@@ -191,7 +191,7 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public bool ChangeRadiostationInRadiostationParameters(
+        public bool ChangeRadiostationParameters(
             string road, string city, string dateMaintenance, string location,
             string model, string serialNumber, string company,
             string numberAct, string lowPowerLevelTransmitter,
@@ -213,7 +213,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return false;
                 using (MySqlCommand command = new MySqlCommand(
-                    "ChangeRadiostationInRadiostationParameters",
+                    "ChangeRadiostationParameters",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
