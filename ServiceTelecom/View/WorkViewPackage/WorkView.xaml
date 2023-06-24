@@ -298,6 +298,7 @@
                         <ComboBoxItem Content="Представитель ПП"/>
                         <ComboBoxItem Content="№ акта списания"/>
                         <ComboBoxItem Content="Модель"/>
+                        <ComboBoxItem Content="Ведомость"/>
                     </ComboBox>
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"

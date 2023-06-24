@@ -1069,6 +1069,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (PrintExcelNumberActTechnicalWorkCollection.Count != 0)
                 PrintExcelNumberActTechnicalWorkCollection.Clear();
 
+            if (PrintStatementParametersCollection.Count != 0)
+                PrintStatementParametersCollection.Clear();
+
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -1152,6 +1155,54 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     printExcel.PrintWordDecommissionNumberAct(
                     PrintWordDecommissionNumberActCollection);
+                })
+                { IsBackground = true }.Start();
+            }
+            if (CmbChoiseSearch == "Ведомость")
+            {
+                if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+                {
+                    MessageBox.Show(
+                        $"Нельзя напечатать ремонт на радиостанцию " +
+                        $"{SelectedRadiostation.SerialNumber} " +
+                        $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (SelectedRadiostation.NumberAct == item.NumberAct)
+                    {
+                        if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+                        {
+                            MessageBox.Show(
+                            $"Нельзя напечатать ведомость т.к. есть радиостанция " +
+                            $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+                             MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+
+
+                foreach (var item in RadiostationsParametersCollection)
+                    if (SelectedRadiostation.NumberAct == item.NumberAct)
+                        PrintStatementParametersCollection.Add(item);
+
+                if (PrintStatementParametersCollection.Count == 0)
+                    return;
+                if (PrintStatementParametersCollection.Count > 20)
+                    return;
+
+                PrintStatementParametersCollection.Sort();
+
+                //printExcel.PrintStatementParameters(
+                //    PrintStatementParametersCollection);
+
+                new Thread(() =>
+                {
+                    printExcel.PrintStatementParameters(
+                    PrintStatementParametersCollection);
                 })
                 { IsBackground = true }.Start();
             }
@@ -1883,7 +1934,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     }
                 }
             }
-            if (CmbChoiseSearch == "№ акта ТО")
+            if (CmbChoiseSearch == "№ акта ТО" || CmbChoiseSearch == "Ведомость")
             {
                 if (RadiostationsForDocumentsCollection.Count !=
                 ReserveRadiostationsForDocumentsCollection.Count)
