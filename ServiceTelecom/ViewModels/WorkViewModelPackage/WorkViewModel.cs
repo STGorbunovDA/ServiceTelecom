@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
@@ -473,6 +474,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private RoadDataBaseRepository _roadDataBase;
         private Print printExcel;
         private PrintTagTechnicalWorkView printTagTechnicalWorkView;
+        private RadiostationParametersRepository _radiostationParametersRepository;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -673,6 +675,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _radiostationParameters = new RadiostationParametersRepository();
+            _radiostationParametersRepository = new RadiostationParametersRepository();
             RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RadiostationsParametersCollection =
@@ -771,6 +774,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     $"{SelectedRadiostation.SerialNumber} " +
                     $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(SelectedRadiostation.NumberAct))
+            {
+                MessageBox.Show(
+                   $"Нельзя добавить параметры на радиостанцию" +
+                   $"Отсутствует номер акта", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -922,12 +934,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                 }
-            
+
 
             foreach (var item in RadiostationsParametersCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
                     PrintStatementParametersCollection.Add(item);
-                
+
 
             if (PrintStatementParametersCollection.Count == 0)
                 return;
@@ -992,7 +1004,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
-            
+
             printRepairView.Show();
         }
 
@@ -1401,11 +1413,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            foreach (RadiostationForDocumentsDataBaseModel
-                radiostationForDocumentsDataBaseModel in
+            foreach (RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModel in
                 RadiostationsForDocumentsMulipleSelectedDataGrid)
+            {
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
+                if (_radiostationParametersRepository.CheckSerialNumberInRadiostationParameters(
+                    radiostationForDocumentsDataBaseModel.Road, radiostationForDocumentsDataBaseModel.SerialNumber))
+                {
+                    if (!_radiostationParametersRepository.DeleteRadiostantionFromRadiostationParameters(
+                        radiostationForDocumentsDataBaseModel.Road, radiostationForDocumentsDataBaseModel.SerialNumber))
+                        MessageBox.Show("Ошибка удаления радиостанции из radiostation_parameters(таблица)",
+                            "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
             GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
             GetRadiostations(Road,
                 getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());

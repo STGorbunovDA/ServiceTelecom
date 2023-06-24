@@ -1,8 +1,11 @@
-﻿using ServiceTelecom.Repositories;
+﻿using Microsoft.Office.Interop.Excel;
+using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
@@ -10,7 +13,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         private WorkRadiostantionRepository _workRepositoryRadiostantion;
         private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-
+        private RadiostationParametersRepository _radiostationParametersRepository;
         private string _road;
         public string Road
         {
@@ -65,6 +68,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _radiostationParametersRepository = new RadiostationParametersRepository();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
                 new ViewModelCommand(
                     ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
@@ -97,6 +101,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            if (_radiostationParametersRepository.
+                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            {
+                if (!_radiostationParametersRepository.DeleteRadiostantionFromRadiostationParameters
+                    (Road, SerialNumber))
+                    MessageBox.Show("Ошибка удаления радиостанции из radiostation_parameters(таблица)", 
+                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             if (_workRepositoryRadiostantionFull.
                 AddDecommissionNumberActRadiostationInDBRadiostationFull(
                 Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
