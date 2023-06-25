@@ -9,9 +9,7 @@ using ServiceTelecom.Infrastructure.Interfaces;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class SaveCSV : ISaveCSV<ReportCardsDataBaseModel>,
-        ISaveTutorialsEngineer<TutorialEngineerDataBaseModel>,
-        ISaveRadiostationsForDocumets<RadiostationForDocumentsDataBaseModel>
+    internal class SaveCSV : ISave
     {
         static volatile SaveCSV Class;
         static object SyncObject = new object();
@@ -209,6 +207,74 @@ namespace ServiceTelecom.Infrastructure
                             radiostationsForDocumentsCollection[i].DecommissionNumberAct.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Comment.ToString() + ";" +
                             radiostationsForDocumentsCollection[i].Road.ToString();
+                        sw.Write(value);
+                        sw.WriteLine();
+                    }
+                }
+                MessageBox.Show("Файл успешно сохранен!");
+            }    
+        }
+
+        public void SaveHandbookParameters(
+            ObservableCollection<HandbookParametersModelRadiostationModel> 
+            handbookParametersAll)
+        {
+            DateTime dateTime = DateTime.Now;
+            string dateTimeString = dateTime.ToString("dd.MM.yyyy");
+            Forms.SaveFileDialog sfd = new Forms.SaveFileDialog();
+            sfd.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            sfd.FileName = $"Справочник_всех_параметров_{dateTimeString}";
+            if (sfd.ShowDialog() == Forms.DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Unicode))
+                {
+                    string note = string.Empty;
+                    note += $"Model;Min Low P, W;Max Low P, W;Min High P, W;" +
+                        $"Max High P, W;Min δf, Hz;Max δf, Hz;Min ЧУВ, mV;Max ЧУВ, mV;Min KNI, %;" +
+                        $"Max KNI, %;Min ΔF, kHz;Max ΔF, kHz;Min P НЧ, V;" +
+                        $"Max P НЧ, V;Min P НЧ, W;Max P НЧ, W;" +
+                        $"Min ИЗ, dB;Max ИЗ, dB;Min ЧУВ, mkV;Max ЧУВ, mkV;" +
+                        $"Min KNI, %;Max KNI, %;Min Ш, mkV;Max Ш, mkV;Min Standby, mA;" +
+                        $"Max Standby, mA;Min Reception, mA;Max Reception, mA;" +
+                        $"Min Transmission, A;Max Transmission, A;Min Battery Discharge, V;" +
+                        $"Max Battery Discharge, V";
+                    sw.WriteLine(note);
+
+                    for (int i = 0; i < handbookParametersAll.Count; i++)
+                    {
+                        string value = handbookParametersAll[i].Model + ";" + 
+                            handbookParametersAll[i].MinLowPowerLevelTransmitter + ";" + 
+                            handbookParametersAll[i].MaxLowPowerLevelTransmitter + ";" +
+                            handbookParametersAll[i].MinHighPowerLevelTransmitter + ";" +
+                            handbookParametersAll[i].MaxHighPowerLevelTransmitter + ";" +
+                            handbookParametersAll[i].MinFrequencyDeviationTransmitter + ";" +
+                            handbookParametersAll[i].MaxFrequencyDeviationTransmitter + ";" +
+                            handbookParametersAll[i].MinSensitivityTransmitter + ";" +
+                            handbookParametersAll[i].MaxSensitivityTransmitter + ";" +
+                            handbookParametersAll[i].MinKNITransmitter + ";" +
+                            handbookParametersAll[i].MaxKNITransmitter + ";" +
+                            handbookParametersAll[i].MinDeviationTransmitter + ";" +
+                            handbookParametersAll[i].MaxDeviationTransmitter + ";" +
+                            handbookParametersAll[i].MinOutputPowerVoltReceiver + ";" +
+                            handbookParametersAll[i].MaxOutputPowerVoltReceiver + ";" +
+                            handbookParametersAll[i].MinOutputPowerWattReceiver + ";" +
+                            handbookParametersAll[i].MaxOutputPowerWattReceiver + ";" +
+                            handbookParametersAll[i].MinSelectivityReceiver + ";" +
+                            handbookParametersAll[i].MaxSelectivityReceiver + ";" +
+                            handbookParametersAll[i].MinSensitivityReceiver + ";" +
+                            handbookParametersAll[i].MaxSensitivityReceiver + ";" +
+                            handbookParametersAll[i].MinKNIReceiver + ";" +
+                            handbookParametersAll[i].MaxKNIReceiver + ";" +
+                            handbookParametersAll[i].MinSuppressorReceiver + ";" +
+                            handbookParametersAll[i].MaxSuppressorReceiver + ";" +
+                            handbookParametersAll[i].MinStandbyModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MaxStandbyModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MinReceptionModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MaxReceptionModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MinTransmissionModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MaxTransmissionModeCurrentConsumption + ";" +
+                            handbookParametersAll[i].MinBatteryDischargeAlarmCurrentConsumption + ";" +
+                            handbookParametersAll[i].MaxBatteryDischargeAlarmCurrentConsumption;
                         sw.Write(value);
                         sw.WriteLine();
                     }
