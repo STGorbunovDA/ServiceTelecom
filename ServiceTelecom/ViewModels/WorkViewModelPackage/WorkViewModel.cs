@@ -1,7 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
@@ -487,6 +486,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         SelectingSaveView selectingSaveView = null;
         PrintRepairView printRepairView = null;
         AddRadiostationParametersView addRadiostationParametersView = null;
+        PrintReportsView printReportsView = null;
 
         public ObservableCollection<string> RoadsCollection { get; set; }
         public ObservableCollection<string> CitiesCollection { get; set; }
@@ -667,6 +667,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintTagTechnicalWork { get; }
         public ICommand AddRadiostationParameters { get; }
         public ICommand PrintStatementParameters { get; }
+        public ICommand PrintReports { get; }
         public WorkViewModel()
         {
             printExcel = new Print();
@@ -745,6 +746,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
             PrintStatementParameters =
                 new ViewModelCommand(ExecutePrintStatementParametersCommand);
+            PrintReports = new ViewModelCommand(ExecutePrintReportsCommand);
             ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
@@ -755,6 +757,45 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForFillOutCollections();
             Timer();
         }
+
+
+        #region PrintReports
+
+        private void ExecutePrintReportsCommand(object obj)
+        {
+            if (UserModelStatic.POST == "Дирекция связи")
+                return;
+            if (printReportsView != null)
+                return;
+            if (RadiostationsParametersCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+
+            //foreach (var item in RadiostationsForDocumentsCollection)
+            //    if (SelectedRadiostation.NumberAct == item.NumberAct)
+            //    {
+            //        if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+            //        {
+            //            MessageBox.Show(
+            //            $"Нельзя напечатать отчёт есть радиостанция, " +
+            //            $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+            //             MessageBoxButton.OK, MessageBoxImage.Error);
+            //            return;
+            //        }
+            //    }
+
+            UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL =
+                RadiostationsParametersCollection;
+
+            printReportsView = new PrintReportsView();
+            printReportsView.Closed += (sender, args) => printReportsView = null;
+            printReportsView.Closed += (sender, args) =>
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
+            printReportsView.Show();
+        }
+
+        #endregion
 
         #region AddRadiostationParameters
 
@@ -948,15 +989,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             PrintStatementParametersCollection.Sort();
 
-            printExcel.PrintStatementParameters(
-                PrintStatementParametersCollection);
-
-            //new Thread(() =>
-            //{
-            //    printExcel.PrintStatementParameters(
+            //printExcel.PrintStatementParameters(
             //    PrintStatementParametersCollection);
-            //})
-            //{ IsBackground = true }.Start();
+
+            new Thread(() =>
+            {
+                printExcel.PrintStatementParameters(
+                PrintStatementParametersCollection);
+            })
+            { IsBackground = true }.Start();
         }
 
         #endregion

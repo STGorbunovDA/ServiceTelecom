@@ -538,6 +538,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 TheIndexManipulatorAccessories = -1;
                 if (String.IsNullOrWhiteSpace(NameAKB))
                 {
+                    PercentAKB = "-";
                     IsEnablePercentAKB = false;
                     IsEnableCheckBoxFaultyAKB = false;
                 }
@@ -866,7 +867,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
-            else ManipulatorAccessories = "-";
+            else PercentAKB = "-";
             if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
             {
                 MessageBox.Show("Поле \"Частоты\" не должно быть пустым", "Отмена",

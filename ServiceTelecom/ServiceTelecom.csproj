@@ -219,6 +219,7 @@
     <Compile Include="ViewModels\WorkViewModelPackage\AddRepairRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeRadiostationForDocumentInDataBaseViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\PrintRepairViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\PrintReportsViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\PrintTagTechnicalWorkViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\WorkViewModel.cs" />
     <Compile Include="View\Base\AddFrequencyRadiostantionView.xaml.cs">
@@ -280,6 +281,9 @@
     </Compile>
     <Compile Include="View\WorkViewPackage\PrintRepairView.xaml.cs">
       <DependentUpon>PrintRepairView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\PrintReportsView.xaml.cs">
+      <DependentUpon>PrintReportsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\PrintTagTechnicalWorkView.xaml.cs">
       <DependentUpon>PrintTagTechnicalWorkView.xaml</DependentUpon>
@@ -383,6 +387,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkViewPackage\PrintRepairView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\PrintReportsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
