@@ -149,9 +149,7 @@
     <Compile Include="Infrastructure\Interfaces\ICloseWindows.cs" />
     <Compile Include="Infrastructure\Interfaces\IGetSetRegistryServiceTelecomSetting.cs" />
     <Compile Include="Infrastructure\Interfaces\IPrint.cs" />
-    <Compile Include="Infrastructure\Interfaces\ISaveCSV.cs" />
-    <Compile Include="Infrastructure\Interfaces\ISaveRadiostationsForDocumets.cs" />
-    <Compile Include="Infrastructure\Interfaces\ISaveTutorialsEngineer.cs" />
+    <Compile Include="Infrastructure\Interfaces\ISave.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\NameToBrushConverter.cs" />
     <Compile Include="Infrastructure\Print.cs" />
