@@ -12,6 +12,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using System.Drawing;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -4621,7 +4622,7 @@ namespace ServiceTelecom.Infrastructure
                     _excelCells700.Font.Size = 16;
                     _excelCells700.Font.Bold = true;
 
-                    workSheet.Cells[1, 2] = $"ОТЧЁТ о неисправных Манипуляторов,\"{city}\" {DateTime.Now.ToString("yyyy")} г.";
+                    workSheet.Cells[1, 2] = $"ОТЧЁТ_{DateTime.Now.ToString("yyyy")} г. о неисправных манипуляторах, по предприятиям,\"{city}\".";
                     Excel.Range _excelCells701 = (Excel.Range)workSheet.get_Range("A1").Cells;
                     _excelCells701.EntireColumn.ColumnWidth = 4;
                     Excel.Range _excelCells702 = (Excel.Range)workSheet.get_Range("B3", "E4").Cells;
@@ -4735,6 +4736,142 @@ namespace ServiceTelecom.Infrastructure
 
                     #endregion
 
+                    #region по станциям
+
+                    workSheet2.PageSetup.Zoom = false;
+                    workSheet2.PageSetup.FitToPagesWide = 1;
+                    workSheet2.PageSetup.FitToPagesTall = 1;
+                    workSheet2.Rows.Font.Size = 10;
+                    workSheet2.Rows.Font.Name = "Times New Roman";
+                    workSheet2.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet2.PageSetup.CenterHorizontally = true;
+                    workSheet2.PageSetup.TopMargin = 0;
+                    workSheet2.PageSetup.BottomMargin = 0;
+                    workSheet2.PageSetup.LeftMargin = 0;
+                    workSheet2.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells800 = (Excel.Range)workSheet2.get_Range("B1", "L2").Cells;
+                    _excelCells800.Merge(Type.Missing);
+                    _excelCells800.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.EntireRow.RowHeight = 25;
+                    _excelCells800.Font.Size = 16;
+                    _excelCells800.Font.Bold = true;
+
+                    workSheet2.Cells[1, 2] = $"ОТЧЁТ_{DateTime.Now.ToString("yyyy")} г. о неисправных манипуляторах, \"{city}\",\nпо станциям для \"ДЦС\"";
+                    Excel.Range _excelCells801 = (Excel.Range)workSheet2.get_Range("A1").Cells;
+                    _excelCells801.EntireColumn.ColumnWidth = 4;
+                    Excel.Range _excelCells802 = (Excel.Range)workSheet2.get_Range("B3", "E4").Cells;
+                    _excelCells802.Merge(Type.Missing);
+                    _excelCells802.EntireRow.RowHeight = 40;
+                    workSheet2.Cells[3, 2] = $"Станция";
+                    Excel.Range _excelCells803 = (Excel.Range)workSheet2.get_Range("F3", "H3").Cells;
+                    _excelCells803.Merge(Type.Missing);
+                    _excelCells803.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[3, 6] = $"Поступило РСТ";
+                    workSheet2.Cells[4, 6] = $"всего";
+                    workSheet2.Cells[4, 7] = $"в т.ч. с МАН.";
+                    workSheet2.Cells[4, 8] = $"% (доставки)";
+                    Excel.Range _excelCells804 = (Excel.Range)workSheet2.get_Range("I3", "J3").Cells;
+                    _excelCells804.Merge(Type.Missing);
+                    workSheet2.Cells[3, 9] = $"Состояние поступившых МАН.";
+                    _excelCells804.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[4, 9] = $"Исправ.";
+                    workSheet2.Cells[4, 10] = $"Неисправ.";
+                    Excel.Range _excelCells806 = (Excel.Range)workSheet2.get_Range("B3", "J4").Cells;
+                    _excelCells806.Font.Size = 14;
+                    _excelCells806.Font.Bold = true;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells806.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Excel.Range _excelCells805 = (Excel.Range)workSheet2.get_Range("B4", "J4").Cells;
+                    _excelCells805.Font.Size = 12;
+
+                    List<string> listLocation = new List<string>();
+
+                    totalNumberRadiostantion = 0;
+                    totalNumberManipulatorCompany = 0;
+
+                    count = 1;
+                    countCells = 5;
+                    ServiceableManipulator = 0;
+                    NotServiceableManipulator = 0;
+
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (item.Company.Contains("ДЦС"))
+                            if (!listLocation.Contains(item.Location))
+                                listLocation.Add(item.Location);
+                    }
+
+                    for (int i = 0; i < listLocation.Count + 1; i++)
+                    {
+                        Excel.Range _excelCells807 = (Excel.Range)workSheet2.get_Range($"B{countCells}", $"E{countCells}").Cells;
+                        _excelCells807.EntireRow.RowHeight = 20;
+                        _excelCells807.Font.Bold = true;
+                        _excelCells807.Merge(Type.Missing);
+                        Excel.Range _excelCells811 = (Excel.Range)workSheet2.get_Range($"A{countCells}", $"J{countCells}").Cells;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells811.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < listLocation.Count)
+                        {
+                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            {
+                                if (listLocation[i] == item.Location && item.Company.Contains("ДЦС"))
+                                {
+                                    totalNumberRadiostantion++;
+                                    if (item.ManipulatorAccessories != "-")
+                                    {
+                                        totalNumberManipulatorCompany++;
+                                        if (item.ManipulatorAccessories == "испр.")
+                                            ServiceableManipulator++;
+                                        else NotServiceableManipulator++;
+
+                                    }
+                                }
+                            }
+                            workSheet2.Cells[5 + i, 1] = $"{count++}";
+                            workSheet2.Cells[5 + i, 2] = $"{listLocation[i]}";
+                            workSheet2.Cells[5 + i, 6] = $"{totalNumberRadiostantion}";//общее кол-во радиостанций с МАН и без
+                            workSheet2.Cells[5 + i, 7] = $"{totalNumberManipulatorCompany}";// с МАН
+                            if (totalNumberManipulatorCompany != 0)
+                                workSheet2.Cells[5 + i, 8] = $"{Math.Round(totalNumberManipulatorCompany / totalNumberRadiostantion * 100, 2)}";// с МАН
+                            else workSheet2.Cells[5 + i, 8] = $"0";// с АКБ
+                            workSheet2.Cells[5 + i, 9] = $"{ServiceableManipulator}";
+                            workSheet2.Cells[5 + i, 10] = $"{NotServiceableManipulator}";
+                        }
+                        else
+                        {
+                            Excel.Range _excelCells857 = (Excel.Range)workSheet2.get_Range($"F{countCells}", $"L{countCells}").Cells;
+                            _excelCells857.Font.Bold = true;
+                            workSheet2.Cells[5 + i, 2] = $"ИТОГ:";
+                            workSheet2.Cells[5 + i, 6] = $"=SUM(F4:F{countCells - 1})";
+                            workSheet2.Cells[5 + i, 7] = $"=SUM(G4:G{countCells - 1})";
+                            workSheet2.Cells[5 + i, 8] = $"=ROUND(G{countCells}/F{countCells}*100,2)";
+                            workSheet2.Cells[5 + i, 9] = $"=SUM(I4:I{countCells - 1})";
+                            workSheet2.Cells[5 + i, 10] = $"=SUM(J4:J{countCells - 1})";
+                        }
+
+                        totalNumberRadiostantion = 0;
+                        totalNumberManipulatorCompany = 0;
+                        ServiceableManipulator = 0;
+                        NotServiceableManipulator = 0;
+                        countCells++;
+                    }
+
+                    #endregion
 
                     string file = $"{city}_Общий_Отчёт_МАН_{DateTime.Now.ToString("dd.MM.yyyy")}.xlsx";
 
