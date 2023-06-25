@@ -76,12 +76,19 @@
                     <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                        <Button x:Name="btnPrintReportGeneral"
+                        <Button x:Name="btnPrintReportGeneralAKB"
                             Command="{Binding PrintReportGeneralAKB}"
                             Content="🖨 Общего отчёта АКБ"
                             Margin ="0,0,0,0"
                             VerticalAlignment="Center"
-                            Style="{StaticResource menuButtonStyleSeven}">
+                            Style="{StaticResource menuButtonStyleSix}">
+                        </Button>
+                        <Button x:Name="btnPrintReportDetailedAKB"
+                            Command="{Binding PrintReportDetailedAKB}"
+                            Content="🖨 Подробного отчёта АКБ"
+                            Margin ="0,10,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource menuButtonStyleSix}">
                         </Button>
                     </StackPanel>
                 </StackPanel>
