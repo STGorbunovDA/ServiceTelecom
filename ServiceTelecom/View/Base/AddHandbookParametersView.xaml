@@ -50,6 +50,12 @@
                            Height="40" Width="40"
                        Margin="5,2,0,0"/>
             </Border>
+            <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="1360"
+                           Margin="0,-350,0,0"/>
+            </Border>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -57,6 +63,7 @@
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
+                    
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Добавление справочника"
                                Foreground="{StaticResource titleFontColor1}"
@@ -66,8 +73,7 @@
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Center" 
-                            >
+                            HorizontalAlignment="Center">
                     <CheckBox Name="CheckBoxDisableRegex"
                               Style="{StaticResource CheckBoxStyle1}"
                               IsChecked="{Binding CheckBoxRepeater}"

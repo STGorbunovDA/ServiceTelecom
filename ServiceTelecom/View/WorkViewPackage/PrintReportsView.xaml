@@ -70,6 +70,12 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="250" Width="2400"
+                           Margin="0,-50,0,0"/>
+                </Border>
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">

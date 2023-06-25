@@ -16,7 +16,6 @@
     <Window.DataContext>
         <viewModel:WorkViewModel/>
     </Window.DataContext>
-    
     <Border CornerRadius="12"
             BorderThickness="3"
                 Opacity="1">
@@ -326,7 +325,7 @@
                             Style="{StaticResource menuButtonStyleCheck}">
                         </Button>
                     </StackPanel>
-                   
+
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3">
@@ -653,6 +652,13 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="5">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="1400"
+                           Margin="0,0,0,0"/>
+                </Border>
+               
                 <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">

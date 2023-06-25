@@ -582,6 +582,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="11">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="800"
+                           Margin="0,0,0,0"/>
+                </Border>
                 <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
