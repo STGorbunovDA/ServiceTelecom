@@ -3525,6 +3525,10 @@ namespace ServiceTelecom.Infrastructure
                         string deviationTransmitter = radiostantionsCollection[i].DeviationTransmitter;
                         string outputPowerVoltReceiver = radiostantionsCollection[i].OutputPowerVoltReceiver;
                         string outputPowerWattReceiver = radiostantionsCollection[i].OutputPowerWattReceiver;
+                        if (outputPowerWattReceiver == "0.5")
+                            outputPowerWattReceiver = "> 0.5";
+                        else if (outputPowerWattReceiver == "0.4")
+                            outputPowerWattReceiver = ">=0.4";
                         string selectivityReceiver = radiostantionsCollection[i].SelectivityReceiver;
                         string sensitivityReceiver = radiostantionsCollection[i].SensitivityReceiver;
                         string KNIReceiver = radiostantionsCollection[i].KNIReceiver;
