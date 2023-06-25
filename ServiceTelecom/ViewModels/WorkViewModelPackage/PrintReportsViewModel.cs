@@ -11,16 +11,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintReportGeneralAKB { get; }
         public ICommand PrintReportDetailedAKB { get; }
         public ICommand PrintReportGeneralManipulator { get; }
-
+        public ICommand PrintReportDetailedManipulator { get; }
         public PrintReportsViewModel()
         {
             printExcel = new Print();
             PrintReportGeneralAKB = new ViewModelCommand(ExecutePrintReportGeneralCommand);
             PrintReportDetailedAKB = new ViewModelCommand(ExecutePrintReportDetailedAKBCommand);
             PrintReportGeneralManipulator = new ViewModelCommand(ExecutePrintReportGeneralManipulatorCommand);
+            PrintReportDetailedManipulator = new ViewModelCommand(ExecutePrintPrintReportDetailedManipulatorCommand);
         }
 
 
+        #region PrintReportDetailedManipulator
+
+        private void ExecutePrintPrintReportDetailedManipulatorCommand(object obj)
+        {
+            new Thread(() =>
+            {
+                printExcel.PrintReportDetailedManipulator();
+            })
+            { IsBackground = true }.Start();
+        }
+
+        #endregion
 
         #region PrintReportGeneralManipulator
         private void ExecutePrintReportGeneralManipulatorCommand(object obj)

@@ -42,5 +42,8 @@ namespace ServiceTelecom.Infrastructure.Interfaces
         
         /// <summary> Печать общего отчёта Манипуляторов </summary>
         void PrintReportGeneralManipulator();
+
+        /// <summary> Печать подробного отчёта Манипуляторов </summary>
+        void PrintReportDetailedManipulator();
     }
 }
