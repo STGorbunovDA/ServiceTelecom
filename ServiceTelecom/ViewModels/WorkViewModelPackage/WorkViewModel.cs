@@ -758,7 +758,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             Timer();
         }
 
-
         #region PrintReports
 
         private void ExecutePrintReportsCommand(object obj)
@@ -806,6 +805,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (CHECK_HOW_MUCH)
                 return;
             if (addRadiostationParametersView != null)
+                return;
+            if (SelectedRadiostation == null)
                 return;
 
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
@@ -884,6 +885,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (printTagTechnicalWorkView != null)
                 return;
+            if (SelectedRadiostation == null)
+                return;
 
             UserModelStatic.ROAD = SelectedRadiostation.Road;
             UserModelStatic.CITY = SelectedRadiostation.City;
@@ -904,6 +907,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (UserModelStatic.POST == "Дирекция связи")
                 return;
             if (CHECK_HOW_MUCH)
+                return;
+            if (SelectedRadiostation == null)
                 return;
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.NumberAct))
             {
