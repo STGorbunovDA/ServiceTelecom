@@ -60,5 +60,9 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool ChangeNumberActForRadiostationParameters(
              string road, string serialNumber, string newNumberAct);
 
+        /// <summary> удаление радиостанции из radiostation_parameters </summary>
+        bool DeleteRadiostantionFromRadiostationParameters(
+            string road, string serialNumber);
+
     }
 }

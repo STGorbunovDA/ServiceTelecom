@@ -34,8 +34,6 @@
         <Border CornerRadius="10"
             BorderThickness="2"
                 Opacity="0.85">
-            <!--BorderBrush="#86f0fa"-->
-            <!--Background="#c0f0fa"-->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
@@ -54,7 +52,6 @@
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="123*"/>
@@ -125,7 +122,6 @@
                                         AlignmentX="Left"/>
                         </TextBox.Background>
                     </TextBox>
-
                     <TextBlock Text="Пароль"
                                Foreground="Black"
                                FontSize="16"
@@ -134,13 +130,11 @@
                                TextWrapping="Wrap"
                                HorizontalAlignment="Left"
                                Margin="0,5,0,0"/>
-
                     <customcontrols:BindablePasswordBox 
                         Password="{Binding Password, 
                         Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
                         Height="50" Margin="0,5,0,0">
                     </customcontrols:BindablePasswordBox>
-
                     <TextBlock Text="{Binding ErrorMessage}"
                                Foreground="{StaticResource titleFontColor4}"
                                FontSize="16"
@@ -149,7 +143,6 @@
                                TextWrapping="Wrap"
                                HorizontalAlignment="Left"
                                Margin="0,10,0,0"/>
-
                     <Button x:Name="btnAuthorization"
                             Command="{Binding LoginCommand}"
                             Style="{StaticResource menuButtonStyleAll}"

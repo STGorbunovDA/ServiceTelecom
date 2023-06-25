@@ -50,24 +50,30 @@
                            Height="40" Width="40"
                        Margin="5,2,0,0"/>
             </Border>
+            <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="1360"
+                           Margin="0,-350,0,0"/>
+            </Border>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
+                    
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Добавление справочника"
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                VerticalAlignment="Center" 
-                               Margin="255,0,0,0"/>
+                               Margin="355,0,0,0"/>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Center" 
-                            >
+                            HorizontalAlignment="Center">
                     <CheckBox Name="CheckBoxDisableRegex"
                               Style="{StaticResource CheckBoxStyle1}"
                               IsChecked="{Binding CheckBoxRepeater}"
@@ -79,7 +85,13 @@
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center">
                     </TextBlock>
-
+                    <Button x:Name="btnSaveHandbookParameters"
+                            Command="{Binding SaveHandbookParameters}"
+                            Content="💾"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                    </Button>
                 </StackPanel>
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"

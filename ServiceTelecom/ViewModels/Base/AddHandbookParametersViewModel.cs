@@ -1,9 +1,10 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -13,8 +14,8 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddHandbookParametersViewModel : ViewModelBase
     {
-        HandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
-
+        private HandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
+        private SaveCSV _saveCSV;
         public ObservableCollection<HandbookParametersModelRadiostationModel>
            HandbookParametersAllModelRadiostationCollection
         { get; set; }
@@ -234,10 +235,12 @@ namespace ServiceTelecom.ViewModels.Base
         public ICommand UpdateHandbookParametersForModel { get; }
         public ICommand ChangeHandbookParametersForModel { get; }
         public ICommand DeleteHandbookParametersForModel { get; }
+        public ICommand SaveHandbookParameters { get; }
         public AddHandbookParametersViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             _modelDataBase = new ModelDataBaseRepository();
+            _saveCSV = new SaveCSV();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             GetHandbookParametersByModelForRadiostationCollection =
                 new ViewModelCommand(ExecuteGetHandbookParametersByModelForRadiostationCollectionCommand);
@@ -253,11 +256,24 @@ namespace ServiceTelecom.ViewModels.Base
                 new ViewModelCommand(ExecuteChangeHandbookParametersForModelCommand);
             DeleteHandbookParametersForModel =
                 new ViewModelCommand(ExecuteDeleteHandbookParametersForModelCommand);
+            SaveHandbookParameters =
+                new ViewModelCommand(ExecuteSaveHandbookParametersCommand);
             GetModelDataBase();
             GetHandbookParametersAllModelForCollection();
         }
 
 
+
+        #region SaveHandbookParameters
+
+        private void ExecuteSaveHandbookParametersCommand(object obj)
+        {
+            if(HandbookParametersAllModelRadiostationCollection.Count == 0)
+                return;
+            _saveCSV.SaveHandbookParameters(HandbookParametersAllModelRadiostationCollection);
+        }
+
+        #endregion
 
         #region DeleteHandbookParametersForModel
 

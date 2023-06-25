@@ -48,6 +48,7 @@
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
+                
                 <TextBlock x:Name="txtSerialNumber"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle1}"
@@ -124,6 +125,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="250" Width="600"
+                           Margin="0,-20,0,0"/>
+                </Border>
                 <Button x:Name="btnAddDecommissionNumberActRadiostationForDocumentInDataBase"
                             Command="{Binding AddDecommissionNumberActRadiostationForDocumentInDataBase}"
                             Content="Списать"

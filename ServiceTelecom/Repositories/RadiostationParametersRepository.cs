@@ -10,9 +10,9 @@ namespace ServiceTelecom.Repositories
 {
     internal class RadiostationParametersRepository : IRadiostationParametersRepository
     {
-        public ObservableCollection<RadiostationParametersDataBaseModel> 
+        public ObservableCollection<RadiostationParametersDataBaseModel>
             GetRadiostationsParametersCollection(
-            ObservableCollection<RadiostationParametersDataBaseModel> 
+            ObservableCollection<RadiostationParametersDataBaseModel>
             radiostationsParametersCollection, string road, string city)
         {
             try
@@ -64,20 +64,20 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddRadiostationParameters(
-            string road, string city, string dateMaintenance, string location, 
-            string model, string serialNumber, string company, 
-            string numberAct, string lowPowerLevelTransmitter, 
-            string highPowerLevelTransmitter, string frequencyDeviationTransmitter, 
-            string sensitivityTransmitter, string KNITransmitter, 
-            string deviationTransmitter, string outputPowerVoltReceiver, 
-            string outputPowerWattReceiver, string selectivityReceiver, 
-            string sensitivityReceiver, string KNIReceiver, 
-            string suppressorReceiver, string frequenciesCompletedForRadiostantion, 
-            string standbyModeCurrentConsumption, string receptionModeCurrentConsumption, 
-            string transmissionModeCurrentConsumption, 
-            string batteryDischargeAlarmCurrentConsumption, 
-            string batteryChargerAccessories, string manipulatorAccessories, 
-            string nameAKB, string percentAKB, string noteRadioStationParameters, 
+            string road, string city, string dateMaintenance, string location,
+            string model, string serialNumber, string company,
+            string numberAct, string lowPowerLevelTransmitter,
+            string highPowerLevelTransmitter, string frequencyDeviationTransmitter,
+            string sensitivityTransmitter, string KNITransmitter,
+            string deviationTransmitter, string outputPowerVoltReceiver,
+            string outputPowerWattReceiver, string selectivityReceiver,
+            string sensitivityReceiver, string KNIReceiver,
+            string suppressorReceiver, string frequenciesCompletedForRadiostantion,
+            string standbyModeCurrentConsumption, string receptionModeCurrentConsumption,
+            string transmissionModeCurrentConsumption,
+            string batteryDischargeAlarmCurrentConsumption,
+            string batteryChargerAccessories, string manipulatorAccessories,
+            string nameAKB, string percentAKB, string noteRadioStationParameters,
             string passedTechnicalServices)
         {
             try
@@ -289,8 +289,8 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeСharacteristicsRadiostantionForRadiostationParameters(
-            string road, string city, string company, string location, 
-            string numberAct, string model, string comment, string battery, 
+            string road, string city, string company, string location,
+            string numberAct, string model, string comment, string battery,
             string serialNumber)
         {
             try
@@ -350,7 +350,33 @@ namespace ServiceTelecom.Repositories
                        Encryption.EncryptPlainTextToCipherText(newNumberAct));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
-                }    
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool DeleteRadiostantionFromRadiostationParameters(
+            string road, string serialNumber)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "DeleteRadiostantionFromRadiostationParameters",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                       Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+
             }
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }

@@ -43,7 +43,7 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="0" VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -415,6 +415,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="7">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="150" Width="700"
+                           Margin="0,10,0,0"/>
+                </Border>
                 <StackPanel Grid.Column="0" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">

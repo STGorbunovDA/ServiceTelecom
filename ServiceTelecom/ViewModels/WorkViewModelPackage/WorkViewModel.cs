@@ -473,6 +473,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private RoadDataBaseRepository _roadDataBase;
         private Print printExcel;
         private PrintTagTechnicalWorkView printTagTechnicalWorkView;
+        private RadiostationParametersRepository _radiostationParametersRepository;
 
         AddRadiostationForDocumentInDataBaseView
             addRadiostationForDocumentInDataBaseView = null;
@@ -485,6 +486,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         SelectingSaveView selectingSaveView = null;
         PrintRepairView printRepairView = null;
         AddRadiostationParametersView addRadiostationParametersView = null;
+        PrintReportsView printReportsView = null;
 
         public ObservableCollection<string> RoadsCollection { get; set; }
         public ObservableCollection<string> CitiesCollection { get; set; }
@@ -665,6 +667,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintTagTechnicalWork { get; }
         public ICommand AddRadiostationParameters { get; }
         public ICommand PrintStatementParameters { get; }
+        public ICommand PrintReports { get; }
         public WorkViewModel()
         {
             printExcel = new Print();
@@ -673,6 +676,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _radiostationParameters = new RadiostationParametersRepository();
+            _radiostationParametersRepository = new RadiostationParametersRepository();
             RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RadiostationsParametersCollection =
@@ -742,6 +746,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
             PrintStatementParameters =
                 new ViewModelCommand(ExecutePrintStatementParametersCommand);
+            PrintReports = new ViewModelCommand(ExecutePrintReportsCommand);
             ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
@@ -752,6 +757,45 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForFillOutCollections();
             Timer();
         }
+
+
+        #region PrintReports
+
+        private void ExecutePrintReportsCommand(object obj)
+        {
+            if (UserModelStatic.POST == "Дирекция связи")
+                return;
+            if (printReportsView != null)
+                return;
+            if (RadiostationsParametersCollection.Count == 0)
+                return;
+            if (CHECK_HOW_MUCH)
+                return;
+
+            //foreach (var item in RadiostationsForDocumentsCollection)
+            //    if (SelectedRadiostation.NumberAct == item.NumberAct)
+            //    {
+            //        if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+            //        {
+            //            MessageBox.Show(
+            //            $"Нельзя напечатать отчёт есть радиостанция, " +
+            //            $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+            //             MessageBoxButton.OK, MessageBoxImage.Error);
+            //            return;
+            //        }
+            //    }
+
+            UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL =
+                RadiostationsParametersCollection;
+
+            printReportsView = new PrintReportsView();
+            printReportsView.Closed += (sender, args) => printReportsView = null;
+            printReportsView.Closed += (sender, args) =>
+            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
+            printReportsView.Show();
+        }
+
+        #endregion
 
         #region AddRadiostationParameters
 
@@ -771,6 +815,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     $"{SelectedRadiostation.SerialNumber} " +
                     $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (String.IsNullOrWhiteSpace(SelectedRadiostation.NumberAct))
+            {
+                MessageBox.Show(
+                   $"Нельзя добавить параметры на радиостанцию" +
+                   $"Отсутствует номер акта", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -922,12 +975,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                 }
-            
+
 
             foreach (var item in RadiostationsParametersCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
                     PrintStatementParametersCollection.Add(item);
-                
+
 
             if (PrintStatementParametersCollection.Count == 0)
                 return;
@@ -936,15 +989,15 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             PrintStatementParametersCollection.Sort();
 
-            printExcel.PrintStatementParameters(
-                PrintStatementParametersCollection);
-
-            //new Thread(() =>
-            //{
-            //    printExcel.PrintStatementParameters(
+            //printExcel.PrintStatementParameters(
             //    PrintStatementParametersCollection);
-            //})
-            //{ IsBackground = true }.Start();
+
+            new Thread(() =>
+            {
+                printExcel.PrintStatementParameters(
+                PrintStatementParametersCollection);
+            })
+            { IsBackground = true }.Start();
         }
 
         #endregion
@@ -992,7 +1045,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView.Closed += (sender, args) => printRepairView = null;
             printRepairView.Closed += (sender, args) =>
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
-            
+
             printRepairView.Show();
         }
 
@@ -1056,6 +1109,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (PrintExcelNumberActTechnicalWorkCollection.Count != 0)
                 PrintExcelNumberActTechnicalWorkCollection.Clear();
+
+            if (PrintStatementParametersCollection.Count != 0)
+                PrintStatementParametersCollection.Clear();
 
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
@@ -1140,6 +1196,54 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     printExcel.PrintWordDecommissionNumberAct(
                     PrintWordDecommissionNumberActCollection);
+                })
+                { IsBackground = true }.Start();
+            }
+            if (CmbChoiseSearch == "Ведомость")
+            {
+                if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
+                {
+                    MessageBox.Show(
+                        $"Нельзя напечатать ремонт на радиостанцию " +
+                        $"{SelectedRadiostation.SerialNumber} " +
+                        $"есть списание {SelectedRadiostation.DecommissionNumberAct}", "Отмена",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+                foreach (var item in RadiostationsForDocumentsCollection)
+                    if (SelectedRadiostation.NumberAct == item.NumberAct)
+                    {
+                        if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+                        {
+                            MessageBox.Show(
+                            $"Нельзя напечатать ведомость т.к. есть радиостанция " +
+                            $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+                             MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+
+
+                foreach (var item in RadiostationsParametersCollection)
+                    if (SelectedRadiostation.NumberAct == item.NumberAct)
+                        PrintStatementParametersCollection.Add(item);
+
+                if (PrintStatementParametersCollection.Count == 0)
+                    return;
+                if (PrintStatementParametersCollection.Count > 20)
+                    return;
+
+                PrintStatementParametersCollection.Sort();
+
+                //printExcel.PrintStatementParameters(
+                //    PrintStatementParametersCollection);
+
+                new Thread(() =>
+                {
+                    printExcel.PrintStatementParameters(
+                    PrintStatementParametersCollection);
                 })
                 { IsBackground = true }.Start();
             }
@@ -1401,11 +1505,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            foreach (RadiostationForDocumentsDataBaseModel
-                radiostationForDocumentsDataBaseModel in
+            foreach (RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModel in
                 RadiostationsForDocumentsMulipleSelectedDataGrid)
+            {
                 _workRepositoryRadiostantion.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
+                if (_radiostationParametersRepository.CheckSerialNumberInRadiostationParameters(
+                    radiostationForDocumentsDataBaseModel.Road, radiostationForDocumentsDataBaseModel.SerialNumber))
+                {
+                    if (!_radiostationParametersRepository.DeleteRadiostantionFromRadiostationParameters(
+                        radiostationForDocumentsDataBaseModel.Road, radiostationForDocumentsDataBaseModel.SerialNumber))
+                        MessageBox.Show("Ошибка удаления радиостанции из radiostation_parameters(таблица)",
+                            "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
             GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
             GetRadiostations(Road,
                 getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
@@ -1862,7 +1975,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     }
                 }
             }
-            if (CmbChoiseSearch == "№ акта ТО")
+            if (CmbChoiseSearch == "№ акта ТО" || CmbChoiseSearch == "Ведомость")
             {
                 if (RadiostationsForDocumentsCollection.Count !=
                 ReserveRadiostationsForDocumentsCollection.Count)

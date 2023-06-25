@@ -38,7 +38,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="90"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -81,7 +81,6 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                    
                     <TextBox x:Name="txbNewNumberAct"
                              FontSize="16"
                              Height="40"
@@ -93,6 +92,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3">
+                <Border Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Image Source="/Images/abstract2.png" 
+                           Height="100" Width="600"
+                           Margin="0,-20,0,0"/>
+                </Border>
                 <Button x:Name="btnChangeNumberActRadiostationForDocumentInDB"
                             Command="{Binding ChangeNumberActRadiostationsForDocumentInDB}"
                             Content="Изменить"

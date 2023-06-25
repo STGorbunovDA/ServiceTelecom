@@ -33,5 +33,17 @@ namespace ServiceTelecom.Infrastructure.Interfaces
         /// <summary> Печать заполненной ведомости с параметрами </summary>
         void PrintStatementParameters(
             List<RadiostationParametersDataBaseModel> printStatementParametersCollection);
+        
+        /// <summary> Печать общего отчёта АКБ </summary>
+        void PrintReportGeneralAKB();
+
+        /// <summary> Печать подробного отчёта АКБ </summary>
+        void PrintReportDetailedAKB();
+        
+        /// <summary> Печать общего отчёта Манипуляторов </summary>
+        void PrintReportGeneralManipulator();
+
+        /// <summary> Печать подробного отчёта Манипуляторов </summary>
+        void PrintReportDetailedManipulator();
     }
 }

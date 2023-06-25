@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Office.Interop.Excel;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using System;
@@ -10,6 +10,9 @@ using System.Linq;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
+using System.Drawing;
+using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -3526,6 +3529,10 @@ namespace ServiceTelecom.Infrastructure
                         string deviationTransmitter = radiostantionsCollection[i].DeviationTransmitter;
                         string outputPowerVoltReceiver = radiostantionsCollection[i].OutputPowerVoltReceiver;
                         string outputPowerWattReceiver = radiostantionsCollection[i].OutputPowerWattReceiver;
+                        if (outputPowerWattReceiver == "0.5")
+                            outputPowerWattReceiver = "> 0.5";
+                        else if (outputPowerWattReceiver == "0.4")
+                            outputPowerWattReceiver = ">=0.4";
                         string selectivityReceiver = radiostantionsCollection[i].SelectivityReceiver;
                         string sensitivityReceiver = radiostantionsCollection[i].SensitivityReceiver;
                         string KNIReceiver = radiostantionsCollection[i].KNIReceiver;
@@ -3907,6 +3914,1222 @@ namespace ServiceTelecom.Infrastructure
                         try
                         {
                             workSheet.SaveAs($@"C:\ServiceTelekom\Ведомости\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    exApp.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (exApp != null)
+                    exApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Environment.Exit(0);
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void PrintReportGeneralAKB()
+        {
+            Excel.Application exApp = new Excel.Application();
+
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType == null)
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    exApp.SheetsInNewWorkbook = 2;
+                    exApp.Workbooks.Add();
+                    exApp.DisplayAlerts = false;
+
+                    Excel.Worksheet workSheet = (Excel.Worksheet)exApp.Worksheets.get_Item(1);
+                    Excel.Worksheet workSheet2 = (Excel.Worksheet)exApp.Worksheets.get_Item(2);
+
+                    workSheet.Name = $"Общий отчёт";
+                    workSheet2.Name = $"Для ДЦС";
+
+                    string city = string.Empty;
+
+                    int counter = 0;
+                    foreach (RadiostationParametersDataBaseModel item
+                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (counter > 0)
+                            break;
+                        city = item.City;
+                        counter++;
+                    }
+
+                    #region Общий отчёт
+
+                    workSheet.PageSetup.Zoom = false;
+                    workSheet.PageSetup.FitToPagesWide = 1;
+                    workSheet.PageSetup.FitToPagesTall = 1;
+                    workSheet.Rows.Font.Size = 10;
+                    workSheet.Rows.Font.Name = "Times New Roman";
+                    workSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet.PageSetup.CenterHorizontally = true;
+                    workSheet.PageSetup.TopMargin = 0;
+                    workSheet.PageSetup.BottomMargin = 0;
+                    workSheet.PageSetup.LeftMargin = 0;
+                    workSheet.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells700 = (Excel.Range)workSheet.get_Range("B1", "L2").Cells;
+                    _excelCells700.Merge(Type.Missing);
+                    _excelCells700.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells700.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells700.EntireRow.RowHeight = 25;
+                    _excelCells700.Font.Size = 16;
+                    _excelCells700.Font.Bold = true;
+
+                    workSheet.Cells[1, 2] = $"{city}. Общий отчёт АКБ {DateTime.Now.ToString("yyyy")} г.";
+                    Excel.Range _excelCells701 = (Excel.Range)workSheet.get_Range("A1").Cells;
+                    _excelCells701.EntireColumn.ColumnWidth = 4;
+                    Excel.Range _excelCells702 = (Excel.Range)workSheet.get_Range("B3", "E4").Cells;
+                    _excelCells702.Merge(Type.Missing);
+                    _excelCells702.EntireRow.RowHeight = 40;
+                    workSheet.Cells[3, 2] = $"Предприятие";
+                    Excel.Range _excelCells703 = (Excel.Range)workSheet.get_Range("F3", "H3").Cells;
+                    _excelCells703.Merge(Type.Missing);
+                    _excelCells703.EntireColumn.ColumnWidth = 20;
+                    workSheet.Cells[3, 6] = $"Поступило РСТ";
+                    workSheet.Cells[4, 6] = $"всего";
+                    workSheet.Cells[4, 7] = $"в т.ч. с АБ";
+                    workSheet.Cells[4, 8] = $"% (доставки)";
+                    Excel.Range _excelCells704 = (Excel.Range)workSheet.get_Range("I3", "L3").Cells;
+                    _excelCells704.Merge(Type.Missing);
+                    workSheet.Cells[3, 9] = $"Состояние поступивших АБ (остаточная ёмкость)";
+                    _excelCells704.EntireColumn.ColumnWidth = 20;
+                    workSheet.Cells[4, 9] = $"<60%,\nв т.ч. неисправные";
+                    workSheet.Cells[4, 10] = $"60-70%";
+                    workSheet.Cells[4, 11] = $"70-80%";
+                    workSheet.Cells[4, 12] = $">80%";
+                    Excel.Range _excelCells706 = (Excel.Range)workSheet.get_Range("B3", "L4").Cells;
+                    _excelCells706.Font.Size = 14;
+                    _excelCells706.Font.Bold = true;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells706.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Excel.Range _excelCells759 = (Excel.Range)workSheet.get_Range("B4", "L4").Cells;
+                    _excelCells759.Font.Size = 12;
+
+                    List<string> listCompany = new List<string>();
+
+                    double totalNumberRadiostantion = 0;
+                    double totalNumberBatteriesCompany = 0;
+
+                    double countBatteryCapacityLess60 = 0;
+                    double countBatteryCapacityLess70 = 0;
+                    double countBatteryCapacityLess80 = 0;
+                    double countBatteryCapacityMore80 = 0;
+
+                    int count = 1;
+                    int countCells = 5;
+
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (!listCompany.Contains(item.Company))
+                            listCompany.Add(item.Company);
+                    }
+
+                    for (int i = 0; i < listCompany.Count + 1; i++)
+                    {
+                        Excel.Range _excelCells707 = (Excel.Range)workSheet.get_Range($"B{countCells}", $"E{countCells}").Cells;
+                        _excelCells707.EntireRow.RowHeight = 20;
+                        _excelCells707.Font.Bold = true;
+                        _excelCells707.Merge(Type.Missing);
+                        Excel.Range _excelCells711 = (Excel.Range)workSheet.get_Range($"A{countCells}", $"L{countCells}").Cells;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells711.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < listCompany.Count)
+                        {
+                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            {
+                                if (listCompany[i] == item.Company)
+                                {
+                                    totalNumberRadiostantion++;
+                                    if (item.PercentAKB != "-")
+                                    {
+                                        totalNumberBatteriesCompany++;
+
+                                        if (Convert.ToDouble(item.PercentAKB) < 60)
+                                            countBatteryCapacityLess60++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 59 && Convert.ToDouble(item.PercentAKB) < 70)
+                                            countBatteryCapacityLess70++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 69 && Convert.ToDouble(item.PercentAKB) < 80)
+                                            countBatteryCapacityLess80++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 79)
+                                            countBatteryCapacityMore80++;
+                                    }
+                                }
+                            }
+                            workSheet.Cells[5 + i, 1] = $"{count++}";
+                            workSheet.Cells[5 + i, 2] = $"{listCompany[i]}";
+                            workSheet.Cells[5 + i, 6] = $"{totalNumberRadiostantion}";//общее кол-во радиостанций с АКБ и без
+                            workSheet.Cells[5 + i, 7] = $"{totalNumberBatteriesCompany}";// с АКБ
+                            if (totalNumberBatteriesCompany != 0)
+                                workSheet.Cells[5 + i, 8] = $"{Math.Round(totalNumberBatteriesCompany / totalNumberRadiostantion * 100, 2)}";// с АКБ
+                            else workSheet.Cells[5 + i, 8] = $"0";// с АКБ
+                            workSheet.Cells[5 + i, 9] = $"{countBatteryCapacityLess60}";
+                            workSheet.Cells[5 + i, 10] = $"{countBatteryCapacityLess70}";
+                            workSheet.Cells[5 + i, 11] = $"{countBatteryCapacityLess80}";
+                            workSheet.Cells[5 + i, 12] = $"{countBatteryCapacityMore80}";
+                        }
+                        else
+                        {
+                            Excel.Range _excelCells757 = (Excel.Range)workSheet.get_Range($"F{countCells}", $"L{countCells}").Cells;
+                            _excelCells757.Font.Bold = true;
+                            workSheet.Cells[5 + i, 2] = $"ИТОГ:";
+                            workSheet.Cells[5 + i, 6] = $"=SUM(F4:F{countCells - 1})";
+                            workSheet.Cells[5 + i, 7] = $"=SUM(G4:G{countCells - 1})";
+                            workSheet.Cells[5 + i, 8] = $"=ROUND(G{countCells}/F{countCells}*100,2)";
+                            workSheet.Cells[5 + i, 9] = $"=SUM(I4:I{countCells - 1})";
+                            workSheet.Cells[5 + i, 10] = $"=SUM(J4:J{countCells - 1})";
+                            workSheet.Cells[5 + i, 11] = $"=SUM(K4:K{countCells - 1})";
+                            workSheet.Cells[5 + i, 12] = $"=SUM(L4:L{countCells - 1})";
+                        }
+
+                        totalNumberRadiostantion = 0;
+                        totalNumberBatteriesCompany = 0;
+                        countBatteryCapacityLess60 = 0;
+                        countBatteryCapacityLess70 = 0;
+                        countBatteryCapacityLess80 = 0;
+                        countBatteryCapacityMore80 = 0;
+                        countCells++;
+                    }
+
+
+                    #endregion
+
+                    #region по станциям
+
+                    workSheet2.PageSetup.Zoom = false;
+                    workSheet2.PageSetup.FitToPagesWide = 1;
+                    workSheet2.PageSetup.FitToPagesTall = 1;
+                    workSheet2.Rows.Font.Size = 10;
+                    workSheet2.Rows.Font.Name = "Times New Roman";
+                    workSheet2.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet2.PageSetup.CenterHorizontally = true;
+                    workSheet2.PageSetup.TopMargin = 0;
+                    workSheet2.PageSetup.BottomMargin = 0;
+                    workSheet2.PageSetup.LeftMargin = 0;
+                    workSheet2.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells800 = (Excel.Range)workSheet2.get_Range("B1", "L2").Cells;
+                    _excelCells800.Merge(Type.Missing);
+                    _excelCells800.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.EntireRow.RowHeight = 25;
+                    _excelCells800.Font.Size = 16;
+                    _excelCells800.Font.Bold = true;
+
+                    workSheet2.Cells[1, 2] = $"{city}. Общий отчёт АКБ по станциям ДЦС, {DateTime.Now.ToString("yyyy")} г.";
+                    Excel.Range _excelCells801 = (Excel.Range)workSheet2.get_Range("A1").Cells;
+                    _excelCells801.EntireColumn.ColumnWidth = 4;
+                    Excel.Range _excelCells802 = (Excel.Range)workSheet2.get_Range("B3", "E4").Cells;
+                    _excelCells802.Merge(Type.Missing);
+                    _excelCells802.EntireRow.RowHeight = 40;
+                    workSheet2.Cells[3, 2] = $"Станция";
+                    Excel.Range _excelCells803 = (Excel.Range)workSheet2.get_Range("F3", "H3").Cells;
+                    _excelCells803.Merge(Type.Missing);
+                    _excelCells803.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[3, 6] = $"Поступило РСТ";
+                    workSheet2.Cells[4, 6] = $"всего";
+                    workSheet2.Cells[4, 7] = $"в т.ч. с АБ";
+                    workSheet2.Cells[4, 8] = $"% (доставки)";
+                    Excel.Range _excelCells804 = (Excel.Range)workSheet2.get_Range("I3", "L3").Cells;
+                    _excelCells804.Merge(Type.Missing);
+                    workSheet2.Cells[3, 9] = $"Состояние поступивших АБ (остаточная ёмкость)";
+                    _excelCells804.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[4, 9] = $"<60%,\nв т.ч. неисправные";
+                    workSheet2.Cells[4, 10] = $"60-70%";
+                    workSheet2.Cells[4, 11] = $"70-80%";
+                    workSheet2.Cells[4, 12] = $">80%";
+                    Excel.Range _excelCells806 = (Excel.Range)workSheet2.get_Range("B3", "L4").Cells;
+                    _excelCells806.Font.Size = 14;
+                    _excelCells806.Font.Bold = true;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells806.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Excel.Range _excelCells807 = (Excel.Range)workSheet2.get_Range("B4", "L4").Cells;
+                    _excelCells807.Font.Size = 12;
+
+                    List<string> listLocation = new List<string>();
+
+                    totalNumberRadiostantion = 0;
+                    totalNumberBatteriesCompany = 0;
+
+                    countBatteryCapacityLess60 = 0;
+                    countBatteryCapacityLess70 = 0;
+                    countBatteryCapacityLess80 = 0;
+                    countBatteryCapacityMore80 = 0;
+
+                    count = 1;
+                    countCells = 5;
+
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (item.Company.Contains("ДЦС"))
+                            if (!listLocation.Contains(item.Location))
+                                listLocation.Add(item.Location);
+                    }
+
+                    for (int i = 0; i < listLocation.Count + 1; i++)
+                    {
+                        Excel.Range _excelCells808 = (Excel.Range)workSheet2.get_Range($"B{countCells}", $"E{countCells}").Cells;
+                        _excelCells808.EntireRow.RowHeight = 20;
+                        _excelCells808.Font.Bold = true;
+                        _excelCells808.Merge(Type.Missing);
+                        Excel.Range _excelCells809 = (Excel.Range)workSheet2.get_Range($"A{countCells}", $"L{countCells}").Cells;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells809.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells809.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < listLocation.Count)
+                        {
+                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            {
+                                if (listLocation[i] == item.Location && item.Company.Contains("ДЦС"))
+                                {
+                                    totalNumberRadiostantion++;
+                                    if (item.PercentAKB != "-")
+                                    {
+                                        totalNumberBatteriesCompany++;
+
+                                        if (Convert.ToDouble(item.PercentAKB) < 60)
+                                            countBatteryCapacityLess60++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 59 && Convert.ToDouble(item.PercentAKB) < 70)
+                                            countBatteryCapacityLess70++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 69 && Convert.ToDouble(item.PercentAKB) < 80)
+                                            countBatteryCapacityLess80++;
+                                        else if (Convert.ToDouble(item.PercentAKB) > 79)
+                                            countBatteryCapacityMore80++;
+                                    }
+                                }
+                            }
+                            workSheet2.Cells[5 + i, 1] = $"{count++}";
+                            workSheet2.Cells[5 + i, 2] = $"{listLocation[i]}";
+                            workSheet2.Cells[5 + i, 6] = $"{totalNumberRadiostantion}";//общее кол-во радиостанций с АКБ и без
+                            workSheet2.Cells[5 + i, 7] = $"{totalNumberBatteriesCompany}";// с АКБ
+                            if (totalNumberBatteriesCompany != 0)
+                                workSheet2.Cells[5 + i, 8] = $"{Math.Round(totalNumberBatteriesCompany / totalNumberRadiostantion * 100, 2)}";// с АКБ
+                            else workSheet2.Cells[5 + i, 8] = $"0";// с АКБ
+                            workSheet2.Cells[5 + i, 9] = $"{countBatteryCapacityLess60}";
+                            workSheet2.Cells[5 + i, 10] = $"{countBatteryCapacityLess70}";
+                            workSheet2.Cells[5 + i, 11] = $"{countBatteryCapacityLess80}";
+                            workSheet2.Cells[5 + i, 12] = $"{countBatteryCapacityMore80}";
+                        }
+                        else
+                        {
+                            Excel.Range _excelCells810 = (Excel.Range)workSheet2.get_Range($"F{countCells}", $"L{countCells}").Cells;
+                            _excelCells810.Font.Bold = true;
+                            workSheet2.Cells[5 + i, 2] = $"ИТОГ:";
+                            workSheet2.Cells[5 + i, 6] = $"=SUM(F4:F{countCells - 1})";
+                            workSheet2.Cells[5 + i, 7] = $"=SUM(G4:G{countCells - 1})";
+                            workSheet2.Cells[5 + i, 8] = $"=ROUND(G{countCells}/F{countCells}*100,2)";
+                            workSheet2.Cells[5 + i, 9] = $"=SUM(I4:I{countCells - 1})";
+                            workSheet2.Cells[5 + i, 10] = $"=SUM(J4:J{countCells - 1})";
+                            workSheet2.Cells[5 + i, 11] = $"=SUM(K4:K{countCells - 1})";
+                            workSheet2.Cells[5 + i, 12] = $"=SUM(L4:L{countCells - 1})";
+                        }
+
+                        totalNumberRadiostantion = 0;
+                        totalNumberBatteriesCompany = 0;
+                        countBatteryCapacityLess60 = 0;
+                        countBatteryCapacityLess70 = 0;
+                        countBatteryCapacityLess80 = 0;
+                        countBatteryCapacityMore80 = 0;
+                        countCells++;
+                    }
+
+                    #endregion
+
+                    string file = $"{city}_Общий_Отчёт_АКБ_{DateTime.Now.ToString("dd.MM.yyyy")}.xlsx";
+
+                    if (!File.Exists($@"С:\ServiceTelekom\АКБ\{city}\"))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory($@"C:\ServiceTelekom\АКБ\{city}\");
+                            workSheet.SaveAs($@"C:\ServiceTelekom\АКБ\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            workSheet.SaveAs($@"C:\ServiceTelekom\АКБ\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    exApp.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (exApp != null)
+                    exApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Environment.Exit(0);
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void PrintReportDetailedAKB()
+        {
+            Excel.Application exApp = new Excel.Application();
+
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType == null)
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    string city = string.Empty;
+
+                    int counter = 0;
+                    foreach (RadiostationParametersDataBaseModel item
+                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (counter > 0)
+                            break;
+                        city = item.City;
+                        counter++;
+                    }
+
+                    List<string> listCompany = new List<string>();
+                    List<string> listLocation = new List<string>();
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (!listCompany.Contains(item.Company))
+                            listCompany.Add(item.Company);
+                        if (item.Company.Contains("ДЦС"))
+                            if (!listLocation.Contains(item.Location))
+                                listLocation.Add(item.Location);
+                    }
+
+                    exApp.SheetsInNewWorkbook = listCompany.Count;
+                    exApp.Workbooks.Add();
+                    exApp.DisplayAlerts = false;
+
+                    List<Excel.Worksheet> resultWorkSheet = new List<Excel.Worksheet>();
+
+                    int countWorkSheet = 1;
+                    string queryStringCountAKBCompany = String.Empty;
+
+                    string resultContainsCompany = listCompany.FirstOrDefault(s => s.Contains("ДЦС"));
+
+                    for (int i = 0; i < listCompany.Count; i++)
+                    {
+                        Excel.Worksheet x = (Excel.Worksheet)exApp.Worksheets.get_Item(countWorkSheet);
+                        resultWorkSheet.Add(x);
+                        resultWorkSheet[i].Name = $"{listCompany[i]}";
+                        countWorkSheet++;
+
+                        resultWorkSheet[i].PageSetup.Zoom = false;
+                        resultWorkSheet[i].PageSetup.FitToPagesWide = 1;
+                        resultWorkSheet[i].PageSetup.FitToPagesTall = 1;
+                        resultWorkSheet[i].Rows.Font.Size = 10;
+                        resultWorkSheet[i].Rows.Font.Name = "Times New Roman";
+                        resultWorkSheet[i].PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                        resultWorkSheet[i].PageSetup.CenterHorizontally = true;
+                        resultWorkSheet[i].PageSetup.TopMargin = 0;
+                        resultWorkSheet[i].PageSetup.BottomMargin = 0;
+                        resultWorkSheet[i].PageSetup.LeftMargin = 0;
+                        resultWorkSheet[i].PageSetup.RightMargin = 0;
+
+                        Excel.Range _excelCells900;
+                        if (listCompany[i].Contains(resultContainsCompany))
+                        {
+                            _excelCells900 = (Excel.Range)resultWorkSheet[i].get_Range("B1", "L2").Cells;
+                            _excelCells900.Font.Size = 16;
+                        }
+                        else
+                        {
+                            _excelCells900 = (Excel.Range)resultWorkSheet[i].get_Range("B1", "J2").Cells;
+                            _excelCells900.Font.Size = 14;
+                        }
+                        _excelCells900.Merge(Type.Missing);
+                        _excelCells900.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells900.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells900.EntireRow.RowHeight = 25;
+                        _excelCells900.Font.Bold = true;
+
+                        resultWorkSheet[i].Cells[1, 2] = $"ОТЧЁТ о неисправных АКБ предприятия \"{listCompany[i]}\" {DateTime.Now.ToString("dd.MM.yyyy")} г.";
+                        Excel.Range _excelCells901 = (Excel.Range)resultWorkSheet[i].get_Range("A1").Cells;
+                        _excelCells901.EntireColumn.ColumnWidth = 4;
+
+
+                        Excel.Range _excelCells902 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "E3").Cells;
+                        _excelCells902.Merge(Type.Missing);
+                        resultWorkSheet[i].Cells[3, 2] = $"Заводской номер РСТ";
+
+                        Excel.Range _excelCells903 = (Excel.Range)resultWorkSheet[i].get_Range("F3", "H3").Cells;
+                        _excelCells903.Merge(Type.Missing);
+                        resultWorkSheet[i].Cells[3, 6] = $"Номер АКБ";
+
+                        Excel.Range _excelCells904 = (Excel.Range)resultWorkSheet[i].get_Range("I3", "J3").Cells;
+                        _excelCells904.Merge(Type.Missing);
+                        resultWorkSheet[i].Cells[3, 9] = $"Состояние %";
+
+                        Excel.Range _excelCells920;
+                        Excel.Range _excelCells905;
+
+                        if (listCompany[i].Contains(resultContainsCompany))
+                        {
+                            _excelCells905 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "L3").Cells;
+                            _excelCells920 = (Excel.Range)resultWorkSheet[i].get_Range("K3", "L3").Cells;
+                            _excelCells920.EntireRow.RowHeight = 15;
+                            _excelCells920.Font.Bold = true;
+                            _excelCells920.Merge(Type.Missing);
+                            resultWorkSheet[i].Cells[3, 11] = $"Станция";
+                        }
+                        else
+                        {
+                            _excelCells905 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "J3").Cells;
+                        }
+                        _excelCells905.Font.Size = 13;
+                        _excelCells905.Font.Bold = true;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.EntireRow.RowHeight = 20;
+                        _excelCells905.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells905.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        int countCells = 4;
+                        int count = 1;
+                        int cells = 0;
+                        int gameOverAKB = 0;
+
+                        foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        {
+                            if (listCompany[i] == item.Company)
+                            {
+                                Excel.Range _excelCells906 = (Excel.Range)resultWorkSheet[i].get_Range($"B{countCells}", $"E{countCells}").Cells;
+                                _excelCells906.EntireRow.RowHeight = 15;
+                                _excelCells906.Font.Bold = true;
+                                _excelCells906.Merge(Type.Missing);
+                                _excelCells906.NumberFormat = "@";
+                                Excel.Range _excelCells907 = (Excel.Range)resultWorkSheet[i].get_Range($"F{countCells}", $"H{countCells}").Cells;
+                                _excelCells907.EntireRow.RowHeight = 15;
+                                _excelCells907.Font.Bold = true;
+                                _excelCells907.Merge(Type.Missing);
+                                _excelCells907.NumberFormat = "@";
+                                Excel.Range _excelCells908 = (Excel.Range)resultWorkSheet[i].get_Range($"I{countCells}", $"J{countCells}").Cells;
+                                _excelCells908.EntireRow.RowHeight = 15;
+                                _excelCells908.Font.Bold = true;
+                                _excelCells908.Merge(Type.Missing);
+                                _excelCells908.NumberFormat = "@";
+                                Excel.Range _excelCells910;
+
+                                if (listCompany[i].Contains(resultContainsCompany))
+                                {
+                                    _excelCells910 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells}", $"L{countCells}").Cells;
+                                    Excel.Range _excelCells921 = (Excel.Range)resultWorkSheet[i].get_Range($"K{countCells}", $"L{countCells}").Cells;
+                                    _excelCells921.EntireRow.RowHeight = 15;
+                                    _excelCells921.Font.Bold = true;
+                                    _excelCells921.Merge(Type.Missing);
+                                    resultWorkSheet[i].Cells[4 + cells, 11] = $"{item.Location}";
+                                }
+                                else _excelCells910 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells}", $"J{countCells}").Cells;
+
+                                if (item.PercentAKB == "-")
+                                    continue;
+                                if (Convert.ToInt32(item.PercentAKB) < 70)
+                                {
+                                    _excelCells908.Interior.Color = ColorTranslator.ToOle(Color.Red);
+                                    gameOverAKB++;
+                                }
+                                
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                _excelCells910.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+  
+                                resultWorkSheet[i].Cells[4 + cells, 1] = $"{count++}";
+                                resultWorkSheet[i].Cells[4 + cells, 2] = $"{item.SerialNumber}";
+                                resultWorkSheet[i].Cells[4 + cells, 6] = $"{item.NameAKB}";
+                                resultWorkSheet[i].Cells[4 + cells, 9] = $"{item.PercentAKB}";
+
+                                countCells++;
+                                cells++;
+                            }
+                        }
+                        if (gameOverAKB != 0)
+                        {
+                            Excel.Range _excelCells930 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells + 1}", $"J{countCells + 1}").Cells;
+                            _excelCells930.EntireRow.RowHeight = 15;
+                            _excelCells930.Font.Bold = true;
+                            _excelCells930.Merge(Type.Missing);
+                            _excelCells930.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                            _excelCells930.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                            _excelCells930.Font.Size = 14;
+                            resultWorkSheet[i].Cells[4 + cells + 1, 1] = $"Итого неисправных АКБ: {gameOverAKB} шт.";
+                        }
+                    }
+
+                    string file = $"{city}_подробный_Отчёт_АКБ_{DateTime.Now.ToString("dd.MM.yyyy")}.xlsx";
+
+                    if (!File.Exists($@"С:\ServiceTelekom\АКБ\{city}\"))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory($@"C:\ServiceTelekom\АКБ\{city}\");
+                            resultWorkSheet[0].SaveAs($@"C:\ServiceTelekom\АКБ\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            resultWorkSheet[0].SaveAs($@"C:\ServiceTelekom\АКБ\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    exApp.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (exApp != null)
+                    exApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Environment.Exit(0);
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void PrintReportGeneralManipulator()
+        {
+            Excel.Application exApp = new Excel.Application();
+
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType == null)
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    exApp.SheetsInNewWorkbook = 2;
+                    exApp.Workbooks.Add();
+                    exApp.DisplayAlerts = false;
+
+                    Excel.Worksheet workSheet = (Excel.Worksheet)exApp.Worksheets.get_Item(1);
+                    Excel.Worksheet workSheet2 = (Excel.Worksheet)exApp.Worksheets.get_Item(2);
+
+                    workSheet.Name = $"Общий отчёт";
+                    workSheet2.Name = $"Для ДЦС";
+
+                    string city = string.Empty;
+
+                    int counter = 0;
+                    foreach (RadiostationParametersDataBaseModel item
+                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (counter > 0)
+                            break;
+                        city = item.City;
+                        counter++;
+                    }
+
+                    #region Общий отчёт
+
+                    workSheet.PageSetup.Zoom = false;
+                    workSheet.PageSetup.FitToPagesWide = 1;
+                    workSheet.PageSetup.FitToPagesTall = 1;
+                    workSheet.Rows.Font.Size = 10;
+                    workSheet.Rows.Font.Name = "Times New Roman";
+                    workSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet.PageSetup.CenterHorizontally = true;
+                    workSheet.PageSetup.TopMargin = 0;
+                    workSheet.PageSetup.BottomMargin = 0;
+                    workSheet.PageSetup.LeftMargin = 0;
+                    workSheet.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells700 = (Excel.Range)workSheet.get_Range("B1", "J2").Cells;
+                    _excelCells700.Merge(Type.Missing);
+                    _excelCells700.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells700.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells700.EntireRow.RowHeight = 25;
+                    _excelCells700.Font.Size = 16;
+                    _excelCells700.Font.Bold = true;
+
+                    workSheet.Cells[1, 2] = $"ОТЧЁТ_{DateTime.Now.ToString("yyyy")} г. о неисправных манипуляторах, по предприятиям,\"{city}\".";
+                    Excel.Range _excelCells701 = (Excel.Range)workSheet.get_Range("A1").Cells;
+                    _excelCells701.EntireColumn.ColumnWidth = 4;
+                    Excel.Range _excelCells702 = (Excel.Range)workSheet.get_Range("B3", "E4").Cells;
+                    _excelCells702.Merge(Type.Missing);
+                    _excelCells702.EntireRow.RowHeight = 40;
+                    workSheet.Cells[3, 2] = $"Предприятие";
+                    Excel.Range _excelCells703 = (Excel.Range)workSheet.get_Range("F3", "H3").Cells;
+                    _excelCells703.Merge(Type.Missing);
+                    _excelCells703.EntireColumn.ColumnWidth = 20;
+                    workSheet.Cells[3, 6] = $"Поступило РСТ";
+                    workSheet.Cells[4, 6] = $"всего";
+                    workSheet.Cells[4, 7] = $"в т.ч. с МАН.";
+                    workSheet.Cells[4, 8] = $"% (доставки)";
+                    Excel.Range _excelCells704 = (Excel.Range)workSheet.get_Range("I3", "J3").Cells;
+                    _excelCells704.Merge(Type.Missing);
+                    workSheet.Cells[3, 9] = $"Состояние поступившых МАН.";
+                    _excelCells704.EntireColumn.ColumnWidth = 20;
+                    workSheet.Cells[4, 9] = $"Исправ.";
+                    workSheet.Cells[4, 10] = $"Неисправ.";
+                    Excel.Range _excelCells706 = (Excel.Range)workSheet.get_Range("B3", "J4").Cells;
+                    _excelCells706.Font.Size = 14;
+                    _excelCells706.Font.Bold = true;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells706.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells706.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Excel.Range _excelCells759 = (Excel.Range)workSheet.get_Range("B4", "J4").Cells;
+                    _excelCells759.Font.Size = 12;
+
+                    List<string> listCompany = new List<string>();
+
+                    double totalNumberRadiostantion = 0;
+                    double totalNumberManipulatorCompany = 0;
+
+                    int count = 1;
+                    int countCells = 5;
+                    double ServiceableManipulator = 0;
+                    double NotServiceableManipulator = 0;
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (!listCompany.Contains(item.Company))
+                            listCompany.Add(item.Company);
+                    }
+
+                    for (int i = 0; i < listCompany.Count + 1; i++)
+                    {
+                        Excel.Range _excelCells707 = (Excel.Range)workSheet.get_Range($"B{countCells}", $"E{countCells}").Cells;
+                        _excelCells707.EntireRow.RowHeight = 20;
+                        _excelCells707.Font.Bold = true;
+                        _excelCells707.Merge(Type.Missing);
+                        Excel.Range _excelCells711 = (Excel.Range)workSheet.get_Range($"A{countCells}", $"J{countCells}").Cells;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells711.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells711.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < listCompany.Count)
+                        {
+                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            {
+                                if (listCompany[i] == item.Company)
+                                {
+                                    totalNumberRadiostantion++;
+                                    if (item.ManipulatorAccessories != "-")
+                                    {
+                                        totalNumberManipulatorCompany++;
+                                        if (item.ManipulatorAccessories == "испр.")
+                                            ServiceableManipulator++;
+                                        else NotServiceableManipulator++;
+
+                                    }
+                                }
+                            }
+                            workSheet.Cells[5 + i, 1] = $"{count++}";
+                            workSheet.Cells[5 + i, 2] = $"{listCompany[i]}";
+                            workSheet.Cells[5 + i, 6] = $"{totalNumberRadiostantion}";//общее кол-во радиостанций с МАН и без
+                            workSheet.Cells[5 + i, 7] = $"{totalNumberManipulatorCompany}";// с МАН
+                            if (totalNumberManipulatorCompany != 0)
+                                workSheet.Cells[5 + i, 8] = $"{Math.Round(totalNumberManipulatorCompany / totalNumberRadiostantion * 100, 2)}";// с МАН
+                            else workSheet.Cells[5 + i, 8] = $"0";// с АКБ
+                            workSheet.Cells[5 + i, 9] = $"{ServiceableManipulator}";
+                            workSheet.Cells[5 + i, 10] = $"{NotServiceableManipulator}";
+                        }
+                        else
+                        {
+                            Excel.Range _excelCells757 = (Excel.Range)workSheet.get_Range($"F{countCells}", $"J{countCells}").Cells;
+                            _excelCells757.Font.Bold = true;
+                            workSheet.Cells[5 + i, 2] = $"ИТОГ:";
+                            workSheet.Cells[5 + i, 6] = $"=SUM(F4:F{countCells - 1})";
+                            workSheet.Cells[5 + i, 7] = $"=SUM(G4:G{countCells - 1})";
+                            workSheet.Cells[5 + i, 8] = $"=ROUND(G{countCells}/F{countCells}*100,2)";
+                            workSheet.Cells[5 + i, 9] = $"=SUM(I4:I{countCells - 1})";
+                            workSheet.Cells[5 + i, 10] = $"=SUM(J4:J{countCells - 1})";
+                        }
+
+                        totalNumberRadiostantion = 0;
+                        totalNumberManipulatorCompany = 0;
+                        ServiceableManipulator = 0;
+                        NotServiceableManipulator = 0;
+                        countCells++;
+                    }
+
+
+                    #endregion
+
+                    #region по станциям
+
+                    workSheet2.PageSetup.Zoom = false;
+                    workSheet2.PageSetup.FitToPagesWide = 1;
+                    workSheet2.PageSetup.FitToPagesTall = 1;
+                    workSheet2.Rows.Font.Size = 10;
+                    workSheet2.Rows.Font.Name = "Times New Roman";
+                    workSheet2.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    workSheet2.PageSetup.CenterHorizontally = true;
+                    workSheet2.PageSetup.TopMargin = 0;
+                    workSheet2.PageSetup.BottomMargin = 0;
+                    workSheet2.PageSetup.LeftMargin = 0;
+                    workSheet2.PageSetup.RightMargin = 0;
+
+                    Excel.Range _excelCells800 = (Excel.Range)workSheet2.get_Range("B1", "L2").Cells;
+                    _excelCells800.Merge(Type.Missing);
+                    _excelCells800.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells800.EntireRow.RowHeight = 25;
+                    _excelCells800.Font.Size = 16;
+                    _excelCells800.Font.Bold = true;
+
+                    workSheet2.Cells[1, 2] = $"ОТЧЁТ_{DateTime.Now.ToString("yyyy")} г. о неисправных манипуляторах, \"{city}\",\nпо станциям для \"ДЦС\"";
+                    Excel.Range _excelCells801 = (Excel.Range)workSheet2.get_Range("A1").Cells;
+                    _excelCells801.EntireColumn.ColumnWidth = 4;
+                    Excel.Range _excelCells802 = (Excel.Range)workSheet2.get_Range("B3", "E4").Cells;
+                    _excelCells802.Merge(Type.Missing);
+                    _excelCells802.EntireRow.RowHeight = 40;
+                    workSheet2.Cells[3, 2] = $"Станция";
+                    Excel.Range _excelCells803 = (Excel.Range)workSheet2.get_Range("F3", "H3").Cells;
+                    _excelCells803.Merge(Type.Missing);
+                    _excelCells803.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[3, 6] = $"Поступило РСТ";
+                    workSheet2.Cells[4, 6] = $"всего";
+                    workSheet2.Cells[4, 7] = $"в т.ч. с МАН.";
+                    workSheet2.Cells[4, 8] = $"% (доставки)";
+                    Excel.Range _excelCells804 = (Excel.Range)workSheet2.get_Range("I3", "J3").Cells;
+                    _excelCells804.Merge(Type.Missing);
+                    workSheet2.Cells[3, 9] = $"Состояние поступившых МАН.";
+                    _excelCells804.EntireColumn.ColumnWidth = 20;
+                    workSheet2.Cells[4, 9] = $"Исправ.";
+                    workSheet2.Cells[4, 10] = $"Неисправ.";
+                    Excel.Range _excelCells806 = (Excel.Range)workSheet2.get_Range("B3", "J4").Cells;
+                    _excelCells806.Font.Size = 14;
+                    _excelCells806.Font.Bold = true;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                    _excelCells806.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    _excelCells806.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Excel.Range _excelCells805 = (Excel.Range)workSheet2.get_Range("B4", "J4").Cells;
+                    _excelCells805.Font.Size = 12;
+
+                    List<string> listLocation = new List<string>();
+
+                    totalNumberRadiostantion = 0;
+                    totalNumberManipulatorCompany = 0;
+
+                    count = 1;
+                    countCells = 5;
+                    ServiceableManipulator = 0;
+                    NotServiceableManipulator = 0;
+
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (item.Company.Contains("ДЦС"))
+                            if (!listLocation.Contains(item.Location))
+                                listLocation.Add(item.Location);
+                    }
+
+                    for (int i = 0; i < listLocation.Count + 1; i++)
+                    {
+                        Excel.Range _excelCells807 = (Excel.Range)workSheet2.get_Range($"B{countCells}", $"E{countCells}").Cells;
+                        _excelCells807.EntireRow.RowHeight = 20;
+                        _excelCells807.Font.Bold = true;
+                        _excelCells807.Merge(Type.Missing);
+                        Excel.Range _excelCells811 = (Excel.Range)workSheet2.get_Range($"A{countCells}", $"J{countCells}").Cells;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                        _excelCells811.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells811.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        if (i < listLocation.Count)
+                        {
+                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            {
+                                if (listLocation[i] == item.Location && item.Company.Contains("ДЦС"))
+                                {
+                                    totalNumberRadiostantion++;
+                                    if (item.ManipulatorAccessories != "-")
+                                    {
+                                        totalNumberManipulatorCompany++;
+                                        if (item.ManipulatorAccessories == "испр.")
+                                            ServiceableManipulator++;
+                                        else NotServiceableManipulator++;
+
+                                    }
+                                }
+                            }
+                            workSheet2.Cells[5 + i, 1] = $"{count++}";
+                            workSheet2.Cells[5 + i, 2] = $"{listLocation[i]}";
+                            workSheet2.Cells[5 + i, 6] = $"{totalNumberRadiostantion}";//общее кол-во радиостанций с МАН и без
+                            workSheet2.Cells[5 + i, 7] = $"{totalNumberManipulatorCompany}";// с МАН
+                            if (totalNumberManipulatorCompany != 0)
+                                workSheet2.Cells[5 + i, 8] = $"{Math.Round(totalNumberManipulatorCompany / totalNumberRadiostantion * 100, 2)}";// с МАН
+                            else workSheet2.Cells[5 + i, 8] = $"0";// с АКБ
+                            workSheet2.Cells[5 + i, 9] = $"{ServiceableManipulator}";
+                            workSheet2.Cells[5 + i, 10] = $"{NotServiceableManipulator}";
+                        }
+                        else
+                        {
+                            Excel.Range _excelCells857 = (Excel.Range)workSheet2.get_Range($"F{countCells}", $"L{countCells}").Cells;
+                            _excelCells857.Font.Bold = true;
+                            workSheet2.Cells[5 + i, 2] = $"ИТОГ:";
+                            workSheet2.Cells[5 + i, 6] = $"=SUM(F4:F{countCells - 1})";
+                            workSheet2.Cells[5 + i, 7] = $"=SUM(G4:G{countCells - 1})";
+                            workSheet2.Cells[5 + i, 8] = $"=ROUND(G{countCells}/F{countCells}*100,2)";
+                            workSheet2.Cells[5 + i, 9] = $"=SUM(I4:I{countCells - 1})";
+                            workSheet2.Cells[5 + i, 10] = $"=SUM(J4:J{countCells - 1})";
+                        }
+
+                        totalNumberRadiostantion = 0;
+                        totalNumberManipulatorCompany = 0;
+                        ServiceableManipulator = 0;
+                        NotServiceableManipulator = 0;
+                        countCells++;
+                    }
+
+                    #endregion
+
+                    string file = $"{city}_Общий_Отчёт_МАН_{DateTime.Now.ToString("dd.MM.yyyy")}.xlsx";
+
+                    if (!File.Exists($@"С:\ServiceTelekom\МАН\{city}\"))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory($@"C:\ServiceTelekom\МАН\{city}\");
+                            workSheet.SaveAs($@"C:\ServiceTelekom\МАН\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            workSheet.SaveAs($@"C:\ServiceTelekom\МАН\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    exApp.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (exApp != null)
+                    exApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Environment.Exit(0);
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public void PrintReportDetailedManipulator()
+        {
+            Excel.Application exApp = new Excel.Application();
+            
+            try
+            {
+                Type officeType = Type.GetTypeFromProgID("Excel.Application");
+
+                if (officeType == null)
+                    MessageBox.Show($"Ошибка у Вас не установлен Excel",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    string city = string.Empty;
+
+                    int counter = 0;
+                    foreach (RadiostationParametersDataBaseModel item
+                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (counter > 0)
+                            break;
+                        city = item.City;
+                        counter++;
+                    }
+
+                    List<string> listCompany = new List<string>();
+                    List<string> listLocation = new List<string>();
+                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    {
+                        if (!listCompany.Contains(item.Company))
+                            listCompany.Add(item.Company);
+                        if (item.Company.Contains("ДЦС"))
+                            if (!listLocation.Contains(item.Location))
+                                listLocation.Add(item.Location);
+                    }
+
+                    exApp.SheetsInNewWorkbook = listCompany.Count;
+                    exApp.Workbooks.Add();
+                    exApp.DisplayAlerts = false;
+
+                    List<Excel.Worksheet> resultWorkSheet = new List<Excel.Worksheet>();
+
+                    int countWorkSheet = 1;
+                    string queryStringCountAKBCompany = String.Empty;
+
+                    string resultContainsCompany = listCompany.FirstOrDefault(s => s.Contains("ДЦС"));
+
+                    for (int i = 0; i < listCompany.Count; i++)
+                    {
+                        Excel.Worksheet x = (Excel.Worksheet)exApp.Worksheets.get_Item(countWorkSheet);
+                        resultWorkSheet.Add(x);
+                        resultWorkSheet[i].Name = $"{listCompany[i]}";
+                        countWorkSheet++;
+
+                        resultWorkSheet[i].PageSetup.Zoom = false;
+                        resultWorkSheet[i].PageSetup.FitToPagesWide = 1;
+                        resultWorkSheet[i].PageSetup.FitToPagesTall = 1;
+                        resultWorkSheet[i].Rows.Font.Size = 10;
+                        resultWorkSheet[i].Rows.Font.Name = "Times New Roman";
+                        resultWorkSheet[i].PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                        resultWorkSheet[i].PageSetup.CenterHorizontally = true;
+                        resultWorkSheet[i].PageSetup.TopMargin = 0;
+                        resultWorkSheet[i].PageSetup.BottomMargin = 0;
+                        resultWorkSheet[i].PageSetup.LeftMargin = 0;
+                        resultWorkSheet[i].PageSetup.RightMargin = 0;
+
+                        Excel.Range _excelCells900;
+                        if (listCompany[i].Contains(resultContainsCompany))
+                        {
+                            _excelCells900 = (Excel.Range)resultWorkSheet[i].get_Range("B1", "J2").Cells;
+                            _excelCells900.Font.Size = 16;
+                        }
+                        else
+                        {
+                            _excelCells900 = (Excel.Range)resultWorkSheet[i].get_Range("B1", "H2").Cells;
+                            _excelCells900.Font.Size = 14;
+                        }
+                        _excelCells900.Merge(Type.Missing);
+                        _excelCells900.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells900.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells900.EntireRow.RowHeight = 25;
+                        _excelCells900.Font.Bold = true;
+
+                        resultWorkSheet[i].Cells[1, 2] = $"ОТЧЁТ неисправных Манипуляторов\n предприятия \"{listCompany[i]}\" {DateTime.Now.ToString("dd.MM.yyyy")} г.";
+                        Excel.Range _excelCells901 = (Excel.Range)resultWorkSheet[i].get_Range("A1").Cells;
+                        _excelCells901.EntireColumn.ColumnWidth = 4;
+
+                        Excel.Range _excelCells902 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "E3").Cells;
+                        _excelCells902.Merge(Type.Missing);
+                        resultWorkSheet[i].Cells[3, 2] = $"Заводской номер РСТ";
+
+                        Excel.Range _excelCells903 = (Excel.Range)resultWorkSheet[i].get_Range("F3", "H3").Cells;
+                        _excelCells903.Merge(Type.Missing);
+                        resultWorkSheet[i].Cells[3, 6] = $"Состояние";
+
+                        Excel.Range _excelCells920;
+                        Excel.Range _excelCells905;
+
+                        if (listCompany[i].Contains(resultContainsCompany))
+                        {
+                            _excelCells905 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "J3").Cells;
+                            _excelCells920 = (Excel.Range)resultWorkSheet[i].get_Range("I3", "J3").Cells;
+                            _excelCells920.EntireRow.RowHeight = 15;
+                            _excelCells920.Font.Bold = true;
+                            _excelCells920.Merge(Type.Missing);
+                            resultWorkSheet[i].Cells[3, 9] = $"Станция";
+                        }
+                        else
+                        {
+                            _excelCells905 = (Excel.Range)resultWorkSheet[i].get_Range("B3", "H3").Cells;
+                        }
+                        _excelCells905.Font.Size = 13;
+                        _excelCells905.Font.Bold = true;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        _excelCells905.EntireRow.RowHeight = 20;
+                        _excelCells905.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        _excelCells905.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                        int countCells = 4;
+                        int count = 1;
+                        int cells = 0;
+                        int gameOverMAN = 0;
+
+                        foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        {
+                            if (listCompany[i] == item.Company)
+                            {
+                                Excel.Range _excelCells906 = (Excel.Range)resultWorkSheet[i].get_Range($"B{countCells}", $"E{countCells}").Cells;
+                                _excelCells906.EntireRow.RowHeight = 15;
+                                _excelCells906.Font.Bold = true;
+                                _excelCells906.Merge(Type.Missing);
+                                _excelCells906.NumberFormat = "@";
+                                Excel.Range _excelCells907 = (Excel.Range)resultWorkSheet[i].get_Range($"F{countCells}", $"H{countCells}").Cells;
+                                _excelCells907.EntireRow.RowHeight = 15;
+                                _excelCells907.Font.Bold = true;
+                                _excelCells907.Merge(Type.Missing);
+                                _excelCells907.NumberFormat = "@";
+
+                                Excel.Range _excelCells910;
+                                if (listCompany[i].Contains(resultContainsCompany))
+                                {
+                                    _excelCells910 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells}", $"J{countCells}").Cells;
+                                    Excel.Range _excelCells921 = (Excel.Range)resultWorkSheet[i].get_Range($"I{countCells}", $"J{countCells}").Cells;
+                                    _excelCells921.EntireRow.RowHeight = 15;
+                                    _excelCells921.Font.Bold = true;
+                                    _excelCells921.Merge(Type.Missing);
+                                    resultWorkSheet[i].Cells[4 + cells, 9] = $"{item.Location}";
+                                }
+                                else _excelCells910 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells}", $"H{countCells}").Cells;
+
+                                if (item.ManipulatorAccessories == "-")
+                                    continue;
+
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlDash;
+                                _excelCells910.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                _excelCells910.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                                if (item.ManipulatorAccessories == "неиспр.")
+                                {
+                                    _excelCells907.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                                    gameOverMAN++;
+                                }
+
+                                resultWorkSheet[i].Cells[4 + cells, 1] = $"{count++}";
+                                resultWorkSheet[i].Cells[4 + cells, 2] = $"{item.SerialNumber}";
+                                resultWorkSheet[i].Cells[4 + cells, 6] = $"{item.ManipulatorAccessories}";
+
+                                countCells++;
+                                cells++;
+                            }
+                        }
+                        if (gameOverMAN != 0)
+                        {
+                            Excel.Range _excelCells930 = (Excel.Range)resultWorkSheet[i].get_Range($"A{countCells + 1}", $"H{countCells + 1}").Cells;
+                            _excelCells930.EntireRow.RowHeight = 15;
+                            _excelCells930.Font.Bold = true;
+                            _excelCells930.Merge(Type.Missing);
+                            _excelCells930.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                            _excelCells930.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                            _excelCells930.Font.Size = 14;
+                            resultWorkSheet[i].Cells[4 + cells + 1, 1] = $"Итого неисправных Манипуляторов: {gameOverMAN} шт.";
+                        }
+                    }
+
+
+                    string file = $"{city}_подробный_Отчёт_МАН_{DateTime.Now.ToString("dd.MM.yyyy")}.xlsx";
+
+                    if (!File.Exists($@"С:\ServiceTelekom\МАН\{city}\"))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory($@"C:\ServiceTelekom\МАН\{city}\");
+                            resultWorkSheet[0].SaveAs($@"C:\ServiceTelekom\МАН\{city}\" + file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            MessageBox.Show("Не удаётся сохранить файл.");
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            resultWorkSheet[0].SaveAs($@"C:\ServiceTelekom\МАН\{city}\" + file);
                         }
                         catch (Exception ex)
                         {

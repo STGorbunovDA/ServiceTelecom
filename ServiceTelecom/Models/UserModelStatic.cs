@@ -47,6 +47,7 @@ namespace ServiceTelecom.Models
 
         public static IList RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
         public static IList PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW;
+        public static IList PARAMETERS_RADIOSTATION_GENERAL;
 
         public static string LOGIN { get; private set; }
         public static string POST { get; private set; }//TODO продумать
