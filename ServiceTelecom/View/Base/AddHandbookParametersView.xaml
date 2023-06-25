@@ -53,7 +53,7 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
@@ -62,7 +62,7 @@
                                Foreground="{StaticResource titleFontColor1}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                VerticalAlignment="Center" 
-                               Margin="255,0,0,0"/>
+                               Margin="355,0,0,0"/>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
@@ -79,7 +79,13 @@
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center">
                     </TextBlock>
-
+                    <Button x:Name="btnSaveHandbookParameters"
+                            Command="{Binding SaveHandbookParameters}"
+                            Content="💾"
+                            Margin ="10,0,0,0"
+                            Style="{StaticResource menuButtonStyleCheck}" 
+                            Cursor="Hand">
+                    </Button>
                 </StackPanel>
                 <Button x:Name="btnMinimize"
                             Style="{StaticResource menuButtonStyleOne}"
