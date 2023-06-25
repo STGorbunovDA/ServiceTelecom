@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="Меню" Height="400" Width="600"
+        Title="Меню" Height="300" Width="600"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -43,8 +43,8 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Column="1"  VerticalAlignment="Center">
                 <Image Source="/Images/abstract1.png" 
-                           Height="400" Width="500"
-                       Margin="-40,60,0,0"/>
+                           Height="200" Width="450"
+                       Margin="-30,60,0,0"/>
             </Border>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -130,16 +130,7 @@
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                    <RadioButton Style="{StaticResource menuRadioButton}"
-                                     Tag="{StaticResource buttonFontColor9}"
-                                     Width="170">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="HouseUser" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Куратор" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>
-                </StackPanel>
+                
             </StackPanel>
         </Grid>
     </Border>
