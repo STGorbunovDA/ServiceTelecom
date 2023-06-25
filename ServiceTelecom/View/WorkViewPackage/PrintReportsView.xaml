@@ -91,6 +91,24 @@
                             Style="{StaticResource menuButtonStyleSix}">
                         </Button>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" Margin="10,0,0,0">
+                        <Button x:Name="btnPrintReportGeneralManipulator"
+                            Command="{Binding PrintReportGeneralManipulator}"
+                            Content="🖨 Общего отчёта МАН."
+                            Margin ="0,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource menuButtonStyleSix}">
+                        </Button>
+                        <Button x:Name="btnPrintReportDetailedManipulator"
+                            Command="{Binding PrintReportDetailedManipulator}"
+                            Content="🖨 Подробного отчёта МАН."
+                            Margin ="0,10,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource menuButtonStyleSix}">
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>

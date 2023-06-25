@@ -39,5 +39,8 @@ namespace ServiceTelecom.Infrastructure.Interfaces
 
         /// <summary> Печать подробного отчёта АКБ </summary>
         void PrintReportDetailedAKB();
+        
+        /// <summary> Печать общего отчёта Манипуляторов </summary>
+        void PrintReportGeneralManipulator();
     }
 }
