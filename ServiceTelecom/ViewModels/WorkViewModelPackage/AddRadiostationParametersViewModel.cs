@@ -941,7 +941,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(SensitivityReceiver, @"^[0][.][1-2]{1,1}[0-9]{1,1}$"))
+            if (!Regex.IsMatch(SensitivityReceiver, @"^[0][.][1-5]{1,1}[0-9]{1,1}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Чувствительность, mkV.\"\n" +
                     "Пример: от 0.10 мкВ. до 0.29 мкВ.", "Отмена",
@@ -976,7 +976,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(TransmissionModeCurrentConsumption, @"^[1][.][0-9]{2,2}$"))
+            if (!Regex.IsMatch(TransmissionModeCurrentConsumption, @"^[1-2][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Реж. передачи, A.\"\n" +
                     "Пример: от 1.00 A. до 1.99 A.", "Отмена",
