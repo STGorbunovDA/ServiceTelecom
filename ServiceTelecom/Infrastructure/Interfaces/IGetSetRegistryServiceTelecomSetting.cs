@@ -45,5 +45,12 @@ namespace ServiceTelecom.Infrastructure.Interfaces
 
         /// <summary> Получение данных о предприятии для ремонта </summary>
         List<RepairDataCompanyModel> GetRepairData(string company);
+
+        /// <summary> Получение данных для подключения к БД </summary>
+        List<RepositoryDataBaseModel> GetRegistryForRepositoryDataBase();
+
+        /// <summary> Запись данных подключения к БД </summary>
+        bool SetRegistryForRepositoryDataBaseAndCodeWord(string server, string port,
+            string username, string password, string database, string codeWord);
     }
 }
