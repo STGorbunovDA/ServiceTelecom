@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -58,12 +57,6 @@
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
-    </Reference>
-    <Reference Include="FontAwesome.Sharp, Version=6.1.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
-      <HintPath>..\packages\FontAwesome.Sharp.6.1.1\lib\net472\FontAwesome.Sharp.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.23.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.23.0-rc2\lib\net45\Google.Protobuf.dll</HintPath>
@@ -295,6 +288,7 @@
     <Compile Include="Models\RepairDataCompanyModel.cs" />
     <Compile Include="Models\RepairManualRadiostantionModel.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
+    <Compile Include="Models\RepositoryDataBaseModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Base\FrequenciesDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
@@ -333,6 +327,7 @@
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
+    <Compile Include="ViewModels\Base\RepositoryDataBaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
@@ -375,6 +370,9 @@
     </Compile>
     <Compile Include="View\Base\RepairManualView.xaml.cs">
       <DependentUpon>RepairManualView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Base\RepositoryDataBaseView.xaml.cs">
+      <DependentUpon>RepositoryDataBaseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StaffRegistrationViewPackage\ReportCardView.xaml.cs">
       <DependentUpon>ReportCardView.xaml</DependentUpon>
@@ -469,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Base\RepairManualView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\RepositoryDataBaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -586,12 +588,6 @@
     <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\gorbunov_12.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\photo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\id.png" />
   </ItemGroup>
   <ItemGroup>
@@ -621,15 +617,20 @@
   <ItemGroup>
     <Resource Include="logo2.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Crown_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\excel_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tutorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\brigades.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\admin_2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.5.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.5.5\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
-  </Target>
-  <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
 </Project>
