@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Models
@@ -41,9 +42,19 @@ namespace ServiceTelecom.Models
         public static string MODEL = string.Empty;
         /// <summary> необходима для ремонтов</summary>
         public static string SERIAL_NUMBER = string.Empty;
+        
+        
+        public static string SERVER = string.Empty;
+        public static string PORT = string.Empty;
+        public static string USERNAME = string.Empty;
+        public static string PASSWORD = string.Empty;
+        public static string DATABASE = string.Empty;
+        public static string CODE_WORD = string.Empty;
 
         public static ObservableCollection<StaffRegistrationDataBaseModel> 
             STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION { get; set; }
+
+        public static List<RepositoryDataBaseModel> LIST_REPOSITORY_DATABASE;
 
         public static IList RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
         public static IList PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW;
@@ -57,6 +68,8 @@ namespace ServiceTelecom.Models
             POST = Encryption.DecryptCipherTextToPlainText(post);
             STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION = 
                 new ObservableCollection<StaffRegistrationDataBaseModel>();
+            LIST_REPOSITORY_DATABASE = new List<RepositoryDataBaseModel>();
+
         }    
     }
 }

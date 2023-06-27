@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceTelecom.Models;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,7 +7,8 @@ namespace ServiceTelecom.Infrastructure
 {
     class Encryption
     {
-        private const string SecurityKey = "ServiceTelecomGorbunov2015";//TODO убрать кодовое слово в отдельный файл!
+        private static string SecurityKey = UserModelStatic.CODE_WORD;//TODO убрать кодовое слово в отдельный файл!
+        
         /// <summary> Шифруем </summary>
         public static string EncryptPlainTextToCipherText(string PlainText)
         {

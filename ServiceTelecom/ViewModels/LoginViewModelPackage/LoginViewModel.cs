@@ -5,6 +5,8 @@ using System.Security;
 using System.Windows.Input;
 using ServiceTelecom.View;
 using ServiceTelecom.Infrastructure;
+using System;
+using ServiceTelecom.View.Base;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -17,7 +19,7 @@ namespace ServiceTelecom.ViewModels
 
         private UserRepository userRepository;
         private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
-
+        private RepositoryDataBaseView repositoryDataBaseView;
         public string Username { get => _username; 
             set { _username = value; OnPropertyChanged(nameof(Username)); } }
         public SecureString Password { get => _password; 
@@ -29,13 +31,22 @@ namespace ServiceTelecom.ViewModels
 
         public ICommand LoginCommand { get; }
         public ICommand ShowPasswordCommand { get; }
-
+        public ICommand Connection { get; }
         public LoginViewModel()
         {
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             Username = getSetRegistryServiceTelecomSetting.GetRegistryUser();
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            Connection = new ViewModelCommand(ExecuteConnectionCommand);
+        }
+
+        private void ExecuteConnectionCommand(object obj)
+        {
+            if (repositoryDataBaseView != null)
+                return;
+            repositoryDataBaseView = new RepositoryDataBaseView();
+            repositoryDataBaseView.Show();
         }
 
         private bool CanExecuteLoginCommand(object obj)

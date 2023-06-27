@@ -27,7 +27,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         /// <summary> Для ограничения функционала при загрузке радиостанций из общей таблицы  </summary>
         private bool CHECK_HOW_MUCH = false;
 
-
         #region свойства
 
         private string _fillOut;
@@ -682,15 +681,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             RadiostationsParametersCollection =
                 new ObservableCollection<RadiostationParametersDataBaseModel>();
             ReserveRadiostationsForDocumentsCollection =
-                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            PrintWordDecommissionNumberActCollection =
-                new List<RadiostationForDocumentsDataBaseModel>();
+                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();           
             PrintExcelNumberActRepairCollection =
-                new List<RadiostationForDocumentsDataBaseModel>();
-            PrintExcelNumberActTechnicalWorkCollection =
-                new List<RadiostationForDocumentsDataBaseModel>();
-            PrintStatementParametersCollection =
-                new List<RadiostationParametersDataBaseModel>();
+                new List<RadiostationForDocumentsDataBaseModel>();         
             SelectedRadiostationForAddRadiostationParametersViewCollection =
                 new List<RadiostationForDocumentsDataBaseModel>();
             ParametersRadiostationForAddRadiostationParametersViewCollection =
@@ -758,7 +751,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             Timer();
         }
 
-
         #region PrintReports
 
         private void ExecutePrintReportsCommand(object obj)
@@ -772,26 +764,26 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (CHECK_HOW_MUCH)
                 return;
 
-            //foreach (var item in RadiostationsForDocumentsCollection)
-            //    if (SelectedRadiostation.NumberAct == item.NumberAct)
-            //    {
-            //        if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
-            //        {
-            //            MessageBox.Show(
-            //            $"Нельзя напечатать отчёт есть радиостанция, " +
-            //            $"которая не прошла проверку {item.SerialNumber}", "Отмена",
-            //             MessageBoxButton.OK, MessageBoxImage.Error);
-            //            return;
-            //        }
-            //    }
+            foreach (var item in RadiostationsForDocumentsCollection)
+                if (SelectedRadiostation.NumberAct == item.NumberAct)
+                {
+                    if (item.VerifiedRST != UserModelStatic.PASSED_TECHNICAL_SERVICES)
+                    {
+                        MessageBox.Show(
+                        $"Нельзя напечатать отчёт есть радиостанция, " +
+                        $"которая не прошла проверку {item.SerialNumber}", "Отмена",
+                         MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
 
             UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL =
                 RadiostationsParametersCollection;
 
             printReportsView = new PrintReportsView();
             printReportsView.Closed += (sender, args) => printReportsView = null;
-            printReportsView.Closed += (sender, args) =>
-            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
+            //printReportsView.Closed += (sender, args) =>
+            //UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL = null;
             printReportsView.Show();
         }
 
@@ -806,6 +798,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (CHECK_HOW_MUCH)
                 return;
             if (addRadiostationParametersView != null)
+                return;
+            if (SelectedRadiostation == null)
                 return;
 
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
@@ -884,6 +878,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (printTagTechnicalWorkView != null)
                 return;
+            if (SelectedRadiostation == null)
+                return;
 
             UserModelStatic.ROAD = SelectedRadiostation.Road;
             UserModelStatic.CITY = SelectedRadiostation.City;
@@ -905,6 +901,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (CHECK_HOW_MUCH)
                 return;
+            if (SelectedRadiostation == null)
+                return;
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.NumberAct))
             {
                 MessageBox.Show(
@@ -915,13 +913,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            if (PrintWordDecommissionNumberActCollection.Count != 0)
-                PrintWordDecommissionNumberActCollection.Clear();
+            PrintWordDecommissionNumberActCollection =
+               new List<RadiostationForDocumentsDataBaseModel>();
 
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (SelectedRadiostation.DecommissionNumberAct
                     == item.DecommissionNumberAct)
                     PrintWordDecommissionNumberActCollection.Add(item);
+
             if (PrintWordDecommissionNumberActCollection.Count == 0)
                 return;
             if (PrintWordDecommissionNumberActCollection.Count > 1)
@@ -960,9 +959,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            if (PrintStatementParametersCollection.Count != 0)
-                PrintStatementParametersCollection.Clear();
-
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
                 {
@@ -976,11 +972,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     }
                 }
 
+            PrintStatementParametersCollection =
+                new List<RadiostationParametersDataBaseModel>();
 
             foreach (var item in RadiostationsParametersCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
                     PrintStatementParametersCollection.Add(item);
-
 
             if (PrintStatementParametersCollection.Count == 0)
                 return;
@@ -988,9 +985,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
 
             PrintStatementParametersCollection.Sort();
-
-            //printExcel.PrintStatementParameters(
-            //    PrintStatementParametersCollection);
 
             new Thread(() =>
             {
@@ -1074,8 +1068,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             }
 
-            if (PrintExcelNumberActTechnicalWorkCollection.Count != 0)
-                PrintExcelNumberActTechnicalWorkCollection.Clear();
+            PrintExcelNumberActTechnicalWorkCollection =
+                new List<RadiostationForDocumentsDataBaseModel>();
 
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (SelectedRadiostation.NumberAct == item.NumberAct)
@@ -1101,18 +1095,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecutePrintActsCommand(object obj)
         {
-            if (PrintWordDecommissionNumberActCollection.Count != 0)
-                PrintWordDecommissionNumberActCollection.Clear();
-
-            if (PrintExcelNumberActRepairCollection.Count != 0)
-                PrintExcelNumberActRepairCollection.Clear();
-
-            if (PrintExcelNumberActTechnicalWorkCollection.Count != 0)
-                PrintExcelNumberActTechnicalWorkCollection.Clear();
-
-            if (PrintStatementParametersCollection.Count != 0)
-                PrintStatementParametersCollection.Clear();
-
             if (RadiostationsForDocumentsCollection.Count == 0)
                 return;
             if (CHECK_HOW_MUCH)
@@ -1122,6 +1104,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (CmbChoiseSearch == "№ акта ТО")
             {
+                PrintExcelNumberActTechnicalWorkCollection =
+                new List<RadiostationForDocumentsDataBaseModel>();
+
                 foreach (var item in RadiostationsForDocumentsCollection)
                     if (ChoiсeUniqueValue == item.NumberAct)
                         PrintExcelNumberActTechnicalWorkCollection.Add(item);
@@ -1142,12 +1127,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (CmbChoiseSearch == "№ акта Ремонта")
             {
-                if (printRepairView != null)
-                    return;
-                if (UserModelStatic.POST == "Дирекция связи")
-                    return;
-                if (CHECK_HOW_MUCH)
-                    return;
                 if (printRepairView != null)
                     return;
 
@@ -1180,10 +1159,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (CmbChoiseSearch == "№ акта списания")
             {
-                if (UserModelStatic.POST == "Дирекция связи")
-                    return;
-                if (CHECK_HOW_MUCH)
-                    return;
+                PrintWordDecommissionNumberActCollection =
+                new List<RadiostationForDocumentsDataBaseModel>();
+
                 foreach (var item in RadiostationsForDocumentsCollection)
                     if (ChoiсeUniqueValue == item.DecommissionNumberAct)
                         PrintWordDecommissionNumberActCollection.Add(item);
@@ -1225,6 +1203,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         }
                     }
 
+                PrintStatementParametersCollection =
+                new List<RadiostationParametersDataBaseModel>();
 
                 foreach (var item in RadiostationsParametersCollection)
                     if (SelectedRadiostation.NumberAct == item.NumberAct)
@@ -1236,9 +1216,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
 
                 PrintStatementParametersCollection.Sort();
-
-                //printExcel.PrintStatementParameters(
-                //    PrintStatementParametersCollection);
 
                 new Thread(() =>
                 {

@@ -119,7 +119,7 @@ namespace ServiceTelecom.Infrastructure
             try
             {
                 RegistryKey reg3 = Registry.CurrentUser.OpenSubKey(
-               $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
+                $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
                 if (reg3 != null)
                 {
                     string addRegistry = String.Empty;
@@ -245,5 +245,64 @@ namespace ServiceTelecom.Infrastructure
                 return false;
             }
         }
+         
+
+        public List<RepositoryDataBaseModel> GetRegistryForRepositoryDataBase()
+        {
+            List<RepositoryDataBaseModel> listRepositoryDataBaseModel = new List<RepositoryDataBaseModel>();
+            try
+            {
+                RegistryKey reg = Registry.CurrentUser.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekomSetting\\RepositoryDataBaseModel");
+                if (reg != null)
+                {
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                         $"SOFTWARE\\ServiceTelekomSetting\\RepositoryDataBaseModel");
+
+                    RepositoryDataBaseModel repositoryDataBaseModel
+                        = new RepositoryDataBaseModel(
+                            helloKey.GetValue("Server").ToString(),
+                            helloKey.GetValue("Port").ToString(),
+                            helloKey.GetValue("Username").ToString(),
+                            helloKey.GetValue("Password").ToString(),
+                            helloKey.GetValue("Database").ToString(),
+                            helloKey.GetValue("CodeWord").ToString());
+                    listRepositoryDataBaseModel.Add(repositoryDataBaseModel);
+
+                    helloKey.Close();
+                    return listRepositoryDataBaseModel;
+                }
+                return listRepositoryDataBaseModel;
+            }
+            catch
+            {
+                return listRepositoryDataBaseModel;
+            }
+        }
+        public bool SetRegistryForRepositoryDataBaseAndCodeWord(string server, string port, 
+            string username, string password, string database, string codeWord)
+        {
+            try
+            {
+                RegistryKey currentUserKey = Registry.CurrentUser;
+                RegistryKey helloKey = currentUserKey.CreateSubKey(
+                     $"SOFTWARE\\ServiceTelekomSetting\\RepositoryDataBaseModel");
+                helloKey.SetValue("Server", $"{server}");
+                helloKey.SetValue("Port", $"{port}");
+                helloKey.SetValue("Username", $"{username}");
+                helloKey.SetValue("Password", $"{password}");
+                helloKey.SetValue("Database", $"{database}");
+                helloKey.SetValue("CodeWord", $"{codeWord}");
+                helloKey.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

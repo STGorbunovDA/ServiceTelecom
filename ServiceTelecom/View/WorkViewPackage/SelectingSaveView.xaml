@@ -39,7 +39,7 @@
             <Border Grid.Row="2" VerticalAlignment="Center"
                     HorizontalAlignment="Center">
                 <Image Source="/Images/abstract2.png" 
-                           Height="150" Width="1400"
+                           Height="140" Width="1300"
                            Margin="0,-10,0,0"/>
             </Border>
             <Grid Grid.Row="0">

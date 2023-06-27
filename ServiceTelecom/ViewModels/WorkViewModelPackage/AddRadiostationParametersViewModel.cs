@@ -5,8 +5,10 @@ using ServiceTelecom.View.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -483,7 +485,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetFrequencyDataBase();
             GetHandbookParametersModelRadiostationCollection();
             AssigningParametersInEditorsFromHandbookParameters();
-
+            
+            var myCulture = new CultureInfo("ru-RU");
+            myCulture.NumberFormat.NumberDecimalSeparator = ".";
+            Thread.CurrentThread.CurrentCulture = myCulture;
         }
 
         #region AddFrequencyInAllFrequenciesCompleted
@@ -524,7 +529,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     BatteryChargerAccessories = "-";
                     IsEnabledChargerAccessories = false;
-                } 
+                }
                 else IsEnabledChargerAccessories = true;
 
                 if (item.Manipulator == "-")
@@ -578,7 +583,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
                     AllFrequenciesCompleted
                         = item.FrequenciesCompletedForRadiostantion;
-                    
+
                     StandbyModeCurrentConsumption = item.StandbyModeCurrentConsumption;
                     ReceptionModeCurrentConsumption = item.ReceptionModeCurrentConsumption;
                     TransmissionModeCurrentConsumption =
@@ -587,13 +592,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         item.BatteryDischargeAlarmCurrentConsumption;
 
                     BatteryChargerAccessories = item.BatteryChargerAccessories;
-                    if(!IsEnabledChargerAccessories && BatteryChargerAccessories == "испр.")
+                    if (!IsEnabledChargerAccessories && BatteryChargerAccessories == "испр.")
                         BatteryChargerAccessories = "-";
                     if (!IsEnabledChargerAccessories && BatteryChargerAccessories == "неиспр.")
                         BatteryChargerAccessories = "-";
                     if (IsEnabledChargerAccessories && BatteryChargerAccessories == "-")
                         TheIndexBatteryChargerAccessories = -1;
-                    
+
                     ManipulatorAccessories = item.ManipulatorAccessories;
                     if (!IsEnabledManipulatorAccessories && ManipulatorAccessories == "испр.")
                         ManipulatorAccessories = "-";
@@ -867,14 +872,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     return;
                 }
             }
-            else PercentAKB = "-";
             if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
             {
                 MessageBox.Show("Поле \"Частоты\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
             if (!Regex.IsMatch(LowPowerLevelTransmitter, @"^[2][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Низкий, W.\"\n" +
@@ -938,7 +941,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(SensitivityReceiver, @"^[0][.][1-2]{1,1}[0-9]{1,1}$"))
+            if (!Regex.IsMatch(SensitivityReceiver, @"^[0][.][1-5]{1,1}[0-9]{1,1}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Чувствительность, mkV.\"\n" +
                     "Пример: от 0.10 мкВ. до 0.29 мкВ.", "Отмена",
@@ -973,7 +976,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!Regex.IsMatch(TransmissionModeCurrentConsumption, @"^[1][.][0-9]{2,2}$"))
+            if (!Regex.IsMatch(TransmissionModeCurrentConsumption, @"^[1-2][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Реж. передачи, A.\"\n" +
                     "Пример: от 1.00 A. до 1.99 A.", "Отмена",
@@ -1014,7 +1017,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 try
                 {
                     if (Convert.ToDouble(item.MinLowPowerLevelTransmitter) > Convert.ToDouble(LowPowerLevelTransmitter) ||
-                       Convert.ToDouble(item.MaxLowPowerLevelTransmitter) < Convert.ToDouble(LowPowerLevelTransmitter))
+                        Convert.ToDouble(item.MaxLowPowerLevelTransmitter) < Convert.ToDouble(LowPowerLevelTransmitter))
                     {
                         MessageBox.Show("Введите корректно поле: \"Низкий, W.\"." +
                         $"Диапазон: от {item.MinLowPowerLevelTransmitter} W. " +
@@ -1023,7 +1026,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                     if (Convert.ToDouble(item.MinHighPowerLevelTransmitter) > Convert.ToDouble(HighPowerLevelTransmitter) ||
-                       Convert.ToDouble(item.MaxHighPowerLevelTransmitter) < Convert.ToDouble(HighPowerLevelTransmitter))
+                        Convert.ToDouble(item.MaxHighPowerLevelTransmitter) < Convert.ToDouble(HighPowerLevelTransmitter))
                     {
                         MessageBox.Show("Введите корректно поле: \"Высокий, W.\"." +
                         $"Диапазон: от {item.MinHighPowerLevelTransmitter} W. " +
@@ -1032,7 +1035,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                     if (Convert.ToInt32(item.MinFrequencyDeviationTransmitter) > Convert.ToInt32(FrequencyDeviationTransmitter) ||
-                       Convert.ToInt32(item.MaxFrequencyDeviationTransmitter) < Convert.ToInt32(FrequencyDeviationTransmitter))
+                        Convert.ToInt32(item.MaxFrequencyDeviationTransmitter) < Convert.ToInt32(FrequencyDeviationTransmitter))
                     {
                         MessageBox.Show("Введите корректно поле: \"Отклонение, Hz.\"." +
                         $"Диапазон: от {item.MinFrequencyDeviationTransmitter} Hz. " +
@@ -1041,7 +1044,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                     if (Convert.ToDouble(item.MinSensitivityTransmitter) > Convert.ToDouble(SensitivityTransmitter) ||
-                       Convert.ToDouble(item.MaxSensitivityTransmitter) < Convert.ToDouble(SensitivityTransmitter))
+                        Convert.ToDouble(item.MaxSensitivityTransmitter) < Convert.ToDouble(SensitivityTransmitter))
                     {
                         MessageBox.Show("Введите корректно поле: \"Чувствительность передатчика, mV.\"." +
                         $"Диапазон: от {item.MinSensitivityTransmitter} mV. " +
@@ -1085,8 +1088,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    if (Convert.ToDouble(item.MinSelectivityReceiver) > Convert.ToDouble(SelectivityReceiver) ||
-                       Convert.ToDouble(item.MaxSelectivityReceiver) < Convert.ToDouble(SelectivityReceiver))
+                    if (Convert.ToInt32(item.MinSelectivityReceiver) > Convert.ToInt32(SelectivityReceiver) ||
+                       Convert.ToInt32(item.MaxSelectivityReceiver) < Convert.ToInt32(SelectivityReceiver))
                     {
                         MessageBox.Show("Введите корректно поле: \"Избирательность, dB.\"." +
                         $"Диапазон: от {item.MinSelectivityReceiver} dB. " +
@@ -1121,8 +1124,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    if (Convert.ToDouble(item.MinStandbyModeCurrentConsumption) > Convert.ToDouble(StandbyModeCurrentConsumption) ||
-                       Convert.ToDouble(item.MaxStandbyModeCurrentConsumption) < Convert.ToDouble(StandbyModeCurrentConsumption))
+                    if (Convert.ToInt32(item.MinStandbyModeCurrentConsumption) > Convert.ToInt32(StandbyModeCurrentConsumption) ||
+                       Convert.ToInt32(item.MaxStandbyModeCurrentConsumption) < Convert.ToInt32(StandbyModeCurrentConsumption))
                     {
                         MessageBox.Show("Введите корректно поле: \"Деж. режим, мА.\"." +
                         $"Диапазон: от {item.MinStandbyModeCurrentConsumption} mA. " +
@@ -1130,8 +1133,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
-                    if (Convert.ToDouble(item.MinReceptionModeCurrentConsumption) > Convert.ToDouble(ReceptionModeCurrentConsumption) ||
-                       Convert.ToDouble(item.MaxReceptionModeCurrentConsumption) < Convert.ToDouble(ReceptionModeCurrentConsumption))
+                    if (Convert.ToInt32(item.MinReceptionModeCurrentConsumption) > Convert.ToInt32(ReceptionModeCurrentConsumption) ||
+                       Convert.ToInt32(item.MaxReceptionModeCurrentConsumption) < Convert.ToInt32(ReceptionModeCurrentConsumption))
                     {
                         MessageBox.Show("Введите корректно поле: \"Реж. приём, мА.\"." +
                         $"Диапазон: от {item.MinReceptionModeCurrentConsumption} mA. " +
@@ -1158,8 +1161,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         return;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                     MessageBox.Show($"Системная ошибка! Convert.ToDouble в AddRadiostationParametersViewModel",
                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -1179,7 +1183,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
             {
                 if (_radiostationParametersRepository.AddRadiostationParameters(
-                Road, City, dateMaintenanceDataBase, Location, Model, 
+                Road, City, dateMaintenanceDataBase, Location, Model,
                 SerialNumber, Company, NumberAct,
                 LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                 FrequencyDeviationTransmitter, SensitivityTransmitter,
@@ -1201,7 +1205,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else
             {
                 if (_radiostationParametersRepository.ChangeRadiostationParameters(
-                    Road, City, dateMaintenanceDataBase, Location, Model, 
+                    Road, City, dateMaintenanceDataBase, Location, Model,
                     SerialNumber, Company, NumberAct,
                     LowPowerLevelTransmitter, HighPowerLevelTransmitter,
                     FrequencyDeviationTransmitter, SensitivityTransmitter,

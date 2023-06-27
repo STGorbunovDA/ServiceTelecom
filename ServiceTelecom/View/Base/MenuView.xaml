@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="Меню" Height="300" Width="600"
         WindowStyle="None"
@@ -16,10 +15,8 @@
     <Window.DataContext>
         <viewModel:MenuViewModel/>
     </Window.DataContext>
-
     <Border CornerRadius="12"
             BorderThickness="3">
-
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
@@ -35,7 +32,6 @@
                 <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -78,12 +74,10 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-            
             <Border Grid.Column="1" VerticalAlignment="Center">
                 <Image Source="/Images/ST.png" 
                            Height="100" Width="300"/>
             </Border>
-           
             <StackPanel VerticalAlignment="Center"
                             HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
@@ -92,8 +86,9 @@
                                      Width="170"
                                      Command="{Binding Adminka}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="House" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Админка" Style="{StaticResource menuButtonText}"/>
+                            <Image Source="/Images/admin_2.png" 
+                                Height="40" Width="40" Margin="5,0,0,0"/>
+                            <TextBlock Margin="9,5,0,0" Text="Админка" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
@@ -103,8 +98,9 @@
                                      Width="170"
                                      Command="{Binding Tutorial}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Institution" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Обучалка" Style="{StaticResource menuButtonText}"/>
+                            <Image Source="/Images/tutorial.png" 
+                                Height="38" Width="38" Margin="6,0,0,0"/>
+                            <TextBlock Margin="9,5,0,0" Text="Обучалка" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
@@ -114,8 +110,9 @@
                                      Width="170"
                                      Command="{Binding Work}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Database" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="База Excel" Style="{StaticResource menuButtonText}"/>
+                            <Image Source="/Images/excel_2.png" 
+                                Height="40" Width="40" Margin="2,0,0,0"/>
+                            <TextBlock Margin="12,5,0,0" Text="База Excel" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
@@ -125,15 +122,13 @@
                                      Width="170"
                                      Command="{Binding Registration}">
                         <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="UserGroup" Style="{StaticResource menuButtonIcom}"/>
-                            <TextBlock Text="Бригады" Style="{StaticResource menuButtonText}"/>
+                            <Image Source="/Images/brigades.png" 
+                                Height="40" Width="40" Margin="4,0,0,0"/>
+                            <TextBlock Margin="10,0,0,0" Text="Бригады" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
-                
             </StackPanel>
         </Grid>
     </Border>
-
-
 </Window>
