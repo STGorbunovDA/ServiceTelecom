@@ -3480,7 +3480,7 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.Cells[3, 24] = $"передача / приём    ";
                     workSheet.Cells[41, 1] = $"Исполнитель работ:";
                     workSheet.Cells[41, 2] = $"Инженер по ТО и ремонту СРС";
-                    workSheet.Cells[41, 8] = $"/                                     /";
+                    workSheet.Cells[41, 8] = $"";
                     workSheet.Cells[41, 11] = $"{engineer}";
                     workSheet.Cells[41, 20] = $"{dateMaintenance} г.";
                     workSheet.Cells[42, 2] = $"должность";
@@ -3488,9 +3488,9 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.Cells[42, 11] = $"расшифровка подписи";
                     workSheet.Cells[42, 20] = $"дата проведения технического обслуживания";
                     workSheet.Cells[44, 1] = $"Представитель РЦС:";
-                    workSheet.Cells[44, 2] = $"";
-                    workSheet.Cells[44, 8] = $"/                                     /";
-                    workSheet.Cells[44, 11] = $"";
+                    workSheet.Cells[44, 2] = $"{UserModelStatic.RCS_POST_TO_SIGN_ACTS}";
+                    workSheet.Cells[44, 8] = $"";
+                    workSheet.Cells[44, 11] = $"{UserModelStatic.RCS_REPRESENTATIVE_TO_SIGN_ACTS}";
                     workSheet.Cells[45, 2] = $"должность";
                     workSheet.Cells[45, 8] = $"подпись";
                     workSheet.Cells[45, 11] = $"расшифровка подписи";

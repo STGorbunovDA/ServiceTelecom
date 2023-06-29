@@ -337,6 +337,7 @@
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\AddTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\ChangeTutorialEngineerViewModel.cs" />
     <Compile Include="ViewModels\TutorialEngineerViewModelPackage\TutorialEngineerViewModel.cs" />
+    <Compile Include="ViewModels\WorkViewModelPackage\AddChangeRepresentativeRCSViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddDecommissionNumberActViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\AddRadiostationParametersViewModel.cs" />
     <Compile Include="ViewModels\WorkViewModelPackage\ChangeNumberActViewModel.cs" />
@@ -388,6 +389,9 @@
     </Compile>
     <Compile Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml.cs">
       <DependentUpon>TutorialEngineerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkViewPackage\AddChangeRepresentativeRCSView.xaml.cs">
+      <DependentUpon>AddChangeRepresentativeRCSView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkViewPackage\AddDecommissionNumberActView.xaml.cs">
       <DependentUpon>AddDecommissionNumberActView.xaml</DependentUpon>
@@ -491,6 +495,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TutorialEngineerViewPackage\TutorialEngineerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkViewPackage\AddChangeRepresentativeRCSView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
