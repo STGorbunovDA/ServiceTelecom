@@ -63,7 +63,7 @@ namespace ServiceTelecom.Models
         public static IList PARAMETERS_RADIOSTATION_GENERAL;
 
         public static string LOGIN { get; private set; }
-        public static string POST { get; private set; }//TODO продумать
+        public static string POST { get; private set; }
         public UserModelStatic(string login, string post)
         {
             LOGIN = Encryption.DecryptCipherTextToPlainText(login.Trim());

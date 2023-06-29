@@ -84,7 +84,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
                 using (MySqlCommand command = new MySqlCommand("ChangeTutorialEngineer",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {

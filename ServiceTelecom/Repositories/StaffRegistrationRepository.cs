@@ -126,7 +126,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return staffRegistrationsDataBaseModelCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetStaffRegistrationsDataBasePerLogin",
                     RepositoryDataBase.GetInstance.GetConnection()))

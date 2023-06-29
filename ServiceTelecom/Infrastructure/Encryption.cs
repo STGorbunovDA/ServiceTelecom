@@ -7,7 +7,7 @@ namespace ServiceTelecom.Infrastructure
 {
     class Encryption
     {
-        private static string SecurityKey = UserModelStatic.CODE_WORD;//TODO убрать кодовое слово в отдельный файл!
+        private static string SecurityKey = UserModelStatic.CODE_WORD;
         
         /// <summary> Шифруем </summary>
         public static string EncryptPlainTextToCipherText(string PlainText)

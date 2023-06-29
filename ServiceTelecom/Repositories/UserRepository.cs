@@ -23,8 +23,10 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"loginUser", Encryption.EncryptPlainTextToCipherText(credential.UserName));
-                    command.Parameters.AddWithValue($"passUser", Encryption.EncryptPlainTextToCipherText(credential.Password));
+                    command.Parameters.AddWithValue($"loginUser", 
+                        Encryption.EncryptPlainTextToCipherText(credential.UserName));
+                    command.Parameters.AddWithValue($"passUser", 
+                        Encryption.EncryptPlainTextToCipherText(credential.Password));
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
                         DataTable table = new DataTable();
@@ -45,7 +47,8 @@ namespace ServiceTelecom.Repositories
 
         }
 
-        public ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(ObservableCollection<UserDataBaseModel> users)
+        public ObservableCollection<UserDataBaseModel> GetAllUsersDataBase(
+            ObservableCollection<UserDataBaseModel> users)
         {
             try
             {
@@ -163,7 +166,8 @@ namespace ServiceTelecom.Repositories
 
                 if (date.ToString("yyyy-MM-dd") != getDateTimeFromDataBase.ToString("yyyy-MM-dd"))
                 {
-                    using (MySqlCommand command = new MySqlCommand("SetDateTimeUserDataBase", RepositoryDataBase.GetInstance.GetConnection()))
+                    using (MySqlCommand command = new MySqlCommand("SetDateTimeUserDataBase", 
+                        RepositoryDataBase.GetInstance.GetConnection()))
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue($"user",
@@ -184,7 +188,8 @@ namespace ServiceTelecom.Repositories
         {
             try
             {
-                using (MySqlCommand command = new MySqlCommand("GetDateTimeUserDataBase", RepositoryDataBase.GetInstance.GetConnection()))
+                using (MySqlCommand command = new MySqlCommand("GetDateTimeUserDataBase", 
+                    RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
@@ -194,7 +199,8 @@ namespace ServiceTelecom.Repositories
                     {
                         DataTable table = new DataTable();
                         adapter.Fill(table);
-                        if (table.Rows.Count > 0) return Convert.ToDateTime(table.Rows[table.Rows.Count - 1].ItemArray[0]);
+                        if (table.Rows.Count > 0) 
+                            return Convert.ToDateTime(table.Rows[table.Rows.Count - 1].ItemArray[0]);
                         else return DateTime.MaxValue;
                     }
                 }
@@ -209,8 +215,8 @@ namespace ServiceTelecom.Repositories
         {
             if (!InternetCheck.CheckSkyNET())
                 return false;
-
-            MessageBoxResult result = MessageBox.Show("Вы действительно хотите закрыть программу?", "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите закрыть программу?", 
+                "Подтверждение", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (result == MessageBoxResult.OK)
             {
                 try
@@ -231,7 +237,8 @@ namespace ServiceTelecom.Repositories
                             command.Parameters.AddWithValue($"dateTimeExit", exitDate);
                             command.Parameters.AddWithValue($"userLogin",
                                Encryption.EncryptPlainTextToCipherText(user));
-                            command.Parameters.AddWithValue($"dateTimeInputApp", getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
+                            command.Parameters.AddWithValue($"dateTimeInputApp", 
+                                getDateTimeFromDataBase.ToString("yyyy-MM-dd HH:mm:ss"));
                             if (command.ExecuteNonQuery() == 1) return true;
                             else return false;
                         }

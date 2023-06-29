@@ -52,7 +52,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return dateTimeInputCollections;
-
                 using (MySqlCommand command = new MySqlCommand("GetDateTimeInputCollectionsDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -98,7 +97,6 @@ namespace ServiceTelecom.Repositories
         {
             try
             {
-
                 if (!InternetCheck.CheckSkyNET())
                     return reportCards;
                 using (MySqlCommand command = new MySqlCommand("GetReportCardsAtCmbUserDataBase",

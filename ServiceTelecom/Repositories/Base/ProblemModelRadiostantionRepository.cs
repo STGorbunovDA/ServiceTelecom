@@ -19,7 +19,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return problemModelCollections;
-
                 using (MySqlCommand command = new MySqlCommand("GetProblemModelRadiostantionDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -51,7 +50,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
                 Regex re = new Regex(Environment.NewLine);
                 problemUser = re.Replace(problemUser, " ");
                 problemUser.Trim();

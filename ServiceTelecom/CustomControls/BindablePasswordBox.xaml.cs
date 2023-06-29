@@ -4,9 +4,6 @@ using System.Windows.Controls;
 
 namespace ServiceTelecom.CustomControls
 {
-    /// <summary>
-    /// Логика взаимодействия для BindablePasswordBox.xaml
-    /// </summary>
     public partial class BindablePasswordBox : UserControl
     {
         public static readonly DependencyProperty PasswordProperty=

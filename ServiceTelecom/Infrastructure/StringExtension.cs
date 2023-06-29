@@ -4,12 +4,7 @@ namespace ServiceTelecom.Infrastructure
 {
     public static class StringExtension
     {
-        /// <summary>
-        /// Convert String без культуры 
-        /// </summary>
-        /// <param name="strToParse"></param>
-        /// <param name="decimalSymbol"></param>
-        /// <returns></returns>
+        /// <summary> Convert String без культуры </summary>
         public static double DoubleParseAdvanced(this string strToParse, char decimalSymbol = ',')
         {
             string tmp = Regex.Match(strToParse, @"([-]?[0-9]+)([\s])?([0-9]+)?[." + decimalSymbol + "]?([0-9 ]+)?([0-9]+)?").Value;

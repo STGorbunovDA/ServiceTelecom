@@ -280,6 +280,7 @@ namespace ServiceTelecom.Infrastructure
                 return listRepositoryDataBaseModel;
             }
         }
+       
         public bool SetRegistryForRepositoryDataBaseAndCodeWord(string server, string port, 
             string username, string password, string database, string codeWord)
         {
@@ -337,6 +338,7 @@ namespace ServiceTelecom.Infrastructure
                 return string.Empty;
             }
         }
+
         public string GetRegistryPostRepresentativeRCS()
         {
             try

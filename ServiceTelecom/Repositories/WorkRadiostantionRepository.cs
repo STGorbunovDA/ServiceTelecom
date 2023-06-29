@@ -834,8 +834,7 @@ namespace ServiceTelecom.Repositories
             catch { return numberActRepair; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
-
-        
+  
         public bool ChangeStatusVerifiedRST(
             string road, string city, string serialNumber, 
             string noteRadioStationParameters, string verifiedRST)

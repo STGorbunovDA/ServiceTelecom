@@ -19,7 +19,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return radiostationsParametersCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetRadiostationsParametersCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -189,7 +188,6 @@ namespace ServiceTelecom.Repositories
             catch { return false; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
-
 
         public bool ChangeRadiostationParameters(
             string road, string city, string dateMaintenance, string location,
