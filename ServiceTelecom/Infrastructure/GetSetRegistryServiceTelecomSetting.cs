@@ -303,6 +303,60 @@ namespace ServiceTelecom.Infrastructure
             }
         }
 
+        public void SetRegistryRepresentativeRCS(string nameRadioCommunicationDirectorate,
+            string postRadioCommunicationDirectorate)
+        {
+            if (string.IsNullOrWhiteSpace(nameRadioCommunicationDirectorate))
+                return;
+            RegistryKey currentUserKey = Registry.CurrentUser;
+            RegistryKey helloKey = currentUserKey.CreateSubKey(
+                $"SOFTWARE\\ServiceTelekomSetting\\ФИО_ДОЛЖНОСТЬ_РЦС_Ведомости");
+            helloKey.SetValue("ФИО_РЦС_Ведомости", $"{nameRadioCommunicationDirectorate}");
+            helloKey.SetValue("Должность_РЦС_Ведомости", $"{postRadioCommunicationDirectorate}");
+            helloKey.Close();
+        }
 
+        public string GetRegistryNameRepresentativeRCS()
+        {
+            try
+            {
+                RegistryKey reg3 = Registry.CurrentUser.OpenSubKey(
+               $"SOFTWARE\\ServiceTelekomSetting\\ФИО_ДОЛЖНОСТЬ_РЦС_Ведомости");
+                if (reg3 != null)
+                {
+                    string addRegistry = String.Empty;
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekomSetting\\ФИО_ДОЛЖНОСТЬ_РЦС_Ведомости");
+                    return helloKey.GetValue("ФИО_РЦС_Ведомости").ToString();
+                }
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+        public string GetRegistryPostRepresentativeRCS()
+        {
+            try
+            {
+                RegistryKey reg3 = Registry.CurrentUser.OpenSubKey(
+               $"SOFTWARE\\ServiceTelekomSetting\\ФИО_ДОЛЖНОСТЬ_РЦС_Ведомости");
+                if (reg3 != null)
+                {
+                    string addRegistry = String.Empty;
+                    RegistryKey currentUserKey = Registry.CurrentUser;
+                    RegistryKey helloKey = currentUserKey.OpenSubKey(
+                        $"SOFTWARE\\ServiceTelekomSetting\\ФИО_ДОЛЖНОСТЬ_РЦС_Ведомости");
+                    return helloKey.GetValue("Должность_РЦС_Ведомости").ToString();
+                }
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
     }
 }
