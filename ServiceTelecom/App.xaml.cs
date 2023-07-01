@@ -23,7 +23,10 @@ namespace ServiceTelecom
                 if (UserModelStatic.LIST_REPOSITORY_DATABASE.Count == 0)
                 {
                     var repositoryDataBaseView = new RepositoryDataBaseView();
-                    repositoryDataBaseView.Show();
+                    repositoryDataBaseView.ShowDialog();
+
+                    MessageBox.Show("Программа будет перезагружена", "Успешно",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {

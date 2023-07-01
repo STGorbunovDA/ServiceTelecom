@@ -7,6 +7,8 @@ using ServiceTelecom.View;
 using ServiceTelecom.Infrastructure;
 using System;
 using ServiceTelecom.View.Base;
+using ServiceTelecom.View.WorkViewPackage;
+using System.Windows;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -46,7 +48,9 @@ namespace ServiceTelecom.ViewModels
             if (repositoryDataBaseView != null)
                 return;
             repositoryDataBaseView = new RepositoryDataBaseView();
-            repositoryDataBaseView.Show();
+            repositoryDataBaseView.Closed += (sender, args) =>
+            repositoryDataBaseView = null;
+            repositoryDataBaseView.ShowDialog();
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -76,7 +80,12 @@ namespace ServiceTelecom.ViewModels
                 }
                 else ErrorMessage = "Invalid set dateTime User DataBase";
             }
-            else ErrorMessage = "Invalid username or password";
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль", "Отмена",
+                       MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorMessage = "Invalid username or password";
+            } 
         }
     }
 }

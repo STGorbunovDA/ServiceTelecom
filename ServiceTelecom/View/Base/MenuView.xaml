@@ -100,7 +100,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Images/tutorial.png" 
                                 Height="38" Width="38" Margin="6,0,0,0"/>
-                            <TextBlock Margin="9,5,0,0" Text="Обучалка" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Margin="9,5,0,0" Text="Обучение" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
