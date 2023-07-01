@@ -11,11 +11,11 @@ namespace ServiceTelecom.Repositories
 {
     internal class ReportCardRepository : IReportCardRepository
     {
-        public ObservableCollection<ReportCardsDataBaseModel> 
+        public ObservableCollection<ReportCardsDataBaseModel>
             GetReportCardsDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards)
         {
-			try
-			{
+            try
+            {
                 if (!InternetCheck.CheckSkyNET())
                     return reportCards;
                 using (MySqlCommand command = new MySqlCommand("GetReportCardsDataBase",
@@ -45,7 +45,7 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<string> 
+        public ObservableCollection<string>
             GetDateTimeInputCollectionsDataBase(ObservableCollection<string> dateTimeInputCollections)
         {
             try
@@ -91,8 +91,8 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public ObservableCollection<ReportCardsDataBaseModel> 
-            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel> 
+        public ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel>
             reportCards, string cmbUser)
         {
             try
@@ -128,9 +128,9 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<ReportCardsDataBaseModel> 
-            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards, 
-            string selectedItemCmbUser)
+        public ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards,
+            string selectedItemCmbUser, string cmbUser)
         {
             try
             {
@@ -143,6 +143,7 @@ namespace ServiceTelecom.Repositories
                     string date = Convert.ToDateTime(selectedItemCmbUser).ToString("yyyy-MM-dd");
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"date", date);
+                    command.Parameters.AddWithValue($"cmbUser", Encryption.EncryptPlainTextToCipherText(cmbUser));
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)

@@ -24,6 +24,6 @@ namespace ServiceTelecom.Repositories.Interfaces
         ObservableCollection<ReportCardsDataBaseModel>
             GetReportCardsAtCmbDateTimeInput(
             ObservableCollection<ReportCardsDataBaseModel> reportCards,
-            string selectedItemCmbUser);
+            string selectedItemCmbUser, string cmbUser);
     }
 }
