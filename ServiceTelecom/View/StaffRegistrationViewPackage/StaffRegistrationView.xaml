@@ -77,7 +77,7 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                    <TextBlock Text="Регистрация сотрудников"
+                    <TextBlock Text="Регистрация сотрудников на участки дорог"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle1}"
                                Margin="150,0,0,0">
