@@ -112,7 +112,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Images/excel_2.png" 
                                 Height="40" Width="40" Margin="2,0,0,0"/>
-                            <TextBlock Margin="12,5,0,0" Text="База Excel" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Margin="12,5,0,0" Text="База данных" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
