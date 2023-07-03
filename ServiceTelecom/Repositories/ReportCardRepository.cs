@@ -31,7 +31,8 @@ namespace ServiceTelecom.Repositories
                                 ReportCardsDataBaseModel reportCard = new ReportCardsDataBaseModel(
                                     reader.GetInt32(0),
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
-                                    reader.GetDateTime(2), reader.GetDateTime(3));
+                                    reader.GetDateTime(2), 
+                                    reader.GetDateTime(3));
                                 reportCards.Add(reportCard);
                             }
                         }
