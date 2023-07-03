@@ -2728,6 +2728,7 @@ namespace ServiceTelecom.Infrastructure
             string city = string.Empty;
             string comment = string.Empty;
             string model = string.Empty;
+            string sectionForeman = string.Empty;
             foreach (RadiostationForDocumentsDataBaseModel item
                 in radiostantionsCollection)
             {
@@ -2737,8 +2738,12 @@ namespace ServiceTelecom.Infrastructure
                 serialNumberCompany = $"{item.SerialNumber}-{item.Company}";
                 city = item.City;
                 comment = item.Comment;
-
             }
+
+            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                sectionForeman = item.SectionForemanBase;
+            
+
             string dateDecommissioning = DateTime.Today.ToString("dd.MM.yyyy");
 
             var items = new Dictionary<string, string>
@@ -2748,7 +2753,8 @@ namespace ServiceTelecom.Infrastructure
                     {"<serialNumber>", serialNumber },
                     {"<company>", company },
                     {"<dateDecommission>", dateDecommissioning },
-                    {"<comment>", comment}
+                    {"<comment>", comment},
+                    {"<SectionForeman>", sectionForeman }
             };
 
 
