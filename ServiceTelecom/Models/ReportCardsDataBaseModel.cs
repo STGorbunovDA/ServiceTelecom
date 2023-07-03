@@ -22,8 +22,8 @@ namespace ServiceTelecom.Models
         {
             IdReportCards = idReportCards;
             User = user;
-            DateTimeInput = dateTimeInput.ToString("dd.MM.yyyy hh:mm:ss");
-            DateTimeExit = dateTimeExit.ToString("dd.MM.yyyy hh:mm:ss");
+            DateTimeInput = dateTimeInput.ToString("dd.MM.yyyy HH:mm:ss");
+            DateTimeExit = dateTimeExit.ToString("dd.MM.yyyy HH:mm:ss");
             TimeCount = dateTimeExit.Subtract(dateTimeInput);
         }
     }
