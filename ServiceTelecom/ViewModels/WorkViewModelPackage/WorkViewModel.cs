@@ -30,6 +30,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region свойства
 
+        private string _serialNumberView;
+        public string SerialNumberView
+        {
+            get => _serialNumberView;
+            set
+            {
+                _serialNumberView = value;
+                OnPropertyChanged(nameof(SerialNumberView));
+            }
+        }
+
         private string _fillOut;
         public string FillOut
         {
@@ -612,6 +623,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (value == null)
                     return;
                 _selectedRadiostation = value;
+                    SerialNumberView = value.SerialNumber;
                 OnPropertyChanged(nameof(SelectedRadiostation));
             }
         }
@@ -1482,15 +1494,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             //GetRadiostations(Road, City);
             //GetRowAfterAddingRadiostantionInDataGrid();
+            TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
             GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
             if (RadiostationsForDocumentsCollection.Count > 0)
-            {
-                GetRadiostations(Road,
-                _getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
-                GetRowAfterAddingRadiostantionInDataGrid();
-            }
+                GetRadiostations(Road, _getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
             else GetRadiostations(Road, City);
-            
+
+            GetRowAfterChangeRadiostantionInDataGrid(TEMPORARY_INDEX_DATAGRID);
         }
 
         #endregion

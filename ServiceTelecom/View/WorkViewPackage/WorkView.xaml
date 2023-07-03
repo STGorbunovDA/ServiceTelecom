@@ -88,6 +88,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                             Margin="0,0,0,0">
+
                     <Button x:Name="btnPrintStatementParameters"
                             Command="{Binding PrintStatementParameters}"
                             Content="🖨 Ведомость"
@@ -109,6 +110,16 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource menuButtonStyleEight}">
                     </Button>
+                    <TextBox x:Name="txbSerialNumberView"
+                             FontSize="16"
+                             Height="35"
+                             Width="225"
+                             Margin="10,5,0,0"
+                             Style="{StaticResource TextBoxStyle5}"
+                             IsReadOnly="True"
+                             Text="{Binding SerialNumberView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             HorizontalAlignment="Left">
+                    </TextBox>
                     <Button x:Name="btnPrintWordDecommissionNumberAct"
                             Command="{Binding PrintWordDecommissionNumberAct}"
                             Content="🖨 списания"
