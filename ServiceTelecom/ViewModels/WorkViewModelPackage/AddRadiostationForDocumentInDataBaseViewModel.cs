@@ -122,6 +122,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _city = value;
                 OnPropertyChanged(nameof(City));
+                if (value != null) Location = "ст. " +  value;
             }
         }
         private string _location;
@@ -172,6 +173,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _serialNumber = value;
                 OnPropertyChanged(nameof(SerialNumber));
+
             }
         }
         private string _inventoryNumber;
@@ -315,6 +317,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand);
             GetModelDataBase();
         }
+
 
         #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDatabase
 
