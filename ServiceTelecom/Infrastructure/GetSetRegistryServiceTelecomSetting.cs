@@ -105,8 +105,6 @@ namespace ServiceTelecom.Infrastructure
 
         public void SetRegistryNumberActForSignCollections(string numberActSignCollections)
         {
-            if (String.IsNullOrWhiteSpace(numberActSignCollections))
-                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
                 $"SOFTWARE\\ServiceTelekomSetting\\Акты_на_подпись");
@@ -138,8 +136,6 @@ namespace ServiceTelecom.Infrastructure
 
         public void SetRegistryNumberActForFillOutCollections(string numberActFillOutCollections)
         {
-            if (String.IsNullOrWhiteSpace(numberActFillOutCollections))
-                return;
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey helloKey = currentUserKey.CreateSubKey(
                 $"SOFTWARE\\ServiceTelekomSetting\\Акты_незаполненные");
