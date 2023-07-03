@@ -358,6 +358,9 @@
                              Margin="0,0,10,0"
                              Style="{StaticResource TextBoxStyle1}"
                              Text="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="{Binding SearchBySerialNumberForFeaturesAdditionsFromTheDatabase}" Key="Return" />
+                            </TextBox.InputBindings>
                         </TextBox>
                         <Button x:Name="btnTxbSearchSerialNumberFeaturesFromTheDatabase"
                             Command="{Binding SearchBySerialNumberForFeaturesAdditionsFromTheDatabase}"
