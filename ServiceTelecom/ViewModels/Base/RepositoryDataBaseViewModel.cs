@@ -147,7 +147,8 @@ namespace ServiceTelecom.ViewModels.Base
             }
 
             if (getSetRegistry.SetRegistryForRepositoryDataBaseAndCodeWord(
-                Server, Port, Username, Password, Database, CodeWord))
+                Server.Trim(), Port.Trim(), Username.Trim(), Password.Trim(), 
+                Database.Trim(), CodeWord.Trim()))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             else
