@@ -42,14 +42,16 @@ namespace ServiceTelecom.Models
         public static string MODEL = string.Empty;
         /// <summary> необходима для ремонтов</summary>
         public static string SERIAL_NUMBER = string.Empty;
-        
-        
+             
         public static string SERVER = string.Empty;
         public static string PORT = string.Empty;
         public static string USERNAME = string.Empty;
         public static string PASSWORD = string.Empty;
         public static string DATABASE = string.Empty;
         public static string CODE_WORD = string.Empty;
+
+        public static string RCS_REPRESENTATIVE_TO_SIGN_ACTS = string.Empty;
+        public static string RCS_POST_TO_SIGN_ACTS = string.Empty;
 
         public static ObservableCollection<StaffRegistrationDataBaseModel> 
             STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION { get; set; }
@@ -61,7 +63,7 @@ namespace ServiceTelecom.Models
         public static IList PARAMETERS_RADIOSTATION_GENERAL;
 
         public static string LOGIN { get; private set; }
-        public static string POST { get; private set; }//TODO продумать
+        public static string POST { get; private set; }
         public UserModelStatic(string login, string post)
         {
             LOGIN = Encryption.DecryptCipherTextToPlainText(login.Trim());
@@ -69,7 +71,6 @@ namespace ServiceTelecom.Models
             STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION = 
                 new ObservableCollection<StaffRegistrationDataBaseModel>();
             LIST_REPOSITORY_DATABASE = new List<RepositoryDataBaseModel>();
-
         }    
     }
 }

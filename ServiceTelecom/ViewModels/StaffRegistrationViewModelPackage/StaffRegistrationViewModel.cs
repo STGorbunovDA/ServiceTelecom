@@ -1,6 +1,8 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View;
+using ServiceTelecom.View.Base;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
@@ -21,7 +23,7 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrations { get; set; } 
 
-        public ObservableCollection<string> RoadCollections { get; }
+        public ObservableCollection<string> RoadCollections { get; set; }
         public ObservableCollection<string> SectionForemanCollection { get; set; } 
         public ObservableCollection<string> EngineerCollection { get; set; } 
         public ObservableCollection<string> CuratorCollection { get; set; } 
@@ -210,7 +212,7 @@ namespace ServiceTelecom.ViewModels
             RadioCommunicationDirectorateCollection = new ObservableCollection<string>();
             StaffRegistrations = new ObservableCollection<StaffRegistrationDataBaseModel>();
             _roadDataBase = new RoadDataBaseRepository();
-            RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
+            GetRoadDataBase();
             GetStaffRegistrationsForUpdate();
             AddStaffRegistrationDataBase = 
                 new ViewModelCommand(ExecuteAddStaffRegistrationDataBaseCommand);
@@ -222,6 +224,17 @@ namespace ServiceTelecom.ViewModels
                 new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
             ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
         }
+
+        #region GetRoadDataBase
+
+        private void GetRoadDataBase()
+        {
+            if (RoadCollections.Count != 0)
+                RoadCollections.Clear();
+                RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
+        }
+
+        #endregion
 
         #region открываем табель сотрудников
 

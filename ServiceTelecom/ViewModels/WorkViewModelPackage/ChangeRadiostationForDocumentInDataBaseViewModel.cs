@@ -126,6 +126,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             {
                 _city = value;
                 OnPropertyChanged(nameof(City));
+                if (value != null) Location = "ст. " + value;
             }
         }
         private string _location;

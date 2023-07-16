@@ -11,11 +11,11 @@ namespace ServiceTelecom.Repositories
 {
     internal class ReportCardRepository : IReportCardRepository
     {
-        public ObservableCollection<ReportCardsDataBaseModel> 
+        public ObservableCollection<ReportCardsDataBaseModel>
             GetReportCardsDataBase(ObservableCollection<ReportCardsDataBaseModel> reportCards)
         {
-			try
-			{
+            try
+            {
                 if (!InternetCheck.CheckSkyNET())
                     return reportCards;
                 using (MySqlCommand command = new MySqlCommand("GetReportCardsDataBase",
@@ -31,7 +31,8 @@ namespace ServiceTelecom.Repositories
                                 ReportCardsDataBaseModel reportCard = new ReportCardsDataBaseModel(
                                     reader.GetInt32(0),
                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(1)),
-                                    reader.GetDateTime(2), reader.GetDateTime(3));
+                                    reader.GetDateTime(2), 
+                                    reader.GetDateTime(3));
                                 reportCards.Add(reportCard);
                             }
                         }
@@ -45,14 +46,13 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<string> 
+        public ObservableCollection<string>
             GetDateTimeInputCollectionsDataBase(ObservableCollection<string> dateTimeInputCollections)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
                     return dateTimeInputCollections;
-
                 using (MySqlCommand command = new MySqlCommand("GetDateTimeInputCollectionsDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -92,13 +92,12 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public ObservableCollection<ReportCardsDataBaseModel> 
-            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel> 
+        public ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbUserDataBase(ObservableCollection<ReportCardsDataBaseModel>
             reportCards, string cmbUser)
         {
             try
             {
-
                 if (!InternetCheck.CheckSkyNET())
                     return reportCards;
                 using (MySqlCommand command = new MySqlCommand("GetReportCardsAtCmbUserDataBase",
@@ -130,9 +129,9 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<ReportCardsDataBaseModel> 
-            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards, 
-            string selectedItemCmbUser)
+        public ObservableCollection<ReportCardsDataBaseModel>
+            GetReportCardsAtCmbDateTimeInput(ObservableCollection<ReportCardsDataBaseModel> reportCards,
+            string selectedItemCmbUser, string cmbUser)
         {
             try
             {
@@ -145,6 +144,7 @@ namespace ServiceTelecom.Repositories
                     string date = Convert.ToDateTime(selectedItemCmbUser).ToString("yyyy-MM-dd");
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"date", date);
+                    command.Parameters.AddWithValue($"cmbUser", Encryption.EncryptPlainTextToCipherText(cmbUser));
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)

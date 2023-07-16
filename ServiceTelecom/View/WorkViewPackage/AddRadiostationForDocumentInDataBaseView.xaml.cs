@@ -24,6 +24,7 @@ namespace ServiceTelecom.View.WorkViewPackage
                 }   
             }
             cmbModel.SelectedIndex = 0;
+            txbLocation.Text = "ст. ";
         }
         public AddRadiostationForDocumentInDataBaseView(RadiostationForDocumentsDataBaseModel selectedRadiostationForDocumentsDataBaseModel)
         {
@@ -46,7 +47,8 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
-            if (txbPrice.Text == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES) CheckBoxPrice.IsChecked = true;
+            if (txbPrice.Text == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES) 
+                CheckBoxPrice.IsChecked = true;
             else
             {
                 txbPrice.Text = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;

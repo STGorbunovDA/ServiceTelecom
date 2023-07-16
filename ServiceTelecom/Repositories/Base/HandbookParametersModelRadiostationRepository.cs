@@ -20,7 +20,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return handbookParametersModelCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetHandbookParametersByModelForCollection",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -79,7 +78,6 @@ namespace ServiceTelecom.Repositories
             {
                 if (!InternetCheck.CheckSkyNET())
                     return handbookParametersModelCollection;
-
                 using (MySqlCommand command = new MySqlCommand(
                     "GetHandbookParametersAllModelForCollection",
                     RepositoryDataBase.GetInstance.GetConnection()))

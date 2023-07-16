@@ -2,7 +2,6 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
-using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
@@ -385,7 +384,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public string GetPrimaryMeansInDataBase(string serialNumber, string city, string road)
+        public string GetPrimaryMeansInDataBaseForRepair(string serialNumber, string city, string road)
         {
             string primaryMeans = string.Empty;
             try
@@ -420,7 +419,7 @@ namespace ServiceTelecom.Repositories
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
-        public string GetProductNameInDataBase(string serialNumber, string city, string road)
+        public string GetProductNameInDataBaseForRepair(string serialNumber, string city, string road)
         {
             string productName = string.Empty;
             try
@@ -428,7 +427,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return productName;
                 using (MySqlCommand command = new MySqlCommand(
-                   "GetProductNameInDataBase",
+                   "GetProductNameInDataBaseForRepair",
                    RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();

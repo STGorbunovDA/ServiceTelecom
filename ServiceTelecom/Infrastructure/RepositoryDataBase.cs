@@ -27,6 +27,7 @@ namespace ServiceTelecom.Repositories
             $"password={UserModelStatic.PASSWORD};" +
             $"database={UserModelStatic.DATABASE};" +
             $"charset=utf8");
+
         public MySqlConnection GetConnection()
         {
             return connection;

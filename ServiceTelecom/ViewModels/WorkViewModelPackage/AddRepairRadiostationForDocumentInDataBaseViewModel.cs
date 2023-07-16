@@ -431,7 +431,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private void GetProductNameInDataBase()
         {
             ProductName = _workRepositoryRadiostantionFull.
-                GetProductNameInDataBase(
+                GetProductNameInDataBaseForRepair(
                 UserModelStatic.SERIAL_NUMBER, 
                 UserModelStatic.CITY, 
                 UserModelStatic.ROAD);
@@ -445,7 +445,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         private void GetPrimaryMeansInDataBase()
         {
             PrimaryMeans = _workRepositoryRadiostantionFull.
-                GetPrimaryMeansInDataBase(
+                GetPrimaryMeansInDataBaseForRepair(
                 UserModelStatic.SERIAL_NUMBER, 
                 UserModelStatic.CITY, 
                 UserModelStatic.ROAD);

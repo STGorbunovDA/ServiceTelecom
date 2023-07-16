@@ -114,5 +114,11 @@ namespace ServiceTelecom.Repositories.Interfaces
         bool ChangeStatusVerifiedRST(
             string road, string city, string serialNumber,
             string noteRadioStationParameters, string verifiedRST);
+
+        /// <summary> Получение данных из radiostantionFull(общей таблицs) сколько осталось проверить </summary>
+        ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            HowMuchToCheckRadiostantionsByCityForDocumentsCollection(
+            ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            radiostationsForDocumentsCollection, string road, string city);
     }
 }

@@ -108,7 +108,7 @@ namespace ServiceTelecom.ViewModels
         {
             ReportCards.Clear();
             ReportCards = reportCardRepository.GetReportCardsAtCmbDateTimeInput(
-                ReportCards, SelectedItemDateTimeInput);
+                ReportCards, SelectedItemDateTimeInput, SelectedItemCmbUser);
         }
 
         #endregion

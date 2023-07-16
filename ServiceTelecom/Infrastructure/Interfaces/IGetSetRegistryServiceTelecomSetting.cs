@@ -52,5 +52,15 @@ namespace ServiceTelecom.Infrastructure.Interfaces
         /// <summary> Запись данных подключения к БД </summary>
         bool SetRegistryForRepositoryDataBaseAndCodeWord(string server, string port,
             string username, string password, string database, string codeWord);
+
+        /// <summary> Запись ФИО и должности представителя РЦС для печати ведомости </summary>
+        void SetRegistryRepresentativeRCS(string nameRadioCommunicationDirectorate, 
+            string postRadioCommunicationDirectorate);
+
+        /// <summary> Получение ФИО представителя РЦС для печати ведомости </summary>
+        string GetRegistryNameRepresentativeRCS();
+
+        /// <summary> Получение должности представителя РЦС для печати ведомости </summary>
+        string GetRegistryPostRepresentativeRCS();
     }
 }

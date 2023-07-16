@@ -17,7 +17,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return modelCollections;
-
                 using (MySqlCommand command = new MySqlCommand("GetModelRadiostantionDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -49,7 +48,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return false;
-
                 using (MySqlCommand command = new MySqlCommand("AddModelDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {

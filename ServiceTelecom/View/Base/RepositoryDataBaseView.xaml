@@ -69,7 +69,7 @@
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left">
-                    <TextBlock Text="Добавление данных"
+                    <TextBlock Text="Добавление данных для пиложения"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle3}"
                                Margin="60,0,0,0">

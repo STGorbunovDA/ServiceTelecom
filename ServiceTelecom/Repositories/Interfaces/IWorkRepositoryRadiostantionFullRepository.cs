@@ -50,10 +50,10 @@
             string road, string city, string serialNumber, string numberAct);
 
         /// <summary>Получаем основное средство из radiostantionFull(общей таблицы) </summary>
-        string GetPrimaryMeansInDataBase(string serialNumber, string city, string road);
+        string GetPrimaryMeansInDataBaseForRepair(string serialNumber, string city, string road);
 
         /// <summary>Получаем наименование объекта из radiostantionFull(общей таблицы) </summary>
-        string GetProductNameInDataBase(string serialNumber, string city, string road);
+        string GetProductNameInDataBaseForRepair(string serialNumber, string city, string road);
 
         /// <summary>Изменение акта ремонта в radiostantionFull(общей таблице) </summary>
         bool ChangeNumberActRepairBySerialNumberInDBRadiostationFull(

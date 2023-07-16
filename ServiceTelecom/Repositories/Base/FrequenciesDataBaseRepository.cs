@@ -19,7 +19,6 @@ namespace ServiceTelecom.Repositories.Base
             {
                 if (!InternetCheck.CheckSkyNET())
                     return frequenciesCollection;
-
                 using (MySqlCommand command = new MySqlCommand("GetFrequencyDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {

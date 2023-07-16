@@ -50,6 +50,7 @@
                            Height="40" Width="40"
                        Margin="5,2,0,0"/>
             </Border>
+            
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -82,10 +83,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
+
                 <StackPanel Grid.Column="1" Orientation="Horizontal"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                             Margin="0,0,0,0">
+
                     <Button x:Name="btnPrintStatementParameters"
                             Command="{Binding PrintStatementParameters}"
                             Content="🖨 Ведомость"
@@ -107,6 +110,16 @@
                             VerticalAlignment="Center"
                             Style="{StaticResource menuButtonStyleEight}">
                     </Button>
+                    <TextBox x:Name="txbSerialNumberView"
+                             FontSize="16"
+                             Height="35"
+                             Width="225"
+                             Margin="10,5,0,0"
+                             Style="{StaticResource TextBoxStyle5}"
+                             IsReadOnly="True"
+                             Text="{Binding SerialNumberView, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             HorizontalAlignment="Left">
+                    </TextBox>
                     <Button x:Name="btnPrintWordDecommissionNumberAct"
                             Command="{Binding PrintWordDecommissionNumberAct}"
                             Content="🖨 списания"
@@ -139,6 +152,7 @@
                     <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
+   
                 <StackPanel Grid.Column="0" Orientation="Vertical"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
@@ -331,7 +345,7 @@
             <Grid Grid.Row="3">
                 <local:CustomDataGrid x:Name="dataGrid1"
                               Style="{StaticResource dataGridStyle3}"
-                              ColumnHeaderStyle="{StaticResource dataGridCentAl}"
+                              ColumnHeaderStyle="{StaticResource dataGridCentAl2}"
                               ItemsSource="{Binding RadiostationsForDocumentsCollection}"
                               SelectedItem="{Binding SelectedRadiostation}"
                               CellStyle="{StaticResource DataGridContentCellCentering2}"
@@ -363,13 +377,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" 
                                                 Binding="{Binding IdBase}" 
-                                                Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Полигон" 
-                                                Binding="{Binding Poligon}"
-                                                Width="80" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Предприятие" 
-                                                Binding="{Binding Company}" 
-                                                Width="100">
+                                                Width="50" Visibility="Visible"
+                                            >
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" 
@@ -377,28 +386,37 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="Полигон" 
+                                                Binding="{Binding Poligon}"
+                                                Width="80" Visibility="Collapsed"/>
+                        <DataGridTextColumn Header="Предприятие" 
+                                                Binding="{Binding Company}" 
+                                                Width="100">
+                           
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Станция" 
                                                 Binding="{Binding Location}" 
-                                                Width="150"
+                                                Width="140"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Модель" 
                                                 Binding="{Binding Model}" 
-                                                Width="180"
+                                                Width="170"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Заводской"
                                                 Binding="{Binding SerialNumber, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                                                Width="180"/>
+                                                Width="150"
+                                                FontWeight="Medium"/>
                         <DataGridTextColumn Header="Инвентарный"
                                                 Binding="{Binding InventoryNumber}" 
-                                                Width="240"
+                                                Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Сетевой"
                                                 Binding="{Binding NetworkNumber}" 
-                                                Width="240"
+                                                Width="200"
                                                 ElementStyle="{StaticResource WrapText}"/>
                         <DataGridTextColumn Header="Дата ТО"
                                                 Binding="{Binding DateMaintenance}" 
-                                                Width="120"/>
+                                                Width="100"/>
                         <DataGridTextColumn Header="№ Акта ТО"
                                                 Binding="{Binding NumberAct}" 
                                                 Width="100"/>

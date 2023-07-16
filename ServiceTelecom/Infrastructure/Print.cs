@@ -2728,6 +2728,7 @@ namespace ServiceTelecom.Infrastructure
             string city = string.Empty;
             string comment = string.Empty;
             string model = string.Empty;
+            string sectionForeman = string.Empty;
             foreach (RadiostationForDocumentsDataBaseModel item
                 in radiostantionsCollection)
             {
@@ -2737,8 +2738,12 @@ namespace ServiceTelecom.Infrastructure
                 serialNumberCompany = $"{item.SerialNumber}-{item.Company}";
                 city = item.City;
                 comment = item.Comment;
-
             }
+
+            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                sectionForeman = item.SectionForemanBase;
+            
+
             string dateDecommissioning = DateTime.Today.ToString("dd.MM.yyyy");
 
             var items = new Dictionary<string, string>
@@ -2748,7 +2753,8 @@ namespace ServiceTelecom.Infrastructure
                     {"<serialNumber>", serialNumber },
                     {"<company>", company },
                     {"<dateDecommission>", dateDecommissioning },
-                    {"<comment>", comment}
+                    {"<comment>", comment},
+                    {"<SectionForeman>", sectionForeman }
             };
 
 
@@ -3480,7 +3486,7 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.Cells[3, 24] = $"передача / приём    ";
                     workSheet.Cells[41, 1] = $"Исполнитель работ:";
                     workSheet.Cells[41, 2] = $"Инженер по ТО и ремонту СРС";
-                    workSheet.Cells[41, 8] = $"/                                     /";
+                    workSheet.Cells[41, 8] = $"";
                     workSheet.Cells[41, 11] = $"{engineer}";
                     workSheet.Cells[41, 20] = $"{dateMaintenance} г.";
                     workSheet.Cells[42, 2] = $"должность";
@@ -3488,9 +3494,9 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.Cells[42, 11] = $"расшифровка подписи";
                     workSheet.Cells[42, 20] = $"дата проведения технического обслуживания";
                     workSheet.Cells[44, 1] = $"Представитель РЦС:";
-                    workSheet.Cells[44, 2] = $"";
-                    workSheet.Cells[44, 8] = $"/                                     /";
-                    workSheet.Cells[44, 11] = $"";
+                    workSheet.Cells[44, 2] = $"{UserModelStatic.RCS_POST_TO_SIGN_ACTS}";
+                    workSheet.Cells[44, 8] = $"";
+                    workSheet.Cells[44, 11] = $"{UserModelStatic.RCS_REPRESENTATIVE_TO_SIGN_ACTS}";
                     workSheet.Cells[45, 2] = $"должность";
                     workSheet.Cells[45, 8] = $"подпись";
                     workSheet.Cells[45, 11] = $"расшифровка подписи";
