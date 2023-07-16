@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using ServiceTelecom.Models;
+using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {

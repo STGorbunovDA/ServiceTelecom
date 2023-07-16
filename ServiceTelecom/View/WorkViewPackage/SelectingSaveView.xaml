@@ -69,14 +69,14 @@
                                 HorizontalAlignment="Center">
                     <Button x:Name="btnSaveRadiostationsForDocumets"
                             Click="SaveRadiostationsForDocumets"
-                            Content="Сохранить для документов"
+                            Content="Сохранить для дирекции"
                             Margin ="10,0,0,5"
                             Style="{StaticResource menuButtonStyleSix}" 
                             Cursor="Hand">
                     </Button>
                     <Button x:Name="btnSaveRadiostationsFull"
                             Click="SaveRadiostationsFull"
-                            Content="Сохранить полную Базу"
+                            Content="Сохранить полную базу"
                             Margin ="10,0,0,3"
                             Style="{StaticResource menuButtonStyleSix}" 
                             Cursor="Hand">

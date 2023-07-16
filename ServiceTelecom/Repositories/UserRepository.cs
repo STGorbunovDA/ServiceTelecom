@@ -23,10 +23,12 @@ namespace ServiceTelecom.Repositories
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue($"loginUser", 
                         Encryption.EncryptPlainTextToCipherText(credential.UserName));
                     command.Parameters.AddWithValue($"passUser", 
                         Encryption.EncryptPlainTextToCipherText(credential.Password));
+                    
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
                         DataTable table = new DataTable();

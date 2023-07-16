@@ -126,7 +126,7 @@
                                  FontSize="16"
                                  Height="35"
                                  Width="210"
-                             Style="{StaticResource TextBoxStyle1}"
+                             Style="{StaticResource TextBoxStyle11}"
                              Text="{Binding Login}">
 
                         </TextBox>
@@ -134,7 +134,7 @@
                                  FontSize="16"
                                  Height="35"
                                  Width="210"
-                             Style="{StaticResource TextBoxStyle1}"
+                             Style="{StaticResource TextBoxStyle11}"
                              Text="{Binding Password}">
                         </TextBox>
                         <ComboBox x:Name="cmbPost"

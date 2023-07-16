@@ -134,36 +134,34 @@
                             <TextBlock Text="Начальник участка"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}" 
-                                   Width="216" 
-                                   Margin="67,9,1077,-10" >
-                            </TextBlock>
+                                   Margin="82,8,1093,-9" />
                             <TextBlock Text="Инженер"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               Width="216" 
+                               Width="85" 
                                HorizontalAlignment="Left" 
-                               Margin="307,9,0,-10">
+                               Margin="367,8,0,-9">
                             </TextBlock>
                             <TextBlock Text="Куратор"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               Width="216" 
+                               Width="75" 
                                HorizontalAlignment="Left" 
-                               Margin="547,9,0,-9">
+                               Margin="622,8,0,-7">
                             </TextBlock>
                             <TextBlock Text="Дирекция связи"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               Width="216" 
+                               Width="155" 
                                HorizontalAlignment="Left" 
-                               Margin="787,9,0,-8">
+                               Margin="817,8,0,-7">
                             </TextBlock>
                             <TextBlock Text="Дорога"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
-                               Width="265" 
+                               Width="70" 
                                HorizontalAlignment="Left" 
-                               Margin="1027,9,0,-10">
+                               Margin="1122,9,0,-9">
                             </TextBlock>
                         </Grid>
                         <StackPanel Orientation="Horizontal"
@@ -181,7 +179,7 @@
                             <ComboBox x:Name="cmbStaffRegistration"
                                   Height="35"
                                   Width="220"
-                                  Margin="20,0,20,0"
+                                  Margin="0,0,20,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding SectionForemanCollection}"
                                   SelectedIndex="{Binding TheIndexSectionForemanCollection, Mode=TwoWay}"
@@ -217,11 +215,12 @@
                             <ComboBox x:Name="cmbRoad"
                                   Height="35"
                                   Width="270"
-                                  Margin="0,0,20,0"
+                                  Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding RoadCollections}"
                                   Text="{Binding Road}">
                             </ComboBox>
+
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Orientation="Horizontal"

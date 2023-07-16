@@ -69,11 +69,13 @@ namespace ServiceTelecom.ViewModels
         {
             UserModelStatic user = 
                 userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));
+            
             if (user != null)
             {
                 if (userRepository.SetDateTimeUserDataBase(UserModelStatic.LOGIN))
                 {
                     getSetRegistryServiceTelecomSetting.SetRegistryUser(UserModelStatic.LOGIN);
+
                     MenuView menu = new MenuView(user);
                     menu.Show();
                     IsViewVisible = false;
