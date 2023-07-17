@@ -134,34 +134,34 @@
                             <TextBlock Text="Начальник участка"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}" 
-                                   Margin="82,8,1093,-9" />
+                                   Margin="57,9,1118,-9" />
                             <TextBlock Text="Инженер"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
                                Width="85" 
                                HorizontalAlignment="Left" 
-                               Margin="367,8,0,-9">
+                               Margin="347,9,0,-9">
                             </TextBlock>
                             <TextBlock Text="Куратор"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
                                Width="75" 
                                HorizontalAlignment="Left" 
-                               Margin="622,8,0,-7">
+                               Margin="592,9,0,-7">
                             </TextBlock>
                             <TextBlock Text="Дирекция связи"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
                                Width="155" 
                                HorizontalAlignment="Left" 
-                               Margin="817,8,0,-7">
+                               Margin="797,9,0,-7">
                             </TextBlock>
                             <TextBlock Text="Дорога"
                                Foreground="{StaticResource titleFontColor5}"
                                Style="{StaticResource messageTextBlockStyle2}"
                                Width="70" 
                                HorizontalAlignment="Left" 
-                               Margin="1122,9,0,-9">
+                               Margin="1092,9,0,-8">
                             </TextBlock>
                         </Grid>
                         <StackPanel Orientation="Horizontal"
@@ -218,9 +218,16 @@
                                   Margin="0,0,0,0"
                                   Style="{StaticResource ComboBoxStyle1}"
                                   ItemsSource="{Binding RoadCollections}"
+                                  SelectedIndex="{Binding TheIndexRoadCollection, Mode=TwoWay}"
                                   Text="{Binding Road}">
                             </ComboBox>
-
+                            <Button x:Name="btnAddRoadDataBase"
+                                    Command="{Binding AddRoadDataBase}"
+                                    Content="➕"
+                                    Margin ="10,0,0,0"
+                                    Style="{StaticResource menuButtonStyleCheck}" 
+                                    Cursor="Hand">
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel  Orientation="Horizontal"
@@ -248,14 +255,14 @@
                                  Visibility="Visible"
                                  Height="35"
                                  Width="300"
-                            Style="{StaticResource TextBoxStyle1}"
+                            Style="{StaticResource TextBoxStyle11}"
                             Text="{Binding Attorney}">
                         </TextBox>
                         <TextBox x:Name="txbNumberPrintDocument"
                                  Visibility="Visible"
                                  Height="35"
                                  Width="80"
-                            Style="{StaticResource TextBoxStyle1}"
+                            Style="{StaticResource TextBoxStyle11}"
                             Text="{Binding NumberPrintDocument}">
                         </TextBox>
                         <Button x:Name="btnAddStaffRegistrationDataBase"

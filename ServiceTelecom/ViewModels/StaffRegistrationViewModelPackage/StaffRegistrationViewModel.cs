@@ -18,12 +18,12 @@ namespace ServiceTelecom.ViewModels
         private StaffRegistrationDataBaseModel _staffRegistration;
         private RoadDataBaseRepository _roadDataBase;
         ReportCardView reportCard = null;
-
+        RoadView roadView = null;
         private ObservableCollection<UserDataBaseModel> Users { get; set; }
         public ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrations { get; set; } 
 
-        public ObservableCollection<string> RoadCollections { get; set; }
+        public ObservableCollection<RoadModel> RoadCollections { get; set; }
         public ObservableCollection<string> SectionForemanCollection { get; set; } 
         public ObservableCollection<string> EngineerCollection { get; set; } 
         public ObservableCollection<string> CuratorCollection { get; set; } 
@@ -57,6 +57,17 @@ namespace ServiceTelecom.ViewModels
             get => _theIndexRadioCommunicationDirectorateCollection; 
             set { _theIndexRadioCommunicationDirectorateCollection = value; 
                 OnPropertyChanged(nameof(TheIndexRadioCommunicationDirectorateCollection)); } 
+        }
+
+        private int _theIndexRoadCollection;
+        public int TheIndexRoadCollection
+        {
+            get => _theIndexRoadCollection;
+            set
+            {
+                _theIndexRoadCollection = value;
+                OnPropertyChanged(nameof(TheIndexRoadCollection));
+            }
         }
 
         #region свойства
@@ -166,7 +177,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand DeleteStaffRegistrationDataBase { get; }
         public ICommand UpdateStaffRegistrationDataBase { get; }
         public ICommand ReportCard { get; }
-
+        public ICommand AddRoadDataBase { get; }
         public StaffRegistrationDataBaseModel SelectedStaffRegistration
         {
             get => _staffRegistration;
@@ -205,7 +216,7 @@ namespace ServiceTelecom.ViewModels
             userRepository = new UserRepository();
             Users = new ObservableCollection<UserDataBaseModel>();
             staffRegistrationRepository = new StaffRegistrationRepository();
-            RoadCollections = new ObservableCollection<string>();
+            RoadCollections = new ObservableCollection<RoadModel>();
             SectionForemanCollection = new ObservableCollection<string>();
             EngineerCollection = new ObservableCollection<string>();
             CuratorCollection = new ObservableCollection<string>();
@@ -223,15 +234,35 @@ namespace ServiceTelecom.ViewModels
             UpdateStaffRegistrationDataBase = 
                 new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
             ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
+            AddRoadDataBase = new ViewModelCommand(ExecuteAddRoadDataBaseCommand);
         }
+
+        #region AddRoadDataBase
+
+        private void ExecuteAddRoadDataBaseCommand(object obj)
+        {
+            if (roadView == null)
+            {
+                roadView = new RoadView();
+                roadView.Closed += (sender, args) =>
+                roadView = null;
+                roadView.Closed += (sender, args) =>
+                GetRoadDataBase();
+                roadView.Show();
+            }
+        }
+
+        #endregion
 
         #region GetRoadDataBase
 
         private void GetRoadDataBase()
         {
+            TheIndexRoadCollection = -1;
             if (RoadCollections.Count != 0)
                 RoadCollections.Clear();
                 RoadCollections = _roadDataBase.GetRoadDataBase(RoadCollections);
+            TheIndexRoadCollection = RoadCollections.Count - 1;
         }
 
         #endregion

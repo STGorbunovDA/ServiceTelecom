@@ -9,19 +9,27 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddModelRadiostantionViewModel : ViewModelBase
     {
-        private ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel> 
-            ModelCollections { get; set; }
+        private ModelDataBaseRepository _modelDataBaseRepository;
+        public ObservableCollection<ModelRadiostantionDataBaseModel>
+            ModelCollections
+        { get; set; }
 
         private string _model;
-        public string Model { get => _model; 
-            set { _model = value; OnPropertyChanged(nameof(Model)); } }
+        public string Model
+        {
+            get => _model;
+            set { _model = value; OnPropertyChanged(nameof(Model)); }
+        }
 
         private int _theIndexModelCollection;
-        public int TheIndexModelCollection { 
-            get => _theIndexModelCollection; 
-            set { _theIndexModelCollection = value; 
-                OnPropertyChanged(nameof(TheIndexModelCollection)); } 
+        public int TheIndexModelCollection
+        {
+            get => _theIndexModelCollection;
+            set
+            {
+                _theIndexModelCollection = value;
+                OnPropertyChanged(nameof(TheIndexModelCollection));
+            }
         }
 
         ModelRadiostantionDataBaseModel _selectedModelRadiostantionDataBaseModel;
@@ -43,7 +51,7 @@ namespace ServiceTelecom.ViewModels.Base
         public AddModelRadiostantionViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            _modelDataBase = new ModelDataBaseRepository();
+            _modelDataBaseRepository = new ModelDataBaseRepository();
             GetModelDataBaseForUpdate();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             DeleteModelDataBase = new ViewModelCommand(ExecuteDeleteModelDataBaseCommand);
@@ -57,12 +65,12 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             if (string.IsNullOrWhiteSpace(Model))
                 return;
-            if(SelectedModelRadiostantionDataBaseModel.Model != Model) return;
-            if (_modelDataBase.DeleteModelDataBase(Model)) GetModelDataBaseForUpdate();
+            if (SelectedModelRadiostantionDataBaseModel.Model != Model) return;
+            if (_modelDataBaseRepository.DeleteModelDataBase(Model)) GetModelDataBaseForUpdate();
             else
             {
                 Model = string.Empty;
-                MessageBox.Show("Ошибка удаления модели", "Отмена", 
+                MessageBox.Show("Ошибка удаления модели", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -73,12 +81,12 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteAddModelDataBaseCommand(object obj)
         {
-            if(string.IsNullOrWhiteSpace(Model)) return;
+            if (string.IsNullOrWhiteSpace(Model)) return;
             var result = ModelCollections.FirstOrDefault(s => s.Model == Model);
             if (result != null)
                 return;
-            if (_modelDataBase.AddModelDataBase(Model)) GetModelDataBaseForUpdate();
-            else MessageBox.Show("Ошибка добавления модели", "Отмена", 
+            if (_modelDataBaseRepository.AddModelDataBase(Model)) GetModelDataBaseForUpdate();
+            else MessageBox.Show("Ошибка добавления модели", "Отмена",
                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -91,9 +99,9 @@ namespace ServiceTelecom.ViewModels.Base
             TheIndexModelCollection = -1;
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.
+            ModelCollections = _modelDataBaseRepository.
                 GetModelRadiostantionDataBase(ModelCollections);
-            TheIndexModelCollection = ModelCollections.Count-1;
+            TheIndexModelCollection = ModelCollections.Count - 1;
         }
 
         #endregion

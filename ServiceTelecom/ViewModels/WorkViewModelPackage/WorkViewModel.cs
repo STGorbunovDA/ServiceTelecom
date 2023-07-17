@@ -1683,7 +1683,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
             {
                 _roadDataBaseRepository = new RoadDataBaseRepository();
-                RoadsCollection = _roadDataBaseRepository.GetRoadDataBase(RoadsCollection);
+                RoadsCollection = _roadDataBaseRepository.GetRoadDataBaseWorkView(RoadsCollection);
             }
             else foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     RoadsCollection.Add(item.RoadBase);

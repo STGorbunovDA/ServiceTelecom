@@ -942,10 +942,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void GetModelDataBase()
         {
+            TheIndexModelChoiceCollection = -1;
+
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
             ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
                 ModelCollections);
+            TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
 
         #endregion

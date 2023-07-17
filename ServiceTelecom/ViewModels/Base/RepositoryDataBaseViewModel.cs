@@ -149,8 +149,12 @@ namespace ServiceTelecom.ViewModels.Base
             if (getSetRegistry.SetRegistryForRepositoryDataBaseAndCodeWord(
                 Server.Trim(), Port.Trim(), Username.Trim(), Password.Trim(), 
                 Database.Trim(), CodeWord.Trim()))
-                MessageBox.Show("Успешно", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            {
+                MessageBox.Show("Отлично! Перезапусти приложение!", "Успешно",
+                         MessageBoxButton.OK, MessageBoxImage.Information);
+                Application.Current.Shutdown();
+            }
+                
             else
                 MessageBox.Show($"Ошибка добавления параметров",
                          "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
