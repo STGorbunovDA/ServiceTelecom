@@ -25,8 +25,8 @@ namespace ServiceTelecom
                     var repositoryDataBaseView = new RepositoryDataBaseView();
                     repositoryDataBaseView.ShowDialog();
 
-                    MessageBox.Show("Программа будет перезагружена", "Успешно",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Отлично! Перезапусти приложение!", "Успешно",
+                          MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {

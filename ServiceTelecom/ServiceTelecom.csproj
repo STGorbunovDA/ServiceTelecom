@@ -289,6 +289,7 @@
     <Compile Include="Models\RepairManualRadiostantionModel.cs" />
     <Compile Include="Models\ReportCardsDataBaseModel.cs" />
     <Compile Include="Models\RepositoryDataBaseModel.cs" />
+    <Compile Include="Models\RoadModel.cs" />
     <Compile Include="Models\TutorialEngineerDataBaseModel.cs" />
     <Compile Include="Repositories\Base\FrequenciesDataBaseRepository.cs" />
     <Compile Include="Repositories\Base\ModelDataBaseRepository.cs" />
@@ -328,6 +329,7 @@
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
     <Compile Include="ViewModels\Base\RepositoryDataBaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\RoadViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
@@ -374,6 +376,9 @@
     </Compile>
     <Compile Include="View\Base\RepositoryDataBaseView.xaml.cs">
       <DependentUpon>RepositoryDataBaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Base\RoadView.xaml.cs">
+      <DependentUpon>RoadView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StaffRegistrationViewPackage\ReportCardView.xaml.cs">
       <DependentUpon>ReportCardView.xaml</DependentUpon>
@@ -475,6 +480,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Base\RepositoryDataBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Base\RoadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

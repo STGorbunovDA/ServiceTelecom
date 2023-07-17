@@ -1,14 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace ServiceTelecom.View
+namespace ServiceTelecom.View.Base
 {
-    public partial class StaffRegistrationView : Window
+    public partial class RoadView : Window
     {
-        public StaffRegistrationView()
+        public RoadView()
         {
             InitializeComponent();
-            cmbRoad.SelectedIndex = 0;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

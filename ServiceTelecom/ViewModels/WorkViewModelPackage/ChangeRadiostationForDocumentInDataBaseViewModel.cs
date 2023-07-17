@@ -324,7 +324,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
-            _modelDataBase = new ModelDataBaseRepository();
+            _modelDataBase = new Repositories.Base.ModelDataBaseRepository();
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
