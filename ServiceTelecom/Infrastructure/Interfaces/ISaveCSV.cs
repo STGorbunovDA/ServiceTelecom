@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Infrastructure.Interfaces
 {
-    internal interface ISave
+    internal interface ISaveCSV
     {
         /// <summary> Сохранить табель пользования программой сотрудников </summary>
         void SaveReportCard(ObservableCollection<ReportCardsDataBaseModel> reportCards);
