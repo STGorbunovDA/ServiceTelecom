@@ -7,8 +7,7 @@ namespace ServiceTelecom.Repositories.Interfaces
     {
         /// <summary> Поиск радиостанции в БД по дороге, городу и заводскому номеру </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            SearchBySerialNumberInDatabaseCharacteristics(string road,
-            string city, string serialNumber,
+            SearchBySerialNumberInDatabaseCharacteristics(string road, string serialNumber,
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection);
     }
