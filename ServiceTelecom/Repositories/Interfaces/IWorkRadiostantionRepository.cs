@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface IWorkRepositoryRadiostantionRepository
+    internal interface IWorkRadiostantionRepository
     {
         /// <summary> Получение всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
         ObservableCollection<RadiostationForDocumentsDataBaseModel>

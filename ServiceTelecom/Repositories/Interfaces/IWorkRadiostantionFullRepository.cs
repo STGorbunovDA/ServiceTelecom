@@ -1,6 +1,6 @@
 ﻿namespace ServiceTelecom.Repositories.Interfaces
 {
-    internal interface IWorkRepositoryRadiostantionFullRepository
+    internal interface IWorkRadiostantionFullRepository
     {
         /// <summary>Проверка наличия радиостанции в radiostantionFull(общей таблице)</summary>
         bool CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
@@ -88,5 +88,12 @@
         /// <summary>Удаления списания в radiostantionFull(общей таблице) </summary>
         bool DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
             string road, string city, string serialNumber);
+
+        /// <summary> Загрузка из файла для общей базы данных </summary>
+        bool LoadingFileForFullDB(string poligon, string company, 
+            string location, string model, string serialNumber, 
+            string inventoryNumber, string networkNumber, 
+            string dateMaintenance, string numberAct, 
+            string city, string price, string road);
     }
 }

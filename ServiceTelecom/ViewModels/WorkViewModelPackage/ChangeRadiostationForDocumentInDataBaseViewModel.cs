@@ -324,7 +324,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
-            _modelDataBase = new Repositories.Base.ModelDataBaseRepository();
+            _modelDataBase = new ModelDataBaseRepository();
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
@@ -597,7 +597,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationForDocumentsCollection);
+                Road, SerialNumber, RadiostationForDocumentsCollection);
             if (RadiostationForDocumentsCollection.Count != 0)
             {
                 foreach (var item in RadiostationForDocumentsCollection)
@@ -624,7 +624,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationForDocumentsCollection);
+                Road, SerialNumber, RadiostationForDocumentsCollection);
 
             if (RadiostationForDocumentsCollection.Count != 0)
             {

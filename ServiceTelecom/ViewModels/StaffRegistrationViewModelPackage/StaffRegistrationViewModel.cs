@@ -1,4 +1,5 @@
-﻿using ServiceTelecom.Models;
+﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.View;
 using ServiceTelecom.View.Base;
@@ -178,6 +179,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand UpdateStaffRegistrationDataBase { get; }
         public ICommand ReportCard { get; }
         public ICommand AddRoadDataBase { get; }
+        public ICommand LoadingFileForFullDB { get; }
         public StaffRegistrationDataBaseModel SelectedStaffRegistration
         {
             get => _staffRegistration;
@@ -235,7 +237,18 @@ namespace ServiceTelecom.ViewModels
                 new ViewModelCommand(ExecuteUpdateStaffRegistrationDataBaseCommand);
             ReportCard = new ViewModelCommand(ExecuteReportCardDataBaseCommand);
             AddRoadDataBase = new ViewModelCommand(ExecuteAddRoadDataBaseCommand);
+            LoadingFileForFullDB = new ViewModelCommand(ExecuteLoadingFileForFullDBCommand);
         }
+
+
+        #region LoadingFileForFullDB
+
+        private void ExecuteLoadingFileForFullDBCommand(object obj)
+        {
+            OpenCSV.GetInstance.OpenCSVFile();
+        }
+
+        #endregion
 
         #region AddRoadDataBase
 

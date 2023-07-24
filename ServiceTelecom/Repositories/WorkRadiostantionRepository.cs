@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class WorkRadiostantionRepository : IWorkRepositoryRadiostantionRepository
+    internal class WorkRadiostantionRepository : IWorkRadiostantionRepository
     {
         public ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
             ObservableCollection<string> cityCollections)

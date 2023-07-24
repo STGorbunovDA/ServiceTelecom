@@ -8,12 +8,12 @@ using System.Windows;
 
 namespace ServiceTelecom.Repositories
 {
-    internal class WorkRadiostantionFullRepository : IWorkRepositoryRadiostantionFullRepository,
+    internal class WorkRadiostantionFullRepository : IWorkRadiostantionFullRepository,
         ISearchBySerialNumberInWorkRadiostantionFullRepository
     {
         public ObservableCollection<RadiostationForDocumentsDataBaseModel>
             SearchBySerialNumberInDatabaseCharacteristics(string road,
-            string city, string serialNumber,
+            string serialNumber,
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection)
         {
@@ -29,8 +29,6 @@ namespace ServiceTelecom.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"roadUser",
                         Encryption.EncryptPlainTextToCipherText(road));
-                    command.Parameters.AddWithValue($"cityUser",
-                        Encryption.EncryptPlainTextToCipherText(city));
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -670,6 +668,53 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"decommissionUser",
                         Encryption.EncryptPlainTextToCipherText(
                             UserModelStatic.IN_WORK_TECHNICAL_SERVICES));
+                    if (command.ExecuteNonQuery() == 1) return true;
+                    else return false;
+                }
+            }
+            catch { return false; }
+            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
+        }
+
+        public bool LoadingFileForFullDB(string poligon, string company,
+            string location, string model, string serialNumber,
+            string inventoryNumber, string networkNumber, string dateMaintenance,
+            string numberAct, string city, string price, string road)
+        {
+            try
+            {
+                if (!InternetCheck.CheckSkyNET())
+                    return false;
+                using (MySqlCommand command = new MySqlCommand(
+                    "LoadingFileForFullDB",
+                    RepositoryDataBase.GetInstance.GetConnection()))
+                {
+                    RepositoryDataBase.GetInstance.OpenConnection();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue($"poligonUser",
+                        Encryption.EncryptPlainTextToCipherText(poligon));
+                    command.Parameters.AddWithValue($"companyUser",
+                        Encryption.EncryptPlainTextToCipherText(company));
+                    command.Parameters.AddWithValue($"locationUser",
+                        Encryption.EncryptPlainTextToCipherText(location));
+                    command.Parameters.AddWithValue($"modelUser",
+                        Encryption.EncryptPlainTextToCipherText(model));
+                    command.Parameters.AddWithValue($"serialNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(serialNumber));
+                    command.Parameters.AddWithValue($"inventoryNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(inventoryNumber));
+                    command.Parameters.AddWithValue($"networkNumberUser",
+                        Encryption.EncryptPlainTextToCipherText(networkNumber));
+                    command.Parameters.AddWithValue($"dateMaintenanceUser", dateMaintenance);
+                    command.Parameters.AddWithValue($"numberActUser",
+                        Encryption.EncryptPlainTextToCipherText(numberAct));
+                    command.Parameters.AddWithValue($"cityUser",
+                        Encryption.EncryptPlainTextToCipherText(city));
+                    command.Parameters.AddWithValue($"priceUser",
+                        Encryption.EncryptPlainTextToCipherText(price));
+                    command.Parameters.AddWithValue($"roadUser",
+                       Encryption.EncryptPlainTextToCipherText(road));
+
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

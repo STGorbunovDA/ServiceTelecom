@@ -9,7 +9,7 @@ using ServiceTelecom.Infrastructure.Interfaces;
 
 namespace ServiceTelecom.Infrastructure
 {
-    internal class SaveCSV : ISave
+    internal class SaveCSV : ISaveCSV
     {
         static volatile SaveCSV Class;
         static object SyncObject = new object();

@@ -272,10 +272,12 @@
     <Compile Include="Infrastructure\Interfaces\IBackupCopyRadiostationsForDocumentsCollection.cs" />
     <Compile Include="Infrastructure\Interfaces\ICloseWindows.cs" />
     <Compile Include="Infrastructure\Interfaces\IGetSetRegistryServiceTelecomSetting.cs" />
+    <Compile Include="Infrastructure\Interfaces\IOpenCSV.cs" />
     <Compile Include="Infrastructure\Interfaces\IPrint.cs" />
-    <Compile Include="Infrastructure\Interfaces\ISave.cs" />
+    <Compile Include="Infrastructure\Interfaces\ISaveCSV.cs" />
     <Compile Include="Infrastructure\InternetCheck.cs" />
     <Compile Include="Infrastructure\NameToBrushConverter.cs" />
+    <Compile Include="Infrastructure\OpenCSV.cs" />
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Infrastructure\StringExtension.cs" />
@@ -312,8 +314,8 @@
     <Compile Include="Models\UserDataBaseModel.cs" />
     <Compile Include="Models\UserModelStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
-    <Compile Include="Repositories\Interfaces\IWorkRepositoryRadiostantionRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IWorkRepositoryRadiostantionFullRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IWorkRadiostantionRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IWorkRadiostantionFullRepository.cs" />
     <Compile Include="Repositories\RadiostationParametersRepository.cs" />
     <Compile Include="Repositories\ReportCardRepository.cs" />
     <Compile Include="Repositories\Base\RoadDataBaseRepository.cs" />

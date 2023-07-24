@@ -330,7 +330,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationForDocumentsCollection);
+                Road, SerialNumber, RadiostationForDocumentsCollection);
             if (RadiostationForDocumentsCollection.Count != 0)
             {
                 foreach (var item in RadiostationForDocumentsCollection)
@@ -357,10 +357,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             RadiostationForDocumentsCollection =
             _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, City, SerialNumber, RadiostationForDocumentsCollection);
+                Road, SerialNumber, RadiostationForDocumentsCollection);
 
             if (RadiostationForDocumentsCollection.Count != 0)
             {
+                if(RadiostationForDocumentsCollection.Count > 1)
+                    MessageBox.Show("Нашлось более одной радиостанции!", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //TODO сделать просмотр если найдено более одной радиостанции
+
                 foreach (var item in RadiostationForDocumentsCollection)
                 {
                     InventoryNumber = item.InventoryNumber;
