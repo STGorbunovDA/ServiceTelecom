@@ -449,18 +449,6 @@
                         <DataGridTextColumn Header="Дата выдачи удостоверения" 
                                                 Binding="{Binding DateOfIssuanceOfTheCertificate}" 
                                                 Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Примечание" 
-                                                Binding="{Binding Comment}" 
-                                                Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Полигон" 
-                                                Binding="{Binding Poligon}" 
-                                                Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Полигон" 
-                                                Binding="{Binding Company}" 
-                                                Width="50" Visibility="Collapsed"/>
-                        <DataGridTextColumn Header="Станция" 
-                                                Binding="{Binding Location}" 
-                                                Width="50" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Прайс" 
                                                 Binding="{Binding Price}" 
                                                 Width="50" Visibility="Collapsed"/>
