@@ -366,14 +366,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (RadiostationForDocumentsCollection.Count != 0)
             {
-                UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
-                        RadiostationForDocumentsCollection;
-
                 if (RadiostationForDocumentsCollection.Count > 1)
                 {
                     if (MessageBox.Show("Нашлось более одной радиостанции!. Желаете увидеть?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
+                        UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
+                        RadiostationForDocumentsCollection;
+
                         repeatsRadiostationView = new RepeatsRadiostationView();
                         repeatsRadiostationView.Closed += (sender, args) =>
                         repeatsRadiostationView = null;

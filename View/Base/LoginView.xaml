@@ -1,0 +1,163 @@
+﻿<Window x:Class="ServiceTelecom.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:ServiceTelecom.ViewModels" 
+        xmlns:customcontrols="clr-namespace:ServiceTelecom.CustomControls"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="410" Width="700"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" 
+                 Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+    
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/svyaz.jpg"
+                        Stretch="Uniform"/>
+        </Border.Background>
+        <Border CornerRadius="10"
+            BorderThickness="2"
+                Opacity="0.85">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.25"/>
+                    <GradientStop Color="{StaticResource winBorderColor3}" Offset="0.50"/>
+                    <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                    <GradientStop Color="{StaticResource winBorderColor1}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0.25"/>
+                    <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0.50"/>
+                    <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="123*"/>
+                    <RowDefinition Height="253*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Authorization"
+                               Foreground="{StaticResource titleFontColor1}"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+                    <Button x:Name="btnConnection"
+                            Style="{StaticResource menuButtonStyleTen}"
+                            Content="Connection"
+                            Margin="0,0,0,0"
+                            Command="{Binding Connection}"
+                            Grid.Column="1">
+                    </Button>
+                    <Button x:Name="btnMinimize"
+                            Style="{StaticResource menuButtonStyleOne}"
+                            Content="-"
+                            Grid.Column="2"
+                            Click="BtnMinimize_Click">
+                    </Button>
+                    <Button x:Name="btnClose"
+                             Style="{StaticResource menuButtonStyleTwo}"
+                            Content="x"
+                            Grid.Column="3"
+                            Click="BtnClose_Click">
+                    </Button>
+                </Grid>
+                <StackPanel Grid.Row="1"
+                            Orientation="Vertical" 
+                            Margin="150,0,150,0"
+                            VerticalAlignment="Center" 
+                            Height="100">
+                    <Image Source="/Images/ST.png" 
+                           Height="100" Width="400"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" 
+                            Orientation="Vertical"
+                            Margin="200,0,200,0"
+                            VerticalAlignment="Top">
+                    <TextBlock Text="Имя"
+                               Foreground="Black"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               FontFamily="Romul"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="0,5,0,0"/>
+                    <TextBox x:Name="txbUser"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="22"
+                             FontFamily="Unbounded Regular"
+                             Foreground="Black"
+                             FontWeight="Bold"
+                             CaretBrush="{StaticResource titleFontColor2}"
+                             BorderBrush="{StaticResource titleFontColor3}"
+                             BorderThickness="0,0,0,4"
+                             Height="50"
+                             Margin="0,5,0,0" 
+                             Padding="50,10,20,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/login.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <TextBlock Text="Пароль"
+                               Foreground="Black"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               FontFamily="Romul"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="0,5,0,0"/>
+                    <customcontrols:BindablePasswordBox 
+                        Password="{Binding Password, 
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                             
+                        Height="50" Margin="0,5,0,0">
+                    </customcontrols:BindablePasswordBox>
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="{StaticResource titleFontColor4}"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               FontFamily="Romul"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"
+                               Margin="0,10,0,0"/>
+                    <Button x:Name="btnAuthorization"
+                            Command="{Binding LoginCommand}"
+                            Style="{StaticResource menuButtonStyleAll}"
+                            Content="Авторизация">
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

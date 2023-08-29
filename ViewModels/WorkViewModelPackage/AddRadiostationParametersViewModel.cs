@@ -485,7 +485,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetFrequencyDataBase();
             GetHandbookParametersModelRadiostationCollection();
             AssigningParametersInEditorsFromHandbookParameters();
-
+            
             var myCulture = new CultureInfo("ru-RU");
             myCulture.NumberFormat.NumberDecimalSeparator = ".";
             Thread.CurrentThread.CurrentCulture = myCulture;
@@ -614,7 +614,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         CheckBoxFaultyAKB = true;
                     else CheckBoxFaultyAKB = false;
 
-
                     NoteRadioStationParameters = item.NoteRadioStationParameters;
                     if (NoteRadioStationParameters == null)
                         NoteRadioStationParameters = string.Empty;
@@ -731,7 +730,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else
             {
                 MessageBox.Show($"Ошибка добавления статуса \"в ремонт\" в " +
-                    $"radiostantion(рабочая таблица), в radiostantionFull(общая таблица) и таблица Инженера",
+                    $"radiostantion(рабочая таблица) и в radiostantionFull(общая таблица)",
                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
