@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Background Colors-->
+    <Color x:Key="primaryBackColor1">#75ddff</Color>
+    <Color x:Key="primaryBackColor2">#69d1fb</Color>
+    <Color x:Key="primaryBackColor3">#B3ECFF</Color>
+    <Color x:Key="secondaryBackColor1">#00c6fa</Color>
+    <Color x:Key="secondaryBackColor2">#0278ca</Color>
+    
+    <!--Window Border Colors-->
+    <Color x:Key="winBorderColor1">#07bffc</Color>
+    <Color x:Key="winBorderColor2">#0185d8</Color>
+    <Color x:Key="winBorderColor3">#005fa1</Color>
+    
+    <!--Font Colors-->
+    <SolidColorBrush x:Key="titleFontColor1">#373735</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor2">#005fa1</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor3">#75ddff</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor4">#D75596</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor5">#0D0C0C</SolidColorBrush>
+    <SolidColorBrush x:Key="titleFontColor6">#B3ECFF</SolidColorBrush>
+
+    <!--Button Colors-->
+    <SolidColorBrush x:Key="buttonFontColor1">#00C3FA</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor2">#72DEFD</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor3">#A65400</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor4">#D3995F</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor5">#373735</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor6">#4A60D7</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor7">#007D1C</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor9">#49066E</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor10">#D2D235</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor11">#FCFCFC</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor12">#005fa1</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor13">#0185d8</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor14">#B3ECFF</SolidColorBrush>
+    <SolidColorBrush x:Key="buttonFontColor15">#75ddff</SolidColorBrush>
+    
+</ResourceDictionary>
