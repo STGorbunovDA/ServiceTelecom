@@ -1,9 +1,6 @@
-﻿using Microsoft.Office.Interop.Excel;
-using ServiceTelecom.Models;
+﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
-using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,16 +10,17 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class RoadViewModel : ViewModelBase
     {
-        private RoadDataBaseRepository _roadDataBaseRepository;
+        IRoadDataBaseRepository _roadDataBaseRepository;
         public ObservableCollection<RoadModel> RoadCollections { get; set; }
 
-        private string _road;
+        string _road;
         public string Road
         {
             get => _road;
             set { _road = value; OnPropertyChanged(nameof(Road)); }
         }
-        private int _theIndexRoadCollection;
+
+        int _theIndexRoadCollection;
         public int TheIndexRoadCollection
         {
             get => _theIndexRoadCollection;
@@ -32,6 +30,7 @@ namespace ServiceTelecom.ViewModels.Base
                 OnPropertyChanged(nameof(TheIndexRoadCollection));
             }
         }
+
         RoadModel _selectedRoadDataBaseModel;
         public RoadModel SelectedRoadDataBaseModel
         {
