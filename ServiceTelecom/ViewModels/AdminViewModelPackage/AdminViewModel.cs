@@ -11,40 +11,40 @@ namespace ServiceTelecom.ViewModels
 {
     internal class AdminViewModel : ViewModelBase
     {
-        private int _id;
+        IUserRepository userRepository;
+        public ObservableCollection<UserDataBaseModel> Users { get; set; }
+
+        int _id;
         public int Id { get => _id; 
             set { _id = value; 
                 OnPropertyChanged(nameof(Id)); } 
         }
 
-        private string _login = string.Empty;
+        string _login = string.Empty;
         public string Login { get => _login; 
             set { _login = value; 
                 OnPropertyChanged(nameof(Login)); } 
         }
 
-        private string _password;
+        string _password;
         public string Password { get => _password; 
             set { _password = value; 
                 OnPropertyChanged(nameof(Password)); } 
         }
 
-        private string _post;
+        string _post;
         public string Post { get => _post; 
             set { _post = value; 
                 OnPropertyChanged(nameof(Post)); } 
         }
 
-        private string _message;
+        string _message;
         public string Message { get => _message; 
             set { _message = value; 
                 OnPropertyChanged(nameof(Message)); } 
         }
 
-        private UserRepository userRepository;
-        public ObservableCollection<UserDataBaseModel> Users { get; set; }
-
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList UserMulipleSelectedDataGrid
         {
             get { return _selectedModels; }
@@ -61,7 +61,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand AddUsersListCommand { get; }
         public ICommand ChangeUserDataBase { get; }
 
-        private UserDataBaseModel _user;
+        UserDataBaseModel _user;
         public UserDataBaseModel SelectedUser
         {
             get => _user;
