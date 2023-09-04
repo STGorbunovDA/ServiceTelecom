@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -9,12 +10,12 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddModelProblemRadiostantionViewModel : ViewModelBase
     {
-        private ProblemModelRadiostantionRepository _problemModelRadiostantionDataBase;
+        IProblemModelRadiostantionRepository _problemModelRadiostantionRepository;
         public ObservableCollection<ProblemModelRadiostantionDataBaseModel>
             ProblemModelCollections
         { get; set; }
 
-        private string _problem;
+        string _problem;
         public string Problem
         {
             get => _problem;
@@ -25,7 +26,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private int _theIndexProblemModelCollection;
+        int _theIndexProblemModelCollection;
         public int TheIndexProblemModelCollection
         {
             get => _theIndexProblemModelCollection;
@@ -57,7 +58,7 @@ namespace ServiceTelecom.ViewModels.Base
         {
             ProblemModelCollections =
                 new ObservableCollection<ProblemModelRadiostantionDataBaseModel>();
-            _problemModelRadiostantionDataBase =
+            _problemModelRadiostantionRepository =
                 new ProblemModelRadiostantionRepository();
             GetProblemModelDataBaseForUpdate();
             AddProblemModelDataBase =
@@ -75,7 +76,7 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             if (SelectedProblemModelRadiostantionDataBaseModel.Problem != Problem)
                 return;
-            if (_problemModelRadiostantionDataBase.DeleteProblemModelDataBase(Problem))
+            if (_problemModelRadiostantionRepository.DeleteProblemModelDataBase(Problem))
                 GetProblemModelDataBaseForUpdate();
             else
             {
@@ -95,7 +96,7 @@ namespace ServiceTelecom.ViewModels.Base
             var result = ProblemModelCollections.FirstOrDefault(s => s.Problem == Problem);
             if (result != null)
                 return;
-            if (_problemModelRadiostantionDataBase.AddProblemModelDataBase(Problem))
+            if (_problemModelRadiostantionRepository.AddProblemModelDataBase(Problem))
                 GetProblemModelDataBaseForUpdate();
             else MessageBox.Show("Ошибка добавления проблемы",
                 "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -111,7 +112,7 @@ namespace ServiceTelecom.ViewModels.Base
             if (ProblemModelCollections.Count != 0)
                 ProblemModelCollections.Clear();
             ProblemModelCollections =
-                _problemModelRadiostantionDataBase.
+                _problemModelRadiostantionRepository.
                 GetProblemModelRadiostantionDataBase(ProblemModelCollections);
             TheIndexProblemModelCollection = ProblemModelCollections.Count - 1;
         }
