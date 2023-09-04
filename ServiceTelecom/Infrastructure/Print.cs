@@ -2844,7 +2844,7 @@ namespace ServiceTelecom.Infrastructure
         public void PrintTagTechnicalWorkRadiostantion(string road, string city,
             string dateMaintenance, string check)
         {
-            string month2;
+            string month2 = string.Empty;
             string day = string.Empty;
             string day2 = string.Empty;
 

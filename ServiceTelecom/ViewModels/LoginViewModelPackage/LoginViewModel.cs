@@ -21,7 +21,7 @@ namespace ServiceTelecom.ViewModels
 
         private UserRepository userRepository;
         private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
-        private RepositoryDataBaseView repositoryDataBaseView;
+        private GetBaseSettingsRegistryView _getBaseSettingsRegistryViewModel;
         public string Username { get => _username; 
             set { _username = value; OnPropertyChanged(nameof(Username)); } }
         public SecureString Password { get => _password; 
@@ -45,12 +45,12 @@ namespace ServiceTelecom.ViewModels
 
         private void ExecuteConnectionCommand(object obj)
         {
-            if (repositoryDataBaseView != null)
+            if (_getBaseSettingsRegistryViewModel != null)
                 return;
-            repositoryDataBaseView = new RepositoryDataBaseView();
-            repositoryDataBaseView.Closed += (sender, args) =>
-            repositoryDataBaseView = null;
-            repositoryDataBaseView.ShowDialog();
+            _getBaseSettingsRegistryViewModel = new GetBaseSettingsRegistryView();
+            _getBaseSettingsRegistryViewModel.Closed += (sender, args) =>
+            _getBaseSettingsRegistryViewModel = null;
+            _getBaseSettingsRegistryViewModel.ShowDialog();
         }
 
         private bool CanExecuteLoginCommand(object obj)

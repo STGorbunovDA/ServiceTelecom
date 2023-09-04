@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.View.Base
 {
-    public partial class RepositoryDataBaseView : Window
+    public partial class GetBaseSettingsRegistryView : Window
     {
-        public RepositoryDataBaseView()
+        public GetBaseSettingsRegistryView()
         {
             InitializeComponent();
         }
