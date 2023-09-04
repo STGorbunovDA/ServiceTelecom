@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,17 +12,17 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddFrequencyRadiostantionViewModel : ViewModelBase
     {
-        FrequenciesDataBaseRepository _frequenciesDataBase;
+        IFrequenciesDataBaseRepository _frequenciesDataBaseRepository;
         public ObservableCollection<FrequencyModel> FrequenciesCollection { get; set; }
 
-        private string _frequency;
+        string _frequency;
         public string Frequency
         {
             get => _frequency;
             set { _frequency = value; }
         }
 
-        private int _theIndexFrequencyCollection;
+        int _theIndexFrequencyCollection;
         public int TheIndexFrequencyCollection
         {
             get => _theIndexFrequencyCollection;
@@ -50,7 +51,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         public AddFrequencyRadiostantionViewModel()
         {
-            _frequenciesDataBase = new FrequenciesDataBaseRepository();
+            _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
             FrequenciesCollection = new ObservableCollection<FrequencyModel>();
             GetFrequencyDataBase();
             AddFrequencyDataBase = new ViewModelCommand(ExecuteAddFrequencyDataBaseCommand);
@@ -63,11 +64,10 @@ namespace ServiceTelecom.ViewModels.Base
 
         private void ExecuteDeleteFrequencyDataBaseCommand(object obj)
         {
-            if (FrequenciesCollection.Count <= 0)
-                return;
+            if (FrequenciesCollection.Count <= 0) return;
             if (String.IsNullOrWhiteSpace(Frequency)) return;
             if (SelectedFrequencyModel.Frequency != Frequency) return;
-            if (_frequenciesDataBase.DeleteFrequencyDataBase(SelectedFrequencyModel.IdBase))
+            if (_frequenciesDataBaseRepository.DeleteFrequencyDataBase(SelectedFrequencyModel.IdBase))
                 GetFrequencyDataBase();
             else MessageBox.Show("Ошибка удаления частоты", "Отмена",
                 MessageBoxButton.OK, MessageBoxImage.Error);
@@ -91,7 +91,7 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
 
-            UserModelStatic.FREQUENCY = _frequenciesDataBase.AddFrequencyDataBase(Frequency);
+            UserModelStatic.FREQUENCY = _frequenciesDataBaseRepository.AddFrequencyDataBase(Frequency);
             if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
             {
                 GetFrequencyDataBase();
@@ -112,7 +112,7 @@ namespace ServiceTelecom.ViewModels.Base
             if (FrequenciesCollection.Count != 0)
                 FrequenciesCollection.Clear();
             FrequenciesCollection =
-                _frequenciesDataBase.GetFrequencyDataBase(FrequenciesCollection);
+                _frequenciesDataBaseRepository.GetFrequencyDataBase(FrequenciesCollection);
             if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
                 Frequency = UserModelStatic.FREQUENCY;
             else TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
