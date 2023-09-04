@@ -330,7 +330,7 @@
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
-    <Compile Include="ViewModels\Base\RepositoryDataBaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\GetBaseSettingsRegistryViewModel.cs" />
     <Compile Include="ViewModels\Base\RoadViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />

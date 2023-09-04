@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,14 @@ using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels.Base
 {
-    internal class RepositoryDataBaseViewModel : ViewModelBase
+    internal class GetBaseSettingsRegistryViewModel : ViewModelBase
     {
         List<RepositoryDataBaseModel> listRepositoryDataBaseModel;
-        GetSetRegistryServiceTelecomSetting getSetRegistry;
+        IGetSetRegistryServiceTelecomSetting getSetRegistry;
 
         #region Свойства
 
-        private string _server;
+        string _server;
         public string Server
         {
             get => _server;
@@ -25,7 +26,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _port;
+        string _port;
         public string Port
         {
             get => _port;
@@ -36,7 +37,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _codeWord;
+        string _codeWord;
         public string CodeWord
         {
             get => _codeWord;
@@ -47,7 +48,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _username;
+        string _username;
         public string Username
         {
             get => _username;
@@ -58,7 +59,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _password;
+        string _password;
         public string Password
         {
             get => _password;
@@ -69,7 +70,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _database;
+        string _database;
         public string Database
         {
             get => _database;
@@ -84,7 +85,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         public ICommand RecordingData { get; }
 
-        public RepositoryDataBaseViewModel()
+        public GetBaseSettingsRegistryViewModel()
         {
             getSetRegistry = new GetSetRegistryServiceTelecomSetting();
             RecordingData = new ViewModelCommand(ExecuteRecordingDataCommand);
