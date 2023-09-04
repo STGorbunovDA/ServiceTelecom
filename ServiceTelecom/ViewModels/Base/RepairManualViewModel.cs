@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -11,15 +12,15 @@ namespace ServiceTelecom.ViewModels.Base
     internal class RepairManualViewModel : ViewModelBase
     {
         /// <summary> для сохранения индекса выделенной строки </summary>
-        private int TEMPORARY_INDEX_DATAGRID = 0;
+        int TEMPORARY_INDEX_DATAGRID = 0;
 
-        RepairManualModelRepository _repairManualModelRepository;
+        IRepairManualModelRepository _repairManualModelRepository;
 
         public ObservableCollection<RepairManualRadiostantionModel>
             RepairManualRadiostantionsCollections
         { get; set; }
 
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
@@ -30,7 +31,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _сompletedWorks;
+        string _сompletedWorks;
         public string CompletedWorks
         {
             get => _сompletedWorks;
@@ -41,7 +42,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private string _parts;
+        string _parts;
         public string Parts
         {
             get => _parts;
@@ -52,7 +53,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private int _selectedIndexRepairManualDataGrid;
+        int _selectedIndexRepairManualDataGrid;
         public int SelectedIndexRepairManualDataGrid
         {
             get => _selectedIndexRepairManualDataGrid;
@@ -63,7 +64,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private RepairManualRadiostantionModel _repairManual;
+        RepairManualRadiostantionModel _repairManual;
         public RepairManualRadiostantionModel SelectedRepairManualRadiostantion
         {
             get => _repairManual;
@@ -79,7 +80,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList RepairManualMulipleSelectedDataGrid
         {
             get { return _selectedModels; }
