@@ -18,5 +18,8 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary> изменение: детали и работы у справочника ремонтов радиостанций </summary>
         bool ChangeRepairManualModelRadiostationForDocumentInDB(int id,
             string model, string completedWorks, string parts);
+
+        /// <summary> Удаление справочника </summary>
+        void DeleteRepairManualModelRadiostationForDocumentInDB(int idBase);
     }
 }

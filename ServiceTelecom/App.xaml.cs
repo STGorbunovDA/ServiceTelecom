@@ -22,8 +22,8 @@ namespace ServiceTelecom
             {
                 if (UserModelStatic.LIST_REPOSITORY_DATABASE.Count == 0)
                 {
-                    var repositoryDataBaseView = new RepositoryDataBaseView();
-                    repositoryDataBaseView.ShowDialog();
+                    var getBaseSettingsRegistryViewModel = new GetBaseSettingsRegistryView();
+                    getBaseSettingsRegistryViewModel.ShowDialog();
 
                     MessageBox.Show("Отлично! Перезапусти приложение!", "Успешно",
                           MessageBoxButton.OK, MessageBoxImage.Information);

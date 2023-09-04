@@ -330,7 +330,7 @@
     <Compile Include="ViewModels\Base\AddModelProblemRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\AddModelRadiostantionViewModel.cs" />
     <Compile Include="ViewModels\Base\RepairManualViewModel.cs" />
-    <Compile Include="ViewModels\Base\RepositoryDataBaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\GetBaseSettingsRegistryViewModel.cs" />
     <Compile Include="ViewModels\Base\RoadViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModelPackage\LoginViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModelPackage\MenuViewModel.cs" />
@@ -377,8 +377,8 @@
     <Compile Include="View\Base\RepairManualView.xaml.cs">
       <DependentUpon>RepairManualView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Base\RepositoryDataBaseView.xaml.cs">
-      <DependentUpon>RepositoryDataBaseView.xaml</DependentUpon>
+    <Compile Include="View\Base\GetBaseSettingsRegistryView.xaml.cs">
+      <DependentUpon>GetBaseSettingsRegistryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Base\RoadView.xaml.cs">
       <DependentUpon>RoadView.xaml</DependentUpon>
@@ -485,7 +485,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Base\RepositoryDataBaseView.xaml">
+    <Page Include="View\Base\GetBaseSettingsRegistryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

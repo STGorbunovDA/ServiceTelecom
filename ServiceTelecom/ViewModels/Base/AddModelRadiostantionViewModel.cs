@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -9,19 +10,19 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddModelRadiostantionViewModel : ViewModelBase
     {
-        private ModelDataBaseRepository _modelDataBaseRepository;
+        IModelDataBaseRepository _modelDataBaseRepository;
         public ObservableCollection<ModelRadiostantionDataBaseModel>
             ModelCollections
         { get; set; }
 
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
             set { _model = value; OnPropertyChanged(nameof(Model)); }
         }
 
-        private int _theIndexModelCollection;
+        int _theIndexModelCollection;
         public int TheIndexModelCollection
         {
             get => _theIndexModelCollection;

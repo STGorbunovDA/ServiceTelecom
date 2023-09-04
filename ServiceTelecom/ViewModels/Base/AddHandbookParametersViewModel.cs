@@ -1,8 +1,8 @@
 ﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
@@ -14,60 +14,59 @@ namespace ServiceTelecom.ViewModels.Base
 {
     internal class AddHandbookParametersViewModel : ViewModelBase
     {
-        private HandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
-        private SaveCSV _saveCSV;
+        IHandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
+        AddModelRadiostantionView addModelRadiostantion = null;
+        IModelDataBaseRepository _modelDataBaseRepository;
+        SaveCSV _saveCSV;
+
         public ObservableCollection<HandbookParametersModelRadiostationModel>
            HandbookParametersAllModelRadiostationCollection
         { get; set; }
 
-
-        AddModelRadiostantionView addModelRadiostantion = null;
-        private ModelDataBaseRepository _modelDataBase;
         public ObservableCollection<ModelRadiostantionDataBaseModel>
             ModelCollections
         { get; set; }
 
-
         #region Свойства
 
-        private string _model;
+        string _model;
         //Передатчик
-        private string _minLowPowerLevelTransmitter;
-        private string _maxLowPowerLevelTransmitter;
-        private string _minHighPowerLevelTransmitter;
-        private string _maxHighPowerLevelTransmitter;
-        private string _minFrequencyDeviationTransmitter;
-        private string _maxFrequencyDeviationTransmitter;
-        private string _minSensitivityTransmitter;
-        private string _maxSensitivityTransmitter;
-        private string _minKNITransmitter;
-        private string _maxKNITransmitter;
-        private string _minDeviationTransmitter;
-        private string _maxDeviationTransmitter;
+        string _minLowPowerLevelTransmitter;
+        string _maxLowPowerLevelTransmitter;
+        string _minHighPowerLevelTransmitter;
+        string _maxHighPowerLevelTransmitter;
+        string _minFrequencyDeviationTransmitter;
+        string _maxFrequencyDeviationTransmitter;
+        string _minSensitivityTransmitter;
+        string _maxSensitivityTransmitter;
+        string _minKNITransmitter;
+        string _maxKNITransmitter;
+        string _minDeviationTransmitter;
+        string _maxDeviationTransmitter;
         //Приёмник
-        private string _minOutputPowerVoltReceiver;
-        private string _maxOutputPowerVoltReceiver;
-        private string _minOutputPowerWattReceiver;
-        private string _maxOutputPowerWattReceiver;
-        private string _minSelectivityReceiver;
-        private string _maxSelectivityReceiver;
-        private string _minSensitivityReceiver;
-        private string _maxSensitivityReceiver;
-        private string _minKNIReceiver;
-        private string _maxKNIReceiver;
-        private string _minSuppressorReceiver;
-        private string _maxSuppressorReceiver;
+        string _minOutputPowerVoltReceiver;
+        string _maxOutputPowerVoltReceiver;
+        string _minOutputPowerWattReceiver;
+        string _maxOutputPowerWattReceiver;
+        string _minSelectivityReceiver;
+        string _maxSelectivityReceiver;
+        string _minSensitivityReceiver;
+        string _maxSensitivityReceiver;
+        string _minKNIReceiver;
+        string _maxKNIReceiver;
+        string _minSuppressorReceiver;
+        string _maxSuppressorReceiver;
         //Потребляемый ток
-        private string _minStandbyModeCurrentConsumption;
-        private string _maxStandbyModeCurrentConsumption;
-        private string _minReceptionModeCurrentConsumption;
-        private string _maxReceptionModeCurrentConsumption;
-        private string _minTransmissionModeCurrentConsumption;
-        private string _maxTransmissionModeCurrentConsumption;
-        private string _minBatteryDischargeAlarmCurrentConsumption;
-        private string _maxBatteryDischargeAlarmCurrentConsumption;
+        string _minStandbyModeCurrentConsumption;
+        string _maxStandbyModeCurrentConsumption;
+        string _minReceptionModeCurrentConsumption;
+        string _maxReceptionModeCurrentConsumption;
+        string _minTransmissionModeCurrentConsumption;
+        string _maxTransmissionModeCurrentConsumption;
+        string _minBatteryDischargeAlarmCurrentConsumption;
+        string _maxBatteryDischargeAlarmCurrentConsumption;
 
-        private bool _checkBoxRepeater;
+        bool _checkBoxRepeater;
 
         public string Model { get => _model; set { _model = value; OnPropertyChanged(nameof(Model)); } }
         public string MinLowPowerLevelTransmitter { get => _minLowPowerLevelTransmitter; set { _minLowPowerLevelTransmitter = value; OnPropertyChanged(nameof(MinLowPowerLevelTransmitter)); } }
@@ -106,7 +105,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #endregion
 
-        private int _selectedIndexHandbookParametersModel;
+        int _selectedIndexHandbookParametersModel;
         public int SelectedIndexHandbookParametersModel
         {
             get => _selectedIndexHandbookParametersModel;
@@ -218,7 +217,7 @@ namespace ServiceTelecom.ViewModels.Base
             }
         }
 
-        private int _theIndexModelChoiceCollection;
+        int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
             get => _theIndexModelChoiceCollection;
@@ -239,7 +238,7 @@ namespace ServiceTelecom.ViewModels.Base
         public AddHandbookParametersViewModel()
         {
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
-            _modelDataBase = new ModelDataBaseRepository();
+            _modelDataBaseRepository = new ModelDataBaseRepository();
             _saveCSV = new SaveCSV();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             GetHandbookParametersByModelForRadiostationCollection =
@@ -1297,7 +1296,7 @@ namespace ServiceTelecom.ViewModels.Base
         {
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
+            ModelCollections = _modelDataBaseRepository.GetModelRadiostantionDataBase(
                 ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }
