@@ -11,10 +11,12 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        Visibility="{Binding MenuWindowVisibility, Mode=TwoWay}">
     <Window.DataContext>
         <viewModel:MenuViewModel/>
     </Window.DataContext>
+    
     <Border CornerRadius="12"
             BorderThickness="3">
         <Border.BorderBrush>
