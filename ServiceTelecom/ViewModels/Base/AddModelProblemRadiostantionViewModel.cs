@@ -69,7 +69,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region DeleteProblemModelDataBase
 
-        private void ExecuteDeleteProblemModelDataBaseCommand(object obj)
+        void ExecuteDeleteProblemModelDataBaseCommand(object obj)
         {
             if(ProblemModelCollections.Count <= 0) return; 
             if (string.IsNullOrWhiteSpace(Problem))
@@ -90,7 +90,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddProblemModelDataBase
 
-        private void ExecuteAddProblemModelDataBaseCommand(object obj)
+        void ExecuteAddProblemModelDataBaseCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Problem)) return;
             var result = ProblemModelCollections.FirstOrDefault(s => s.Problem == Problem);
@@ -106,7 +106,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetProblemModelDataBaseForUpdate
 
-        private void GetProblemModelDataBaseForUpdate()
+        void GetProblemModelDataBaseForUpdate()
         {
             TheIndexProblemModelCollection = -1;
             if (ProblemModelCollections.Count != 0)

@@ -43,7 +43,7 @@ namespace ServiceTelecom.ViewModels
             Work = new ViewModelCommand(ExecuteWorkCommand);
         }
 
-        private void ExecuteWorkCommand(object obj)
+        void ExecuteWorkCommand(object obj)
         {
             if(UserModelStatic.POST == "Начальник участка" ||
                UserModelStatic.POST == "Инженер" || 
@@ -74,7 +74,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private void ExecuteTutorialCommand(object obj)
+        void ExecuteTutorialCommand(object obj)
         {
             if (UserModelStatic.POST == "Дирекция связи")
                 return;
@@ -88,7 +88,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private void ExecuteRegistrationCommand(object obj)
+        void ExecuteRegistrationCommand(object obj)
         {
             if (UserModelStatic.POST == "Admin" || 
                 UserModelStatic.POST == "Руководитель")
@@ -105,7 +105,7 @@ namespace ServiceTelecom.ViewModels
             else return;
         }
 
-        private void ExecuteAdminkaCommand(object obj)
+        void ExecuteAdminkaCommand(object obj)
         {
             if (UserModelStatic.POST != "Admin")
                 return;

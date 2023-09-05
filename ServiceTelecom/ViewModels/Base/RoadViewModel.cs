@@ -57,7 +57,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetRoadDataBase
 
-        private void GetRoadDataBase()
+        void GetRoadDataBase()
         {
             TheIndexRoadCollection = -1;
             if (RoadCollections.Count != 0)
@@ -68,10 +68,9 @@ namespace ServiceTelecom.ViewModels.Base
 
         #endregion
 
-
         #region AddRoadDataBase
 
-        private void ExecuteAddRoadDataBaseCommand(object obj)
+        void ExecuteAddRoadDataBaseCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Road)) return;
             var result = RoadCollections.FirstOrDefault(s => s.Road == Road);
@@ -85,7 +84,7 @@ namespace ServiceTelecom.ViewModels.Base
         #endregion
 
         #region DeleteRoadDataBase
-        private void ExecuteDeleteRoadDataBaseCommand(object obj)
+        void ExecuteDeleteRoadDataBaseCommand(object obj)
         {
             if (RoadCollections.Count <= 0)
                 return;

@@ -42,7 +42,7 @@ namespace ServiceTelecom.ViewModels
             Connection = new ViewModelCommand(ExecuteConnectionCommand);
         }
 
-        private void ExecuteConnectionCommand(object obj)
+        void ExecuteConnectionCommand(object obj)
         {
             if (_getBaseSettingsRegistryViewModel != null)
                 return;
@@ -52,7 +52,7 @@ namespace ServiceTelecom.ViewModels
             _getBaseSettingsRegistryViewModel.ShowDialog();
         }
 
-        private bool CanExecuteLoginCommand(object obj)
+        bool CanExecuteLoginCommand(object obj)
         {
             bool validData;
             if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3 ||
@@ -64,7 +64,7 @@ namespace ServiceTelecom.ViewModels
             return validData;
         }
 
-        private void ExecuteLoginCommand(object obj)
+        void ExecuteLoginCommand(object obj)
         {
             UserModelStatic user = 
                 userRepository.GetAuthorizationUser(new NetworkCredential(Username, Password));

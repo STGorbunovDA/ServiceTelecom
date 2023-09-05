@@ -114,7 +114,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region DeleteRepairManualModelRadiostationForDocumentInDB
 
-        private void ExecuteDeleteRepairManualModelRadiostationForDocumentInDBCommand(object obj)
+        void ExecuteDeleteRepairManualModelRadiostationForDocumentInDBCommand(object obj)
         {
             if (MessageBox.Show("Подтверждаете удаление?", "Внимание",
                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
@@ -136,7 +136,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region ChangeRepairManualModelRadiostationForDocumentInDB
 
-        private void ExecuteChangeRepairManualModelRadiostationForDocumentInDBCommand(object obj)
+        void ExecuteChangeRepairManualModelRadiostationForDocumentInDBCommand(object obj)
         {
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
@@ -165,7 +165,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddRepairManualModelRadiostationForDocumentInDataBase
 
-        private void ExecuteAddRepairManualModelRadiostationForDocumentInDBCommand(object obj)
+        void ExecuteAddRepairManualModelRadiostationForDocumentInDBCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(Model) 
                 || String.IsNullOrWhiteSpace(CompletedWorks) 
@@ -188,7 +188,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetRepairManualRadiostantionsCollections
 
-        private void GetRepairManualRadiostantionsCollections()
+        void GetRepairManualRadiostantionsCollections()
         {
             if (RepairManualRadiostantionsCollections.Count != 0)
                 RepairManualRadiostantionsCollections.Clear();
@@ -201,7 +201,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetRowAfterAddingRadiostantionInDataGrid
 
-        private void GetRowAfterAddingRadiostantionInDataGrid()
+        void GetRowAfterAddingRadiostantionInDataGrid()
         {
             SelectedIndexRepairManualDataGrid = RepairManualRadiostantionsCollections.Count - 1;
         }
@@ -210,7 +210,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetRowAfterChangeRepairManualInDataGrid
 
-        private void GetRowAfterChangeRepairManualInDataGrid(int temporaryIndexDataGrid)
+        void GetRowAfterChangeRepairManualInDataGrid(int temporaryIndexDataGrid)
         {
             SelectedIndexRepairManualDataGrid = temporaryIndexDataGrid;
         }

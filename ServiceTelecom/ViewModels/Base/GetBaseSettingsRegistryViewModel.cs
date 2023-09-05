@@ -108,7 +108,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region RecordingData
 
-        private void ExecuteRecordingDataCommand(object obj)
+        void ExecuteRecordingDataCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(Server))
             {

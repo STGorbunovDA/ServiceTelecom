@@ -265,7 +265,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region SaveHandbookParameters
 
-        private void ExecuteSaveHandbookParametersCommand(object obj)
+        void ExecuteSaveHandbookParametersCommand(object obj)
         {
             if(HandbookParametersAllModelRadiostationCollection.Count == 0)
                 return;
@@ -276,7 +276,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region DeleteHandbookParametersForModel
 
-        private void ExecuteDeleteHandbookParametersForModelCommand(object obj)
+        void ExecuteDeleteHandbookParametersForModelCommand(object obj)
         {
             if (SelectedHandbookParametersModel == null)
                 return;
@@ -299,7 +299,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region ChangeHandbookParametersForModel
 
-        private void ExecuteChangeHandbookParametersForModelCommand(object obj)
+        void ExecuteChangeHandbookParametersForModelCommand(object obj)
         {
             #region Проверка ввода контролов
 
@@ -760,7 +760,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region UpdateHandbookParametersForModel
 
-        private void ExecuteUpdateHandbookParametersForModelCommand(object obj)
+        void ExecuteUpdateHandbookParametersForModelCommand(object obj)
         {
             GetHandbookParametersAllModelForCollection();
         }
@@ -769,7 +769,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddHandbookParametersForModel
 
-        private void ExecuteAddHandbookParametersForModelCommand(object obj)
+        void ExecuteAddHandbookParametersForModelCommand(object obj)
         {
             #region Проверка ввода контролов
 
@@ -1240,7 +1240,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetHandbookParametersAllModelForCollection
 
-        private void GetHandbookParametersAllModelForCollection()
+        void GetHandbookParametersAllModelForCollection()
         {
             if (HandbookParametersAllModelRadiostationCollection.Count != 0)
                 HandbookParametersAllModelRadiostationCollection.Clear();
@@ -1254,7 +1254,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetHandbookParametersByModelForRadiostationCollection
 
-        private void ExecuteGetHandbookParametersByModelForRadiostationCollectionCommand(object obj)
+        void ExecuteGetHandbookParametersByModelForRadiostationCollectionCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(Model))
             {
@@ -1275,7 +1275,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddModelDataBase
 
-        private void ExecuteAddModelDataBaseCommand(object obj)
+        void ExecuteAddModelDataBaseCommand(object obj)
         {
             if (addModelRadiostantion == null)
             {
@@ -1292,7 +1292,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetModelDataBase
 
-        private void GetModelDataBase()
+        void GetModelDataBase()
         {
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
