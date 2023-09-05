@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,15 +11,15 @@ namespace ServiceTelecom.ViewModels
 {
     internal class ReportCardViewModel : ViewModelBase
     {
-        private ReportCardRepository reportCardRepository;
+        IReportCardRepository reportCardRepository;
 
-        private ReportCardsDataBaseModel _reportCard;
+        ReportCardsDataBaseModel _reportCard;
         public ObservableCollection<ReportCardsDataBaseModel> ReportCards { get; set; }
         public ObservableCollection<string> DateTimeInputCollections { get; set; }
         public ObservableCollection<string> Users { get; set; }
 
-        private string _user;
-        private string _dateTimeInput;
+        string _user;
+        string _dateTimeInput;
 
         public string User { get => _user; 
             set { _user = value; 
@@ -38,13 +39,13 @@ namespace ServiceTelecom.ViewModels
                 OnPropertyChanged(nameof(SelectedItemDateTimeInput)); } 
         }
 
-        private int _theIndexUsersCollection;
+        int _theIndexUsersCollection;
         public int TheIndexUsersCollection { get => _theIndexUsersCollection; 
             set { _theIndexUsersCollection = value; 
                 OnPropertyChanged(nameof(TheIndexUsersCollection)); } 
         }
 
-        private int _theIndexDateTimeInputCollection;
+        int _theIndexDateTimeInputCollection;
         public int TheIndexDateTimeInputCollection { get => _theIndexDateTimeInputCollection; 
             set { _theIndexDateTimeInputCollection = value; 
                 OnPropertyChanged(nameof(TheIndexDateTimeInputCollection)); } 
@@ -72,7 +73,7 @@ namespace ServiceTelecom.ViewModels
         public ICommand GetReportCardsAtCmbUser { get; }
         public ICommand GetReportCardsAtCmbDateTimeInput { get; }
 
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList ReportCardsMulipleSelectedDataGrid
         {
             get { return _selectedModels; }
@@ -104,7 +105,7 @@ namespace ServiceTelecom.ViewModels
 
         #region GetReportCardsAtCmbDateTimeInput
 
-        private void ExecuteGetReportCardsAtCmbDateTimeInputCommand(object obj)
+        void ExecuteGetReportCardsAtCmbDateTimeInputCommand(object obj)
         {
             ReportCards.Clear();
             ReportCards = reportCardRepository.GetReportCardsAtCmbDateTimeInput(
@@ -115,7 +116,7 @@ namespace ServiceTelecom.ViewModels
 
         #region GetReportCardsAtCmbUser
 
-        private void ExecuteGetReportCardsAtCmbUserCommand(object obj)
+        void ExecuteGetReportCardsAtCmbUserCommand(object obj)
         {
             ReportCards.Clear();
             ReportCards = reportCardRepository.GetReportCardsAtCmbUserDataBase(
@@ -126,7 +127,7 @@ namespace ServiceTelecom.ViewModels
 
         #region SaveReportCards
 
-        private void ExecuteSaveReportCardsCommand(object obj)
+        void ExecuteSaveReportCardsCommand(object obj)
         {
             SaveCSV.GetInstance.SaveReportCard(ReportCards);
         }
@@ -135,7 +136,7 @@ namespace ServiceTelecom.ViewModels
 
         #region DeleteReportCardsDataBase
 
-        private void ExecuteDeleteReportCardsDataBaseCommand(object obj)
+        void ExecuteDeleteReportCardsDataBaseCommand(object obj)
         {
             if (ReportCardsMulipleSelectedDataGrid == null || 
                 ReportCardsMulipleSelectedDataGrid.Count == 0)
@@ -150,7 +151,7 @@ namespace ServiceTelecom.ViewModels
 
         #region UpdateReportCardsDataBase 
 
-        private void ExecuteUpdateReportCardsDataBaseCommand(object obj)
+        void ExecuteUpdateReportCardsDataBaseCommand(object obj)
         {
             GetStaffReportCardsForUpdate();
         }
@@ -159,7 +160,7 @@ namespace ServiceTelecom.ViewModels
 
         #region Получить всё из БД
 
-        private void GetStaffReportCardsForUpdate()
+        void GetStaffReportCardsForUpdate()
         {
             if (ReportCards.Count != 0 || DateTimeInputCollections.Count != 0 
                 || Users.Count != 0)
