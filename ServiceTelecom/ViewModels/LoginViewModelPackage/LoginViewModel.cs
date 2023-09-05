@@ -5,23 +5,22 @@ using System.Security;
 using System.Windows.Input;
 using ServiceTelecom.View;
 using ServiceTelecom.Infrastructure;
-using System;
 using ServiceTelecom.View.Base;
-using ServiceTelecom.View.WorkViewPackage;
 using System.Windows;
+using ServiceTelecom.Infrastructure.Interfaces;
 
 namespace ServiceTelecom.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username;
-        private SecureString _password;
-        private string _errorMessage;
-        private bool _isViewVisible = true;
+        string _username;
+        SecureString _password;
+        string _errorMessage;
+        bool _isViewVisible = true;
 
-        private UserRepository userRepository;
-        private GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
-        private GetBaseSettingsRegistryView _getBaseSettingsRegistryViewModel;
+        IUserRepository userRepository;
+        IGetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
+        GetBaseSettingsRegistryView _getBaseSettingsRegistryViewModel;
         public string Username { get => _username; 
             set { _username = value; OnPropertyChanged(nameof(Username)); } }
         public SecureString Password { get => _password; 
