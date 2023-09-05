@@ -1,7 +1,7 @@
-﻿using Microsoft.Win32;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
+using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
