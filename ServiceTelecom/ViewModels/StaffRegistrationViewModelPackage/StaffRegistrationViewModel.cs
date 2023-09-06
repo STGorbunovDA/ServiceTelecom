@@ -301,7 +301,7 @@ namespace ServiceTelecom.ViewModels
             {
                 reportCard = new ReportCardView();
                 reportCard.Closed += (sender, args) => reportCard = null;
-                roadView.Closed += (sender, args) => StaffRegistrationWindowVisibility = Visibility.Visible;
+                reportCard.Closed += (sender, args) => StaffRegistrationWindowVisibility = Visibility.Visible;
                 StaffRegistrationWindowVisibility = Visibility.Collapsed;
                 reportCard.Show();
             }
