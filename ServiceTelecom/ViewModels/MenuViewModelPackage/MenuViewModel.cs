@@ -82,7 +82,7 @@ namespace ServiceTelecom.ViewModels
             {
                 tutorialEngineer = new TutorialEngineerView();
                 tutorialEngineer.Closed += (sender, args) => tutorialEngineer = null;
-                work.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                tutorialEngineer.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
                 MenuWindowVisibility = Visibility.Collapsed;
                 tutorialEngineer.Show();
             }
@@ -97,7 +97,7 @@ namespace ServiceTelecom.ViewModels
                 {
                     staffRegistration = new StaffRegistrationView();
                     staffRegistration.Closed += (sender, args) => staffRegistration = null;
-                    work.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                    staffRegistration.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
                     MenuWindowVisibility = Visibility.Collapsed;
                     staffRegistration.Show();
                 }
@@ -113,7 +113,7 @@ namespace ServiceTelecom.ViewModels
             {
                 admin = new AdminView();
                 admin.Closed += (sender, args) => admin = null;
-                work.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                admin.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
                 MenuWindowVisibility = Visibility.Collapsed;
                 admin.Show();
             }
