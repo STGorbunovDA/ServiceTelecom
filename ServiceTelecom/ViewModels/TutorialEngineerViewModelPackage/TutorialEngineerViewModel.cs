@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.TutorialEngineerViewPackage;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ namespace ServiceTelecom.ViewModels
 {
     internal class TutorialEngineerViewModel : ViewModelBase
     {
-        TutorialEngineerRepository tutorialEngineerRepository;
+        ITutorialEngineerRepository tutorialEngineerRepository;
         TutorialEngineerDataBaseModel _tutorialEngineer;
         AddTutorialEngineerView addTutorial = null;
         ChangeTutorialEngineerView changeTutorial = null;
@@ -21,12 +22,12 @@ namespace ServiceTelecom.ViewModels
             TemporaryTutorialsEngineer { get; set; }
         public ObservableCollection<string> UserChoice { get; set; }
 
-        private int _idTutorialEngineer;
-        private string _model;
-        private string _problem;
-        private string _info;
-        private string _actions;
-        private string _author;
+        int _idTutorialEngineer;
+        string _model;
+        string _problem;
+        string _info;
+        string _actions;
+        string _author;
         public int IdTutorialEngineer { 
             get => _idTutorialEngineer; 
             set { _idTutorialEngineer = value; 
@@ -57,36 +58,35 @@ namespace ServiceTelecom.ViewModels
                 OnPropertyChanged(nameof(Author)); } 
         }
 
-        private string _cmbUserChoiceVisibility;
+        string _cmbUserChoiceVisibility;
         public string CmbUserChoiceVisibility { 
             get => _cmbUserChoiceVisibility; 
             set { _cmbUserChoiceVisibility = value; 
                 OnPropertyChanged(nameof(CmbUserChoiceVisibility)); } 
         }
 
-        private string _txbSearchInfoVisibility;
+        string _txbSearchInfoVisibility;
         public string TxbSearchInfoVisibility { 
             get => _txbSearchInfoVisibility; 
             set { _txbSearchInfoVisibility = value; 
                 OnPropertyChanged(nameof(TxbSearchInfoVisibility)); } 
         }
 
-        private string _selectedItemcmbUserChoice;
+        string _selectedItemcmbUserChoice;
         public string SelectedItemcmbUserChoice { 
             get => _selectedItemcmbUserChoice; 
             set { _selectedItemcmbUserChoice = value; 
                 OnPropertyChanged(nameof(SelectedItemcmbUserChoice)); } 
         }
 
-        private string _txbSearchInfoText;
+        string _txbSearchInfoText;
         public string TxbSearchInfoText { 
             get => _txbSearchInfoText; 
             set { _txbSearchInfoText = value; 
                 OnPropertyChanged(nameof(TxbSearchInfoText)); } 
         }
 
-
-        private int _theIndexUserChoiceCollection;
+        int _theIndexUserChoiceCollection;
         public int TheIndexUserChoiceCollection
         {
             get => _theIndexUserChoiceCollection;
@@ -97,7 +97,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private int _theIndexCmbChoiceBySearchCollection;
+        int _theIndexCmbChoiceBySearchCollection;
         public int TheIndexCmbChoiceBySearchCollection
         {
             get
@@ -142,6 +142,17 @@ namespace ServiceTelecom.ViewModels
         }
 
 
+        Visibility _tutorialEngineerWindowVisibility;
+        public Visibility TutorialEngineerWindowVisibility
+        {
+            get { return _tutorialEngineerWindowVisibility; }
+            set
+            {
+                _tutorialEngineerWindowVisibility = value;
+                OnPropertyChanged(nameof(TutorialEngineerWindowVisibility));
+            }
+        }
+
         public TutorialEngineerDataBaseModel SelectedTutorialEngineerViewModel
         {
             get => _tutorialEngineer;
@@ -152,7 +163,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList TutorialsEngineerMulipleSelectedDataGrid
         {
             get => _selectedModels;
@@ -194,7 +205,7 @@ namespace ServiceTelecom.ViewModels
 
         #region DeleteTutorialsEngineerDataBase
 
-        private void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
+        void ExecuteDeleteTutorialsEngineerDataBaseCommand(object obj)
         {
             if (MessageBox.Show("Подтверждаете удаление?", "Внимание",
                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
@@ -213,7 +224,7 @@ namespace ServiceTelecom.ViewModels
 
         #region ChangeTutorialsEngineerDataBase
 
-        private void ExecuteChangeTutorialsEngineerDataBaseCommand(object obj)
+        void ExecuteChangeTutorialsEngineerDataBaseCommand(object obj)
         {
             if (SelectedTutorialEngineerViewModel == null)
                 return;
@@ -223,6 +234,8 @@ namespace ServiceTelecom.ViewModels
                     SelectedTutorialEngineerViewModel);
                 changeTutorial.Closed += (sender, args) => changeTutorial = null;
                 changeTutorial.Closed += (sender, args) => GetTutorialsEngineerForUpdate();
+                changeTutorial.Closed += (sender, args) => TutorialEngineerWindowVisibility = Visibility.Visible;
+                TutorialEngineerWindowVisibility = Visibility.Collapsed;
                 changeTutorial.Show();
             }
         }
@@ -231,13 +244,15 @@ namespace ServiceTelecom.ViewModels
 
         #region AddTutorialsEngineerDataBase
 
-        private void ExecuteAddTutorialsEngineerDataBaseCommand(object obj)
+        void ExecuteAddTutorialsEngineerDataBaseCommand(object obj)
         {
             if (addTutorial == null)
             {
                 addTutorial = new AddTutorialEngineerView();
                 addTutorial.Closed += (sender, args) => addTutorial = null;
                 addTutorial.Closed += (sender, args) => GetTutorialsEngineerForUpdate();
+                addTutorial.Closed += (sender, args) => TutorialEngineerWindowVisibility = Visibility.Visible;
+                TutorialEngineerWindowVisibility = Visibility.Collapsed;
                 addTutorial.Show();
             }
         }
@@ -246,7 +261,7 @@ namespace ServiceTelecom.ViewModels
 
         #region SaveTutorialsEngineerDataBase
 
-        private void ExecuteSaveTutorialsEngineerDataBaseCommand(object obj)
+        void ExecuteSaveTutorialsEngineerDataBaseCommand(object obj)
         {
             SaveCSV.GetInstance.SaveTutorialsEngineer(TutorialsEngineer);
         }
@@ -255,7 +270,7 @@ namespace ServiceTelecom.ViewModels
 
         #region UpdateTutorialsEngineerDataBase
 
-        private void ExecuteUpdateTutorialsEngineerDataBaseCommand(object obj)
+        void ExecuteUpdateTutorialsEngineerDataBaseCommand(object obj)
         {
             GetTutorialsEngineerForUpdate();
         }
@@ -264,7 +279,7 @@ namespace ServiceTelecom.ViewModels
 
         #region Получение данных по описанию неисправности
 
-        private void ExecuteGetBySearchInfoDataBaseCommand(object obj)
+        void ExecuteGetBySearchInfoDataBaseCommand(object obj)
         {
             if (TemporaryTutorialsEngineer.Count != 0)
                 TemporaryTutorialsEngineer.Clear();
@@ -284,7 +299,7 @@ namespace ServiceTelecom.ViewModels
 
         #region Получить методички из БД
 
-        private void GetTutorialsEngineerForUpdate()
+        void GetTutorialsEngineerForUpdate()
         {
             if (TutorialsEngineer.Count != 0 || UserChoice.Count != 0)
             {
