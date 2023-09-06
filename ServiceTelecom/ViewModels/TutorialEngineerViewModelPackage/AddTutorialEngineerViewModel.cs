@@ -6,7 +6,6 @@ using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
