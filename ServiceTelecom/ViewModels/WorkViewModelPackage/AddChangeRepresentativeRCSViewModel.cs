@@ -1,6 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
+using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
-using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -9,9 +9,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddChangeRepresentativeRCSViewModel : ViewModelBase
     {
-        private GetSetRegistryServiceTelecomSetting _getSetRegistryServiceTelecomSetting;
+        IGetSetRegistryServiceTelecomSetting _getSetRegistryServiceTelecomSetting;
         
-        private string _nameRepresentativeRCS;
+        string _nameRepresentativeRCS;
         
         public string NameRepresentativeRCS
         {
@@ -22,7 +22,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(NameRepresentativeRCS));
             }
         }
-        private string _postRepresentativeRCS;
+        string _postRepresentativeRCS;
 
         public string PostRepresentativeRCS
         {
@@ -50,7 +50,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AddChangeRepresentativeRCS
 
-        private void ExecuteAddChangeNameRadioCommunicationDirectorateCommand(object obj)
+        void ExecuteAddChangeNameRadioCommunicationDirectorateCommand(object obj)
         {
             if (!string.IsNullOrWhiteSpace(NameRepresentativeRCS) &&
                 !string.IsNullOrWhiteSpace(PostRepresentativeRCS))
