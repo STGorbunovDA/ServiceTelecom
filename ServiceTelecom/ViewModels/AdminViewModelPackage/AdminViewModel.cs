@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System;
 using System.Collections;
 using System.Windows;
+using ServiceTelecom.Repositories.Interfaces;
 
 namespace ServiceTelecom.ViewModels
 {

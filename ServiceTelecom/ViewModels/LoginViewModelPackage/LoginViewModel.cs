@@ -8,6 +8,7 @@ using ServiceTelecom.Infrastructure;
 using ServiceTelecom.View.Base;
 using System.Windows;
 using ServiceTelecom.Infrastructure.Interfaces;
+using ServiceTelecom.Repositories.Interfaces;
 
 namespace ServiceTelecom.ViewModels
 {
