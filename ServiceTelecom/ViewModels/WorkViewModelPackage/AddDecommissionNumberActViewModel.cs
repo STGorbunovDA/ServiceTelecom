@@ -1,20 +1,19 @@
-﻿using Microsoft.Office.Interop.Excel;
-using ServiceTelecom.Repositories;
+﻿using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddDecommissionNumberActViewModel : ViewModelBase
     {
-        private WorkRadiostantionRepository _workRepositoryRadiostantion;
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-        private RadiostationParametersRepository _radiostationParametersRepository;
-        private string _road;
+         IWorkRadiostantionRepository _workRepositoryRadiostantion;
+         IWorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+         IRadiostationParametersRepository _radiostationParametersRepository;
+         
+        string _road;
         public string Road
         {
             get => _road;
@@ -24,7 +23,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Road));
             }
         }
-        private string _city;
+        string _city;
         public string City
         {
             get => _city;
@@ -34,7 +33,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(City));
             }
         }
-        private string _serialNumber;
+
+        string _serialNumber;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -45,13 +45,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _decommissionNumberAct;
+        string _decommissionNumberAct;
         public string DecommissionNumberAct { 
             get => _decommissionNumberAct; 
             set { _decommissionNumberAct = value; 
                 OnPropertyChanged(nameof(DecommissionNumberAct)); } 
         }
-        private string _reasonDecommissionNumberAct;
+
+        string _reasonDecommissionNumberAct;
         public string ReasonDecommissionNumberAct
         {
             get => _reasonDecommissionNumberAct;
@@ -76,7 +77,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AddDecommissionNumberActRadiostationForDocumentInDataBase
 
-        private void ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand(object obj)
+        void ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand(object obj)
         {
             if (MessageBox.Show("Подтверждаете списание?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
