@@ -233,13 +233,13 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                         Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenance);
+                        Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                         Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
                         Encryption.EncryptPlainTextToCipherText(numberIdentification));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateUser",
-                        dateOfIssuanceOfTheCertificate);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"phoneNumberUser",
                         Encryption.EncryptPlainTextToCipherText(phoneNumber));
                     command.Parameters.AddWithValue($"postUser",

@@ -2,6 +2,7 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
@@ -98,9 +99,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location, string poligon,
             string company, string model, string serialNumber, string inventoryNumber,
             string networkNumber, string price, string battery, string manipulator,
@@ -121,13 +122,13 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                         Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenanceDataBase);
+                        Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                         Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
                         Encryption.EncryptPlainTextToCipherText(numberIdentification));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateUser",
-                        dateOfIssuanceOfTheCertificateDataBase);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"phoneNumberUser",
                         Encryption.EncryptPlainTextToCipherText(phoneNumber));
                     command.Parameters.AddWithValue($"postUser",
@@ -171,9 +172,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool AddRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location,
             string poligon, string company, string model, string serialNumber,
             string inventoryNumber, string networkNumber, string price,
@@ -195,13 +196,13 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                         Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenanceDataBase);
+                         Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                         Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
                         Encryption.EncryptPlainTextToCipherText(numberIdentification));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateUser",
-                        dateOfIssuanceOfTheCertificateDataBase);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"phoneNumberUser",
                         Encryption.EncryptPlainTextToCipherText(phoneNumber));
                     command.Parameters.AddWithValue($"postUser",
