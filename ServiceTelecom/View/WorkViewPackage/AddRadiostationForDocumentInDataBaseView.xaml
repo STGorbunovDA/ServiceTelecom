@@ -456,7 +456,7 @@
                         <CheckBox 
                             Name="CheckBoxManipulator"
                             Style="{StaticResource CheckBoxStyle1}"
-                            IsChecked="{Binding CheckBoxManipulatorViewModel}"/>
+                            IsChecked="{Binding CheckBoxManipulator}"/>
                         <TextBlock x:Name="txBlockAntenna"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -465,7 +465,7 @@
                         <CheckBox 
                             Name="CheckBoxAntenna"
                             Style="{StaticResource CheckBoxStyle1}"
-                            IsChecked="{Binding CheckBoxAntennaViewModel}"/>
+                            IsChecked="{Binding CheckBoxAntenna}"/>
                         <TextBlock x:Name="txBlockCharger"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -474,7 +474,7 @@
                         <CheckBox 
                             Name="CheckBoxCharger"
                             Style="{StaticResource CheckBoxStyle1}"
-                            IsChecked="{Binding CheckBoxChargerViewModel}"/>
+                            IsChecked="{Binding CheckBoxCharger}"/>
                         <TextBlock x:Name="txBlockRemont"
                            Foreground="{StaticResource titleFontColor5}"
                            Style="{StaticResource messageTextBlockStyle2}"
@@ -483,7 +483,7 @@
                         <CheckBox 
                             Name="CheckBoxRemont"
                             Style="{StaticResource CheckBoxStyle1}"
-                            IsChecked="{Binding CheckBoxRemontViewModel}"/>
+                            IsChecked="{Binding CheckBoxRemont}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
