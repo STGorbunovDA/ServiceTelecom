@@ -1,12 +1,15 @@
-﻿using ServiceTelecom.Models;
+﻿using Google.Protobuf.WellKnownTypes;
+using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -16,10 +19,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRadiostationParametersViewModel : ViewModelBase
     {
-        RadiostationParametersRepository _radiostationParametersRepository;
-        WorkRadiostantionRepository _workRadiostantionRepository;
-        FrequenciesDataBaseRepository _frequenciesDataBaseRepository;
-        HandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
+        IRadiostationParametersRepository _radiostationParametersRepository;
+        IWorkRadiostantionRepository _workRadiostantionRepository;
+        IFrequenciesDataBaseRepository _frequenciesDataBaseRepository;
+        IHandbookParametersModelRadiostationRepository _handbookParametersModelRadiostationRepository;
 
         AddHandbookParametersView addHandbookParametersView;
         AddFrequencyRadiostantionView addFrequencyRadiostantionView;
@@ -38,7 +41,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public string Location { get; set; }
         public string NameAKB { get; set; }
 
-        private bool _isEnablePercentAKB;
+        Visibility _checkUserForVisibility;
+        public Visibility CheckUserForVisibility
+        {
+            get
+            {
+                if (UserModelStatic.POST == "Admin")
+                    _checkUserForVisibility = Visibility.Visible;
+                else _checkUserForVisibility = Visibility.Collapsed;
+
+                return _checkUserForVisibility;
+            }
+        }
+
+        bool _isEnablePercentAKB;
         public bool IsEnablePercentAKB
         {
             get => _isEnablePercentAKB;
@@ -49,7 +65,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _isEnableCheckBoxFaultyAKB;
+        bool _isEnableCheckBoxFaultyAKB;
         public bool IsEnableCheckBoxFaultyAKB
         {
             get => _isEnableCheckBoxFaultyAKB;
@@ -60,7 +76,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _isEnabledChargerAccessories;
+        bool _isEnabledChargerAccessories;
         public bool IsEnabledChargerAccessories
         {
             get => _isEnabledChargerAccessories;
@@ -71,7 +87,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _isEnabledManipulatorAccessories;
+        bool _isEnabledManipulatorAccessories;
         public bool IsEnabledManipulatorAccessories
         {
             get => _isEnabledManipulatorAccessories;
@@ -82,8 +98,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-
-        private string _dateMaintenance;
+        string _dateMaintenance;
         public string DateMaintenance
         {
             get => _dateMaintenance;
@@ -94,7 +109,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
@@ -105,7 +120,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _serialNumber;
+        string _serialNumber;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -116,7 +131,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _company;
+        string _company;
         public string Company
         {
             get => _company;
@@ -127,7 +142,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _numberAct;
+        string _numberAct;
         public string NumberAct
         {
             get => _numberAct;
@@ -138,7 +153,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _lowPowerLevelTransmitter;
+        string _lowPowerLevelTransmitter;
         public string LowPowerLevelTransmitter
         {
             get => _lowPowerLevelTransmitter;
@@ -149,7 +164,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _highPowerLevelTransmitter;
+        string _highPowerLevelTransmitter;
         public string HighPowerLevelTransmitter
         {
             get => _highPowerLevelTransmitter;
@@ -160,7 +175,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _frequencyDeviationTransmitter;
+        string _frequencyDeviationTransmitter;
         public string FrequencyDeviationTransmitter
         {
             get => _frequencyDeviationTransmitter;
@@ -171,7 +186,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _sensitivityTransmitter;
+        string _sensitivityTransmitter;
         public string SensitivityTransmitter
         {
             get => _sensitivityTransmitter;
@@ -182,7 +197,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _kniTransmitter;
+        string _kniTransmitter;
         public string KNITransmitter
         {
             get => _kniTransmitter;
@@ -193,7 +208,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _deviationTransmitter;
+        string _deviationTransmitter;
         public string DeviationTransmitter
         {
             get => _deviationTransmitter;
@@ -204,7 +219,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _outputPowerVoltReceiver;
+        string _outputPowerVoltReceiver;
         public string OutputPowerVoltReceiver
         {
             get => _outputPowerVoltReceiver;
@@ -215,7 +230,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _outputPowerWattReceiver;
+        string _outputPowerWattReceiver;
         public string OutputPowerWattReceiver
         {
             get => _outputPowerWattReceiver;
@@ -226,7 +241,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _selectivityReceiver;
+        string _selectivityReceiver;
         public string SelectivityReceiver
         {
             get => _selectivityReceiver;
@@ -237,7 +252,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _sensitivityReceiver;
+        string _sensitivityReceiver;
         public string SensitivityReceiver
         {
             get => _sensitivityReceiver;
@@ -248,7 +263,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _kniReceiver;
+        string _kniReceiver;
         public string KNIReceiver
         {
             get => _kniReceiver;
@@ -259,7 +274,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _suppressorReceiver;
+        string _suppressorReceiver;
         public string SuppressorReceiver
         {
             get => _suppressorReceiver;
@@ -270,7 +285,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _frequency;
+        string _frequency;
         public string Frequency
         {
             get => _frequency;
@@ -281,7 +296,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _allFrequenciesCompleted;
+        string _allFrequenciesCompleted;
         public string AllFrequenciesCompleted
         {
             get => _allFrequenciesCompleted;
@@ -292,7 +307,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _standbyModeCurrentConsumption;
+        string _standbyModeCurrentConsumption;
         public string StandbyModeCurrentConsumption
         {
             get => _standbyModeCurrentConsumption;
@@ -303,7 +318,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _receptionModeCurrentConsumption;
+        string _receptionModeCurrentConsumption;
         public string ReceptionModeCurrentConsumption
         {
             get => _receptionModeCurrentConsumption;
@@ -314,7 +329,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _transmissionModeCurrentConsumption;
+        string _transmissionModeCurrentConsumption;
         public string TransmissionModeCurrentConsumption
         {
             get => _transmissionModeCurrentConsumption;
@@ -325,7 +340,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _batteryDischargeAlarmCurrentConsumption;
+        string _batteryDischargeAlarmCurrentConsumption;
         public string BatteryDischargeAlarmCurrentConsumption
         {
             get => _batteryDischargeAlarmCurrentConsumption;
@@ -336,7 +351,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _noteRadioStationParameters;
+        string _noteRadioStationParameters;
         public string NoteRadioStationParameters
         {
             get => _noteRadioStationParameters;
@@ -347,7 +362,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _batteryChargerAccessories;
+        string _batteryChargerAccessories;
         public string BatteryChargerAccessories
         {
             get => _batteryChargerAccessories;
@@ -358,7 +373,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _manipulatorAccessories;
+        string _manipulatorAccessories;
         public string ManipulatorAccessories
         {
             get => _manipulatorAccessories;
@@ -369,7 +384,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _percentAKB;
+        string _percentAKB;
         public string PercentAKB
         {
             get => _percentAKB;
@@ -380,7 +395,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _checkBoxFaultyAKB;
+        bool _checkBoxFaultyAKB;
         public bool CheckBoxFaultyAKB
         {
             get => _checkBoxFaultyAKB;
@@ -407,7 +422,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        private int _theIndexFrequencyCollection;
+        int _theIndexFrequencyCollection;
         public int TheIndexFrequencyCollection
         {
             get => _theIndexFrequencyCollection;
@@ -418,7 +433,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _theIndexBatteryChargerAccessories;
+        int _theIndexBatteryChargerAccessories;
         public int TheIndexBatteryChargerAccessories
         {
             get => _theIndexBatteryChargerAccessories;
@@ -428,7 +443,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(TheIndexBatteryChargerAccessories));
             }
         }
-        private int _theIndexManipulatorAccessories;
+
+        int _theIndexManipulatorAccessories;
         public int TheIndexManipulatorAccessories
         {
             get => _theIndexManipulatorAccessories;
@@ -493,15 +509,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AddFrequencyInAllFrequenciesCompleted
 
-        private void ExecuteAddFrequencyInAllFrequenciesCompletedCommand(object obj)
+        void ExecuteAddFrequencyInAllFrequenciesCompletedCommand(object obj)
         {
-            if (Regex.IsMatch(Frequency,
-                @"^[1][0-9]{1,1}[0-9]{1,1}[.][0-9]{1,1}[0-9]{1,1}[0-9]{1,1}$"))
-            {
-                if (String.IsNullOrWhiteSpace(AllFrequenciesCompleted))
-                    AllFrequenciesCompleted = string.Empty;
+            StringBuilder sb = new StringBuilder(AllFrequenciesCompleted);
 
-                AllFrequenciesCompleted += Frequency + "\n";
+            if (Regex.IsMatch(Frequency, @"^[1][0-9][0-9][.][0-9][0-9][0-9]$"))
+            {
+                sb.Append(Frequency).Append("\n");
+                AllFrequenciesCompleted = sb.ToString();
             }
         }
 
@@ -509,7 +524,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel
 
-        private void AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel()
+        void AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel()
         {
             foreach (RadiostationForDocumentsDataBaseModel item
                 in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
@@ -560,7 +575,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AssigningParametersInEditorsFromUserModelStatic
 
-        private void AssigningParametersInEditorsFromUserModelStaticParametersRadiostation()
+        void AssigningParametersInEditorsFromUserModelStaticParametersRadiostation()
         {
             if (UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW.Count != 0)
             {
@@ -660,10 +675,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region HandbookAddRadiostationParameters
 
-        private void ExecuteHandbookAddRadiostationParametersCommand(object obj)
+        void ExecuteHandbookAddRadiostationParametersCommand(object obj)
         {
             if (UserModelStatic.LOGIN != "Admin")
                 return;
+
             if (addHandbookParametersView == null)
             {
                 addHandbookParametersView = new AddHandbookParametersView();
@@ -671,7 +687,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 addHandbookParametersView = null;
                 addHandbookParametersView.Closed += (sender, args) =>
                 GetHandbookParametersModelRadiostationCollection();
-                addHandbookParametersView.Show();
+                addHandbookParametersView.ShowDialog();
             }
         }
 
@@ -690,7 +706,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 GetFrequencyDataBase();
                 addFrequencyRadiostantionView.Closed += (sender, args) =>
                 AssigningAllFrequenciesCompletedForUserModelStaticFrequency();
-                addFrequencyRadiostantionView.Show();
+                addFrequencyRadiostantionView.ShowDialog();
             }
         }
 
@@ -698,11 +714,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AssigningAllFrequenciesCompletedForUserModelStaticFrequency
 
-        private void AssigningAllFrequenciesCompletedForUserModelStaticFrequency()
+        void AssigningAllFrequenciesCompletedForUserModelStaticFrequency()
         {
             if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
             {
-                AllFrequenciesCompleted += UserModelStatic.FREQUENCY + "\n";
+                StringBuilder sb = new StringBuilder(AllFrequenciesCompleted);
+                sb.Append(UserModelStatic.FREQUENCY).Append("\n");
+                AllFrequenciesCompleted = sb.ToString();
                 UserModelStatic.FREQUENCY = null;
             }
         }
