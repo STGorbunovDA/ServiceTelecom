@@ -1329,13 +1329,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             if (changeNumberActView != null)
                 return;
-
+            UserModelStatic.ROAD = Road;
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID
                 = RadiostationsForDocumentsMulipleSelectedDataGrid;
 
             changeNumberActView = new ChangeNumberActView(
                 SelectedRadiostation.NumberAct);
             changeNumberActView.Closed += (sender, args) => changeNumberActView = null;
+            changeNumberActView.Closed += (sender, args) => UserModelStatic.ROAD = null;
             changeNumberActView.Closed += (sender, args) =>
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             changeNumberActView.Closed += (sender, args) =>

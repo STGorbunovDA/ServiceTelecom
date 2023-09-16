@@ -5,7 +5,6 @@ using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
