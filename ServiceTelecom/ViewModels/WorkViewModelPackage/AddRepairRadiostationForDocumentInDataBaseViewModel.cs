@@ -1,10 +1,10 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
-using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -13,9 +13,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRepairRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-        private WorkRadiostantionRepository _workRepositoryRadiostantion;
-        private RepairManualModelRepository _repairManualModelRepository;
+        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        WorkRadiostantionRepository _workRepositoryRadiostantion;
+        RepairManualModelRepository _repairManualModelRepository;
 
         RepairManualView repairManualView = null;
 
@@ -24,10 +24,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         { get; set; }
         public ObservableCollection<string> CompletedWorksCollections { get; set; }
 
-
         #region свойства
 
-        private string _road;
+        string _road;
         public string Road
         {
             get => _road;
@@ -38,7 +37,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _city;
+        string _city;
         public string City
         {
             get => _city;
@@ -49,7 +48,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _serialNumber;
+        string _serialNumber;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -60,7 +59,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _numberActRepair;
+        string _numberActRepair;
         public string NumberActRepair
         {
             get => _numberActRepair;
@@ -71,7 +70,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _dateRepair;
+        string _dateRepair;
         public string DateRepair
         {
             get => _dateRepair;
@@ -82,7 +81,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
@@ -93,7 +92,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _category;
+        string _category;
         public string Category
         {
             get => _category;
@@ -127,7 +126,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _priceRepair;
+        string _priceRepair;
         public string PriceRepair
         {
             get => _priceRepair;
@@ -138,7 +137,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private bool _checkBoxChoicePriceViewModel;
+        bool _checkBoxChoicePriceViewModel;
         public bool CheckBoxChoicePriceViewModel
         {
             get => _checkBoxChoicePriceViewModel;
@@ -155,7 +154,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_5;
                     if (Category == UserModelStatic.CATEGORY_6)
                         PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6;
-
                 }
                 else
                 {
@@ -172,7 +170,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _primaryMeans;
+        string _primaryMeans;
         public string PrimaryMeans
         {
             get => _primaryMeans;
@@ -183,7 +181,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _productName;
+        string _productName;
         public string ProductName
         {
             get => _productName;
@@ -198,7 +196,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region CompletedWorks and Parts
 
-        private string _completedWorks_1;
+        string _completedWorks_1;
         public string CompletedWorks_1
         {
             get => _completedWorks_1;
@@ -208,15 +206,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_1))
                     Parts_1 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_1 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_1));
             }
         }
 
-        private string _parts_1;
+        string _parts_1;
         public string Parts_1
         {
             get => _parts_1;
@@ -227,7 +224,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_2;
+        string _completedWorks_2;
         public string CompletedWorks_2
         {
             get => _completedWorks_2;
@@ -237,15 +234,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_2))
                     Parts_2 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_2 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_2));
             }
         }
 
-        private string _parts_2;
+        string _parts_2;
         public string Parts_2
         {
             get => _parts_2;
@@ -256,7 +252,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_3;
+        string _completedWorks_3;
         public string CompletedWorks_3
         {
             get => _completedWorks_3;
@@ -266,15 +262,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_3))
                     Parts_3 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_3 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_3));
             }
         }
 
-        private string _parts_3;
+        string _parts_3;
         public string Parts_3
         {
             get => _parts_3;
@@ -285,7 +280,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_4;
+        string _completedWorks_4;
         public string CompletedWorks_4
         {
             get => _completedWorks_4;
@@ -295,15 +290,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_4))
                     Parts_4 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_4 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_4));
             }
         }
 
-        private string _parts_4;
+        string _parts_4;
         public string Parts_4
         {
             get => _parts_4;
@@ -314,7 +308,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_5;
+        string _completedWorks_5;
         public string CompletedWorks_5
         {
             get => _completedWorks_5;
@@ -324,15 +318,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_5))
                     Parts_5 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_5 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_5));
             }
         }
 
-        private string _parts_5;
+        string _parts_5;
         public string Parts_5
         {
             get => _parts_5;
@@ -343,7 +336,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_6;
+        string _completedWorks_6;
         public string CompletedWorks_6
         {
             get => _completedWorks_6;
@@ -353,15 +346,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_6))
                     Parts_6 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_6 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_6));
             }
         }
 
-        private string _parts_6;
+        string _parts_6;
         public string Parts_6
         {
             get => _parts_6;
@@ -372,7 +364,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _completedWorks_7;
+        string _completedWorks_7;
         public string CompletedWorks_7
         {
             get => _completedWorks_7;
@@ -382,15 +374,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (String.IsNullOrWhiteSpace(CompletedWorks_7))
                     Parts_7 = string.Empty;
                 foreach (var item in RepairManualRadiostantionsCollections)
-                {
                     if (value == item.CompletedWorks)
                         Parts_7 = item.Parts;
-                }
+
                 OnPropertyChanged(nameof(CompletedWorks_7));
             }
         }
 
-        private string _parts_7;
+        string _parts_7;
         public string Parts_7
         {
             get => _parts_7;
@@ -411,7 +402,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
             _workRepositoryRadiostantion = new WorkRadiostantionRepository();
             _repairManualModelRepository = new RepairManualModelRepository();
-            RepairManualRadiostantionsCollections = 
+            RepairManualRadiostantionsCollections =
                 new ObservableCollection<RepairManualRadiostantionModel>();
             CompletedWorksCollections = new ObservableCollection<string>();
             ChangeNumberActRepairBySerialNumberInDataBase =
@@ -428,12 +419,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetProductNameInDataBase
 
-        private void GetProductNameInDataBase()
+        void GetProductNameInDataBase()
         {
             ProductName = _workRepositoryRadiostantionFull.
                 GetProductNameInDataBaseForRepair(
-                UserModelStatic.SERIAL_NUMBER, 
-                UserModelStatic.CITY, 
+                UserModelStatic.SERIAL_NUMBER,
+                UserModelStatic.CITY,
                 UserModelStatic.ROAD);
         }
 
@@ -442,12 +433,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetPrimaryMeansInDataBase
 
-        private void GetPrimaryMeansInDataBase()
+        void GetPrimaryMeansInDataBase()
         {
             PrimaryMeans = _workRepositoryRadiostantionFull.
                 GetPrimaryMeansInDataBaseForRepair(
-                UserModelStatic.SERIAL_NUMBER, 
-                UserModelStatic.CITY, 
+                UserModelStatic.SERIAL_NUMBER,
+                UserModelStatic.CITY,
                 UserModelStatic.ROAD);
         }
 
@@ -455,19 +446,32 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetOfTheLastNumberActRepair
 
-        private void GetOfTheLastNumberActRepair()
+        void GetOfTheLastNumberActRepair()
         {
             string textNumberActRepair = _workRepositoryRadiostantion.
                 GetOfTheLastNumberActRepair(UserModelStatic.ROAD);
-            foreach (var item in
-                        UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
-                NumberActRepair = item.NumberPrintDocumentBase + "/";
 
-            if(!String.IsNullOrWhiteSpace(textNumberActRepair))
-            NumberActRepair +=(
-                Convert.ToInt32(
-                textNumberActRepair.Substring(textNumberActRepair.IndexOf("/") + 1)
-                ) + 1).ToString();
+            StringBuilder sbNumberActRepair = new StringBuilder();
+
+            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            {
+                if (UserModelStatic.ROAD == item.RoadBase)
+                {
+                    sbNumberActRepair.Append(item.NumberPrintDocumentBase);
+                    sbNumberActRepair.Append("/");
+                    break;
+                }   
+            }
+            if (!String.IsNullOrWhiteSpace(textNumberActRepair))
+            {
+                // Используем TryParse для безопасного преобразования строки в число
+                if (int.TryParse(textNumberActRepair.Substring(textNumberActRepair.IndexOf("/") + 1),
+                    out int currentNumber))
+                {
+                    // Увеличиваем текущий номер на 1 и добавляем его к строке
+                    NumberActRepair = sbNumberActRepair.Append(currentNumber + 1).ToString();
+                }
+            }
         }
 
 
@@ -475,53 +479,57 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AddRepairRadiostationForDocumentInDataBase
 
-        private void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
+        bool СheckIsNullOrWhiteSpace()
         {
-
-            #region Проверка ввода контролов
-
             if (String.IsNullOrWhiteSpace(NumberActRepair))
             {
                 MessageBox.Show("Поле \"Номер акта ремонта\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(NumberActRepair,
-                @"[0-9]{2,2}/[0-9]{1,}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(DateRepair))
             {
                 MessageBox.Show("Поле \"Дата ремонта\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(CompletedWorks_1))
+            {
+                MessageBox.Show("Поле \"Варианты работ(1)\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Parts_1))
+            {
+                MessageBox.Show("Поле \"Израсходованные детали (1)\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+
+            return true;
+        }
+
+        bool СheckNumberActRepairAndDateRepair()
+        {
+            if (!Regex.IsMatch(NumberActRepair,
+                @"[0-9]{2,2}/[0-9]{1,}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
             }
             if (!Regex.IsMatch(DateRepair,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле \"Дату ремонта\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
-            string dateRepairDataBase =
-                Convert.ToDateTime(DateRepair).ToString("yyyy-MM-dd");
+            return true;
+        }
 
-            if (String.IsNullOrWhiteSpace(CompletedWorks_1))
-            {
-                MessageBox.Show("Поле \"Варианты работ(1)\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(Parts_1))
-            {
-                MessageBox.Show("Поле \"Израсходованные детали (1)\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
+        bool СheckCompletedWorksAndParts()
+        {
             Regex regCompletedWorks_1 = new Regex(Environment.NewLine);
             CompletedWorks_1 = regCompletedWorks_1.Replace(CompletedWorks_1, " ");
             CompletedWorks_1.Trim();
@@ -535,7 +543,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (2)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_2 = new Regex(Environment.NewLine);
                 CompletedWorks_2 = regCompletedWorks_2.Replace(CompletedWorks_2, " ");
@@ -550,7 +558,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (3)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_3 = new Regex(Environment.NewLine);
                 CompletedWorks_3 = regCompletedWorks_3.Replace(CompletedWorks_3, " ");
@@ -565,7 +573,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (4)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_4 = new Regex(Environment.NewLine);
                 CompletedWorks_4 = regCompletedWorks_4.Replace(CompletedWorks_4, " ");
@@ -580,7 +588,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (5)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_5 = new Regex(Environment.NewLine);
                 CompletedWorks_5 = regCompletedWorks_5.Replace(CompletedWorks_5, " ");
@@ -595,7 +603,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (6)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_6 = new Regex(Environment.NewLine);
                 CompletedWorks_6 = regCompletedWorks_6.Replace(CompletedWorks_6, " ");
@@ -610,7 +618,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 {
                     MessageBox.Show("Поле \"Израсходованные детали (6)\" не должно быть пустым", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
                 Regex regCompletedWorks_7 = new Regex(Environment.NewLine);
                 CompletedWorks_7 = regCompletedWorks_7.Replace(CompletedWorks_7, " ");
@@ -619,14 +627,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 Parts_7 = regParts_7.Replace(Parts_7, " ");
                 Parts_7.Trim();
             }
+            return true;
+        }
 
-            #endregion
+        void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
+        {
+            if (!СheckIsNullOrWhiteSpace())
+                return;
+            if (!СheckNumberActRepairAndDateRepair())
+                return;
+            if (!СheckCompletedWorksAndParts())
+                return;
 
             if (!String.IsNullOrWhiteSpace(PrimaryMeans) ||
                !String.IsNullOrWhiteSpace(ProductName))
                 if (_workRepositoryRadiostantionFull.SetPrimaryMeansAndProductNameInDataBase(
-                    Road, City, SerialNumber, PrimaryMeans, ProductName))
-                { }
+                    Road, City, SerialNumber, PrimaryMeans, ProductName)) { }
                 else MessageBox.Show("Ошибка добавления основного средства и наименования изделия" +
                     "в общую таблицу radiostantionFull", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -637,10 +653,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CompletedWorks_1, Parts_1, CompletedWorks_2, Parts_2,
                 CompletedWorks_3, Parts_3, CompletedWorks_4, Parts_4,
                 CompletedWorks_5, Parts_5, CompletedWorks_6, Parts_6,
-                CompletedWorks_7, Parts_7))
-            { }
-            else
-                MessageBox.Show($"Ошибка добавления ремонта на радиостанцию {SerialNumber}" +
+                CompletedWorks_7, Parts_7)) { }
+            else MessageBox.Show($"Ошибка добавления ремонта на радиостанцию {SerialNumber}" +
                     $"в radiostantionFull(общая таблица)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -652,8 +666,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CompletedWorks_7, Parts_7))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-            else
-                MessageBox.Show($"Ошибка добавления ремонта на радиостанцию {SerialNumber}",
+            else MessageBox.Show($"Ошибка добавления ремонта на радиостанцию {SerialNumber}",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -661,7 +674,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region AddRepairManualModelRadiostantionInDataBase
 
-        private void ExecuteRepairManualModelRadiostantionInDataBaseCommand(object obj)
+        void ExecuteRepairManualModelRadiostantionInDataBaseCommand(object obj)
         {
             if (repairManualView == null)
             {
@@ -669,7 +682,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 repairManualView.Closed += (sender, args) => repairManualView = null;
                 repairManualView.Closed += (sender, args) =>
                 GetRepairManualRadiostantionsCollections();
-                repairManualView.Show();
+                repairManualView.ShowDialog();
             }
         }
 
@@ -677,44 +690,48 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region ChangeNumberActRepairBySerialNumberInDataBase
 
-        private void ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand(object obj)
+        bool СheckNumberActRepair()
         {
-            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
-                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                return;
-
             if (String.IsNullOrWhiteSpace(NumberActRepair))
             {
                 MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
             if (!Regex.IsMatch(NumberActRepair,
                 @"[0-9]{2,2}/[0-9]{1,}$"))
             {
                 MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
+            return true;
+        }
+
+        void ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand(object obj)
+        {
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if (!СheckNumberActRepair())
+                return;
+
             if (!_workRepositoryRadiostantion.CheckRepairInDBRadiostantionBySerialNumber(
                 Road, City, SerialNumber))
                 return;
 
             if (_workRepositoryRadiostantionFull.
                 ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
-                Road, City, SerialNumber, NumberActRepair))
-            { }
-            else
-                MessageBox.Show("Ошибка изменения номера атка ремонта радиостанции " +
+                Road, City, SerialNumber, NumberActRepair)){ }
+            else MessageBox.Show("Ошибка изменения номера атка ремонта радиостанции " +
                     "в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
             if (_workRepositoryRadiostantion.ChangeNumberActRepairBySerialNumberInDataBase(
                 Road, City, SerialNumber, NumberActRepair))
-                MessageBox.Show("Успешно", "Информация",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            else
-                MessageBox.Show("Ошибка изменения номера акта радиостанции",
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show("Ошибка изменения номера акта радиостанции",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -722,7 +739,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetRepairManualRadiostantionsCollections
 
-        private void GetRepairManualRadiostantionsCollections()
+        void GetRepairManualRadiostantionsCollections()
         {
             if (RepairManualRadiostantionsCollections.Count != 0)
                 RepairManualRadiostantionsCollections.Clear();
