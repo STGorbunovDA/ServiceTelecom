@@ -17,9 +17,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class AddRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
 
-        IWorkRadiostantionRepository _workRepositoryRadiostantion;
-        IWorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-        IModelDataBaseRepository _modelDataBase;
+        IWorkRadiostantionRepository _workRadiostantionRepository;
+        IWorkRadiostantionFullRepository _workRadiostantionFullRepository;
+        IModelDataBaseRepository _modelDataBaseRepository;
         
         AddModelRadiostantionView addModelRadiostantion = null;
         public ObservableCollection<ModelRadiostantionDataBaseModel>
@@ -332,9 +332,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             RadiostationForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            _modelDataBase = new ModelDataBaseRepository();
-            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _modelDataBaseRepository = new ModelDataBaseRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             AddRadiostationForDocumentInDataBase =
                 new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
@@ -357,7 +357,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RadiostationForDocumentsCollection.Clear();
 
             RadiostationForDocumentsCollection =
-            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
+            _workRadiostantionFullRepository.SearchBySerialNumberInDatabaseCharacteristics(
                 Road, SerialNumber, RadiostationForDocumentsCollection);
             if (RadiostationForDocumentsCollection.Count != 0)
             {
@@ -384,7 +384,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RadiostationForDocumentsCollection.Clear();
 
             RadiostationForDocumentsCollection =
-            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
+            _workRadiostantionFullRepository.SearchBySerialNumberInDatabaseCharacteristics(
                 Road, SerialNumber, RadiostationForDocumentsCollection);
 
             if (RadiostationForDocumentsCollection.Count != 0)
@@ -924,7 +924,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             SettingValuesRadioStationConsumables();
 
-            if (_workRepositoryRadiostantion.
+            if (_workRadiostantionRepository.
                 CheckSerialNumberForDocumentInDataBaseRadiostantion(
                 Road, SerialNumber))
             {
@@ -933,7 +933,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     return;
             }
-            if (_workRepositoryRadiostantion.CheckNumberActOverTwentyForDocumentInDataBase(
+            if (_workRadiostantionRepository.CheckNumberActOverTwentyForDocumentInDataBase(
                 Road, City, NumberAct))
             {
                 MessageBox.Show($"В акте: \"{NumberAct}\" более 20 радиостанций. " +
@@ -941,11 +941,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (!_workRepositoryRadiostantionFull.
+            if (!_workRadiostantionFullRepository.
                 CheckSerialNumberForDocumentInDataBaseRadiostantionFull(
                 Road, SerialNumber))
             {
-                if (_workRepositoryRadiostantionFull.AddRadiostationFullForDocumentInDataBase(
+                if (_workRadiostantionFullRepository.AddRadiostationFullForDocumentInDataBase(
                     Road, NumberAct, DateMaintenance, Representative,
                     NumberIdentification, DateOfIssuanceOfTheCertificate,
                     PhoneNumber, Post, Comment, City, Location, Poligon, Company,
@@ -958,7 +958,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
             else
             {
-                if (_workRepositoryRadiostantionFull.
+                if (_workRadiostantionFullRepository.
                     ChangeRadiostationFullForDocumentInDataBase(
                     Road, NumberAct, DateMaintenance, Representative,
                     NumberIdentification, DateOfIssuanceOfTheCertificate,
@@ -970,7 +970,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     "в radiostantionFull(БД)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
-            if (_workRepositoryRadiostantion.AddRadiostationForDocumentInDataBase(
+            if (_workRadiostantionRepository.AddRadiostationForDocumentInDataBase(
                 Road, NumberAct, DateMaintenance, Representative,
                 NumberIdentification, DateOfIssuanceOfTheCertificate,
                 PhoneNumber, Post, Comment, City, Location, Poligon, Company,
@@ -1010,7 +1010,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (ModelCollections.Count != 0)
                 ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(
+            ModelCollections = _modelDataBaseRepository.GetModelRadiostantionDataBase(
                 ModelCollections);
             TheIndexModelChoiceCollection = ModelCollections.Count - 1;
         }

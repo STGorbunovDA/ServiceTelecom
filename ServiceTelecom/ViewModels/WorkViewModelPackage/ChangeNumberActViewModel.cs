@@ -10,8 +10,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class ChangeNumberActViewModel : ViewModelBase
     {
-        WorkRadiostantionRepository _workRepositoryRadiostantion;
-        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        WorkRadiostantionRepository _workRadiostantionRepository;
+        WorkRadiostantionFullRepository _workRadiostantionFullRepository;
         RadiostationParametersRepository _radiostationParametersRepository;
 
         #region свойства
@@ -32,8 +32,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand ChangeNumberActRadiostationsForDocumentInDB { get; }
         public ChangeNumberActViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
             ChangeNumberActRadiostationsForDocumentInDB =
                 new ViewModelCommand(
@@ -93,7 +93,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         MessageBoxImage.Error);
                 }
 
-                if (_workRepositoryRadiostantionFull.ChangeNumberActBySerialNumberInDBRadiostationFull(
+                if (_workRadiostantionFullRepository.ChangeNumberActBySerialNumberInDBRadiostationFull(
                 item.Road, item.City, item.SerialNumber, NewNumberAct)){ }
                 else
                 {
@@ -102,7 +102,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         MessageBoxImage.Error);
                     break;
                 }
-                if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDatabase(
+                if (_workRadiostantionRepository.ChangeNumberActBySerialNumberInDatabase(
                     item.Road, item.City, item.SerialNumber, NewNumberAct)) { }
                 else
                 {

@@ -9,8 +9,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddDecommissionNumberActViewModel : ViewModelBase
     {
-         IWorkRadiostantionRepository _workRepositoryRadiostantion;
-         IWorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+         IWorkRadiostantionRepository _workRadiostantionRepository;
+         IWorkRadiostantionFullRepository _workRadiostantionFullRepository;
          IRadiostationParametersRepository _radiostationParametersRepository;
          
         string _road;
@@ -67,8 +67,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public AddDecommissionNumberActViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
             AddDecommissionNumberActRadiostationForDocumentInDataBase =
                 new ViewModelCommand(
@@ -111,7 +111,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (_workRepositoryRadiostantionFull.
+            if (_workRadiostantionFullRepository.
                 AddDecommissionNumberActRadiostationInDBRadiostationFull(
                 Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
             {}
@@ -119,7 +119,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     $"{SerialNumber}, radiostantionFull(общая база)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.AddDecommissionNumberActRadiostationInDB(
+            if (_workRadiostantionRepository.AddDecommissionNumberActRadiostationInDB(
                 Road, City, SerialNumber, DecommissionNumberAct, ReasonDecommissionNumberAct))
                 MessageBox.Show("Успешно", "Информация",
                          MessageBoxButton.OK, MessageBoxImage.Information);

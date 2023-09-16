@@ -12,12 +12,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class ChangeRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        private WorkRadiostantionRepository _workRepositoryRadiostantion;
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-        private RadiostationParametersRepository _radiostationParametersRepository;
+        WorkRadiostantionRepository _workRepositoryRadiostantion;
+        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        RadiostationParametersRepository _radiostationParametersRepository;
 
         AddModelRadiostantionView addModelRadiostantion = null;
-        private ModelDataBaseRepository _modelDataBase;
+
+        ModelDataBaseRepository _modelDataBase;
         public ObservableCollection<ModelRadiostantionDataBaseModel>
             ModelCollections
         { get; set; }

@@ -13,8 +13,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class AddRepairRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-        WorkRadiostantionRepository _workRepositoryRadiostantion;
+        WorkRadiostantionFullRepository _workRadiostantionFullRepository;
+        WorkRadiostantionRepository _workRadiostantionRepository;
         RepairManualModelRepository _repairManualModelRepository;
 
         RepairManualView repairManualView = null;
@@ -399,8 +399,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand AddRepairRadiostationForDocumentInDataBase { get; }
         public AddRepairRadiostationForDocumentInDataBaseViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
-            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
             _repairManualModelRepository = new RepairManualModelRepository();
             RepairManualRadiostantionsCollections =
                 new ObservableCollection<RepairManualRadiostantionModel>();
@@ -421,7 +421,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void GetProductNameInDataBase()
         {
-            ProductName = _workRepositoryRadiostantionFull.
+            ProductName = _workRadiostantionFullRepository.
                 GetProductNameInDataBaseForRepair(
                 UserModelStatic.SERIAL_NUMBER,
                 UserModelStatic.CITY,
@@ -435,7 +435,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void GetPrimaryMeansInDataBase()
         {
-            PrimaryMeans = _workRepositoryRadiostantionFull.
+            PrimaryMeans = _workRadiostantionFullRepository.
                 GetPrimaryMeansInDataBaseForRepair(
                 UserModelStatic.SERIAL_NUMBER,
                 UserModelStatic.CITY,
@@ -448,7 +448,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void GetOfTheLastNumberActRepair()
         {
-            string textNumberActRepair = _workRepositoryRadiostantion.
+            string textNumberActRepair = _workRadiostantionRepository.
                 GetOfTheLastNumberActRepair(UserModelStatic.ROAD);
 
             StringBuilder sbNumberActRepair = new StringBuilder();
@@ -641,13 +641,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (!String.IsNullOrWhiteSpace(PrimaryMeans) ||
                !String.IsNullOrWhiteSpace(ProductName))
-                if (_workRepositoryRadiostantionFull.SetPrimaryMeansAndProductNameInDataBase(
+                if (_workRadiostantionFullRepository.SetPrimaryMeansAndProductNameInDataBase(
                     Road, City, SerialNumber, PrimaryMeans, ProductName)) { }
                 else MessageBox.Show("Ошибка добавления основного средства и наименования изделия" +
                     "в общую таблицу radiostantionFull", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantionFull.
+            if (_workRadiostantionFullRepository.
                 AddRepairRadiostationForDocumentInDBRadiostantionFull(
                 Road, City, SerialNumber, NumberActRepair, Category, PriceRepair,
                 CompletedWorks_1, Parts_1, CompletedWorks_2, Parts_2,
@@ -658,7 +658,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     $"в radiostantionFull(общая таблица)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.AddRepairRadiostationForDocumentInDataBase(
+            if (_workRadiostantionRepository.AddRepairRadiostationForDocumentInDataBase(
                 Road, City, SerialNumber, NumberActRepair, Category, PriceRepair,
                 CompletedWorks_1, Parts_1, CompletedWorks_2, Parts_2,
                 CompletedWorks_3, Parts_3, CompletedWorks_4, Parts_4,
@@ -717,18 +717,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (!СheckNumberActRepair())
                 return;
 
-            if (!_workRepositoryRadiostantion.CheckRepairInDBRadiostantionBySerialNumber(
+            if (!_workRadiostantionRepository.CheckRepairInDBRadiostantionBySerialNumber(
                 Road, City, SerialNumber))
                 return;
 
-            if (_workRepositoryRadiostantionFull.
+            if (_workRadiostantionFullRepository.
                 ChangeNumberActRepairBySerialNumberInDBRadiostationFull(
                 Road, City, SerialNumber, NumberActRepair)){ }
             else MessageBox.Show("Ошибка изменения номера атка ремонта радиостанции " +
                     "в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.ChangeNumberActRepairBySerialNumberInDataBase(
+            if (_workRadiostantionRepository.ChangeNumberActRepairBySerialNumberInDataBase(
                 Road, City, SerialNumber, NumberActRepair))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             else MessageBox.Show("Ошибка изменения номера акта радиостанции",
