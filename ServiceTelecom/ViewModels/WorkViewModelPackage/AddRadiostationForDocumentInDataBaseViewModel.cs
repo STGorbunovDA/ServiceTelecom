@@ -615,7 +615,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             return true;
         }
 
-        bool CheckSerialNumberModel()
+        bool CheckRegexSerialNumberModel()
         {
             if (Model == "Motorola GP-340")
             {
@@ -917,7 +917,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (!СheckRegexValue())
                 return;
-            if (!CheckSerialNumberModel())
+            if (!CheckRegexSerialNumberModel())
                 return;
 
             RemoveNewLinesAndTrim();
