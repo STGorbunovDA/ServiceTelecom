@@ -4,6 +4,7 @@ using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -12,24 +13,19 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class ChangeRadiostationForDocumentInDataBaseViewModel : ViewModelBase
     {
-        WorkRadiostantionRepository _workRepositoryRadiostantion;
-        WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        WorkRadiostantionRepository _workRadiostantionRepository;
+        WorkRadiostantionFullRepository _workRadiostantionFullRepository;
         RadiostationParametersRepository _radiostationParametersRepository;
 
         AddModelRadiostantionView addModelRadiostantion = null;
+        ModelDataBaseRepository _modelDataBaseRepository;
 
-        ModelDataBaseRepository _modelDataBase;
-        public ObservableCollection<ModelRadiostantionDataBaseModel>
-            ModelCollections
-        { get; set; }
-
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationForDocumentsCollection
-        { get; set; }
+        public ObservableCollection<ModelRadiostantionDataBaseModel> ModelsCollection { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
 
         #region свойства
 
-        private string _road;
+        string _road;
         public string Road
         {
             get => _road;
@@ -39,7 +35,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Road));
             }
         }
-        private string _numberAct;
+        string _numberAct;
         public string NumberAct
         {
             get => _numberAct;
@@ -49,7 +45,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(NumberAct));
             }
         }
-        private string _dateMaintenance;
+        string _dateMaintenance;
         public string DateMaintenance
         {
             get => _dateMaintenance;
@@ -59,7 +55,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(DateMaintenance));
             }
         }
-        private string _representative;
+        string _representative;
         public string Representative
         {
             get => _representative;
@@ -69,7 +65,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Representative));
             }
         }
-        private string _numberIdentification;
+        string _numberIdentification;
         public string NumberIdentification
         {
             get => _numberIdentification;
@@ -79,7 +75,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(NumberIdentification));
             }
         }
-        private string _dateOfIssuanceOfTheCertificate;
+        string _dateOfIssuanceOfTheCertificate;
         public string DateOfIssuanceOfTheCertificate
         {
             get => _dateOfIssuanceOfTheCertificate;
@@ -89,7 +85,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(DateOfIssuanceOfTheCertificate));
             }
         }
-        private string _phoneNumber;
+        string _phoneNumber;
         public string PhoneNumber
         {
             get => _phoneNumber;
@@ -99,7 +95,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(PhoneNumber));
             }
         }
-        private string _post;
+        string _post;
         public string Post
         {
             get => _post;
@@ -109,7 +105,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Post));
             }
         }
-        private string _comment;
+        string _comment;
         public string Comment
         {
             get => _comment;
@@ -119,7 +115,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Comment));
             }
         }
-        private string _city;
+        string _city;
         public string City
         {
             get => _city;
@@ -130,7 +126,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (value != null) Location = "ст. " + value;
             }
         }
-        private string _location;
+        string _location;
         public string Location
         {
             get => _location;
@@ -140,7 +136,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Location));
             }
         }
-        private string _poligon;
+        string _poligon;
         public string Poligon
         {
             get => _poligon;
@@ -150,7 +146,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Poligon));
             }
         }
-        private string _company;
+        string _company;
         public string Company
         {
             get => _company;
@@ -160,7 +156,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Company));
             }
         }
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
@@ -170,7 +166,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Model));
             }
         }
-        private string _serialNumber;
+        string _serialNumber;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -180,7 +176,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(SerialNumber));
             }
         }
-        private string _inventoryNumber;
+        string _inventoryNumber;
         public string InventoryNumber
         {
             get => _inventoryNumber;
@@ -190,7 +186,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(InventoryNumber));
             }
         }
-        private string _networkNumber;
+        string _networkNumber;
         public string NetworkNumber
         {
             get => _networkNumber;
@@ -200,8 +196,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(NetworkNumber));
             }
         }
-
-        private string _price;
+        string _price;
         public string Price
         {
             get => _price;
@@ -211,7 +206,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Price));
             }
         }
-        private bool _checkBoxRemontViewModel;
+        bool _checkBoxRemontViewModel;
         public bool CheckBoxRemontViewModel
         {
             get => _checkBoxRemontViewModel;
@@ -221,7 +216,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(CheckBoxRemontViewModel));
             }
         }
-        private string _battery;
+        string _battery;
         public string Battery
         {
             get => _battery;
@@ -231,7 +226,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Battery));
             }
         }
-        private bool _checkBoxManipulatorViewModel;
+        bool _checkBoxManipulatorViewModel;
         public bool CheckBoxManipulatorViewModel
         {
             get => _checkBoxManipulatorViewModel;
@@ -241,8 +236,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(CheckBoxManipulatorViewModel));
             }
         }
-
-        private bool _checkBoxAntennaViewModel;
+        bool _checkBoxAntennaViewModel;
         public bool CheckBoxAntennaViewModel
         {
 
@@ -253,8 +247,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(CheckBoxAntennaViewModel));
             }
         }
-
-        private bool _checkBoxChargerViewModel;
+        bool _checkBoxChargerViewModel;
         public bool CheckBoxChargerViewModel
         {
             get => _checkBoxChargerViewModel;
@@ -264,16 +257,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(CheckBoxChargerViewModel));
             }
         }
-
-
-        private bool _сheckBoxPriceViewModel;
+        bool _сheckBoxPriceViewModel;
         public bool CheckBoxPriceViewModel
         {
             get => _сheckBoxPriceViewModel;
             set
             {
                 if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
-                    if (value == true)
+                    if (value)
                         Price = UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES;
                     else Price = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
 
@@ -282,12 +273,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string Manipulator { get; set; }
-        private string Antenna { get; set; }
-        private string Charger { get; set; }
-        private string Remont { get; set; }
+        string Manipulator { get; set; }
+        string Antenna { get; set; }
+        string Charger { get; set; }
+        string Remont { get; set; }
 
-        private string _decommissionNumberAct;
+        string _decommissionNumberAct;
         public string DecommissionNumberAct
         {
             get => _decommissionNumberAct;
@@ -300,7 +291,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        private int _theIndexModelChoiceCollection;
+        int _theIndexModelChoiceCollection;
         public int TheIndexModelChoiceCollection
         {
             get => _theIndexModelChoiceCollection;
@@ -322,13 +313,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public ChangeRadiostationForDocumentInDataBaseViewModel()
         {
-            _workRepositoryRadiostantion = new WorkRadiostantionRepository();
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
-            _modelDataBase = new ModelDataBaseRepository();
-            RadiostationForDocumentsCollection =
+            _modelDataBaseRepository = new ModelDataBaseRepository();
+            RadiostationsForDocumentsCollection =
                 new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            ModelCollections = new ObservableCollection<ModelRadiostantionDataBaseModel>();
+            ModelsCollection = new ObservableCollection<ModelRadiostantionDataBaseModel>();
             AddModelDataBase = new ViewModelCommand(ExecuteAddModelDataBaseCommand);
             ChangeNumberActBySerialNumberInDataBase =
                 new ViewModelCommand(ExecuteChangeNumberActBySerialNumberInDataBaseCommand);
@@ -353,47 +344,57 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetModelDataBase();
         }
 
+        #region CheckValue
 
-        #region ChangeByCompanyRepresentativeForDocumentInDataBase
-
-        private void ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand(object obj)
+        bool CheckDecommissionNumberAct()
         {
             if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
             {
                 MessageBox.Show($"У радиостанции \"{SerialNumber}\" " +
                     $"есть списание {DecommissionNumberAct}", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
-            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                return;
-
-            #region проверка контролов Representative
-
-            if (String.IsNullOrWhiteSpace(Company))
+            return true;
+        }
+        bool CheckEmployeeIdCardIsNullOrWhiteSpace()
+        {
+            if (String.IsNullOrWhiteSpace(Representative))
             {
-                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
+                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
-
+            if (String.IsNullOrWhiteSpace(NumberIdentification))
+            {
+                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Post))
+            {
+                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(DateOfIssuanceOfTheCertificate))
+            {
+                MessageBox.Show("Поле \"Дата выдачи удостоверения\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool CheckEmployeeIdCardRegex()
+        {
             if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate,
                 @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
-            string dateOfIssuanceOfTheCertificateDataBase =
-                Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
-            if (String.IsNullOrWhiteSpace(Representative))
-            {
-                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
             if (!Representative.Contains("-"))
             {
                 if (!Regex.IsMatch(Representative,
@@ -402,7 +403,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
                         "пример Иванов И.И.", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
             }
             if (Representative.Contains("-"))
@@ -413,54 +414,484 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
                         "пример Иванова-Сидорова Я.И.", "Отмена",
                         MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
+                    return false;
                 }
-            }
-            if (String.IsNullOrWhiteSpace(NumberIdentification))
-            {
-                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
             }
             if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
             {
                 if (MessageBox.Show("Поле \"№ Удостоверения\" " +
                     "введено некорректно желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
-            if (String.IsNullOrWhiteSpace(Post))
+
+            StringBuilder sb = new StringBuilder(Post.Trim());
+            sb.Replace(Environment.NewLine, " ");
+            Post = sb.ToString();
+
+            return true;
+        }
+        bool СheckIsNullOrWhiteSpace()
+        {
+            if (String.IsNullOrWhiteSpace(NumberAct))
             {
-                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
+            if (String.IsNullOrWhiteSpace(DateMaintenance))
+            {
+                MessageBox.Show("Поле \"Дата ТО\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(City))
+            {
+                MessageBox.Show("Поле \"Город\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Location))
+            {
+                MessageBox.Show("Поле \"Станция\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Poligon))
+            {
+                MessageBox.Show("Поле \"Полигон\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Company))
+            {
+                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(Price))
+            {
+                MessageBox.Show("Поле \"Цена ТО\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(InventoryNumber))
+            {
+                MessageBox.Show("Поле \"Инвентарный №\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(NetworkNumber))
+            {
+                MessageBox.Show("Поле \"Сетевой №\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (Price == UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES)
+            {
+                MessageBox.Show("Цена ТО не может быть 0.0 рублей", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool СheckRegexValue()
+        {
+            if (!Regex.IsMatch(NumberAct,
+                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (!Regex.IsMatch(DateMaintenance,
+                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (!String.IsNullOrWhiteSpace(Comment))
+            {
+                StringBuilder sb2 = new StringBuilder(Comment.Trim());
+                sb2.Replace(Environment.NewLine, " ");
+                Comment = sb2.ToString();
+            }
+            if (!Regex.IsMatch(City, @"^[А-Я][а-я]*(?:[\s-][А-Я][а-я]*)*$"))
+            {
+                if (MessageBox.Show("Поле \"Город\" введено некорректно. " +
+                    "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return false;
+            }
+            if (!Regex.IsMatch(Location,
+                @"^[с][т][.][\s][А-Я][а-я]*(([\s-]?[0-9])*$)?([\s-]?[А-Я][а-я]*)*$"))
+            {
+                if (MessageBox.Show("Поле \"Станция\" введено некорректно. " +
+                    "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return false;
+            }
+            if (!Regex.IsMatch(Poligon, @"^[Р][Ц][С][-][1-9]{1,1}$"))
+            {
+                MessageBox.Show("Поле \"Полигон\" введено некорректно. " +
+                    "Пример от РЦС-1 до РЦС-9", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool CheckRegexSerialNumberModel()
+        {
+            if (Model == "Motorola GP-340")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([6][7][2]([A-Z]{3,3}[0-9]{4,4}))?([6][7][2][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola GP-360")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([7][4][9]([A-Z]{3,3}[0-9]{4,4}))?([7][4][9][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola DP-2400е" || Model == "Motorola DP-2400")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([4][4][6]([A-Z]{3,3}[0-9]{4,4}))?([4][4][6][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Comrade R5")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([2][0][1][0][R][5]([0-9]{6,6}))?([2][2][1][0][R][5][V][T]([0-9]{5,5}))*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Icom IC-F3GS")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[5][4]([0-9]{5,5})$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Icom IC-F3GT")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0][4]([0-9]{5,5})$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Icom IC-F16")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0][7]([0-9]{5,5})$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Icom IC-F11")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[1][0]([0-9]{4,4})$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Альтавия-301М")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Элодия-351М")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Комбат T-44")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{2,2}[.][0-9]{4,4}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Шеврон T-44 V2")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{1,2}[.][0-9]{4,4}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "РН311М")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^[0-9]{1,20}((([\S][0-9])*$)?([\s][0-9]{2,2}[.]?[0-9]{2,2}?)*$)"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola DP-4400")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([8][0][7]([A-Z]{3,3}[0-9]{4,4}))?([8][0][7][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola DP-1400")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([7][5][2]([A-Z]{3,3}[0-9]{4,4}))?([7][5][2][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola GP-320")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([6][3][8]([A-Z]{3,3}[0-9]{4,4}))?([6][3][8][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                         "Желаете продолжить?", "Внимание",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola GP-300")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([1][7][4]([A-Z]{3,3}[0-9]{4,4}))?([1][7][4][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola P080")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Motorola P040")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Гранит Р33П-1")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{5,5}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Гранит Р-43")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{6,6}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "Радий-301")
+            {
+                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{6,6}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "РНД-500")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            else if (Model == "РНД-512")
+            {
+                if (!Regex.IsMatch(SerialNumber,
+                    @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
+                {
+                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
+                        "Желаете продолжить?", "Внимание",
+                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                        return false;
+                }
+            }
+            return true;
+        }
+        void SettingValuesRadioStationConsumables()
+        {
+            if (CheckBoxManipulatorViewModel)
+                Manipulator = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+            else Manipulator = "-";
 
-            Regex re = new Regex(Environment.NewLine);
-            Post = re.Replace(Post, " ");
-            Post.Trim();
+            if (CheckBoxAntennaViewModel)
+                Antenna = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+            else Antenna = "-";
 
-            #endregion
+            if (CheckBoxChargerViewModel)
+                Charger = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+            else Charger = "-";
 
-            if (_workRepositoryRadiostantionFull.
-                ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
-                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
+            if (CheckBoxRemontViewModel)
+                Remont = UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES;
+            else Remont = UserModelStatic.IN_WORK_TECHNICAL_SERVICES;
+        }
+        bool CheckDecommissionNumberActIsNullOrWhiteSpace()
+        {
+            if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
+            {
+                MessageBox.Show("Поле \"№ акта списания\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool CheckDecommissionNumberActRegex()
+        {
+            if (!Regex.IsMatch(DecommissionNumberAct,
+                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ акта списания\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool CheckNumberActIsNullOrWhiteSpace()
+        {
+            if (String.IsNullOrWhiteSpace(NumberAct))
+            {
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+        bool CheckNumberActRegex()
+        {
+            if (!Regex.IsMatch(NumberAct,
+                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region ChangeByCompanyRepresentativeForDocumentInDataBase
+
+        void ExecuteChangeByCompanyRepresentativeForDocumentInDataBaseCommand(object obj)
+        {
+            if (!CheckDecommissionNumberAct())
+                return;
+
+            if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            if (!CheckEmployeeIdCardIsNullOrWhiteSpace())
+                return;
+
+            if(!CheckEmployeeIdCardRegex())
+                return;
+
+            if (_workRadiostantionFullRepository.ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
+                Road, City, Company, DateOfIssuanceOfTheCertificate,
+                Representative, NumberIdentification, Post, PhoneNumber)){ }
+            else MessageBox.Show($"Ошибка изменения представителя " +
+                    $"предприятия по текущему {Company} предприятию в radiostantionFull","Отмена", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+
+            if (_workRadiostantionRepository.ChangeByCompanyRepresentativeForDocumentInDataBase(
+                Road, City, Company, DateOfIssuanceOfTheCertificate,
                 Representative, NumberIdentification, Post, PhoneNumber))
-            { }
-            else
-                MessageBox.Show($"Ошибка изменения представителя " +
-                    $"предприятия по текущему {Company} предприятию в radiostantionFull",
-                    "Отмена", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-
-            if (_workRepositoryRadiostantion.
-                ChangeByCompanyRepresentativeForDocumentInDataBase(
-                Road, City, Company, dateOfIssuanceOfTheCertificateDataBase,
-                Representative, NumberIdentification, Post, PhoneNumber))
-                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            else
-                MessageBox.Show($"Ошибка изменения представителя Предприятия " +
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show($"Ошибка изменения представителя Предприятия " +
                     $"по текущему {Company} предприятию", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
         }
@@ -469,118 +900,42 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region ChangeByNumberActRepresentativeForDocumentInDataBase
 
-        private void ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand(object obj)
+        void ExecuteChangeByNumberActRepresentativeForDocumentInDataBaseCommand(object obj)
         {
-            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
-            {
-                MessageBox.Show($"У радиостанции \"{SerialNumber}\" " +
-                    $"есть списание {DecommissionNumberAct}", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckDecommissionNumberAct())
                 return;
-            }
+
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-
-            #region проверка контролов Representative
-
-            if (String.IsNullOrWhiteSpace(NumberAct))
+            // Условия вынесено отдельно для понимания вызванных методов проверки удостоверения
+            if (String.IsNullOrWhiteSpace(Company))
             {
-                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(NumberAct,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
+                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate,
-                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckEmployeeIdCardIsNullOrWhiteSpace())
                 return;
-            }
-            string dateOfIssuanceOfTheCertificateDataBase =
-                Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
-            if (String.IsNullOrWhiteSpace(Representative))
-            {
-                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckEmployeeIdCardRegex())
                 return;
-            }
-            if (!Representative.Contains("-"))
-            {
-                if (!Regex.IsMatch(Representative,
-                    @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-                {
-                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
-                        "пример Иванов И.И.", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-            }
-            if (Representative.Contains("-"))
-            {
-                if (!Regex.IsMatch(Representative,
-                    @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
-                {
-                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
-                        "пример Иванова-Сидорова Я.И.", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-            }
-            if (String.IsNullOrWhiteSpace(NumberIdentification))
-            {
-                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
-            {
-                if (MessageBox.Show("Поле \"№ Удостоверения\" введено " +
-                    "некорректно желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (String.IsNullOrWhiteSpace(Post))
-            {
-                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
 
-            Regex re = new Regex(Environment.NewLine);
-            Post = re.Replace(Post, " ");
-            Post.Trim();
-
-            #endregion
-
-            if (_workRepositoryRadiostantionFull.
-                ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
-                Road, City, NumberAct, dateOfIssuanceOfTheCertificateDataBase,
-                Representative, NumberIdentification, Post, PhoneNumber))
-            { }
-            else
-                MessageBox.Show($"Ошибка изменения представителя " +
+            if (_workRadiostantionFullRepository.ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
+                Road, City, NumberAct, DateOfIssuanceOfTheCertificate,
+                Representative, NumberIdentification, Post, PhoneNumber)) { }
+            else MessageBox.Show($"Ошибка изменения представителя " +
                     $"Предприятия по данному № {NumberAct} акта " +
                     $"в radiostantionFull", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.
-                ChangeByNumberActRepresentativeForDocumentInDataBase(
-                Road, City, NumberAct, dateOfIssuanceOfTheCertificateDataBase,
+            if (_workRadiostantionRepository.ChangeByNumberActRepresentativeForDocumentInDataBase(
+                Road, City, NumberAct, DateOfIssuanceOfTheCertificate,
                 Representative, NumberIdentification, Post, PhoneNumber))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-            else
-                MessageBox.Show($"Ошибка изменения представителя Предприятия " +
+            else MessageBox.Show($"Ошибка изменения представителя Предприятия " +
                     $"по данному № {NumberAct} акта", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
         }
@@ -589,19 +944,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region SearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDB
 
-        private void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand(object obj)
+        void ExecuteSearchBySerialNumberForFeaturesAdditionsRepresentativeFromTheDBCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
-            if (RadiostationForDocumentsCollection.Count != 0)
-                RadiostationForDocumentsCollection.Clear();
 
-            RadiostationForDocumentsCollection =
-            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, SerialNumber, RadiostationForDocumentsCollection);
-            if (RadiostationForDocumentsCollection.Count != 0)
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
+
+            RadiostationsForDocumentsCollection =
+            _workRadiostantionFullRepository.SearchBySerialNumberInDatabaseCharacteristics(
+                Road, SerialNumber, RadiostationsForDocumentsCollection);
+            if (RadiostationsForDocumentsCollection.Count != 0)
             {
-                foreach (var item in RadiostationForDocumentsCollection)
+                foreach (var item in RadiostationsForDocumentsCollection)
                 {
                     Representative = item.Representative;
                     NumberIdentification = item.NumberIdentification;
@@ -616,20 +972,21 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region SearchBySerialNumberForFeaturesAdditionsFromTheDatabase
 
-        private void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
+        void ExecuteSearchBySerialNumberForFeaturesAdditionsFromTheDatabaseCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(SerialNumber))
                 return;
-            if (RadiostationForDocumentsCollection.Count != 0)
-                RadiostationForDocumentsCollection.Clear();
 
-            RadiostationForDocumentsCollection =
-            _workRepositoryRadiostantionFull.SearchBySerialNumberInDatabaseCharacteristics(
-                Road, SerialNumber, RadiostationForDocumentsCollection);
+            if (RadiostationsForDocumentsCollection.Count != 0)
+                RadiostationsForDocumentsCollection.Clear();
 
-            if (RadiostationForDocumentsCollection.Count != 0)
+            RadiostationsForDocumentsCollection =
+            _workRadiostantionFullRepository.SearchBySerialNumberInDatabaseCharacteristics(
+                Road, SerialNumber, RadiostationsForDocumentsCollection);
+
+            if (RadiostationsForDocumentsCollection.Count != 0)
             {
-                foreach (var item in RadiostationForDocumentsCollection)
+                foreach (var item in RadiostationsForDocumentsCollection)
                 {
                     InventoryNumber = item.InventoryNumber;
                     NetworkNumber = item.NetworkNumber;
@@ -674,473 +1031,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region ChangeRadiostationForDocumentInDataBase
 
-        private void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
+        void ExecuteChangeRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
-            {
-                MessageBox.Show($"У радиостанции \"{SerialNumber}\" " +
-                    $"есть списание {DecommissionNumberAct}", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckDecommissionNumberAct())
                 return;
-            }
+
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            #region Проверка ввода контролов
-
-            if (String.IsNullOrWhiteSpace(NumberAct))
-            {
-                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckEmployeeIdCardIsNullOrWhiteSpace())
                 return;
-            }
-            if (!Regex.IsMatch(NumberAct,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckEmployeeIdCardRegex())
                 return;
-            }
-            if (String.IsNullOrWhiteSpace(DateMaintenance))
-            {
-                MessageBox.Show("Поле \"Дата ТО\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!СheckIsNullOrWhiteSpace())
                 return;
-            }
-            if (!Regex.IsMatch(DateMaintenance,
-                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!СheckRegexValue())
                 return;
-            }
-            string dateMaintenanceDataBase =
-                Convert.ToDateTime(DateMaintenance).ToString("yyyy-MM-dd");
-
-            if (!Regex.IsMatch(DateOfIssuanceOfTheCertificate,
-                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"Дата ТО\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckRegexSerialNumberModel())
                 return;
-            }
-            string dateOfIssuanceOfTheCertificateDataBase =
-                Convert.ToDateTime(DateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd");
 
-            if (String.IsNullOrWhiteSpace(Representative))
-            {
-                MessageBox.Show("Поле \"Представитель ФИО\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Representative.Contains("-"))
-            {
-                if (!Regex.IsMatch(Representative,
-                    @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-                {
-                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
-                        "пример Иванов И.И.", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-            }
-            if (Representative.Contains("-"))
-            {
-                if (!Regex.IsMatch(Representative,
-                    @"^[А-ЯЁ][а-яё]*(([\-][А-Я][а-яё]*[\s]+[А-Я]+[\.]+[А-Я]+[\.])$)"))
-                {
-                    MessageBox.Show("Введите корректно поле \"Представитель ФИО\" " +
-                        "пример Иванова-Сидорова Я.И.", "Отмена",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-            }
-            if (String.IsNullOrWhiteSpace(NumberIdentification))
-            {
-                MessageBox.Show("Поле \"№ Удостоверения\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(NumberIdentification, @"^[V][\s]([0-9]{6,})$"))
-            {
-                if (MessageBox.Show("Поле \"№ Удостоверения\" введено некорректно. " +
-                    "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (String.IsNullOrWhiteSpace(Post))
-            {
-                MessageBox.Show("Поле \"Должность\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            SettingValuesRadioStationConsumables();
 
-            Regex re = new Regex(Environment.NewLine);
-            Post = re.Replace(Post, " ");
-            Post.Trim();
-
-            if (!String.IsNullOrWhiteSpace(Comment))
-            {
-                Regex re2 = new Regex(Environment.NewLine);
-                Comment = re2.Replace(Comment, " ");
-                Comment.Trim();
-            }
-            if (String.IsNullOrWhiteSpace(City))
-            {
-                MessageBox.Show("Поле \"Город\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(City, @"^[А-Я][а-я]*(?:[\s-][А-Я][а-я]*)*$"))
-            {
-                if (MessageBox.Show("Поле \"Город\" введено некорректно. " +
-                    "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (String.IsNullOrWhiteSpace(Location))
-            {
-                MessageBox.Show("Поле \"Станция\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(Location,
-                @"^[с][т][.][\s][А-Я][а-я]*(([\s-]?[0-9])*$)?([\s-]?[А-Я][а-я]*)*$"))
-            {
-                if (MessageBox.Show("Поле \"Станция\" введено некорректно. " +
-                    "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (String.IsNullOrWhiteSpace(Poligon))
-            {
-                MessageBox.Show("Поле \"Полигон\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (!Regex.IsMatch(Poligon, @"^[Р][Ц][С][-][1-9]{1,1}$"))
-            {
-                MessageBox.Show("Поле \"Полигон\" введено некорректно. " +
-                    "Пример от РЦС-1 до РЦС-9", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(Company))
-            {
-                MessageBox.Show("Поле \"Предприятие\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            if (Price == UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES)
-            {
-                MessageBox.Show("Цена ТО не может быть 0.0 рублей", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            #region проверка заводского номера по модели
-
-            if (Model == "Motorola GP-340")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([6][7][2]([A-Z]{3,3}[0-9]{4,4}))?([6][7][2][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                         "Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola GP-360")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([7][4][9]([A-Z]{3,3}[0-9]{4,4}))?([7][4][9][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola DP-2400е" || Model == "Motorola DP-2400")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([4][4][6]([A-Z]{3,3}[0-9]{4,4}))?([4][4][6][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Comrade R5")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([2][0][1][0][R][5]([0-9]{6,6}))?([2][2][1][0][R][5][V][T]([0-9]{5,5}))*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Icom IC-F3GS")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[5][4]([0-9]{5,5})$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Icom IC-F3GT")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0][4]([0-9]{5,5})$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Icom IC-F16")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0][7]([0-9]{5,5})$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Icom IC-F11")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[1][0]([0-9]{4,4})$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Альтавия-301М")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Элодия-351М")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{9,9}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Комбат T-44")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{2,2}[.][0-9]{4,4}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Шеврон T-44 V2")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^[T][4][4][.][0-9]{2,2}[.]+[0-9]{1,2}[.][0-9]{4,4}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "РН311М")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^[0-9]{1,20}((([\S][0-9])*$)?([\s][0-9]{2,2}[.]?[0-9]{2,2}?)*$)"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola DP-4400")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([8][0][7]([A-Z]{3,3}[0-9]{4,4}))?([8][0][7][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola DP-1400")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([7][5][2]([A-Z]{3,3}[0-9]{4,4}))?([7][5][2][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                         "Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola GP-320")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([6][3][8]([A-Z]{3,3}[0-9]{4,4}))?([6][3][8][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                         "Желаете продолжить?", "Внимание",
-                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola GP-300")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([1][7][4]([A-Z]{3,3}[0-9]{4,4}))?([1][7][4][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola P080")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Motorola P040")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^([4][2][2]([A-Z]{3,3}[0-9]{4,4}))?([4][2][2][A-Z]{4,4}[0-9]{3,3})*$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Гранит Р33П-1")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{5,5}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Гранит Р-43")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{2,2}[\s][0-9]{6,6}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "Радий-301")
-            {
-                if (!Regex.IsMatch(SerialNumber, @"^[0-9]{6,6}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "РНД-500")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-            else if (Model == "РНД-512")
-            {
-                if (!Regex.IsMatch(SerialNumber,
-                    @"^[0-9]{1,}[[\s]?[0-9]{2,}[\.]?[0-9]{2,}$"))
-                {
-                    if (MessageBox.Show("Поле \"Зав №.\" введено некорректно. " +
-                        "Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
-
-            #endregion
-
-            if (String.IsNullOrWhiteSpace(InventoryNumber))
-            {
-                MessageBox.Show("Поле \"Инвентарный №\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(NetworkNumber))
-            {
-                MessageBox.Show("Поле \"Инвентарный №\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(Price))
-            {
-                MessageBox.Show("Поле \"Прайс\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            if (CheckBoxManipulatorViewModel)
-                Manipulator = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
-            else Manipulator = "-";
-
-            if (CheckBoxAntennaViewModel)
-                Antenna = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
-            else Antenna = "-";
-
-            if (CheckBoxChargerViewModel)
-                Charger = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
-            else Charger = "-";
-
-            if (CheckBoxRemontViewModel)
-                Remont = UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES;
-            else Remont = UserModelStatic.IN_WORK_TECHNICAL_SERVICES;
-
-            #endregion
-
-
-            if (_radiostationParametersRepository.
-                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            if (_radiostationParametersRepository. CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
             {
                 if (!_radiostationParametersRepository.ChangeСharacteristicsRadiostantionForRadiostationParameters
                     (Road, City, Company, Location, NumberAct, Model, Comment, Battery, SerialNumber))
@@ -1149,27 +1062,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxImage.Error);
             }
 
-            if (_workRepositoryRadiostantionFull.ChangeRadiostationFullForDocumentInDataBase(
-                    Road, NumberAct, dateMaintenanceDataBase, Representative,
-                    NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
+            if (_workRadiostantionFullRepository.ChangeRadiostationFullForDocumentInDataBase(
+                    Road, NumberAct, DateMaintenance, Representative,
+                    NumberIdentification, DateOfIssuanceOfTheCertificate,
                     PhoneNumber, Post, Comment, City, Location, Poligon, Company,
                     Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
-                    Manipulator, Antenna, Charger, Remont))
-            { }
+                    Manipulator, Antenna, Charger, Remont)) { }
             else MessageBox.Show("Ошибка изменения радиостанции в radiostantionFull(таблица)",
-                "Отмена", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.ChangeRadiostationForDocumentInDataBase(
-            Road, NumberAct, dateMaintenanceDataBase, Representative,
-            NumberIdentification, dateOfIssuanceOfTheCertificateDataBase,
+            if (_workRadiostantionRepository.ChangeRadiostationForDocumentInDataBase(
+            Road, NumberAct, DateMaintenance, Representative,
+            NumberIdentification, DateOfIssuanceOfTheCertificate,
             PhoneNumber, Post, Comment, City, Location, Poligon, Company,
             Model, SerialNumber, InventoryNumber, NetworkNumber, Price, Battery,
             Manipulator, Antenna, Charger, Remont))
                 MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-            else
-                MessageBox.Show("Ошибка изменения радиостанции", "Отмена",
+            else MessageBox.Show("Ошибка изменения радиостанции", "Отмена",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
         }
@@ -1178,50 +1088,33 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region ChangeDecommissionNumberActBySerialNumberInDataBase
 
-        private void ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand(object obj)
+        void ExecuteChangeDecommissionNumberActBySerialNumberInDataBaseCommand(object obj)
         {
-            if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
-            {
-                MessageBox.Show("Поле \"№ акта списания\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-
-            if (!Regex.IsMatch(DecommissionNumberAct,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ акта списания\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckDecommissionNumberActIsNullOrWhiteSpace())
                 return;
-            }
-            if (_workRepositoryRadiostantionFull.
-                ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(
-                Road, City, SerialNumber, DecommissionNumberAct))
-            { }
-            else
-                MessageBox.Show("Ошибка изменения номера акта " +
+            if (!CheckDecommissionNumberActRegex())
+                return;
+            
+            if (_workRadiostantionFullRepository.ChangeDecommissionNumberActBySerialNumberInDBRadiostantionFull(
+                Road, City, SerialNumber, DecommissionNumberAct)){ }
+            else MessageBox.Show("Ошибка изменения номера акта " +
                     "списания радиостанции в общей таблице(radiostantionFull)",
-                    "Отмена", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            if (_workRepositoryRadiostantion.
-                ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (_workRadiostantionRepository.ChangeDecommissionNumberActBySerialNumberInDBRadiostantion(
                 Road, City, SerialNumber, DecommissionNumberAct))
-                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            else
-                MessageBox.Show("Ошибка изменения номера акта списания радиостанции",
-                    "Отмена", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show("Ошибка изменения номера акта списания радиостанции",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion
 
         #region AddModelDataBase
 
-        private void ExecuteAddModelDataBaseCommand(object obj)
+        void ExecuteAddModelDataBaseCommand(object obj)
         {
             if (addModelRadiostantion == null)
             {
@@ -1230,7 +1123,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 addModelRadiostantion = null;
                 addModelRadiostantion.Closed += (sender, args) =>
                 GetModelDataBase();
-                addModelRadiostantion.Show();
+                addModelRadiostantion.ShowDialog();
             }
         }
 
@@ -1238,35 +1131,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region ChangeNumberActBySerialNumberInDataBase
 
-        private void ExecuteChangeNumberActBySerialNumberInDataBaseCommand(object obj)
+        void ExecuteChangeNumberActBySerialNumberInDataBaseCommand(object obj)
         {
-            if (!String.IsNullOrWhiteSpace(DecommissionNumberAct))
-            {
-                MessageBox.Show($"У радиостанции \"{SerialNumber}\" " +
-                    $"есть списание {DecommissionNumberAct}", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckDecommissionNumberAct())
                 return;
-            }
+
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            if (String.IsNullOrWhiteSpace(NumberAct))
-            {
-                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!CheckNumberActIsNullOrWhiteSpace())
                 return;
-            }
-            if (!Regex.IsMatch(NumberAct,
-                @"[0-9]{2,2}/([0-9]+([A-Z]?[А-Я]?)*[.\-]?[0-9]?[0-9]?[0-9]?[A-Z]?[А-Я]?)$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ Акта ТО\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
 
-            if (_radiostationParametersRepository.
-                CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
+            if (!CheckNumberActRegex())
+                return;
+
+            if (_radiostationParametersRepository.CheckSerialNumberInRadiostationParameters(Road, SerialNumber))
             {
                 if (!_radiostationParametersRepository.ChangeNumberActForRadiostationParameters
                 (Road, SerialNumber, NumberAct))
@@ -1275,21 +1155,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxImage.Error);
             }
 
-            if (_workRepositoryRadiostantionFull.
-                ChangeNumberActBySerialNumberInDBRadiostationFull(
-                Road, City, SerialNumber, NumberAct))
-            { }
-            else
-                MessageBox.Show("Ошибка изменения номера акта радиостанции " +
+            if (_workRadiostantionFullRepository.ChangeNumberActBySerialNumberInDBRadiostationFull(
+                Road, City, SerialNumber, NumberAct)){ }
+            else MessageBox.Show("Ошибка изменения номера акта радиостанции " +
                     "в radiostantionFull(таблице)", "Отмена", MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantion.ChangeNumberActBySerialNumberInDatabase(
+            if (_workRadiostantionRepository.ChangeNumberActBySerialNumberInDatabase(
                 Road, City, SerialNumber, NumberAct))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-            else
-                MessageBox.Show("Ошибка изменения номера акта радиостанции",
+            else MessageBox.Show("Ошибка изменения номера акта радиостанции",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
@@ -1297,13 +1173,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetModelDataBase
 
-        private void GetModelDataBase()
+        void GetModelDataBase()
         {
             TheIndexModelChoiceCollection = -1;
-            if (ModelCollections.Count != 0)
-                ModelCollections.Clear();
-            ModelCollections = _modelDataBase.GetModelRadiostantionDataBase(ModelCollections);
-            TheIndexModelChoiceCollection = ModelCollections.Count - 1;
+            if (ModelsCollection.Count != 0)
+                ModelsCollection.Clear();
+            ModelsCollection = _modelDataBaseRepository.GetModelRadiostantionDataBase(ModelsCollection);
+            TheIndexModelChoiceCollection = ModelsCollection.Count - 1;
         }
 
         #endregion
