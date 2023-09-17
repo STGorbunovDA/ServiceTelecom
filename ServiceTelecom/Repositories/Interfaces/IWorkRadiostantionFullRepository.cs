@@ -37,14 +37,14 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по акту, городу  и дороге в radiostantionFull (общая таблица)</summary>
         bool ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string numberAct,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по предприятию, городу и дороге в radiostantionFull (общая таблица)</summary>
         bool ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string company,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 

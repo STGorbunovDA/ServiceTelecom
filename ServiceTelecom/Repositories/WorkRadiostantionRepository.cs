@@ -404,7 +404,7 @@ namespace ServiceTelecom.Repositories
 
         public bool ChangeByNumberActRepresentativeForDocumentInDataBase(
             string road, string city, string numberAct,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber)
         {
@@ -425,7 +425,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                        Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificateDataBase);
+                       dateOfIssuanceOfTheCertificate);
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
@@ -444,7 +444,7 @@ namespace ServiceTelecom.Repositories
 
         public bool ChangeByCompanyRepresentativeForDocumentInDataBase(
             string road, string city, string company,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber)
         {
@@ -465,7 +465,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"companyUser",
                        Encryption.EncryptPlainTextToCipherText(company));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificateDataBase);
+                       dateOfIssuanceOfTheCertificate);
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
@@ -483,9 +483,9 @@ namespace ServiceTelecom.Repositories
         }
 
         public bool ChangeRadiostationForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location,
             string poligon, string company, string model, string serialNumber,
             string inventoryNumber, string networkNumber, string price,
@@ -507,13 +507,13 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                         Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenanceDataBase);
+                       Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                         Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
                         Encryption.EncryptPlainTextToCipherText(numberIdentification));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateUser",
-                        dateOfIssuanceOfTheCertificateDataBase);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"phoneNumberUser",
                         Encryption.EncryptPlainTextToCipherText(phoneNumber));
                     command.Parameters.AddWithValue($"postUser",

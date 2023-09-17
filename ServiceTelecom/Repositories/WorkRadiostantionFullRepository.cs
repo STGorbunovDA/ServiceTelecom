@@ -276,7 +276,7 @@ namespace ServiceTelecom.Repositories
 
         public bool ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string numberAct,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber)
         {
@@ -297,7 +297,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                        Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificateDataBase);
+                       dateOfIssuanceOfTheCertificate);
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
@@ -316,7 +316,7 @@ namespace ServiceTelecom.Repositories
 
         public bool ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string company,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber)
         {
@@ -337,7 +337,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"companyUser",
                        Encryption.EncryptPlainTextToCipherText(company));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificateDataBase);
+                       dateOfIssuanceOfTheCertificate);
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
