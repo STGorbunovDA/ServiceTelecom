@@ -4,6 +4,7 @@ using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -15,7 +16,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     {
         GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting;
         Print printExcel;
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
+        WorkRadiostantionFullRepository _workRadiostantionFullRepository;
+        List<RepairDataCompanyModel> repairData;
 
         public IList RadiostationsForDocumentsMulipleSelectedDataGrid;
 
@@ -23,14 +25,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public Action Close { get; set; }
 
-        private string PrimaryMeans { get; set; } 
+        public string PrimaryMeans { get; set; }
         public string ProductName { get; set; }
         public string Road { get; set; }
         public string City { get; set; }
         public string SerialNumber { get; set; }
 
 
-        private string _company;
+        string _company;
         public string Company
         {
             get => _company;
@@ -40,19 +42,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(Company));
             }
         }
-
-        private bool _continue;
-        public bool Continue
-        {
-            get => _continue;
-            set
-            {
-                _continue = value;
-                OnPropertyChanged(nameof(Continue));
-            }
-        }
-
-        private string _OKPO;
+        string _OKPO;
         public string OKPO
         {
             get => _OKPO;
@@ -62,8 +52,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(OKPO));
             }
         }
-
-        private string _BE;
+        string _BE;
         public string BE
         {
             get => _BE;
@@ -73,8 +62,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(BE));
             }
         }
-
-        private string _fullNameCompany;
+        string _fullNameCompany;
         public string FullNameCompany
         {
             get => _fullNameCompany;
@@ -84,8 +72,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(FullNameCompany));
             }
         }
-
-        private string _chiefСompanyFIO;
+        string _chiefСompanyFIO;
         public string ChiefСompanyFIO
         {
             get => _chiefСompanyFIO;
@@ -95,8 +82,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ChiefСompanyFIO));
             }
         }
-
-        private string _chiefСompanyPost;
+        string _chiefСompanyPost;
         public string ChiefСompanyPost
         {
             get => _chiefСompanyPost;
@@ -106,8 +92,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ChiefСompanyPost));
             }
         }
-
-        private string _chairmanСompanyFIO;
+        string _chairmanСompanyFIO;
         public string ChairmanСompanyFIO
         {
             get => _chairmanСompanyFIO;
@@ -117,8 +102,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ChairmanСompanyFIO));
             }
         }
-
-        private string _chairmanСompanyPost;
+        string _chairmanСompanyPost;
         public string ChairmanСompanyPost
         {
             get => _chairmanСompanyPost;
@@ -128,8 +112,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ChairmanСompanyPost));
             }
         }
-
-        private string _firstMemberCommissionFIO;
+        string _firstMemberCommissionFIO;
         public string FirstMemberCommissionFIO
         {
             get => _firstMemberCommissionFIO;
@@ -139,8 +122,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(FirstMemberCommissionFIO));
             }
         }
-
-        private string _firstMemberCommissionPost;
+        string _firstMemberCommissionPost;
         public string FirstMemberCommissionPost
         {
             get => _firstMemberCommissionPost;
@@ -150,8 +132,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(FirstMemberCommissionPost));
             }
         }
-
-        private string _secondMemberCommissionFIO;
+        string _secondMemberCommissionFIO;
         public string SecondMemberCommissionFIO
         {
             get => _secondMemberCommissionFIO;
@@ -161,8 +142,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(SecondMemberCommissionFIO));
             }
         }
-
-        private string _secondMemberCommissionPost;
+        string _secondMemberCommissionPost;
         public string SecondMemberCommissionPost
         {
             get => _secondMemberCommissionPost;
@@ -172,8 +152,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(SecondMemberCommissionPost));
             }
         }
-
-        private string _thirdMemberCommissionFIO;
+        string _thirdMemberCommissionFIO;
         public string ThirdMemberCommissionFIO
         {
             get => _thirdMemberCommissionFIO;
@@ -183,8 +162,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ThirdMemberCommissionFIO));
             }
         }
-
-        private string _thirdMemberCommissionPost;
+        string _thirdMemberCommissionPost;
         public string ThirdMemberCommissionPost
         {
             get => _thirdMemberCommissionPost;
@@ -194,15 +172,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 OnPropertyChanged(nameof(ThirdMemberCommissionPost));
             }
         }
-
-        private bool _checkBoxDisableThirdVerification;
-        public bool CheckBoxDisableThirdVerification
+        bool _checkBoxDisableThirdVerification;
+        public bool CheckBoxDisableVerificationSurname
         {
             get => _checkBoxDisableThirdVerification;
             set
             {
                 _checkBoxDisableThirdVerification = value;
-                OnPropertyChanged(nameof(CheckBoxDisableThirdVerification));
+                OnPropertyChanged(nameof(CheckBoxDisableVerificationSurname));
             }
         }
 
@@ -214,8 +191,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public PrintRepairViewModel()
         {
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
+            repairData = new List<RepairDataCompanyModel>();
+
             CloseWindowCommand =
                 new ViewModelCommand(ExecuteCloseWindowCommand);
             printExcel = new Print();
@@ -223,25 +202,64 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(ExecuteAddInRegistryInformationCompanyCommand);
             ContinuePrintRepair =
                 new ViewModelCommand(ExecuteContinuePrintRepairCommand);
-            if (UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID == null)
-                return;
-            foreach (RadiostationForDocumentsDataBaseModel item
-                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
-            {
-                Road = item.Road;
-                City= item.City;
-                SerialNumber = item.SerialNumber;
-                Company = item.Company;
-            }
-            RadiostationsForDocumentsMulipleSelectedDataGrid 
+
+            GetRoadCitySerialNumberCompany();
+
+            GetLegalCharacteristicsCompany();
+
+            //Для печати отдельно в потоке
+            RadiostationsForDocumentsMulipleSelectedDataGrid
                 = UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
+
             GetProductNameInDataBase();
             GetPrimaryMeansInDataBase();
         }
 
+        #region GetLegalCharacteristicsCompany
+
+        void GetLegalCharacteristicsCompany()
+        {
+            repairData = getSetRegistryServiceTelecomSetting.GetRepairData(Company);
+
+            foreach (var item in repairData)
+            {
+                OKPO = item.OKPO;
+                BE = item.BE;
+                FullNameCompany = item.FullNameCompany;
+                ChiefСompanyFIO = item.ChiefСompanyFIO;
+                ChiefСompanyPost = item.ChiefСompanyPost;
+                ChairmanСompanyFIO = item.ChairmanСompanyFIO;
+                ChairmanСompanyPost = item.ChairmanСompanyPost;
+                FirstMemberCommissionFIO = item.FirstMemberCommissionFIO;
+                FirstMemberCommissionPost = item.FirstMemberCommissionPost;
+                SecondMemberCommissionFIO = item.SecondMemberCommissionFIO;
+                SecondMemberCommissionPost = item.SecondMemberCommissionPost;
+                ThirdMemberCommissionFIO = item.ThirdMemberCommissionFIO;
+                ThirdMemberCommissionPost = item.ThirdMemberCommissionPost;
+            }
+        }
+
+        #endregion
+
+        #region GetRoadCitySerialNumberCompany
+
+        void GetRoadCitySerialNumberCompany()
+        {
+            foreach (RadiostationForDocumentsDataBaseModel item
+               in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
+            {
+                Road = item.Road;
+                City = item.City;
+                SerialNumber = item.SerialNumber;
+                Company = item.Company;
+            }
+        }
+
+        #endregion
+
         #region CloseWindowCommand
 
-        private void ExecuteCloseWindowCommand(object obj)
+        void ExecuteCloseWindowCommand(object obj)
         {
             Close?.Invoke();
         }
@@ -250,9 +268,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetProductNameInDataBase
 
-        private void GetProductNameInDataBase()
+        void GetProductNameInDataBase()
         {
-            ProductName = _workRepositoryRadiostantionFull.
+            ProductName = _workRadiostantionFullRepository.
                 GetProductNameInDataBaseForRepair(
                 SerialNumber,
                 City,
@@ -264,9 +282,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetPrimaryMeansInDataBase
 
-        private void GetPrimaryMeansInDataBase()
+        void GetPrimaryMeansInDataBase()
         {
-            PrimaryMeans = _workRepositoryRadiostantionFull.
+            PrimaryMeans = _workRadiostantionFullRepository.
                 GetPrimaryMeansInDataBaseForRepair(
                 SerialNumber,
                 City,
@@ -275,139 +293,143 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region ContinuePrintRepair
+        #region CheckValue
 
-        private void ExecuteContinuePrintRepairCommand(object obj)
+        bool CheckBaseValueIsNullOrWhiteSpace()
         {
-            #region проверка на пустоту
-
             if (String.IsNullOrWhiteSpace(OKPO))
             {
                 MessageBox.Show(
                     "Вы не заполнили поле \"ОКПО\"!", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(BE))
             {
                 MessageBox.Show(
                     "Вы не заполнили поле \"БЕ\"!", "Отмена",
                      MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(FullNameCompany))
             {
                 MessageBox.Show(
-                    "Вы не заполнили поле \"Полное наименование предприятия\"!", 
+                    "Вы не заполнили поле \"Полное наименование предприятия\"!",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return false;
             }
+            return true;
+        }
 
-            if (String.IsNullOrWhiteSpace(ChiefСompanyFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(ChiefСompanyPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(ChairmanСompanyFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(ChairmanСompanyPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(FirstMemberCommissionFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(FirstMemberCommissionPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(SecondMemberCommissionFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(SecondMemberCommissionPost))
-            {
-                MessageBox.Show(
-                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", 
-                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!CheckBoxDisableThirdVerification)
-            {
-                if (String.IsNullOrWhiteSpace(ThirdMemberCommissionFIO))
-                {
-                    MessageBox.Show(
-                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", 
-                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-
-                }
-                if (String.IsNullOrWhiteSpace(ThirdMemberCommissionPost))
-                {
-                    MessageBox.Show(
-                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", 
-                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            #endregion
-
-            #region Regex
-
+        bool CheckBaseValueRegex()
+        {
             if (!Regex.IsMatch(OKPO, @"^[0-9]{8,}$"))
             {
                 if (MessageBox.Show("Поле \"ОКПО\" введено " +
                     "некорректно. Желаете продолжить?", "Внимание",
                      MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
             if (!Regex.IsMatch(BE, @"^[0-9]{4,}$"))
             {
                 if (MessageBox.Show("Поле \"БЕ\" введено " +
                    "некорректно. Желаете продолжить?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
+            return true;
+        }
+
+        bool CheckValueIsNullOrWhiteSpace()
+        {
+            if (String.IsNullOrWhiteSpace(ChiefСompanyFIO))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"Руководитель ФИО\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+            if (String.IsNullOrWhiteSpace(ChiefСompanyPost))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"Руководитель Должность\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(ChairmanСompanyFIO))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"Председатель ФИО\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+            if (String.IsNullOrWhiteSpace(ChairmanСompanyPost))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"Председатель Должность\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(FirstMemberCommissionFIO))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+            if (String.IsNullOrWhiteSpace(FirstMemberCommissionPost))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(SecondMemberCommissionFIO))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+            if (String.IsNullOrWhiteSpace(SecondMemberCommissionPost))
+            {
+                MessageBox.Show(
+                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!",
+                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (String.IsNullOrWhiteSpace(ThirdMemberCommissionFIO))
+            {
+                MessageBox.Show(
+                    "Вы не заполнили поле \"3 представитель комиссии ФИО\"!",
+                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+            if (String.IsNullOrWhiteSpace(ThirdMemberCommissionPost))
+            {
+                MessageBox.Show(
+                     "Вы не заполнили поле \"3 представитель комиссии Должность\"!",
+                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        bool CheckValueRegex()
+        {
             if (!Regex.IsMatch(ChiefСompanyFIO,
                 @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
             {
                 if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
                "некорректно. Желаете продолжить?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
             if (!Regex.IsMatch(ChairmanСompanyFIO,
                 @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
@@ -415,7 +437,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
                "некорректно. Желаете продолжить?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
             if (!Regex.IsMatch(FirstMemberCommissionFIO,
                 @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
@@ -423,7 +445,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
                "некорректно. Желаете продолжить?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
+                    return false;
             }
             if (!Regex.IsMatch(SecondMemberCommissionFIO,
                 @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
@@ -431,230 +453,84 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
                "некорректно. Желаете продолжить?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return false;
+            }
+            if (!Regex.IsMatch(ThirdMemberCommissionFIO,
+                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
+            {
+                if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
+               "некорректно. Желаете продолжить?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region ContinuePrintRepair
+
+        void ExecuteContinuePrintRepairCommand(object obj)
+        {
+            if (!CheckBaseValueIsNullOrWhiteSpace())
+                return;
+            if (!CheckBaseValueRegex())
+                return;
+
+            if (!CheckBoxDisableVerificationSurname)
+            {
+                if (!CheckValueIsNullOrWhiteSpace())
+                    return;
+                if (!CheckValueRegex())
                     return;
             }
-            if (!CheckBoxDisableThirdVerification)
-            {
-                if (!Regex.IsMatch(ThirdMemberCommissionFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-                {
-                    if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-                   "некорректно. Желаете продолжить?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
 
-            #endregion      
-
-            if(!CheckBoxDisableThirdVerification)
+            new Thread(() =>
             {
-                MessageBox.Show(
-                         "Вы не заполнили поля: \"3 представитель комиссии ФИО " +
-                         "и 3 представитель комиссии Должность\"!", "Отмена",
-                          MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if(CheckBoxDisableThirdVerification && Continue)
-            {
-                new Thread(() =>
-                {
-                    printExcel.PrintExcelNumberActRepair(
-                        Company, OKPO, BE, FullNameCompany, 
-                        ChiefСompanyFIO, ChiefСompanyPost,
-                        ChairmanСompanyFIO, ChairmanСompanyPost, 
-                        FirstMemberCommissionFIO, FirstMemberCommissionPost, 
-                        SecondMemberCommissionFIO,SecondMemberCommissionPost, 
-                        ThirdMemberCommissionFIO, ThirdMemberCommissionPost, 
-                        PrimaryMeans, ProductName, 
-                        RadiostationsForDocumentsMulipleSelectedDataGrid);
-                })
-                { IsBackground = true }.Start();
-                Close?.Invoke();
-            }
+                printExcel.PrintExcelNumberActRepair(
+                    Company, OKPO, BE, FullNameCompany,
+                    ChiefСompanyFIO, ChiefСompanyPost,
+                    ChairmanСompanyFIO, ChairmanСompanyPost,
+                    FirstMemberCommissionFIO, FirstMemberCommissionPost,
+                    SecondMemberCommissionFIO, SecondMemberCommissionPost,
+                    ThirdMemberCommissionFIO, ThirdMemberCommissionPost,
+                    PrimaryMeans, ProductName, RadiostationsForDocumentsMulipleSelectedDataGrid);
+            })
+            { IsBackground = true }.Start();
+            Close?.Invoke();
         }
 
         #endregion
 
         #region AddInRegistryInformationCompany
 
-        private void ExecuteAddInRegistryInformationCompanyCommand(object obj)
+        void ExecuteAddInRegistryInformationCompanyCommand(object obj)
         {
-            #region проверка на пустоту
 
-            if (String.IsNullOrWhiteSpace(OKPO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"ОКПО\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+            if (!CheckBaseValueIsNullOrWhiteSpace())
                 return;
-            }
-            if (String.IsNullOrWhiteSpace(BE))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"БЕ\"!", "Отмена",
-                     MessageBoxButton.OK, MessageBoxImage.Error);
+            if (!CheckBaseValueRegex())
                 return;
-            }
-            if (String.IsNullOrWhiteSpace(FullNameCompany))
+            if (!CheckBoxDisableVerificationSurname)
             {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Полное наименование предприятия\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(ChiefСompanyFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(ChiefСompanyPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Руководитель Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(ChairmanСompanyFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(ChairmanСompanyPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"Председатель Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(FirstMemberCommissionFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(FirstMemberCommissionPost))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"1 представитель комиссии Должность\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (String.IsNullOrWhiteSpace(SecondMemberCommissionFIO))
-            {
-                MessageBox.Show(
-                    "Вы не заполнили поле \"2 представитель комиссии ФИО\"!", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-
-            }
-            if (String.IsNullOrWhiteSpace(SecondMemberCommissionPost))
-            {
-                MessageBox.Show(
-                     "Вы не заполнили поле \"2 представитель комиссии Должность\"!", 
-                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            //На случай третьего председателя комиссии
-            if (!CheckBoxDisableThirdVerification)
-            {
-                if (String.IsNullOrWhiteSpace(ThirdMemberCommissionFIO))
-                {
-                    MessageBox.Show(
-                        "Вы не заполнили поле \"3 представитель комиссии ФИО\"!", 
-                        "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!CheckValueIsNullOrWhiteSpace())
                     return;
-
-                }
-                if (String.IsNullOrWhiteSpace(ThirdMemberCommissionPost))
-                {
-                    MessageBox.Show(
-                         "Вы не заполнили поле \"3 представитель комиссии Должность\"!", 
-                         "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            #endregion
-
-            #region Regex
-
-            if (!Regex.IsMatch(OKPO, @"^[0-9]{8,}$"))
-            {
-                if (MessageBox.Show("Поле \"ОКПО\" введено " +
-                    "некорректно. Желаете продолжить?", "Внимание",
-                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (!CheckValueRegex())
                     return;
             }
-            if (!Regex.IsMatch(BE, @"^[0-9]{4,}$"))
-            {
-                if (MessageBox.Show("Поле \"БЕ\" введено " +
-                   "некорректно. Желаете продолжить?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (!Regex.IsMatch(ChiefСompanyFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-            {
-                if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-               "некорректно. Желаете продолжить?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (!Regex.IsMatch(ChairmanСompanyFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-            {
-                if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-               "некорректно. Желаете продолжить?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (!Regex.IsMatch(FirstMemberCommissionFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-            {
-                if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-               "некорректно. Желаете продолжить?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (!Regex.IsMatch(SecondMemberCommissionFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-            {
-                if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-               "некорректно. Желаете продолжить?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-            }
-            if (!CheckBoxDisableThirdVerification)
-            {
-                if (!Regex.IsMatch(ThirdMemberCommissionFIO,
-                @"^[А-ЯЁ][а-яё]*(([\s]+[А-Я][\.]+[А-Я]+[\.])$)"))
-                {
-                    if (MessageBox.Show("Поле \"Руководитель ФИО\" введено " +
-                   "некорректно. Желаете продолжить?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                        return;
-                }
-            }
 
-            #endregion      
-
-            Continue = getSetRegistryServiceTelecomSetting.SetRepairData(
+            if (!getSetRegistryServiceTelecomSetting.SetRepairData(
                 Company, OKPO, BE, FullNameCompany, ChiefСompanyFIO, ChiefСompanyPost,
                 ChairmanСompanyFIO, ChairmanСompanyPost, FirstMemberCommissionFIO,
                 FirstMemberCommissionPost, SecondMemberCommissionFIO,
-                SecondMemberCommissionPost, ThirdMemberCommissionFIO, 
-                ThirdMemberCommissionPost);
+                SecondMemberCommissionPost, ThirdMemberCommissionFIO,
+                ThirdMemberCommissionPost))
+            {
+                MessageBox.Show($"Ошибка записи в реестр!", "Отмена",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
 
         #endregion
