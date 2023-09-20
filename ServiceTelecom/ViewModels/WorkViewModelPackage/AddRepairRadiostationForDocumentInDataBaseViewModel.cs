@@ -477,7 +477,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        #region AddRepairRadiostationForDocumentInDataBase
+        #region CheckValue
 
         bool СheckIsNullOrWhiteSpace()
         {
@@ -630,6 +630,29 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             return true;
         }
 
+        bool СheckNumberActRepair()
+        {
+            if (String.IsNullOrWhiteSpace(NumberActRepair))
+            {
+                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            if (!Regex.IsMatch(NumberActRepair,
+                @"[0-9]{2,2}/[0-9]{1,}$"))
+            {
+                MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
+            return true;
+        }
+
+
+        #endregion
+
+        #region AddRepairRadiostationForDocumentInDataBase
+
         void ExecuteAddRepairRadiostationForDocumentInDataBaseCommand(object obj)
         {
             if (!СheckIsNullOrWhiteSpace())
@@ -689,25 +712,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #endregion
 
         #region ChangeNumberActRepairBySerialNumberInDataBase
-
-        bool СheckNumberActRepair()
-        {
-            if (String.IsNullOrWhiteSpace(NumberActRepair))
-            {
-                MessageBox.Show("Поле \"Номер акта\" не должно быть пустым", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return false;
-            }
-            if (!Regex.IsMatch(NumberActRepair,
-                @"[0-9]{2,2}/[0-9]{1,}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"№ Акта ремонта\"", "Отмена",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return false;
-            }
-            return true;
-        }
-
+      
         void ExecuteChangeNumberActRepairBySerialNumberInDataBaseCommand(object obj)
         {
             if (MessageBox.Show("Подтверждаете изменение?", "Внимание",
