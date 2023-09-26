@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ServiceTelecom.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 
-namespace ServiceTelecom.Models
+namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IUserRepository
     {

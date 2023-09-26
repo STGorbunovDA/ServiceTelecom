@@ -62,7 +62,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region DeleteFrequencyDataBase
 
-        private void ExecuteDeleteFrequencyDataBaseCommand(object obj)
+        void ExecuteDeleteFrequencyDataBaseCommand(object obj)
         {
             if (FrequenciesCollection.Count <= 0) return;
             if (String.IsNullOrWhiteSpace(Frequency)) return;
@@ -77,7 +77,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddFrequencyDataBase
 
-        private void ExecuteAddFrequencyDataBaseCommand(object obj)
+        void ExecuteAddFrequencyDataBaseCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Frequency)) return;
             var result = FrequenciesCollection.FirstOrDefault(s => s.Frequency == Frequency);
@@ -106,7 +106,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetFrequencyDataBase
 
-        private void GetFrequencyDataBase()
+        void GetFrequencyDataBase()
         {
             TheIndexFrequencyCollection = -1;
             if (FrequenciesCollection.Count != 0)

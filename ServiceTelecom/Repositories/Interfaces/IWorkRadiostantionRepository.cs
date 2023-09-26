@@ -49,22 +49,22 @@ namespace ServiceTelecom.Repositories.Interfaces
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по акту, городу и дороге текущей radiostantion (рабочая таблица) </summary>
         bool ChangeByNumberActRepresentativeForDocumentInDataBase(
             string road, string city, string numberAct,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по предприятию, городу и дороге текущей radiostantion (рабочая таблица) </summary>
         bool ChangeByCompanyRepresentativeForDocumentInDataBase(
             string road, string city, string company,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
         /// <summary> Метод изменения радиостанции в radiostantion(рабочей таблице) </summary>
         bool ChangeRadiostationForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location,
             string poligon, string company, string model, string serialNumber,
             string inventoryNumber, string networkNumber, string price,

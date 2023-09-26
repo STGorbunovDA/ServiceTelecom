@@ -6,8 +6,8 @@ namespace ServiceTelecom.ViewModels
     public class ViewModelCommand : ICommand
     {
         //Fields
-        private readonly Action<object> _executeAction;
-        private readonly Predicate<object> _canExecuteAction;
+        readonly Action<object> _executeAction;
+        readonly Predicate<object> _canExecuteAction;
 
         //Constructors
         public ViewModelCommand(Action<object> executeAction)

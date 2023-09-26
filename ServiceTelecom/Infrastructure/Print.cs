@@ -2722,20 +2722,21 @@ namespace ServiceTelecom.Infrastructure
             List<RadiostationForDocumentsDataBaseModel>
             radiostantionsCollection)
         {
-            string serialNumberCompany = string.Empty;
+            string DecommissionNumberActAndCompany = string.Empty;
             string serialNumber = string.Empty;
             string company = string.Empty;
             string city = string.Empty;
             string comment = string.Empty;
             string model = string.Empty;
             string sectionForeman = string.Empty;
+
             foreach (RadiostationForDocumentsDataBaseModel item
                 in radiostantionsCollection)
             {
                 company = item.Company;
                 serialNumber = item.SerialNumber;
                 model = item.Model;
-                serialNumberCompany = $"{item.SerialNumber}-{item.Company}";
+                DecommissionNumberActAndCompany = $"{item.DecommissionNumberAct}-{item.Company}";
                 city = item.City;
                 comment = item.Comment;
             }
@@ -2748,7 +2749,7 @@ namespace ServiceTelecom.Infrastructure
 
             var items = new Dictionary<string, string>
             {
-                    {"<numberActTZPP>", serialNumberCompany },
+                    {"<numberActTZPP>", DecommissionNumberActAndCompany },
                     {"<model>", model },
                     {"<serialNumber>", serialNumber },
                     {"<company>", company },
@@ -2803,7 +2804,7 @@ namespace ServiceTelecom.Infrastructure
 
                 radiostantionsCollection = null;
 
-                string word_file = $"{serialNumberCompany.Replace('/', '.')}_{dateDecommissioning}_АКТ_Списания.doc";
+                string word_file = $"{DecommissionNumberActAndCompany.Replace('/', '.')}_{dateDecommissioning}_АКТ_Списания.doc";
 
                 if (!File.Exists($@"С:\ServiceTelekom\Списания\{city}\"))
                 {

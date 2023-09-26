@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System;
 using System.Collections;
 using System.Windows;
+using ServiceTelecom.Repositories.Interfaces;
 
 namespace ServiceTelecom.ViewModels
 {
@@ -92,7 +93,7 @@ namespace ServiceTelecom.ViewModels
 
         #region ChangeUsersDataBase
 
-        private void ExecuteChangeUserDataBaseCommand(object obj)
+        void ExecuteChangeUserDataBaseCommand(object obj)
         {
             if (String.IsNullOrWhiteSpace(Login) 
                 && String.IsNullOrWhiteSpace(Password)
@@ -116,7 +117,7 @@ namespace ServiceTelecom.ViewModels
 
         #region DeleteUserDataBase
 
-        private void ExecuteDeleteUserDataBaseCommand(object obj)
+        void ExecuteDeleteUserDataBaseCommand(object obj)
         {
             if (UserMulipleSelectedDataGrid == null || 
                 UserMulipleSelectedDataGrid.Count == 0)
@@ -131,7 +132,7 @@ namespace ServiceTelecom.ViewModels
 
         #region AddUserDataBase
 
-        private void ExecuteAddUserDataBaseCommand(object obj)
+        void ExecuteAddUserDataBaseCommand(object obj)
         {
             if (!Login.Contains("-"))
             {
@@ -168,7 +169,7 @@ namespace ServiceTelecom.ViewModels
 
         #region UpdateUserDataBase
 
-        private void ExecuteUpdateUserDataBaseCommand(object obj)
+        void ExecuteUpdateUserDataBaseCommand(object obj)
         {
             Users.Clear();
             Users = userRepository.GetAllUsersDataBase(Users);

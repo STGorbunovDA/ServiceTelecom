@@ -1,26 +1,26 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View;
 using ServiceTelecom.View.Base;
-using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTelecom.ViewModels
 {
     internal class StaffRegistrationViewModel : ViewModelBase
     {
-        private UserRepository userRepository;
-        private StaffRegistrationRepository staffRegistrationRepository;
-        private StaffRegistrationDataBaseModel _staffRegistration;
-        private RoadDataBaseRepository _roadDataBase;
+        IUserRepository userRepository;
+        IStaffRegistrationRepository staffRegistrationRepository;
+        StaffRegistrationDataBaseModel _staffRegistration;
+        RoadDataBaseRepository _roadDataBase;
         ReportCardView reportCard = null;
         RoadView roadView = null;
-        private ObservableCollection<UserDataBaseModel> Users { get; set; }
+        ObservableCollection<UserDataBaseModel> Users { get; set; }
         public ObservableCollection<StaffRegistrationDataBaseModel> 
             StaffRegistrations { get; set; } 
 
@@ -29,38 +29,49 @@ namespace ServiceTelecom.ViewModels
         public ObservableCollection<string> EngineerCollection { get; set; } 
         public ObservableCollection<string> CuratorCollection { get; set; } 
         public ObservableCollection<string> 
-            RadioCommunicationDirectorateCollection { get; set; } 
+            RadioCommunicationDirectorateCollection { get; set; }
+
+        Visibility _staffRegistrationWindowVisibility;
+        public Visibility StaffRegistrationWindowVisibility
+        {
+            get { return _staffRegistrationWindowVisibility; }
+            set
+            {
+                _staffRegistrationWindowVisibility = value;
+                OnPropertyChanged(nameof(StaffRegistrationWindowVisibility));
+            }
+        }
 
 
-        private int _theIndexSectionForemanCollection;
+        int _theIndexSectionForemanCollection;
         public int TheIndexSectionForemanCollection { 
             get => _theIndexSectionForemanCollection; 
             set { _theIndexSectionForemanCollection = value; 
                 OnPropertyChanged(nameof(TheIndexSectionForemanCollection)); } 
         }
 
-        private int _theIndexEngineerCollection;
+        int _theIndexEngineerCollection;
         public int TheIndexEngineerCollection {
             get => _theIndexEngineerCollection; 
             set { _theIndexEngineerCollection = value; 
                 OnPropertyChanged(nameof(TheIndexEngineerCollection)); } 
         }
 
-        private int _theIndexCuratorCollection;
+        int _theIndexCuratorCollection;
         public int TheIndexCuratorCollection { 
             get => _theIndexCuratorCollection; 
             set { _theIndexCuratorCollection = value; 
                 OnPropertyChanged(nameof(TheIndexCuratorCollection)); } 
         }
 
-        private int _theIndexRadioCommunicationDirectorateCollection;
+        int _theIndexRadioCommunicationDirectorateCollection;
         public int TheIndexRadioCommunicationDirectorateCollection { 
             get => _theIndexRadioCommunicationDirectorateCollection; 
             set { _theIndexRadioCommunicationDirectorateCollection = value; 
                 OnPropertyChanged(nameof(TheIndexRadioCommunicationDirectorateCollection)); } 
         }
 
-        private int _theIndexRoadCollection;
+        int _theIndexRoadCollection;
         public int TheIndexRoadCollection
         {
             get => _theIndexRoadCollection;
@@ -73,7 +84,7 @@ namespace ServiceTelecom.ViewModels
 
         #region свойства
 
-        private int _id;
+        int _id;
         public int Id
         {
             get => _id;
@@ -84,7 +95,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _sectionForeman;
+        string _sectionForeman;
         public string SectionForeman
         {
             get => _sectionForeman;
@@ -94,7 +105,7 @@ namespace ServiceTelecom.ViewModels
                 OnPropertyChanged(nameof(SectionForeman));
             }
         }
-        private string _engineer;
+        string _engineer;
         public string Engineer
         {
             get => _engineer;
@@ -105,7 +116,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _road;
+        string _road;
         public string Road
         {
             get => _road;
@@ -116,7 +127,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _curator;
+        string _curator;
         public string Curator
         {
             get => _curator;
@@ -127,7 +138,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _radioCommunicationDirectorate;
+        string _radioCommunicationDirectorate;
         public string RadioCommunicationDirectorate
         {
             get => _radioCommunicationDirectorate;
@@ -138,7 +149,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _attorney;
+        string _attorney;
         public string Attorney
         {
             get => _attorney;
@@ -149,7 +160,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _numberPrintDocument;
+        string _numberPrintDocument;
         public string NumberPrintDocument
         {
             get => _numberPrintDocument;
@@ -160,7 +171,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private string _message;
+        string _message;
         public string Message
         {
             get => _message;
@@ -202,7 +213,7 @@ namespace ServiceTelecom.ViewModels
             }
         }
 
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList StaffRegistrationsMulipleSelectedDataGrid
         {
             get { return _selectedModels; }
@@ -243,7 +254,7 @@ namespace ServiceTelecom.ViewModels
 
         #region LoadingFileForFullDB
 
-        private void ExecuteLoadingFileForFullDBCommand(object obj)
+        void ExecuteLoadingFileForFullDBCommand(object obj)
         {
             OpenCSV.GetInstance.OpenCSVFile();
         }
@@ -252,7 +263,7 @@ namespace ServiceTelecom.ViewModels
 
         #region AddRoadDataBase
 
-        private void ExecuteAddRoadDataBaseCommand(object obj)
+        void ExecuteAddRoadDataBaseCommand(object obj)
         {
             if (roadView == null)
             {
@@ -261,6 +272,8 @@ namespace ServiceTelecom.ViewModels
                 roadView = null;
                 roadView.Closed += (sender, args) =>
                 GetRoadDataBase();
+                roadView.Closed += (sender, args) => StaffRegistrationWindowVisibility = Visibility.Visible;
+                StaffRegistrationWindowVisibility = Visibility.Collapsed;
                 roadView.Show();
             }
         }
@@ -269,7 +282,7 @@ namespace ServiceTelecom.ViewModels
 
         #region GetRoadDataBase
 
-        private void GetRoadDataBase()
+        void GetRoadDataBase()
         {
             TheIndexRoadCollection = -1;
             if (RoadCollections.Count != 0)
@@ -282,12 +295,14 @@ namespace ServiceTelecom.ViewModels
 
         #region открываем табель сотрудников
 
-        private void ExecuteReportCardDataBaseCommand(object obj)
+        void ExecuteReportCardDataBaseCommand(object obj)
         {
             if (reportCard == null)
             {
                 reportCard = new ReportCardView();
                 reportCard.Closed += (sender, args) => reportCard = null;
+                reportCard.Closed += (sender, args) => StaffRegistrationWindowVisibility = Visibility.Visible;
+                StaffRegistrationWindowVisibility = Visibility.Collapsed;
                 reportCard.Show();
             }
         }
@@ -296,7 +311,7 @@ namespace ServiceTelecom.ViewModels
 
         #region UpdateStaffRegistrationDataBase
 
-        private void ExecuteUpdateStaffRegistrationDataBaseCommand(object obj)
+        void ExecuteUpdateStaffRegistrationDataBaseCommand(object obj)
         {
             GetStaffRegistrationsForUpdate();
         }
@@ -305,7 +320,7 @@ namespace ServiceTelecom.ViewModels
 
         #region DeleteStaffRegistrationDataBase
 
-        private void ExecuteDeleteStaffRegistrationDataBaseCommand(object obj)
+        void ExecuteDeleteStaffRegistrationDataBaseCommand(object obj)
         {
             if (StaffRegistrationsMulipleSelectedDataGrid == null || 
                 StaffRegistrationsMulipleSelectedDataGrid.Count == 0)
@@ -320,7 +335,7 @@ namespace ServiceTelecom.ViewModels
 
         #region ChangeStaffRegistrationDataBase
 
-        private void ExecuteChangeStaffRegistrationDataBaseCommand(object obj)
+        void ExecuteChangeStaffRegistrationDataBaseCommand(object obj)
         {
             bool flag = false;
             if (CheckingUserInputValues())
@@ -339,7 +354,7 @@ namespace ServiceTelecom.ViewModels
 
         #region AddStaffRegistrationDataBase
 
-        private void ExecuteAddStaffRegistrationDataBaseCommand(object obj)
+        void ExecuteAddStaffRegistrationDataBaseCommand(object obj)
         {
             bool flag = false;
             if (CheckingUserInputValues())
@@ -358,7 +373,7 @@ namespace ServiceTelecom.ViewModels
 
         #region Проверка ввода значений пользователя
 
-        private bool CheckingUserInputValues()
+        bool CheckingUserInputValues()
         {
             if (string.IsNullOrWhiteSpace(SectionForeman) 
                 || string.IsNullOrWhiteSpace(Engineer) 
@@ -372,7 +387,7 @@ namespace ServiceTelecom.ViewModels
             {
                 MessageBox.Show("Введите корректно \"Доверенность\"\n" +
                     "P.s. Пример: 53/53 от 10.01.2023 года", "Отмена",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 Attorney = "53/53 от 10.01.2023 года";
                 return false;
             }
@@ -380,7 +395,7 @@ namespace ServiceTelecom.ViewModels
             {
                 MessageBox.Show("Введите корректно \"№ печати\"\n" +
                     "P.s. Пример: 53", "Отмена",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 NumberPrintDocument = "53";
                 return false;
             }
@@ -391,7 +406,7 @@ namespace ServiceTelecom.ViewModels
 
         #region Получаем данные о регистрации персонала для Обновления
 
-        private void GetStaffRegistrationsForUpdate()
+        void GetStaffRegistrationsForUpdate()
         {
             if (StaffRegistrations.Count != 0 || Users.Count != 0 
                 || SectionForemanCollection.Count != 0 

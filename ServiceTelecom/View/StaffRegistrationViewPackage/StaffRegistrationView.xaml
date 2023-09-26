@@ -12,7 +12,8 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseDown="Window_MouseDown">
+        MouseDown="Window_MouseDown"
+        Visibility="{Binding StaffRegistrationWindowVisibility, Mode=TwoWay}">
     <Window.DataContext>
         <viewModel:StaffRegistrationViewModel/>
     </Window.DataContext>

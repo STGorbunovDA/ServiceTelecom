@@ -149,8 +149,7 @@
                             Height="36"
                             Margin="10,5,0,8"
                             Width="165"
-                            Text="{Binding DateRepair, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-                    </DatePicker>
+                            Text="{Binding DateRepair, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="2">

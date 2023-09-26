@@ -60,7 +60,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region DeleteModelDataBase
 
-        private void ExecuteDeleteModelDataBaseCommand(object obj)
+        void ExecuteDeleteModelDataBaseCommand(object obj)
         {
             if (ModelCollections.Count <= 0)
                 return;
@@ -94,7 +94,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region AddModelDataBase
 
-        private void ExecuteAddModelDataBaseCommand(object obj)
+        void ExecuteAddModelDataBaseCommand(object obj)
         {
             if (string.IsNullOrWhiteSpace(Model))
             {
@@ -123,7 +123,7 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetModelDataBaseForUpdate
 
-        private void GetModelDataBaseForUpdate()
+        void GetModelDataBaseForUpdate()
         {
             TheIndexModelCollection = -1;
             if (ModelCollections.Count != 0)

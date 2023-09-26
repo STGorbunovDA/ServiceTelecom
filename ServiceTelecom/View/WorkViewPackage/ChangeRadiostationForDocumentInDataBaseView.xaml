@@ -337,7 +337,7 @@
                                   Width="270"
                                   Margin="0,0,10,0"
                                   Style="{StaticResource ComboBoxStyle1}"
-                                  ItemsSource="{Binding ModelCollections}"
+                                  ItemsSource="{Binding ModelsCollection}"
                                   SelectedIndex="{Binding TheIndexModelChoiceCollection, Mode=TwoWay}"
                                   Text="{Binding Model, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             <ComboBox.Resources>

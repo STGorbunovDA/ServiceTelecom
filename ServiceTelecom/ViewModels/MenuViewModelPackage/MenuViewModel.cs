@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View;
 using ServiceTelecom.View.WorkViewPackage;
 using System.Windows;
@@ -10,14 +11,23 @@ namespace ServiceTelecom.ViewModels
     internal class MenuViewModel : ViewModelBase
     {
 
-        StaffRegistrationRepository staffRegistrationRepository;
+        IStaffRegistrationRepository staffRegistrationRepository;
 
         AdminView admin = null;
-
         StaffRegistrationView staffRegistration = null;
-
         TutorialEngineerView tutorialEngineer = null;
         WorkView work = null;
+
+        Visibility _menuWindowVisibility;
+        public Visibility MenuWindowVisibility
+        {
+            get { return _menuWindowVisibility; }
+            set
+            {
+                _menuWindowVisibility = value;
+                OnPropertyChanged(nameof(MenuWindowVisibility));
+            }
+        }
 
         public ICommand Adminka { get; }
         public ICommand Registration { get; }
@@ -33,7 +43,7 @@ namespace ServiceTelecom.ViewModels
             Work = new ViewModelCommand(ExecuteWorkCommand);
         }
 
-        private void ExecuteWorkCommand(object obj)
+        void ExecuteWorkCommand(object obj)
         {
             if(UserModelStatic.POST == "Начальник участка" ||
                UserModelStatic.POST == "Инженер" || 
@@ -56,13 +66,15 @@ namespace ServiceTelecom.ViewModels
             {
                 work = new WorkView();
                 work.Closed += (sender, args) => work = null;
-                work.Closed += (sender, args) => 
+                work.Closed += (sender, args) =>
                 UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Clear();
+                work.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                MenuWindowVisibility = Visibility.Collapsed;
                 work.Show();
             }
         }
 
-        private void ExecuteTutorialCommand(object obj)
+        void ExecuteTutorialCommand(object obj)
         {
             if (UserModelStatic.POST == "Дирекция связи")
                 return;
@@ -70,11 +82,13 @@ namespace ServiceTelecom.ViewModels
             {
                 tutorialEngineer = new TutorialEngineerView();
                 tutorialEngineer.Closed += (sender, args) => tutorialEngineer = null;
+                tutorialEngineer.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                MenuWindowVisibility = Visibility.Collapsed;
                 tutorialEngineer.Show();
             }
         }
 
-        private void ExecuteRegistrationCommand(object obj)
+        void ExecuteRegistrationCommand(object obj)
         {
             if (UserModelStatic.POST == "Admin" || 
                 UserModelStatic.POST == "Руководитель")
@@ -83,13 +97,15 @@ namespace ServiceTelecom.ViewModels
                 {
                     staffRegistration = new StaffRegistrationView();
                     staffRegistration.Closed += (sender, args) => staffRegistration = null;
+                    staffRegistration.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                    MenuWindowVisibility = Visibility.Collapsed;
                     staffRegistration.Show();
                 }
             }
             else return;
         }
 
-        private void ExecuteAdminkaCommand(object obj)
+        void ExecuteAdminkaCommand(object obj)
         {
             if (UserModelStatic.POST != "Admin")
                 return;
@@ -97,6 +113,8 @@ namespace ServiceTelecom.ViewModels
             {
                 admin = new AdminView();
                 admin.Closed += (sender, args) => admin = null;
+                admin.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
+                MenuWindowVisibility = Visibility.Collapsed;
                 admin.Show();
             }
         }

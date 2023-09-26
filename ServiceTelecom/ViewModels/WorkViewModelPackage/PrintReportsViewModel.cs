@@ -1,5 +1,4 @@
 ﻿using ServiceTelecom.Infrastructure;
-using System;
 using System.Threading;
 using System.Windows.Input;
 
@@ -7,7 +6,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class PrintReportsViewModel
     {
-        private Print printExcel;
+        Print printExcel;
         public ICommand PrintReportGeneralAKB { get; }
         public ICommand PrintReportDetailedAKB { get; }
         public ICommand PrintReportGeneralManipulator { get; }
@@ -24,7 +23,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region PrintReportDetailedManipulator
 
-        private void ExecutePrintPrintReportDetailedManipulatorCommand(object obj)
+        void ExecutePrintPrintReportDetailedManipulatorCommand(object obj)
         {
             new Thread(() =>
             {
@@ -36,7 +35,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         #endregion
 
         #region PrintReportGeneralManipulator
-        private void ExecutePrintReportGeneralManipulatorCommand(object obj)
+        void ExecutePrintReportGeneralManipulatorCommand(object obj)
         {
             new Thread(() =>
             {
@@ -47,10 +46,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-
         #region PrintReportDetailedAKB
 
-        private void ExecutePrintReportDetailedAKBCommand(object obj)
+        void ExecutePrintReportDetailedAKBCommand(object obj)
         {
             new Thread(() =>
             {
@@ -63,7 +61,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region PrintReportGeneral
 
-        private void ExecutePrintReportGeneralCommand(object obj)
+        void ExecutePrintReportGeneralCommand(object obj)
         {
             new Thread(() =>
             {

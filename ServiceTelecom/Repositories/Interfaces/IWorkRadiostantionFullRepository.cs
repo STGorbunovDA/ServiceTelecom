@@ -1,4 +1,7 @@
-﻿namespace ServiceTelecom.Repositories.Interfaces
+﻿using ServiceTelecom.Models;
+using System.Collections.ObjectModel;
+
+namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IWorkRadiostantionFullRepository
     {
@@ -8,9 +11,9 @@
 
         /// <summary>Метод изменения радиостанции в radiostantionFull(общей таблице)</summary>
         bool ChangeRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location, string poligon,
             string company, string model, string serialNumber, string inventoryNumber,
             string networkNumber, string price, string battery, string manipulator,
@@ -18,9 +21,9 @@
 
         /// <summary>Метод добавления радиостанции в radiostantionFull(общей таблице) </summary>
         bool AddRadiostationFullForDocumentInDataBase(
-            string road, string numberAct, string dateMaintenanceDataBase,
+            string road, string numberAct, string dateMaintenance,
             string representative, string numberIdentification,
-            string dateOfIssuanceOfTheCertificateDataBase, string phoneNumber,
+            string dateOfIssuanceOfTheCertificate, string phoneNumber,
             string post, string comment, string city, string location,
             string poligon, string company, string model, string serialNumber,
             string inventoryNumber, string networkNumber, string price,
@@ -34,14 +37,14 @@
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по акту, городу  и дороге в radiostantionFull (общая таблица)</summary>
         bool ChangeByNumberActRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string numberAct,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
         /// <summary> Метод изменения Представителя предприятия и его характеристик удостоверения по предприятию, городу и дороге в radiostantionFull (общая таблица)</summary>
         bool ChangeByCompanyRepresentativeForDocumentInDBRadiostantionFull(
             string road, string city, string company,
-            string dateOfIssuanceOfTheCertificateDataBase,
+            string dateOfIssuanceOfTheCertificate,
             string representative, string numberIdentification,
             string post, string phoneNumber);
 
@@ -95,5 +98,12 @@
             string inventoryNumber, string networkNumber, 
             string dateMaintenance, string numberAct, 
             string city, string price, string road);
+
+        /// <summary> Поиск информации по заводскому номеру в общей базе данных </summary>
+        ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            SearchBySerialNumberInDatabaseCharacteristics(string road,
+            string serialNumber,
+            ObservableCollection<RadiostationForDocumentsDataBaseModel>
+            radiostationsForDocumentsCollection);
     }
 }

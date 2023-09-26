@@ -102,7 +102,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenance);
+                        Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"modelUser",
                         Encryption.EncryptPlainTextToCipherText(model));
                     command.Parameters.AddWithValue($"lowPowerLevelTransmitterUser",
@@ -229,7 +229,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"serialNumberUser",
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
                     command.Parameters.AddWithValue($"dateMaintenanceUser",
-                        dateMaintenance);
+                        Convert.ToDateTime(dateMaintenance).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"modelUser",
                         Encryption.EncryptPlainTextToCipherText(model));
                     command.Parameters.AddWithValue($"lowPowerLevelTransmitterUser",
