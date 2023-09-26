@@ -297,7 +297,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"numberActUser",
                        Encryption.EncryptPlainTextToCipherText(numberAct));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificate);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
@@ -337,7 +337,7 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"companyUser",
                        Encryption.EncryptPlainTextToCipherText(company));
                     command.Parameters.AddWithValue($"dateOfIssuanceOfTheCertificateDataBaseUser",
-                       dateOfIssuanceOfTheCertificate);
+                        Convert.ToDateTime(dateOfIssuanceOfTheCertificate).ToString("yyyy-MM-dd"));
                     command.Parameters.AddWithValue($"representativeUser",
                            Encryption.EncryptPlainTextToCipherText(representative));
                     command.Parameters.AddWithValue($"numberIdentificationUser",
