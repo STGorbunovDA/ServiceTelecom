@@ -4,13 +4,14 @@ using ServiceTelecom.View;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.View.Base;
+using System.Windows.Threading;
 
 namespace ServiceTelecom
 {
     public partial class App : Application
     {
         [Obsolete]
-        private void Application_Startup(object sender, StartupEventArgs e)
+        void Application_Startup(object sender, StartupEventArgs e)
         {
             GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting
                 = new GetSetRegistryServiceTelecomSetting();
@@ -50,6 +51,14 @@ namespace ServiceTelecom
                     };
                 }
             }
+        }
+
+        void Application_DispatcherUnhandledException(object sender,
+            DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("An unhandled exception just occurred: " +
+                e.Exception.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
         }
     }
 }
