@@ -10,14 +10,14 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     internal class PrintTagTechnicalWorkViewModel : ViewModelBase
     {
-        private Print print;
-        
+        Print printExcel;
+
         #region свойства
 
         public string Road { get; set; }
         public string City { get; set; }
 
-        private string _dateMaintenance;
+        string _dateMaintenance;
         public string DateMaintenance
         {
             get => _dateMaintenance;
@@ -41,34 +41,50 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             PrintTagTechnicalWorkManipulator =
                 new ViewModelCommand(ExecutePrintTagTechnicalWorkManipulatorCommand);
-            print = new Print();
+            printExcel = new Print();
             Road = UserModelStatic.ROAD;
             City = UserModelStatic.CITY;
         }
 
+        #region CheckValue
 
-
-        #region PrintTagTechnicalWorkManipulator
-
-        private void ExecutePrintTagTechnicalWorkManipulatorCommand(object obj)
+        bool IsNullOrWhiteSpaceDateMaintenance()
         {
             if (String.IsNullOrWhiteSpace(DateMaintenance))
             {
-                MessageBox.Show("Поле \"Дата\" не должно быть пустым", 
+                MessageBox.Show("Поле \"Дата\" не должно быть пустым",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
+            return true;
+        }
+
+        bool СheckRegexDateMaintenance()
+        {
             if (!Regex.IsMatch(DateMaintenance,
-                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
+               @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле \"Дата\"",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                return false;
             }
+            return true;
+        }
+
+        #endregion
+
+        #region PrintTagTechnicalWorkManipulator
+
+        void ExecutePrintTagTechnicalWorkManipulatorCommand(object obj)
+        {
+            if (!IsNullOrWhiteSpaceDateMaintenance())
+                return;
+            if (!СheckRegexDateMaintenance())
+                return;
 
             new Thread(() =>
             {
-                print.PrintTagTechnicalWorkRadiostantion(Road, City, DateMaintenance, "МАН");
+                printExcel.PrintTagTechnicalWorkRadiostantion(Road, City, DateMaintenance, "МАН");
             })
             { IsBackground = true }.Start();
         }
@@ -77,25 +93,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region PrintTagTechnicalWorkRadiostantion
 
-        private void ExecutePrintTagTechnicalWorkRadiostantionCommand(object obj)
+        void ExecutePrintTagTechnicalWorkRadiostantionCommand(object obj)
         {
-            if (String.IsNullOrWhiteSpace(DateMaintenance))
-            {
-                MessageBox.Show("Поле \"Дата\" не должно быть пустым", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!IsNullOrWhiteSpaceDateMaintenance())
                 return;
-            }
-            if (!Regex.IsMatch(DateMaintenance,
-                @"^[0-9]{2,2}[.][0-9]{2,2}[.][2][0][0-9]{2,2}$"))
-            {
-                MessageBox.Show("Введите корректно поле \"Дата\"", 
-                    "Отмена", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!СheckRegexDateMaintenance())
                 return;
-            }
 
             new Thread(() =>
             {
-                print.PrintTagTechnicalWorkRadiostantion(Road, City, DateMaintenance, "РСТ");
+                printExcel.PrintTagTechnicalWorkRadiostantion(Road, City, DateMaintenance, "РСТ");
             })
             { IsBackground = true }.Start();
         }
