@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -575,8 +576,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 }
                 else
                 {
-                    GetRadiostations(
-                        RoadsCollection[TEMPORARY_INDEX_ROAD_COLLECTION].ToString(),
+                    GetRadiostations(RoadsCollection[TEMPORARY_INDEX_ROAD_COLLECTION].ToString(),
                         CitiesCollection[value].ToString());
 
                 }
@@ -700,7 +700,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
             AddRadiostationParameters = new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
-            GetRoad();
+            
+            Task.Run(async () => await GetRoad()).GetAwaiter().GetResult();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             GetNameAndPostRadioCommunicationDirectorate();
@@ -709,7 +710,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetNameAndPostRadioCommunicationDirectorate
 
-        private void GetNameAndPostRadioCommunicationDirectorate()
+        void GetNameAndPostRadioCommunicationDirectorate()
         {
             UserModelStatic.RCS_REPRESENTATIVE_TO_SIGN_ACTS
                    = _getSetRegistryServiceTelecomSetting.GetRegistryNameRepresentativeRCS();
@@ -721,7 +722,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region PrintReports
 
-        private void ExecutePrintReportsCommand(object obj)
+        void ExecutePrintReportsCommand(object obj)
         {
             if (UserModelStatic.POST == "Дирекция связи")
                 return;
@@ -745,14 +746,11 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     }
                 }
 
-            UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL =
-                RadiostationsParametersCollection;
+            UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL = RadiostationsParametersCollection;
 
             printReportsView = new PrintReportsView();
             printReportsView.Closed += (sender, args) => printReportsView = null;
-            //printReportsView.Closed += (sender, args) =>
-            //UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL = null;
-            printReportsView.Show();
+            printReportsView.ShowDialog();
         }
 
         #endregion
@@ -1621,7 +1619,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetRoad
 
-        async void GetRoad()
+        async Task GetRoad()
         {
             if (RoadsCollection.Count != 0)
                 RoadsCollection.Clear();
@@ -1638,7 +1636,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     int i = 0;
                     RoadsCollection.Add(new RoadModel(i++, item.RoadBase));
                 }
-            }   
+            }
         }
 
 
@@ -1739,7 +1737,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetRadiostations
 
-        private void GetRadiostations(string road, string city)
+        void GetRadiostations(string road, string city)
         {
             if (road == null)
                 return;
@@ -1756,6 +1754,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetRadiostationsParametersCollection(road, city);
 
             City = city;
+
             _getSetRegistryServiceTelecomSetting.SetRegistryCity(city);
 
             if (ReserveRadiostationsForDocumentsCollection.Count != 0)
@@ -1767,21 +1766,22 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             CHECK_HOW_MUCH = false;
         }
 
-        private void GetRadiostationsForDocumentsCollection(string road, string city)
+        async void GetRadiostationsForDocumentsCollection(string road, string city)
         {
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
-            RadiostationsForDocumentsCollection =
-                _workRadiostantionRepository.GetRadiostationsForDocumentsCollection(
-                RadiostationsForDocumentsCollection, road, city);
+
+            RadiostationsForDocumentsCollection = 
+                await _workRadiostantionRepository.GetRadiostationsForDocumentsCollection(
+                    RadiostationsForDocumentsCollection, road, city);
         }
 
-        private void GetRadiostationsParametersCollection(string road, string city)
+        async void GetRadiostationsParametersCollection(string road, string city)
         {
             if (RadiostationsParametersCollection.Count != 0)
                 RadiostationsParametersCollection.Clear();
             RadiostationsParametersCollection =
-                _radiostationParametersRepository.GetRadiostationsParametersCollection(
+               await _radiostationParametersRepository.GetRadiostationsParametersCollection(
                     RadiostationsParametersCollection, road, city);
         }
 

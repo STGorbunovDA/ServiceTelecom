@@ -5,12 +5,13 @@ using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories
 {
     internal class RadiostationParametersRepository : IRadiostationParametersRepository
     {
-        public ObservableCollection<RadiostationParametersDataBaseModel>
+        public async Task<ObservableCollection<RadiostationParametersDataBaseModel>>
             GetRadiostationsParametersCollection(
             ObservableCollection<RadiostationParametersDataBaseModel>
             radiostationsParametersCollection, string road, string city)
@@ -18,7 +19,7 @@ namespace ServiceTelecom.Repositories
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return radiostationsParametersCollection;
+                    return await Task.Run(() => { return radiostationsParametersCollection; });
                 using (MySqlCommand command = new MySqlCommand(
                     "GetRadiostationsParametersCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -54,11 +55,11 @@ namespace ServiceTelecom.Repositories
                             }
                         }
                         reader.Close();
-                        return radiostationsParametersCollection;
                     }
+                    return await Task.Run(() => { return radiostationsParametersCollection; });
                 }
             }
-            catch (Exception) { return radiostationsParametersCollection; }
+            catch (Exception) { return await Task.Run(() => { return radiostationsParametersCollection; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 

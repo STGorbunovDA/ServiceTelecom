@@ -7,7 +7,7 @@ namespace ServiceTelecom.Repositories.Interfaces
     internal interface IWorkRadiostantionRepository
     {
         /// <summary> Получение всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
-        ObservableCollection<RadiostationForDocumentsDataBaseModel>
+        Task<ObservableCollection<RadiostationForDocumentsDataBaseModel>>
             GetRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city);

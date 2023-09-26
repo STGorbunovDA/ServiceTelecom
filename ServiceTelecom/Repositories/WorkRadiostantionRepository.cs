@@ -153,15 +153,16 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+        public async Task<ObservableCollection<RadiostationForDocumentsDataBaseModel>> 
             GetRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city)
         {
             try
             {
-                if (!InternetCheck.CheckSkyNET())
-                    return radiostationsForDocumentsCollection;
+                if (!InternetCheck.CheckSkyNET()) 
+                    return await Task.Run(() => { return radiostationsForDocumentsCollection; });
+                
                 using (MySqlCommand command = new MySqlCommand(
                     "GetRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -200,11 +201,11 @@ namespace ServiceTelecom.Repositories
                             }
                         }
                         reader.Close();
-                        return radiostationsForDocumentsCollection;
                     }
+                    return await Task.Run(() => { return radiostationsForDocumentsCollection; });
                 }
             }
-            catch (Exception) { return radiostationsForDocumentsCollection; }
+            catch (Exception) { return await Task.Run(() => { return radiostationsForDocumentsCollection; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
