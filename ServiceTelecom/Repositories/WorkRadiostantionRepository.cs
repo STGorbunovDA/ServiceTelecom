@@ -7,18 +7,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories
 {
     internal class WorkRadiostantionRepository : IWorkRadiostantionRepository
     {
-        public ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
-            ObservableCollection<string> cityCollections)
+        public async Task<ObservableCollection<string>> GetCityAlongRoadForCityCollection(
+            string road, ObservableCollection<string> cityCollections)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return cityCollections;
+                    return await Task.Run(() => { return cityCollections; });
+
                 using (MySqlCommand command = new MySqlCommand("GetCityAlongRoadForCityCollection",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -31,18 +33,14 @@ namespace ServiceTelecom.Repositories
                         if (reader.HasRows)
                         {
                             while (reader.Read())
-                            {
-                                cityCollections.Add(
-                                     Encryption.DecryptCipherTextToPlainText(
-                                         reader.GetString(0)));
-                            }
+                                cityCollections.Add(Encryption.DecryptCipherTextToPlainText(reader.GetString(0)));
                         }
                         reader.Close();
-                        return cityCollections;
                     }
+                    return await Task.Run(() => { return cityCollections; });
                 }
             }
-            catch (Exception) { return cityCollections; }
+            catch (Exception) { return await Task.Run(() => { return cityCollections; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 

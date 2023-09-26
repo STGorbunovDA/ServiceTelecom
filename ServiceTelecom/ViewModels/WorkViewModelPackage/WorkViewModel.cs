@@ -479,8 +479,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         GetSetRegistryServiceTelecomSetting _getSetRegistryServiceTelecomSetting;
         Print printExcel;
 
-        IWorkRadiostantionRepository _workRepositoryRadiostantionRepository;
-        IWorkRadiostantionFullRepository _workRepositoryRadiostantionFullRepository;
+        IWorkRadiostantionRepository _workRadiostantionRepository;
+        IWorkRadiostantionFullRepository _workRadiostantionFullRepository;
         IRoadDataBaseRepository _roadDataBaseRepository;
         IRadiostationParametersRepository _radiostationParametersRepository;
 
@@ -657,8 +657,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             printExcel = new Print();
             backupCopyRadiostationsForDocuments = new BackupCopyRadiostationsForDocumentsCollection();
-            _workRepositoryRadiostantionRepository = new WorkRadiostantionRepository();
-            _workRepositoryRadiostantionFullRepository = new WorkRadiostantionFullRepository();
+            _workRadiostantionRepository = new WorkRadiostantionRepository();
+            _workRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
             RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
             RadiostationsParametersCollection = new ObservableCollection<RadiostationParametersDataBaseModel>();
@@ -1310,7 +1310,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (MessageBox.Show("Подтверждаете удаление списания?", "Внимание",
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
-            if (_workRepositoryRadiostantionFullRepository.
+            if (_workRadiostantionFullRepository.
                 DeleteDecommissionNumberActRadiostationInDBRadiostationFull(
                     Road, City, SelectedRadiostation.SerialNumber))
             { }
@@ -1318,7 +1318,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 MessageBox.Show($"Ошибка удаления списания у радиостанции " +
                     $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая база)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
-            if (_workRepositoryRadiostantionRepository.DeleteDecommissionNumberActRadiostationInDB(
+            if (_workRadiostantionRepository.DeleteDecommissionNumberActRadiostationInDB(
                     Road, City, SelectedRadiostation.SerialNumber))
                 MessageBox.Show("Успешно! Добавь номер акта ТО и исправь Price!", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1393,7 +1393,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 return;
 
-            if (_workRepositoryRadiostantionFullRepository.
+            if (_workRadiostantionFullRepository.
                 DeleteRepairRadiostationForDocumentInDBRadiostantionFull(
                     Road, City, SelectedRadiostation.SerialNumber))
             { }
@@ -1402,7 +1402,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     $"{SelectedRadiostation.SerialNumber} из radiostantionFull(общая таблица)",
                     "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            if (_workRepositoryRadiostantionRepository.DeleteRepairRadiostationForDocumentInDataBase(
+            if (_workRadiostantionRepository.DeleteRepairRadiostationForDocumentInDataBase(
                     Road, City, SelectedRadiostation.SerialNumber))
                 MessageBox.Show("Успешно", "Информация",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1468,7 +1468,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             foreach (RadiostationForDocumentsDataBaseModel radiostationForDocumentsDataBaseModel in
                 RadiostationsForDocumentsMulipleSelectedDataGrid)
             {
-                _workRepositoryRadiostantionRepository.DeleteRadiostationFromDataBase(
+                _workRadiostantionRepository.DeleteRadiostationFromDataBase(
                     radiostationForDocumentsDataBaseModel.IdBase);
                 if (_radiostationParametersRepository.CheckSerialNumberInRadiostationParameters(
                     radiostationForDocumentsDataBaseModel.Road, radiostationForDocumentsDataBaseModel.SerialNumber))
@@ -1646,7 +1646,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetCityOnTheRoad
 
-        private void GetCityOnTheRoad(int index)
+        async void GetCityOnTheRoad(int index)
         {
             if (index < 0)
                 return;
@@ -1657,7 +1657,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CitiesCollection.Clear();
             }
 
-            CitiesCollection = _workRepositoryRadiostantionRepository.
+            CitiesCollection = await _workRadiostantionRepository.
                 GetCityAlongRoadForCityCollection(RoadsCollection[index].ToString(), CitiesCollection);
             SelectedIndexCityCollection = 0;
 
@@ -1701,7 +1701,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
             RadiostationsForDocumentsCollection =
-                _workRepositoryRadiostantionRepository.
+                _workRadiostantionRepository.
                 HowMuchToCheckRadiostantionsByCityForDocumentsCollection(
                 RadiostationsForDocumentsCollection, Road, City);
             if (ReserveRadiostationsForDocumentsCollection.Count != 0)
@@ -1725,7 +1725,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
             RadiostationsForDocumentsCollection =
-                _workRepositoryRadiostantionRepository.GetFullByRoadRadiostationsForDocumentsCollection(
+                _workRadiostantionRepository.GetFullByRoadRadiostationsForDocumentsCollection(
                 RadiostationsForDocumentsCollection, Road);
             if (ReserveRadiostationsForDocumentsCollection.Count != 0)
                 ReserveRadiostationsForDocumentsCollection.Clear();
@@ -1772,7 +1772,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
             RadiostationsForDocumentsCollection =
-                _workRepositoryRadiostantionRepository.GetRadiostationsForDocumentsCollection(
+                _workRadiostantionRepository.GetRadiostationsForDocumentsCollection(
                 RadiostationsForDocumentsCollection, road, city);
         }
 
