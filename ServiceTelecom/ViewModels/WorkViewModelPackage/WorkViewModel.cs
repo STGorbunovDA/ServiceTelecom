@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -495,7 +496,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         PrintReportsView printReportsView = null;
         AddChangeRepresentativeRCSView addChangeRepresentativeRCSView = null;
 
-        public ObservableCollection<string> RoadsCollection { get; set; }
+        public ObservableCollection<RoadModel> RoadsCollection { get; set; }
         public ObservableCollection<string> CitiesCollection { get; set; }
         public ObservableCollection<string> ChoiсeUniqueValuesCollection { get; set; }
         public ObservableCollection<string> SignCollection { get; set; }
@@ -504,7 +505,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public List<RadiostationForDocumentsDataBaseModel> PrintWordDecommissionNumberActCollection { get; set; }
         public List<RadiostationForDocumentsDataBaseModel> PrintExcelNumberActRepairCollection { get; set; }
         public List<RadiostationParametersDataBaseModel> PrintStatementParametersCollection { get; set; }
-        public List<RadiostationForDocumentsDataBaseModel> PrintExcelNumberActTechnicalWorkCollection{ get; set; }
+        public List<RadiostationForDocumentsDataBaseModel> PrintExcelNumberActTechnicalWorkCollection { get; set; }
         public List<RadiostationForDocumentsDataBaseModel> SelectedRadiostationForAddRadiostationParametersViewCollection { get; set; }
         public List<RadiostationParametersDataBaseModel> ParametersRadiostationForAddRadiostationParametersViewCollection { get; set; }
         public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
@@ -666,7 +667,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             SelectedRadiostationForAddRadiostationParametersViewCollection = new List<RadiostationForDocumentsDataBaseModel>();
             ParametersRadiostationForAddRadiostationParametersViewCollection = new List<RadiostationParametersDataBaseModel>();
             _getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
-            RoadsCollection = new ObservableCollection<string>();
+            RoadsCollection = new ObservableCollection<RoadModel>();
             CitiesCollection = new ObservableCollection<string>();
             ChoiсeUniqueValuesCollection = new ObservableCollection<string>();
             SignCollection = new ObservableCollection<string>();
@@ -1436,10 +1437,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         private void ExecuteUpdateRadiostationForDocumentInDataBaseCommand(object obj)
         {
-            //GetRadiostations(Road, City);
-            //GetRowAfterAddingRadiostantionInDataGrid();
             TEMPORARY_INDEX_DATAGRID = SelectedIndexRadiostantionDataGrid;
-            GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
+
+            GetCityOnTheRoad(RoadsCollection.FirstOrDefault(item => item.Road == Road)?.IdBase ?? 0);
+
             if (RadiostationsForDocumentsCollection.Count > 0)
                 GetRadiostations(Road, _getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
             else GetRadiostations(Road, City);
@@ -1478,7 +1479,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                             "Отмена", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            GetCityOnTheRoad(RoadsCollection.IndexOf(Road));
+            GetCityOnTheRoad(RoadsCollection.FirstOrDefault(item => item.Road == Road)?.IdBase ?? 0);
             GetRadiostations(Road,
                 _getSetRegistryServiceTelecomSetting.GetRegistryCityForAddChangeDelete());
             GetRowAfterAddingRadiostantionInDataGrid();
@@ -1620,17 +1621,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetRoad
 
-        void GetRoad()
+        async void GetRoad()
         {
             if (RoadsCollection.Count != 0)
                 RoadsCollection.Clear();
+
             if (UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
             {
                 _roadDataBaseRepository = new RoadDataBaseRepository();
-                RoadsCollection = _roadDataBaseRepository.GetRoadDataBaseWorkView(RoadsCollection);
+                RoadsCollection = await _roadDataBaseRepository.GetRoadDataBase(RoadsCollection);
             }
-            else foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
-                    RoadsCollection.Add(item.RoadBase);
+            else
+            {
+                foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                {
+                    int i = 0;
+                    RoadsCollection.Add(new RoadModel(i++, item.RoadBase));
+                }
+            }   
         }
 
 
@@ -1642,6 +1650,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (index < 0)
                 return;
+
             if (CitiesCollection.Count != 0)
             {
                 SelectedIndexCityCollection = -1;
@@ -1649,8 +1658,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
 
             CitiesCollection = _workRepositoryRadiostantionRepository.
-                    GetCityAlongRoadForCityCollection(
-                    RoadsCollection[index].ToString(), CitiesCollection);
+                GetCityAlongRoadForCityCollection(RoadsCollection[index].ToString(), CitiesCollection);
             SelectedIndexCityCollection = 0;
 
             if (CitiesCollection.Count != 0)

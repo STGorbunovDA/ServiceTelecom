@@ -2,7 +2,7 @@
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories.Interfaces;
-using System;
+using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -10,12 +10,11 @@ namespace ServiceTelecom.Repositories
 {
     internal class RoadDataBaseRepository : IRoadDataBaseRepository
     {
-        public ObservableCollection<string> GetRoadDataBaseWorkView(ObservableCollection<string> roadCollections)
+        public async Task<ObservableCollection<RoadModel>> GetRoadDataBase(ObservableCollection<RoadModel> roadCollections)
         {
             try
             {
-                if (!InternetCheck.CheckSkyNET())
-                    return roadCollections;
+                if (!InternetCheck.CheckSkyNET()) return await Task.Run(() => { return roadCollections; });
 
                 using (MySqlCommand command = new MySqlCommand("GetRoadDataBase",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -28,47 +27,16 @@ namespace ServiceTelecom.Repositories
                             while (reader.Read())
                             {
                                 roadCollections.Add(
-                                    Encryption.DecryptCipherTextToPlainText(reader.GetString(1)));
-                            }
-                            reader.Close();
-                            return roadCollections;
-                        }
-                    }
-                }
-                return roadCollections;
-            }
-            catch { return roadCollections; }
-            finally { RepositoryDataBase.GetInstance.CloseConnection(); }
-        }
-
-        public ObservableCollection<RoadModel> GetRoadDataBase(ObservableCollection<RoadModel> roadCollections)
-        {
-            try
-            {
-                if (!InternetCheck.CheckSkyNET())
-                    return roadCollections;
-                using (MySqlCommand command = new MySqlCommand("GetRoadDataBase",
-                    RepositoryDataBase.GetInstance.GetConnection()))
-                {
-                    RepositoryDataBase.GetInstance.OpenConnection();
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                roadCollections.Add( 
                                      new RoadModel(reader.GetInt32(0),
-                                     reader.GetString(1)));
+                                     Encryption.DecryptCipherTextToPlainText(reader.GetString(1))));
                             }
                             reader.Close();
-                            return roadCollections;
                         }
                     }
                 }
-                return roadCollections;
+                return await Task.Run(() => { return roadCollections; });
             }
-            catch { return roadCollections; }
+            catch { return await Task.Run(() => { return roadCollections; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 

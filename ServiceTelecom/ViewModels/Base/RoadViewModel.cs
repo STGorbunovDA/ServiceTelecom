@@ -57,12 +57,12 @@ namespace ServiceTelecom.ViewModels.Base
 
         #region GetRoadDataBase
 
-        void GetRoadDataBase()
+        async void GetRoadDataBase()
         {
             TheIndexRoadCollection = -1;
             if (RoadCollections.Count != 0)
                 RoadCollections.Clear();
-            RoadCollections = _roadDataBaseRepository.GetRoadDataBase(RoadCollections);
+            RoadCollections = await _roadDataBaseRepository.GetRoadDataBase(RoadCollections);
             TheIndexRoadCollection = RoadCollections.Count - 1;
         }
 
