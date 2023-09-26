@@ -5,9 +5,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 {
     public class RepeatsRadiostationViewModel : ViewModelBase
     {
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationsForDocumentsCollection
-        { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
 
         RadiostationForDocumentsDataBaseModel _selectedRadiostation;
         public RadiostationForDocumentsDataBaseModel SelectedRadiostation
@@ -21,7 +19,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID.Count != 0)
                     UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID.Clear();
 
-                    UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID.Add(value);
+                UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID.Add(value);
 
                 _selectedRadiostation = value;
                 OnPropertyChanged(nameof(SelectedRadiostation));
