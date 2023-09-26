@@ -1,7 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
-using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
 using ServiceTelecom.Repositories;
+using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.WorkViewPackage;
 using System;
 using System.Collections;
@@ -17,20 +17,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
     internal class WorkViewModel : ViewModelBase
     {
         /// <summary> для сохранения индекса выделенной строки </summary>
-        private int TEMPORARY_INDEX_DATAGRID = 0;
+        int TEMPORARY_INDEX_DATAGRID = 0;
 
         /// <summary> для сохранения индекса коллекции дорог </summary>
-        private int TEMPORARY_INDEX_ROAD_COLLECTION = 0;
+        int TEMPORARY_INDEX_ROAD_COLLECTION = 0;
 
         /// <summary> Для получения значения только один раз из реестра  </summary>
-        private int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
+        int NUMBER_LIMIT_LOADING_REGESTRY_CITY = 0;
 
         /// <summary> Для ограничения функционала при загрузке радиостанций из общей таблицы  </summary>
-        private bool CHECK_HOW_MUCH = false;
+        bool CHECK_HOW_MUCH = false;
 
         #region свойства
 
-        private string _serialNumberView;
+        string _serialNumberView;
         public string SerialNumberView
         {
             get => _serialNumberView;
@@ -41,7 +41,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _fillOut;
+        string _fillOut;
         public string FillOut
         {
             get => _fillOut;
@@ -52,7 +52,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _sign;
+        string _sign;
         public string Sign
         {
             get => _sign;
@@ -63,7 +63,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _selectedRowsCounterAmountRadiostantion;
+        string _selectedRowsCounterAmountRadiostantion;
         public string SelectedRowsCounterAmountRadiostantion
         {
             get => _selectedRowsCounterAmountRadiostantion;
@@ -74,7 +74,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _selectedRows;
+        string _selectedRows;
         public string SelectedRows
         {
             get => _selectedRows;
@@ -85,7 +85,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _сounterDecommissionNumberActs;
+        string _сounterDecommissionNumberActs;
         public string CounterDecommissionNumberActs
         {
             get => _сounterDecommissionNumberActs;
@@ -96,7 +96,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _сounterInRepairRadiostantionsTechnicalServices;
+        string _сounterInRepairRadiostantionsTechnicalServices;
         public string CounterInRepairRadiostantionsTechnicalServices
         {
             get => _сounterInRepairRadiostantionsTechnicalServices;
@@ -107,7 +107,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _сounterVerifiedRadiostantions;
+        string _сounterVerifiedRadiostantions;
         public string CounterVerifiedRadiostantions
         {
             get => _сounterVerifiedRadiostantions;
@@ -118,7 +118,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _сounterInWorkRadiostantions;
+        string _сounterInWorkRadiostantions;
         public string CounterInWorkRadiostantions
         {
             get => _сounterInWorkRadiostantions;
@@ -129,7 +129,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _counterAmountRepair;
+        string _counterAmountRepair;
         public string CounterAmountRepair
         {
             get => _counterAmountRepair;
@@ -140,7 +140,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _counterQuantityRepair;
+        string _counterQuantityRepair;
         public string CounterQuantityRepair
         {
             get => _counterQuantityRepair;
@@ -151,7 +151,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _counterAmountRadiostantion;
+        string _counterAmountRadiostantion;
         public string CounterAmountRadiostantion
         {
             get => _counterAmountRadiostantion;
@@ -162,7 +162,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _counterQuantityRadiostantion;
+        string _counterQuantityRadiostantion;
         public string CounterQuantityRadiostantion
         {
             get => _counterQuantityRadiostantion;
@@ -173,7 +173,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _cmbChoiseSearch;
+        string _cmbChoiseSearch;
         public string CmbChoiseSearch
         {
             get => _cmbChoiseSearch;
@@ -184,7 +184,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _choiсeUniqueValue;
+        string _choiсeUniqueValue;
         public string ChoiсeUniqueValue
         {
             get => _choiсeUniqueValue;
@@ -196,7 +196,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _road;
+        string _road;
         public string Road
         {
             get => _road;
@@ -207,7 +207,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _city;
+        string _city;
         public string City
         {
             get => _city;
@@ -218,7 +218,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _serialNumber;
+        string _serialNumber;
         public string SerialNumber
         {
             get => _serialNumber;
@@ -229,7 +229,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _verifiedRST;
+        string _verifiedRST;
         public string VerifiedRST
         {
             get => _verifiedRST;
@@ -240,7 +240,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _representative;
+        string _representative;
         public string Representative
         {
             get => _representative;
@@ -251,7 +251,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _numberIdentification;
+        string _numberIdentification;
         public string NumberIdentification
         {
             get => _numberIdentification;
@@ -262,7 +262,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _phoneNumber;
+        string _phoneNumber;
         public string PhoneNumber
         {
             get => _phoneNumber;
@@ -273,7 +273,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _post;
+        string _post;
         public string Post
         {
             get => _post;
@@ -284,7 +284,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _dateOfIssuanceOfTheCertificate;
+        string _dateOfIssuanceOfTheCertificate;
         public string DateOfIssuanceOfTheCertificate
         {
             get => _dateOfIssuanceOfTheCertificate;
@@ -295,7 +295,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _poligon;
+        string _poligon;
         public string Poligon
         {
             get => _poligon;
@@ -306,7 +306,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _company;
+        string _company;
         public string Company
         {
             get => _company;
@@ -317,7 +317,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _location;
+        string _location;
         public string Location
         {
             get => _location;
@@ -328,7 +328,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _model;
+        string _model;
         public string Model
         {
             get => _model;
@@ -339,7 +339,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _inventoryNumber;
+        string _inventoryNumber;
         public string InventoryNumber
         {
             get => _inventoryNumber;
@@ -350,7 +350,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _networkNumber;
+        string _networkNumber;
         public string NetworkNumber
         {
             get => _networkNumber;
@@ -361,7 +361,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _dateMaintenance;
+        string _dateMaintenance;
         public string DateMaintenance
         {
             get => _dateMaintenance;
@@ -372,7 +372,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _comment;
+        string _comment;
         public string Comment
         {
             get => _comment;
@@ -383,7 +383,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _price;
+        string _price;
         public string Price
         {
             get => _price;
@@ -394,7 +394,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _numberAct;
+        string _numberAct;
         public string NumberAct
         {
             get => _numberAct;
@@ -405,7 +405,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _numberActRepair;
+        string _numberActRepair;
         public string NumberActRepair
         {
             get => _numberActRepair;
@@ -416,7 +416,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _manipulator;
+        string _manipulator;
         public string Manipulator
         {
             get => _manipulator;
@@ -427,7 +427,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _antenna;
+        string _antenna;
         public string Antenna
         {
             get => _antenna;
@@ -438,7 +438,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _battery;
+        string _battery;
         public string Battery
         {
             get => _battery;
@@ -449,7 +449,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _charger;
+        string _charger;
         public string Charger
         {
             get => _charger;
@@ -460,7 +460,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private string _decommissionNumberAct;
+        string _decommissionNumberAct;
         public string DecommissionNumberAct
         {
             get => _decommissionNumberAct;
@@ -473,33 +473,27 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #endregion
 
-        BackupCopyRadiostationsForDocumentsCollection
-            backupCopyRadiostationsForDocuments;
+        BackupCopyRadiostationsForDocumentsCollection backupCopyRadiostationsForDocuments;
         DispatcherTimer dispatcherTimer;
-        private GetSetRegistryServiceTelecomSetting _getSetRegistryServiceTelecomSetting;
-        private Print printExcel;
+        GetSetRegistryServiceTelecomSetting _getSetRegistryServiceTelecomSetting;
+        Print printExcel;
 
-        private WorkRadiostantionRepository _workRepositoryRadiostantionRepository;
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFullRepository;
-        private RoadDataBaseRepository _roadDataBaseRepository;
-        private RadiostationParametersRepository _radiostationParametersRepository;
+        IWorkRadiostantionRepository _workRepositoryRadiostantionRepository;
+        IWorkRadiostantionFullRepository _workRepositoryRadiostantionFullRepository;
+        IRoadDataBaseRepository _roadDataBaseRepository;
+        IRadiostationParametersRepository _radiostationParametersRepository;
 
-        private ChangeNumberActView changeNumberActView = null;
-        private PrintTagTechnicalWorkView printTagTechnicalWorkView = null;
-        AddRadiostationForDocumentInDataBaseView
-            addRadiostationForDocumentInDataBaseView = null;
-        ChangeRadiostationForDocumentInDataBaseView
-            changeRadiostationForDocumentInDataBaseView = null;
-        AddRepairRadiostationForDocumentInDataBaseView
-            addRepairRadiostationForDocumentInDataBaseView = null;
-        AddDecommissionNumberActView
-            addDecommissionNumberActView = null;
+        ChangeNumberActView changeNumberActView = null;
+        PrintTagTechnicalWorkView printTagTechnicalWorkView = null;
+        AddRadiostationForDocumentInDataBaseView addRadiostationForDocumentInDataBaseView = null;
+        ChangeRadiostationForDocumentInDataBaseView changeRadiostationForDocumentInDataBaseView = null;
+        AddRepairRadiostationForDocumentInDataBaseView addRepairRadiostationForDocumentInDataBaseView = null;
+        AddDecommissionNumberActView addDecommissionNumberActView = null;
         SelectingSaveView selectingSaveView = null;
         PrintRepairView printRepairView = null;
         AddRadiostationParametersView addRadiostationParametersView = null;
         PrintReportsView printReportsView = null;
         AddChangeRepresentativeRCSView addChangeRepresentativeRCSView = null;
-
 
         public ObservableCollection<string> RoadsCollection { get; set; }
         public ObservableCollection<string> CitiesCollection { get; set; }
@@ -507,42 +501,18 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ObservableCollection<string> SignCollection { get; set; }
         public ObservableCollection<string> FillOutCollection { get; set; }
 
-        public List<RadiostationForDocumentsDataBaseModel>
-            PrintWordDecommissionNumberActCollection
-        { get; set; }
+        public List<RadiostationForDocumentsDataBaseModel> PrintWordDecommissionNumberActCollection { get; set; }
+        public List<RadiostationForDocumentsDataBaseModel> PrintExcelNumberActRepairCollection { get; set; }
+        public List<RadiostationParametersDataBaseModel> PrintStatementParametersCollection { get; set; }
+        public List<RadiostationForDocumentsDataBaseModel> PrintExcelNumberActTechnicalWorkCollection{ get; set; }
+        public List<RadiostationForDocumentsDataBaseModel> SelectedRadiostationForAddRadiostationParametersViewCollection { get; set; }
+        public List<RadiostationParametersDataBaseModel> ParametersRadiostationForAddRadiostationParametersViewCollection { get; set; }
+        public ObservableCollection<RadiostationForDocumentsDataBaseModel> RadiostationsForDocumentsCollection { get; set; }
+        public ObservableCollection<RadiostationParametersDataBaseModel> RadiostationsParametersCollection { get; set; }
 
-        public List<RadiostationForDocumentsDataBaseModel>
-            PrintExcelNumberActRepairCollection
-        { get; set; }
+        ObservableCollection<RadiostationForDocumentsDataBaseModel> ReserveRadiostationsForDocumentsCollection;
 
-        public List<RadiostationParametersDataBaseModel>
-            PrintStatementParametersCollection
-        { get; set; }
-
-        public List<RadiostationForDocumentsDataBaseModel>
-            PrintExcelNumberActTechnicalWorkCollection
-        { get; set; }
-
-        public List<RadiostationForDocumentsDataBaseModel>
-            SelectedRadiostationForAddRadiostationParametersViewCollection
-        { get; set; }
-
-        public List<RadiostationParametersDataBaseModel>
-            ParametersRadiostationForAddRadiostationParametersViewCollection
-        { get; set; }
-
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            RadiostationsForDocumentsCollection
-        { get; set; }
-
-        public ObservableCollection<RadiostationParametersDataBaseModel>
-            RadiostationsParametersCollection
-        { get; set; }
-
-        private ObservableCollection<RadiostationForDocumentsDataBaseModel>
-            ReserveRadiostationsForDocumentsCollection;
-
-        private int _selectedIndexFillOutCollection;
+        int _selectedIndexFillOutCollection;
         public int SelectedIndexFillOutCollection
         {
             get => _selectedIndexFillOutCollection;
@@ -553,7 +523,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _selectedIndexSignCollection;
+        int _selectedIndexSignCollection;
         public int SelectedIndexSignCollection
         {
             get => _selectedIndexSignCollection;
@@ -564,7 +534,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _selectedIndexRadiostantionDataGrid;
+        int _selectedIndexRadiostantionDataGrid;
         public int SelectedIndexRadiostantionDataGrid
         {
             get => _selectedIndexRadiostantionDataGrid;
@@ -575,7 +545,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             }
         }
 
-        private int _selectedIndexRoadCollection;
+        int _selectedIndexRoadCollection;
         public int SelectedIndexRoadCollection
         {
             get => _selectedIndexRoadCollection;
@@ -590,7 +560,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         }
 
 
-        private int _selectedIndexCityCollection;
+        int _selectedIndexCityCollection;
         public int SelectedIndexCityCollection
         {
             get => _selectedIndexCityCollection;
@@ -623,12 +593,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (value == null)
                     return;
                 _selectedRadiostation = value;
-                    SerialNumberView = value.SerialNumber;
+                SerialNumberView = value.SerialNumber;
                 OnPropertyChanged(nameof(SelectedRadiostation));
             }
         }
 
-        private IList _selectedModels = new ArrayList();
+        IList _selectedModels = new ArrayList();
         public IList RadiostationsForDocumentsMulipleSelectedDataGrid
         {
             get => _selectedModels;
@@ -685,80 +655,50 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public WorkViewModel()
         {
             printExcel = new Print();
-            backupCopyRadiostationsForDocuments =
-                new BackupCopyRadiostationsForDocumentsCollection();
+            backupCopyRadiostationsForDocuments = new BackupCopyRadiostationsForDocumentsCollection();
             _workRepositoryRadiostantionRepository = new WorkRadiostantionRepository();
             _workRepositoryRadiostantionFullRepository = new WorkRadiostantionFullRepository();
             _radiostationParametersRepository = new RadiostationParametersRepository();
-            RadiostationsForDocumentsCollection =
-                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            RadiostationsParametersCollection =
-                new ObservableCollection<RadiostationParametersDataBaseModel>();
-            ReserveRadiostationsForDocumentsCollection =
-                new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
-            PrintExcelNumberActRepairCollection =
-                new List<RadiostationForDocumentsDataBaseModel>();
-            SelectedRadiostationForAddRadiostationParametersViewCollection =
-                new List<RadiostationForDocumentsDataBaseModel>();
-            ParametersRadiostationForAddRadiostationParametersViewCollection =
-                 new List<RadiostationParametersDataBaseModel>();
+            RadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+            RadiostationsParametersCollection = new ObservableCollection<RadiostationParametersDataBaseModel>();
+            ReserveRadiostationsForDocumentsCollection = new ObservableCollection<RadiostationForDocumentsDataBaseModel>();
+            PrintExcelNumberActRepairCollection = new List<RadiostationForDocumentsDataBaseModel>();
+            SelectedRadiostationForAddRadiostationParametersViewCollection = new List<RadiostationForDocumentsDataBaseModel>();
+            ParametersRadiostationForAddRadiostationParametersViewCollection = new List<RadiostationParametersDataBaseModel>();
             _getSetRegistryServiceTelecomSetting = new GetSetRegistryServiceTelecomSetting();
             RoadsCollection = new ObservableCollection<string>();
             CitiesCollection = new ObservableCollection<string>();
             ChoiсeUniqueValuesCollection = new ObservableCollection<string>();
             SignCollection = new ObservableCollection<string>();
             FillOutCollection = new ObservableCollection<string>();
-            AddRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
-            ChangeRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
-            DeleteRadiostationForDocumentInDataBase =
-                 new ViewModelCommand(ExecuteDeleteRadiostationForDocumentInDataBaseCommand);
-            UpdateRadiostationForDocumentInDataBase =
-                 new ViewModelCommand(ExecuteUpdateRadiostationForDocumentInDataBaseCommand);
-            SaveCollectionRadiostationsForDocument =
-                new ViewModelCommand(ExecuteSaveCollectionRadiostationsForDocumentCommand);
-            AddRepairRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
-            DeleteRepairRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand);
-            AddDecommissionNumberActRadiostationForDocumentInDataBase =
-                new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
-            DeleteDecommissionNumberActRadiostationInDB =
-                new ViewModelCommand(ExecuteDeleteDecommissionNumberActRadiostationInDBCommand);
-            ChangeNumberActAtRadiostationsInDB =
-                new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
-            AddNumberActInSignCollection =
-                new ViewModelCommand(ExecuteAddNumberActInSignCollectionsCommand);
-            RemoveFromSignCollection =
-                new ViewModelCommand(ExecuteRemoveFromSignCollectionsCommand);
-            SearchBySingNumberActInRadiostationsForDocumentsCollection =
-                new ViewModelCommand(ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand);
-            AddNumberActInFillOutCollection =
-                new ViewModelCommand(ExecuteAddNumberActInFillOutCollectionsCommand);
-            RemoveFromFillOutCollection =
-                new ViewModelCommand(ExecuteRemoveFromFillOutCollectionsCommand);
-            SearchByNumberActFillOutInRadiostationsForDocumentsCollection =
-                new ViewModelCommand(ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand);
-            GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection =
-                new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
-            HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection =
-                new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
+            AddRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRadiostationForDocumentInDataBaseCommand);
+            ChangeRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteChangeRadiostationForDocumentInDataBaseCommand);
+            DeleteRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteDeleteRadiostationForDocumentInDataBaseCommand);
+            UpdateRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteUpdateRadiostationForDocumentInDataBaseCommand);
+            SaveCollectionRadiostationsForDocument = new ViewModelCommand(ExecuteSaveCollectionRadiostationsForDocumentCommand);
+            AddRepairRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddRepairRadiostationForDocumentInDataBaseCommand);
+            DeleteRepairRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteDeleteRepairRadiostationForDocumentInDataBaseCommand);
+            AddDecommissionNumberActRadiostationForDocumentInDataBase = new ViewModelCommand(ExecuteAddDecommissionNumberActRadiostationForDocumentInDBCommand);
+            DeleteDecommissionNumberActRadiostationInDB = new ViewModelCommand(ExecuteDeleteDecommissionNumberActRadiostationInDBCommand);
+            ChangeNumberActAtRadiostationsInDB = new ViewModelCommand(ExecuteChangeNumberActAtRadiostationsInDBCommand);
+            AddNumberActInSignCollection = new ViewModelCommand(ExecuteAddNumberActInSignCollectionsCommand);
+            RemoveFromSignCollection = new ViewModelCommand(ExecuteRemoveFromSignCollectionsCommand);
+            SearchBySingNumberActInRadiostationsForDocumentsCollection = new ViewModelCommand(ExecuteSearchBySingNumberActInRadiostationsForDocumentsCollectionCommand);
+            AddNumberActInFillOutCollection = new ViewModelCommand(ExecuteAddNumberActInFillOutCollectionsCommand);
+            RemoveFromFillOutCollection = new ViewModelCommand(ExecuteRemoveFromFillOutCollectionsCommand);
+            SearchByNumberActFillOutInRadiostationsForDocumentsCollection = new ViewModelCommand(ExecuteSearchByNumberActFillOutInRadiostationsForDocumentsCollectionCommand);
+            GetFullRadiostantionsByRoadInRadiostationsForDocumentsCollection = new ViewModelCommand(ExecuteGetFullRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
+            HowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollection = new ViewModelCommand(ExecuteHowMuchToCheckRadiostantionsByRoadInRadiostationsForDocumentsCollectionCommand);
             PrintActs = new ViewModelCommand(ExecutePrintActsCommand);
-            PrintExcelNumberActTechnicalWork =
-                new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
-            PrintExcelNumberActRepair =
-                new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
-            PrintWordDecommissionNumberAct =
-                new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
-            PrintStatementParameters =
-                new ViewModelCommand(ExecutePrintStatementParametersCommand);
+            PrintExcelNumberActTechnicalWork = new ViewModelCommand(ExecutePrintExcelNumberActTechnicalWorkCommand);
+            PrintExcelNumberActRepair = new ViewModelCommand(ExecutePrintExcelNumberActRepairCommand);
+            PrintWordDecommissionNumberAct = new ViewModelCommand(ExecutePrintWordDecommissionNumberActCommand);
+            PrintStatementParameters = new ViewModelCommand(ExecutePrintStatementParametersCommand);
             PrintReports = new ViewModelCommand(ExecutePrintReportsCommand);
             ShowDecommissioned = new ViewModelCommand(ExecuteShowDecommissionedCommand);
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
-            AddRadiostationParameters =
-                new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
+            AddRadiostationParameters = new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
             GetRoad();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
@@ -1041,6 +981,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
             if (SelectedRadiostation == null)
                 return;
+            if (string.IsNullOrWhiteSpace(SelectedRadiostation.NumberActRepair))
+                return;
 
             if (!String.IsNullOrWhiteSpace(SelectedRadiostation.DecommissionNumberAct))
             {
@@ -1058,9 +1000,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             foreach (var item in RadiostationsForDocumentsCollection)
                 if (SelectedRadiostation.NumberActRepair == item.NumberActRepair)
                     PrintExcelNumberActRepairCollection.Add(item);
-            if (PrintExcelNumberActRepairCollection.Count == 0)
-                return;
-            if (PrintExcelNumberActRepairCollection.Count > 1)
+
+            if (PrintExcelNumberActRepairCollection == null ||
+                PrintExcelNumberActRepairCollection.Count == 0 ||
+                PrintExcelNumberActRepairCollection.Count > 1)
                 return;
 
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
@@ -1071,7 +1014,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printRepairView.Closed += (sender, args) =>
             UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
 
-            printRepairView.Show();
+            printRepairView.ShowDialog();
         }
 
 
@@ -1677,7 +1620,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetRoad
 
-        private void GetRoad()
+        void GetRoad()
         {
             if (RoadsCollection.Count != 0)
                 RoadsCollection.Clear();
