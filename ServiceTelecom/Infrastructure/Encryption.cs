@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,7 +8,7 @@ namespace ServiceTelecom.Infrastructure
 {
     class Encryption
     {
-        private static string SecurityKey = UserModelStatic.CODE_WORD;
+        private static string SecurityKey = GlobalValue.CODE_WORD;
         
         /// <summary> Шифруем </summary>
         public static string EncryptPlainTextToCipherText(string PlainText)

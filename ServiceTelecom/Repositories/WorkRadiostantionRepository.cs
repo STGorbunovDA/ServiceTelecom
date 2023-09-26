@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -758,10 +759,10 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"reasonDecommissionNumberActUser",
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
                     command.Parameters.AddWithValue($"priceUser",
-                        Encryption.EncryptPlainTextToCipherText(UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES));
+                        Encryption.EncryptPlainTextToCipherText(GlobalValue.NULL_PRICE_TECHNICAL_SERVICES));
                     command.Parameters.AddWithValue($"decommissionUser",
                         Encryption.EncryptPlainTextToCipherText(
-                            UserModelStatic.DECOMMISSION_RADIOSTANTION));
+                            GlobalValue.DECOMMISSION_RADIOSTANTION));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -791,7 +792,7 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
                     command.Parameters.AddWithValue($"decommissionUser",
                        Encryption.EncryptPlainTextToCipherText(
-                           UserModelStatic.IN_WORK_TECHNICAL_SERVICES));
+                           GlobalValue.IN_WORK_TECHNICAL_SERVICES));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

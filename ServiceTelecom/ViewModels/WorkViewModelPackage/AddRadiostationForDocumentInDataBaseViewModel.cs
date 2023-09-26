@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
@@ -298,8 +299,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             set
             {
                 if (value)
-                    Price = UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES;
-                else Price = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
+                    Price = GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES;
+                else Price = GlobalValue.PRICE_DIGITAL_TECHNICAL_SERVICES;
                 _сheckBoxPriceViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxPriceViewModel));
             }
@@ -389,7 +390,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (RadiostationForDocumentsCollection.Count != 0)
             {
-                UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
+                GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID =
                         RadiostationForDocumentsCollection;
 
                 if (RadiostationForDocumentsCollection.Count > 1)
@@ -405,7 +406,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 }
 
                 foreach (RadiostationForDocumentsDataBaseModel 
-                    item in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
+                    item in GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
                 {
                     InventoryNumber = item.InventoryNumber;
                     NetworkNumber = item.NetworkNumber;
@@ -418,16 +419,16 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Battery = item.Battery;
                     Price = item.Price;
 
-                    if (Price == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES)
+                    if (Price == GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
-                    if (item.VerifiedRST == UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES)
+                    if (item.VerifiedRST == GlobalValue.IN_REPAIR_TECHNICAL_SERVICES)
                         CheckBoxRemont = true;
-                    if (item.Manipulator == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Manipulator == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxManipulator = true;
-                    if (item.Antenna == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Antenna == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxAntenna = true;
-                    if (item.Charger == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Charger == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxCharger = true;
                 }
             }
@@ -895,20 +896,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         void SettingValuesRadioStationConsumables()
         {
             if (CheckBoxManipulator)
-                Manipulator = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Manipulator = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Manipulator = "-";
 
             if (CheckBoxAntenna)
-                Antenna = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Antenna = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Antenna = "-";
 
             if (CheckBoxCharger)
-                Charger = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Charger = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Charger = "-";
 
             if (CheckBoxRemont)
-                Remont = UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES;
-            else Remont = UserModelStatic.IN_WORK_TECHNICAL_SERVICES;
+                Remont = GlobalValue.IN_REPAIR_TECHNICAL_SERVICES;
+            else Remont = GlobalValue.IN_WORK_TECHNICAL_SERVICES;
         }
 
         void ExecuteAddRadiostationForDocumentInDataBaseCommand(object obj)

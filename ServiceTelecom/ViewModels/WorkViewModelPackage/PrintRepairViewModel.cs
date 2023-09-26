@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using System;
 using System.Collections;
@@ -209,7 +210,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             //Для печати отдельно в потоке
             RadiostationsForDocumentsMulipleSelectedDataGrid
-                = UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
+                = GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
 
             GetProductNameInDataBase();
             GetPrimaryMeansInDataBase();
@@ -246,7 +247,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         void GetRoadCitySerialNumberCompany()
         {
             foreach (RadiostationForDocumentsDataBaseModel item
-               in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
+               in GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 Road = item.Road;
                 City = item.City;

@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using System.Windows;
 using System.Windows.Input;
@@ -31,18 +32,18 @@ namespace ServiceTelecom.View.WorkViewPackage
             {
                 cmbCategory.Text = radiostation.Category;
                 txbPriceRepair.Text = radiostation.PriceRemont;
-                if (txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_3 ||
-                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_4 ||
-                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_5 ||
-                    txbPriceRepair.Text == UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6)
+                if (txbPriceRepair.Text == GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_3 ||
+                    txbPriceRepair.Text == GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_4 ||
+                    txbPriceRepair.Text == GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_5 ||
+                    txbPriceRepair.Text == GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_6)
                     CheckBoxChoicePriceAnalogDigital.IsChecked = true;
                 else CheckBoxChoicePriceAnalogDigital.IsChecked = false;
             }
             else
             {
-                cmbCategory.Text = UserModelStatic.CATEGORY_6;
+                cmbCategory.Text = GlobalValue.CATEGORY_6;
                 CheckBoxChoicePriceAnalogDigital.IsChecked = true;
-                txbPriceRepair.Text = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6;
+                txbPriceRepair.Text = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_6;
             }
 
             cmbCompletedWorks_1.Text = radiostation.CompletedWorks_1;

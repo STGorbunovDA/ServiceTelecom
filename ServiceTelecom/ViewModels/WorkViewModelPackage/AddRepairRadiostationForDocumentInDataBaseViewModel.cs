@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
@@ -102,24 +103,24 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 if (CheckBoxChoicePriceViewModel == true)
                 {
                     if (value == "3")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_3;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_3;
                     if (value == "4")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_4;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_4;
                     if (value == "5")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_5;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_5;
                     if (value == "6")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_6;
                 }
                 else
                 {
                     if (value == "3")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_3;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_3;
                     if (value == "4")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_4;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_4;
                     if (value == "5")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_5;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_5;
                     if (value == "6")
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_6;
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_6;
                 }
 
                 OnPropertyChanged(nameof(Category));
@@ -146,25 +147,25 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _checkBoxChoicePriceViewModel = value;
                 if (value == true)
                 {
-                    if (Category == UserModelStatic.CATEGORY_3)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_3;
-                    if (Category == UserModelStatic.CATEGORY_4)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_4;
-                    if (Category == UserModelStatic.CATEGORY_5)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_5;
-                    if (Category == UserModelStatic.CATEGORY_6)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_ANALOG_CATEGORY_6;
+                    if (Category == GlobalValue.CATEGORY_3)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_3;
+                    if (Category == GlobalValue.CATEGORY_4)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_4;
+                    if (Category == GlobalValue.CATEGORY_5)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_5;
+                    if (Category == GlobalValue.CATEGORY_6)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_ANALOG_CATEGORY_6;
                 }
                 else
                 {
-                    if (Category == UserModelStatic.CATEGORY_3)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_3;
-                    if (Category == UserModelStatic.CATEGORY_4)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_4;
-                    if (Category == UserModelStatic.CATEGORY_5)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_5;
-                    if (Category == UserModelStatic.CATEGORY_6)
-                        PriceRepair = UserModelStatic.PRICE_REPAIR_DIGITAL_CATEGORY_6;
+                    if (Category == GlobalValue.CATEGORY_3)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_3;
+                    if (Category == GlobalValue.CATEGORY_4)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_4;
+                    if (Category == GlobalValue.CATEGORY_5)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_5;
+                    if (Category == GlobalValue.CATEGORY_6)
+                        PriceRepair = GlobalValue.PRICE_REPAIR_DIGITAL_CATEGORY_6;
                 }
                 OnPropertyChanged(nameof(CheckBoxChoicePriceViewModel));
             }
@@ -423,9 +424,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             ProductName = _workRadiostantionFullRepository.
                 GetProductNameInDataBaseForRepair(
-                UserModelStatic.SERIAL_NUMBER,
-                UserModelStatic.CITY,
-                UserModelStatic.ROAD);
+                GlobalValue.SERIAL_NUMBER,
+                GlobalValue.CITY,
+                GlobalValue.ROAD);
         }
 
 
@@ -437,9 +438,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             PrimaryMeans = _workRadiostantionFullRepository.
                 GetPrimaryMeansInDataBaseForRepair(
-                UserModelStatic.SERIAL_NUMBER,
-                UserModelStatic.CITY,
-                UserModelStatic.ROAD);
+                GlobalValue.SERIAL_NUMBER,
+                GlobalValue.CITY,
+                GlobalValue.ROAD);
         }
 
         #endregion
@@ -449,13 +450,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         void GetOfTheLastNumberActRepair()
         {
             string textNumberActRepair = _workRadiostantionRepository.
-                GetOfTheLastNumberActRepair(UserModelStatic.ROAD);
+                GetOfTheLastNumberActRepair(GlobalValue.ROAD);
 
             StringBuilder sbNumberActRepair = new StringBuilder();
 
-            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
             {
-                if (UserModelStatic.ROAD == item.RoadBase)
+                if (GlobalValue.ROAD == item.RoadBase)
                 {
                     sbNumberActRepair.Append(item.NumberPrintDocumentBase);
                     sbNumberActRepair.Append("/");
@@ -701,7 +702,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         {
             if (repairManualView == null)
             {
-                repairManualView = new RepairManualView(UserModelStatic.MODEL);
+                repairManualView = new RepairManualView(GlobalValue.MODEL);
                 repairManualView.Closed += (sender, args) => repairManualView = null;
                 repairManualView.Closed += (sender, args) =>
                 GetRepairManualRadiostantionsCollections();
@@ -750,7 +751,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 RepairManualRadiostantionsCollections.Clear();
             RepairManualRadiostantionsCollections =
                 _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
-                    RepairManualRadiostantionsCollections, UserModelStatic.MODEL);
+                    RepairManualRadiostantionsCollections, GlobalValue.MODEL);
 
             if (CompletedWorksCollections.Count != 0)
                 CompletedWorksCollections.Clear();

@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -42,8 +43,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             PrintTagTechnicalWorkManipulator =
                 new ViewModelCommand(ExecutePrintTagTechnicalWorkManipulatorCommand);
             printExcel = new Print();
-            Road = UserModelStatic.ROAD;
-            City = UserModelStatic.CITY;
+            Road = GlobalValue.ROAD;
+            City = GlobalValue.CITY;
         }
 
         #region CheckValue

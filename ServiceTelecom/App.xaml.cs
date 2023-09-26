@@ -5,6 +5,7 @@ using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.View.Base;
 using System.Windows.Threading;
+using ServiceTelecom.Models.Base;
 
 namespace ServiceTelecom
 {
@@ -16,12 +17,12 @@ namespace ServiceTelecom
             GetSetRegistryServiceTelecomSetting getSetRegistryServiceTelecomSetting
                 = new GetSetRegistryServiceTelecomSetting();
 
-            UserModelStatic.LIST_REPOSITORY_DATABASE
+            GlobalCollection.LIST_REPOSITORY_DATABASE
                 = getSetRegistryServiceTelecomSetting.GetRegistryForRepositoryDataBase();
 
             if (InstanceChecker.TakeMemory())
             {
-                if (UserModelStatic.LIST_REPOSITORY_DATABASE.Count == 0)
+                if (GlobalCollection.LIST_REPOSITORY_DATABASE.Count == 0)
                 {
                     var getBaseSettingsRegistryViewModel = new GetBaseSettingsRegistryView();
                     getBaseSettingsRegistryViewModel.ShowDialog();
@@ -31,14 +32,14 @@ namespace ServiceTelecom
                 }
                 else
                 {
-                    foreach (var item in UserModelStatic.LIST_REPOSITORY_DATABASE)
+                    foreach (var item in GlobalCollection.LIST_REPOSITORY_DATABASE)
                     {
-                        UserModelStatic.SERVER = item.Server;
-                        UserModelStatic.PORT = item.Port;
-                        UserModelStatic.USERNAME = item.Username;
-                        UserModelStatic.PASSWORD = item.Password;
-                        UserModelStatic.DATABASE = item.Database;
-                        UserModelStatic.CODE_WORD = item.CodeWord;
+                        GlobalValue.SERVER = item.Server;
+                        GlobalValue.PORT = item.Port;
+                        GlobalValue.USERNAME = item.Username;
+                        GlobalValue.PASSWORD = item.Password;
+                        GlobalValue.DATABASE = item.Database;
+                        GlobalValue.CODE_WORD = item.CodeWord;
                     }
 
                     var loginView = new LoginView();

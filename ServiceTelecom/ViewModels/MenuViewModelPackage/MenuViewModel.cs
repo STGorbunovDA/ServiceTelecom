@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View;
@@ -50,11 +51,11 @@ namespace ServiceTelecom.ViewModels
                UserModelStatic.POST == "Куратор" ||
                UserModelStatic.POST == "Дирекция связи")
             {
-                UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION =
+                GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION =
                     staffRegistrationRepository.GetStaffRegistrationsDataBasePerLogin(
                         UserModelStatic.LOGIN,
-                    UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION);
-                if (UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
+                    GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION);
+                if (GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Count == 0)
                 {
                     MessageBox.Show("Тебя нет в списке сформированных бригад, " +
                         "сообщи об этом руководителю", "Информация",
@@ -67,7 +68,7 @@ namespace ServiceTelecom.ViewModels
                 work = new WorkView();
                 work.Closed += (sender, args) => work = null;
                 work.Closed += (sender, args) =>
-                UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Clear();
+                GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION.Clear();
                 work.Closed += (sender, args) => MenuWindowVisibility = Visibility.Visible;
                 MenuWindowVisibility = Visibility.Collapsed;
                 work.Show();
