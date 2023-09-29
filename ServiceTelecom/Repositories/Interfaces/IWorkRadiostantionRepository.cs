@@ -1,12 +1,13 @@
 ﻿using ServiceTelecom.Models;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories.Interfaces
 {
     internal interface IWorkRadiostantionRepository
     {
         /// <summary> Получение всех радиостанций по дороге и городу из radiostantion(рабочей таблице) </summary>
-        ObservableCollection<RadiostationForDocumentsDataBaseModel>
+        Task<ObservableCollection<RadiostationForDocumentsDataBaseModel>>
             GetRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city);
@@ -18,8 +19,8 @@ namespace ServiceTelecom.Repositories.Interfaces
             radiostationsForDocumentsCollection, string road);
 
         /// <summary> Получение городов из БД по дороге из radiostantion(рабочей таблице) </summary>
-        ObservableCollection<string> GetCityAlongRoadForCityCollection(
-            string road,ObservableCollection<string> cityCollections);
+        Task<ObservableCollection<string>> GetCityAlongRoadForCityCollection(
+             string road, ObservableCollection<string> cityCollections);
 
         /// <summary> Добавление радиостанции в в radiostantion(рабочую таблицу) </summary>
         bool AddRadiostationForDocumentInDataBase(string road, string numberAct,

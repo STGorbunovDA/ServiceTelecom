@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.View.Base;
@@ -263,10 +264,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             get => _сheckBoxPriceViewModel;
             set
             {
-                if (String.IsNullOrWhiteSpace(DecommissionNumberAct))
+                if (string.IsNullOrWhiteSpace(DecommissionNumberAct))
                     if (value)
-                        Price = UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES;
-                    else Price = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
+                        Price = GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES;
+                    else Price = GlobalValue.PRICE_DIGITAL_TECHNICAL_SERVICES;
 
                 _сheckBoxPriceViewModel = value;
                 OnPropertyChanged(nameof(CheckBoxPriceViewModel));
@@ -487,7 +488,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
-            if (Price == UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES)
+            if (Price == GlobalValue.NULL_PRICE_TECHNICAL_SERVICES)
             {
                 MessageBox.Show("Цена ТО не может быть 0.0 рублей", "Отмена",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -803,20 +804,20 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         void SettingValuesRadioStationConsumables()
         {
             if (CheckBoxManipulatorViewModel)
-                Manipulator = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Manipulator = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Manipulator = "-";
 
             if (CheckBoxAntennaViewModel)
-                Antenna = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Antenna = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Antenna = "-";
 
             if (CheckBoxChargerViewModel)
-                Charger = UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX;
+                Charger = GlobalValue.UNIT_MEASURE_FOR_CHECKBOX;
             else Charger = "-";
 
             if (CheckBoxRemontViewModel)
-                Remont = UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES;
-            else Remont = UserModelStatic.IN_WORK_TECHNICAL_SERVICES;
+                Remont = GlobalValue.IN_REPAIR_TECHNICAL_SERVICES;
+            else Remont = GlobalValue.IN_WORK_TECHNICAL_SERVICES;
         }
         bool CheckDecommissionNumberActIsNullOrWhiteSpace()
         {
@@ -1000,17 +1001,17 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     Price = item.Price;
 
 
-                    if (Price == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES)
+                    if (Price == GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES)
                         CheckBoxPriceViewModel = true;
                     else CheckBoxPriceViewModel = false;
 
-                    if (item.VerifiedRST == UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES)
+                    if (item.VerifiedRST == GlobalValue.IN_REPAIR_TECHNICAL_SERVICES)
                         CheckBoxRemontViewModel = true;
-                    if (item.Manipulator == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Manipulator == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxManipulatorViewModel = true;
-                    if (item.Antenna == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Antenna == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxAntennaViewModel = true;
-                    if (item.Charger == UserModelStatic.UNIT_MEASURE_FOR_CHECKBOX)
+                    if (item.Charger == GlobalValue.UNIT_MEASURE_FOR_CHECKBOX)
                         CheckBoxChargerViewModel = true;
                 }
             }

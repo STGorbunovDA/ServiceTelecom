@@ -1,24 +1,27 @@
 ﻿using MySql.Data.MySqlClient;
 using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ServiceTelecom.Repositories
 {
     internal class WorkRadiostantionRepository : IWorkRadiostantionRepository
     {
-        public ObservableCollection<string> GetCityAlongRoadForCityCollection(string road,
-            ObservableCollection<string> cityCollections)
+        public async Task<ObservableCollection<string>> GetCityAlongRoadForCityCollection(
+            string road, ObservableCollection<string> cityCollections)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return cityCollections;
+                    return await Task.Run(() => { return cityCollections; });
+
                 using (MySqlCommand command = new MySqlCommand("GetCityAlongRoadForCityCollection",
                     RepositoryDataBase.GetInstance.GetConnection()))
                 {
@@ -31,18 +34,14 @@ namespace ServiceTelecom.Repositories
                         if (reader.HasRows)
                         {
                             while (reader.Read())
-                            {
-                                cityCollections.Add(
-                                     Encryption.DecryptCipherTextToPlainText(
-                                         reader.GetString(0)));
-                            }
+                                cityCollections.Add(Encryption.DecryptCipherTextToPlainText(reader.GetString(0)));
                         }
                         reader.Close();
-                        return cityCollections;
                     }
+                    return await Task.Run(() => { return cityCollections; });
                 }
             }
-            catch (Exception) { return cityCollections; }
+            catch (Exception) { return await Task.Run(() => { return cityCollections; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
@@ -155,15 +154,16 @@ namespace ServiceTelecom.Repositories
         }
 
 
-        public ObservableCollection<RadiostationForDocumentsDataBaseModel>
+        public async Task<ObservableCollection<RadiostationForDocumentsDataBaseModel>> 
             GetRadiostationsForDocumentsCollection(
             ObservableCollection<RadiostationForDocumentsDataBaseModel>
             radiostationsForDocumentsCollection, string road, string city)
         {
             try
             {
-                if (!InternetCheck.CheckSkyNET())
-                    return radiostationsForDocumentsCollection;
+                if (!InternetCheck.CheckSkyNET()) 
+                    return await Task.Run(() => { return radiostationsForDocumentsCollection; });
+                
                 using (MySqlCommand command = new MySqlCommand(
                     "GetRadiostationsForDocumentsCollection",
                 RepositoryDataBase.GetInstance.GetConnection()))
@@ -202,11 +202,11 @@ namespace ServiceTelecom.Repositories
                             }
                         }
                         reader.Close();
-                        return radiostationsForDocumentsCollection;
                     }
+                    return await Task.Run(() => { return radiostationsForDocumentsCollection; });
                 }
             }
-            catch (Exception) { return radiostationsForDocumentsCollection; }
+            catch (Exception) { return await Task.Run(() => { return radiostationsForDocumentsCollection; }); }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
@@ -759,10 +759,10 @@ namespace ServiceTelecom.Repositories
                     command.Parameters.AddWithValue($"reasonDecommissionNumberActUser",
                         Encryption.EncryptPlainTextToCipherText(reasonDecommissionNumberAct));
                     command.Parameters.AddWithValue($"priceUser",
-                        Encryption.EncryptPlainTextToCipherText(UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES));
+                        Encryption.EncryptPlainTextToCipherText(GlobalValue.NULL_PRICE_TECHNICAL_SERVICES));
                     command.Parameters.AddWithValue($"decommissionUser",
                         Encryption.EncryptPlainTextToCipherText(
-                            UserModelStatic.DECOMMISSION_RADIOSTANTION));
+                            GlobalValue.DECOMMISSION_RADIOSTANTION));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }
@@ -792,7 +792,7 @@ namespace ServiceTelecom.Repositories
                         Encryption.EncryptPlainTextToCipherText(serialNumber));
                     command.Parameters.AddWithValue($"decommissionUser",
                        Encryption.EncryptPlainTextToCipherText(
-                           UserModelStatic.IN_WORK_TECHNICAL_SERVICES));
+                           GlobalValue.IN_WORK_TECHNICAL_SERVICES));
                     if (command.ExecuteNonQuery() == 1) return true;
                     else return false;
                 }

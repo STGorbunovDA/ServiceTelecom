@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
@@ -91,8 +92,8 @@ namespace ServiceTelecom.ViewModels.Base
                 return;
             }
 
-            UserModelStatic.FREQUENCY = _frequenciesDataBaseRepository.AddFrequencyDataBase(Frequency);
-            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+            GlobalValue.FREQUENCY = _frequenciesDataBaseRepository.AddFrequencyDataBase(Frequency);
+            if (!String.IsNullOrWhiteSpace(GlobalValue.FREQUENCY))
             {
                 GetFrequencyDataBase();
                 MessageBox.Show("Успешно!", "Информация",
@@ -113,8 +114,8 @@ namespace ServiceTelecom.ViewModels.Base
                 FrequenciesCollection.Clear();
             FrequenciesCollection =
                 _frequenciesDataBaseRepository.GetFrequencyDataBase(FrequenciesCollection);
-            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
-                Frequency = UserModelStatic.FREQUENCY;
+            if (!string.IsNullOrWhiteSpace(GlobalValue.FREQUENCY))
+                Frequency = GlobalValue.FREQUENCY;
             else TheIndexFrequencyCollection = FrequenciesCollection.Count - 1;
             
         }

@@ -1,11 +1,6 @@
-﻿using ServiceTelecom.Infrastructure;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace ServiceTelecom.Models
+﻿namespace ServiceTelecom.Models.Base
 {
-    public class UserModelStatic
+    public class GlobalValue
     {
         public const string NULL_PRICE_TECHNICAL_SERVICES = "0.0";
         public const string PRICE_ANALOG_TECHNICAL_SERVICES = "1411.18";
@@ -32,7 +27,8 @@ namespace ServiceTelecom.Models
         public const string CATEGORY_5 = "5";
         public const string CATEGORY_6 = "6";
 
-        public static string FREQUENCY = null;
+        /// <summary> необходима для частот</summary>
+        public static string FREQUENCY = string.Empty;
 
         /// <summary> необходима для ремонтов</summary>
         public static string ROAD = string.Empty;
@@ -42,7 +38,7 @@ namespace ServiceTelecom.Models
         public static string MODEL = string.Empty;
         /// <summary> необходима для ремонтов</summary>
         public static string SERIAL_NUMBER = string.Empty;
-             
+
         public static string SERVER = string.Empty;
         public static string PORT = string.Empty;
         public static string USERNAME = string.Empty;
@@ -53,24 +49,5 @@ namespace ServiceTelecom.Models
         public static string RCS_REPRESENTATIVE_TO_SIGN_ACTS = string.Empty;
         public static string RCS_POST_TO_SIGN_ACTS = string.Empty;
 
-        public static ObservableCollection<StaffRegistrationDataBaseModel> 
-            STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION { get; set; }
-
-        public static List<RepositoryDataBaseModel> LIST_REPOSITORY_DATABASE;
-
-        public static IList RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID;
-        public static IList PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW;
-        public static IList PARAMETERS_RADIOSTATION_GENERAL;
-
-        public static string LOGIN { get; private set; }
-        public static string POST { get; private set; }
-        public UserModelStatic(string login, string post)
-        {
-            LOGIN = Encryption.DecryptCipherTextToPlainText(login.Trim());
-            POST = Encryption.DecryptCipherTextToPlainText(post);
-            STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION = 
-                new ObservableCollection<StaffRegistrationDataBaseModel>();
-            LIST_REPOSITORY_DATABASE = new List<RepositoryDataBaseModel>();
-        }    
     }
 }

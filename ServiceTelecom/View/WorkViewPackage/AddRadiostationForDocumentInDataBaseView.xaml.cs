@@ -1,5 +1,6 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             datePickerDateOfIssuanceOfTheCertificate.Text = "Дата Выдачи";
 
-            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
             {
                 if(road == item.RoadBase)
                 {
@@ -47,11 +48,11 @@ namespace ServiceTelecom.View.WorkViewPackage
             datePickerDateMaintenance.Text = DateTime.Now.ToString("dd.MM.yyyy");
             txbComment.Text = selectedRadiostationForDocumentsDataBaseModel.Comment;
             txbPrice.Text = selectedRadiostationForDocumentsDataBaseModel.Price;
-            if (txbPrice.Text == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES) 
+            if (txbPrice.Text == GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES) 
                 CheckBoxPrice.IsChecked = true;
             else
             {
-                txbPrice.Text = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
+                txbPrice.Text = GlobalValue.PRICE_DIGITAL_TECHNICAL_SERVICES;
                 CheckBoxPrice.IsChecked = false;
             }
             if (selectedRadiostationForDocumentsDataBaseModel.Manipulator == "1")

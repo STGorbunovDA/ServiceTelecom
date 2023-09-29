@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
@@ -526,7 +527,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         void AssigningDataDocumentsFromRadiostationForDocumentsDataBaseModel()
         {
             foreach (RadiostationForDocumentsDataBaseModel item
-                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
+                in GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 Road = item.Road;
                 City = item.City;
@@ -576,10 +577,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void AssigningParametersInEditorsFromUserModelStaticParametersRadiostation()
         {
-            if (UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW.Count != 0)
+            if (GlobalCollection.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW.Count != 0)
             {
                 foreach (RadiostationParametersDataBaseModel item
-                    in UserModelStatic.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW)
+                    in GlobalCollection.PARAMETERS_RADIOSTATION_FOR_ADD_RADIOSTATION_PARAMETERS_VIEW)
                 {
                     LowPowerLevelTransmitter = item.LowPowerLevelTransmitter;
                     HighPowerLevelTransmitter = item.HighPowerLevelTransmitter;
@@ -715,12 +716,12 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         void AssigningAllFrequenciesCompletedForUserModelStaticFrequency()
         {
-            if (!String.IsNullOrWhiteSpace(UserModelStatic.FREQUENCY))
+            if (!string.IsNullOrWhiteSpace(GlobalValue.FREQUENCY))
             {
                 StringBuilder sb = new StringBuilder(AllFrequenciesCompleted);
-                sb.Append(UserModelStatic.FREQUENCY).Append("\n");
+                sb.Append(GlobalValue.FREQUENCY).Append("\n");
                 AllFrequenciesCompleted = sb.ToString();
-                UserModelStatic.FREQUENCY = null;
+                GlobalValue.FREQUENCY = null;
             }
         }
 
@@ -743,7 +744,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
-                    UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES))
+                    GlobalValue.IN_REPAIR_TECHNICAL_SERVICES))
             { }
             else
             {
@@ -1226,7 +1227,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                 TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                 BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
-                NoteRadioStationParameters, UserModelStatic.PASSED_TECHNICAL_SERVICES))
+                NoteRadioStationParameters, GlobalValue.PASSED_TECHNICAL_SERVICES))
                 { }
                 else
                 {
@@ -1248,7 +1249,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     StandbyModeCurrentConsumption, ReceptionModeCurrentConsumption,
                     TransmissionModeCurrentConsumption, BatteryDischargeAlarmCurrentConsumption,
                     BatteryChargerAccessories, ManipulatorAccessories, NameAKB, PercentAKB,
-                    NoteRadioStationParameters, UserModelStatic.PASSED_TECHNICAL_SERVICES))
+                    NoteRadioStationParameters, GlobalValue.PASSED_TECHNICAL_SERVICES))
                 { }
                 else
                 {
@@ -1260,7 +1261,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             if (_workRadiostantionRepository.ChangeStatusVerifiedRST(
                     Road, City, SerialNumber, NoteRadioStationParameters,
-                    UserModelStatic.PASSED_TECHNICAL_SERVICES))
+                    GlobalValue.PASSED_TECHNICAL_SERVICES))
             { }
             else
             {

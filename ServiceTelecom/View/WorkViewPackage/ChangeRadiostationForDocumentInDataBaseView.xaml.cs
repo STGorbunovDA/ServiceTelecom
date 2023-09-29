@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,7 +12,7 @@ namespace ServiceTelecom.View.WorkViewPackage
             InitializeComponent();
             txbNumberAct.Text = selectedRadiostation.NumberAct;
             if (string.IsNullOrWhiteSpace(txbNumberAct.Text))
-                foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     txbNumberAct.Text = item.NumberPrintDocumentBase + "/";
 
             txtRoad.Text = selectedRadiostation.Road;
@@ -33,16 +34,16 @@ namespace ServiceTelecom.View.WorkViewPackage
             txbPrice.Text = selectedRadiostation.Price;
             txbDecommissionNumberAct.Text = selectedRadiostation.DecommissionNumberAct;
 
-            if(txbPrice.Text != UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES)
+            if(txbPrice.Text != GlobalValue.NULL_PRICE_TECHNICAL_SERVICES)
             {
-                if (txbPrice.Text == UserModelStatic.PRICE_ANALOG_TECHNICAL_SERVICES)
+                if (txbPrice.Text == GlobalValue.PRICE_ANALOG_TECHNICAL_SERVICES)
                     CheckBoxPrice.IsChecked = true;
                 else
                 {
                     CheckBoxPrice.IsChecked = false;
                     if (!string.IsNullOrWhiteSpace(txbDecommissionNumberAct.Text))
-                        txbPrice.Text = UserModelStatic.NULL_PRICE_TECHNICAL_SERVICES;
-                    else txbPrice.Text = UserModelStatic.PRICE_DIGITAL_TECHNICAL_SERVICES;
+                        txbPrice.Text = GlobalValue.NULL_PRICE_TECHNICAL_SERVICES;
+                    else txbPrice.Text = GlobalValue.PRICE_DIGITAL_TECHNICAL_SERVICES;
                 }
             }
             
@@ -55,7 +56,7 @@ namespace ServiceTelecom.View.WorkViewPackage
 
             txbBattery.Text = selectedRadiostation.Battery;
 
-            if (selectedRadiostation.VerifiedRST == UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES)
+            if (selectedRadiostation.VerifiedRST == GlobalValue.IN_REPAIR_TECHNICAL_SERVICES)
                 CheckBoxRemont.IsChecked = true;
 
             if (string.IsNullOrWhiteSpace(selectedRadiostation.DecommissionNumberAct))

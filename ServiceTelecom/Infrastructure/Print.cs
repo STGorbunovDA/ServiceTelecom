@@ -11,6 +11,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using System.Drawing;
 using System.Collections.ObjectModel;
+using ServiceTelecom.Models.Base;
 
 namespace ServiceTelecom.Infrastructure
 {
@@ -51,7 +52,7 @@ namespace ServiceTelecom.Infrastructure
                     string attorney = string.Empty;
                     string engineer = string.Empty;
 
-                    foreach (var item in UserModelStatic.
+                    foreach (var item in GlobalCollection.
                         STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                     {
                         if (radiostantionsCollection[0].Road == item.RoadBase)
@@ -1635,7 +1636,7 @@ namespace ServiceTelecom.Infrastructure
                         string attorney = string.Empty;
                         string engineer = string.Empty;
 
-                        foreach (var item in UserModelStatic.
+                        foreach (var item in GlobalCollection.
                             STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                         {
                             if (road == item.RoadBase)
@@ -2741,7 +2742,7 @@ namespace ServiceTelecom.Infrastructure
                 comment = item.Comment;
             }
 
-            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                 sectionForeman = item.SectionForemanBase;
             
 
@@ -2865,7 +2866,7 @@ namespace ServiceTelecom.Infrastructure
             string year2 = dateTag.AddYears(1).ToString("yyyy");
             string engineer = string.Empty;
 
-            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                 engineer = item.EngineerBase;
 
             var items = new Dictionary<string, string>
@@ -2994,7 +2995,7 @@ namespace ServiceTelecom.Infrastructure
                     string location = "ст. " + city;
                     string engineer = string.Empty;
 
-                    foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+                    foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
                         if (radiostantionsCollection[0].Road == item.RoadBase)
                             engineer = item.EngineerBase;
 
@@ -3495,9 +3496,9 @@ namespace ServiceTelecom.Infrastructure
                     workSheet.Cells[42, 11] = $"расшифровка подписи";
                     workSheet.Cells[42, 20] = $"дата проведения технического обслуживания";
                     workSheet.Cells[44, 1] = $"Представитель РЦС:";
-                    workSheet.Cells[44, 2] = $"{UserModelStatic.RCS_POST_TO_SIGN_ACTS}";
+                    workSheet.Cells[44, 2] = $"{GlobalValue.RCS_POST_TO_SIGN_ACTS}";
                     workSheet.Cells[44, 8] = $"";
-                    workSheet.Cells[44, 11] = $"{UserModelStatic.RCS_REPRESENTATIVE_TO_SIGN_ACTS}";
+                    workSheet.Cells[44, 11] = $"{GlobalValue.RCS_REPRESENTATIVE_TO_SIGN_ACTS}";
                     workSheet.Cells[45, 2] = $"должность";
                     workSheet.Cells[45, 8] = $"подпись";
                     workSheet.Cells[45, 11] = $"расшифровка подписи";
@@ -3979,7 +3980,7 @@ namespace ServiceTelecom.Infrastructure
 
                     int counter = 0;
                     foreach (RadiostationParametersDataBaseModel item
-                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (counter > 0)
                             break;
@@ -4058,7 +4059,7 @@ namespace ServiceTelecom.Infrastructure
                     int count = 1;
                     int countCells = 5;
 
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (!listCompany.Contains(item.Company))
                             listCompany.Add(item.Company);
@@ -4082,7 +4083,7 @@ namespace ServiceTelecom.Infrastructure
 
                         if (i < listCompany.Count)
                         {
-                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                             {
                                 if (listCompany[i] == item.Company)
                                 {
@@ -4211,7 +4212,7 @@ namespace ServiceTelecom.Infrastructure
                     count = 1;
                     countCells = 5;
 
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (item.Company.Contains("ДЦС"))
                             if (!listLocation.Contains(item.Location))
@@ -4236,7 +4237,7 @@ namespace ServiceTelecom.Infrastructure
 
                         if (i < listLocation.Count)
                         {
-                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                             {
                                 if (listLocation[i] == item.Location && item.Company.Contains("ДЦС"))
                                 {
@@ -4352,7 +4353,7 @@ namespace ServiceTelecom.Infrastructure
 
                     int counter = 0;
                     foreach (RadiostationParametersDataBaseModel item
-                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (counter > 0)
                             break;
@@ -4362,7 +4363,7 @@ namespace ServiceTelecom.Infrastructure
 
                     List<string> listCompany = new List<string>();
                     List<string> listLocation = new List<string>();
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (!listCompany.Contains(item.Company))
                             listCompany.Add(item.Company);
@@ -4468,7 +4469,7 @@ namespace ServiceTelecom.Infrastructure
                         int cells = 0;
                         int gameOverAKB = 0;
 
-                        foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                         {
                             if (listCompany[i] == item.Company)
                             {
@@ -4608,7 +4609,7 @@ namespace ServiceTelecom.Infrastructure
 
                     int counter = 0;
                     foreach (RadiostationParametersDataBaseModel item
-                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (counter > 0)
                             break;
@@ -4681,7 +4682,7 @@ namespace ServiceTelecom.Infrastructure
                     int countCells = 5;
                     double ServiceableManipulator = 0;
                     double NotServiceableManipulator = 0;
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (!listCompany.Contains(item.Company))
                             listCompany.Add(item.Company);
@@ -4705,7 +4706,7 @@ namespace ServiceTelecom.Infrastructure
 
                         if (i < listCompany.Count)
                         {
-                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                             {
                                 if (listCompany[i] == item.Company)
                                 {
@@ -4818,7 +4819,7 @@ namespace ServiceTelecom.Infrastructure
                     ServiceableManipulator = 0;
                     NotServiceableManipulator = 0;
 
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (item.Company.Contains("ДЦС"))
                             if (!listLocation.Contains(item.Location))
@@ -4843,7 +4844,7 @@ namespace ServiceTelecom.Infrastructure
 
                         if (i < listLocation.Count)
                         {
-                            foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                            foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                             {
                                 if (listLocation[i] == item.Location && item.Company.Contains("ДЦС"))
                                 {
@@ -4948,7 +4949,7 @@ namespace ServiceTelecom.Infrastructure
 
                     int counter = 0;
                     foreach (RadiostationParametersDataBaseModel item
-                        in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (counter > 0)
                             break;
@@ -4958,7 +4959,7 @@ namespace ServiceTelecom.Infrastructure
 
                     List<string> listCompany = new List<string>();
                     List<string> listLocation = new List<string>();
-                    foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                    foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                     {
                         if (!listCompany.Contains(item.Company))
                             listCompany.Add(item.Company);
@@ -5059,7 +5060,7 @@ namespace ServiceTelecom.Infrastructure
                         int cells = 0;
                         int gameOverMAN = 0;
 
-                        foreach (RadiostationParametersDataBaseModel item in UserModelStatic.PARAMETERS_RADIOSTATION_GENERAL)
+                        foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                         {
                             if (listCompany[i] == item.Company)
                             {

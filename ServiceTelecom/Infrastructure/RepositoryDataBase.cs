@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 
 namespace ServiceTelecom.Repositories
 {
@@ -21,11 +22,11 @@ namespace ServiceTelecom.Repositories
             }
         }
         readonly MySqlConnection connection = new MySqlConnection(
-            $"server={UserModelStatic.SERVER};" +
-            $"port={UserModelStatic.PORT};" +
-            $"username={UserModelStatic.USERNAME};" +
-            $"password={UserModelStatic.PASSWORD};" +
-            $"database={UserModelStatic.DATABASE};" +
+            $"server={GlobalValue.SERVER};" +
+            $"port={GlobalValue.PORT};" +
+            $"username={GlobalValue.USERNAME};" +
+            $"password={GlobalValue.PASSWORD};" +
+            $"database={GlobalValue.DATABASE};" +
             $"charset=utf8");
 
         public MySqlConnection GetConnection()

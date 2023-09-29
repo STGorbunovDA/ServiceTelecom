@@ -281,6 +281,8 @@
     <Compile Include="Infrastructure\Print.cs" />
     <Compile Include="Infrastructure\SaveCSV.cs" />
     <Compile Include="Infrastructure\StringExtension.cs" />
+    <Compile Include="Models\Base\GlobalCollection.cs" />
+    <Compile Include="Models\Base\GlobalValue.cs" />
     <Compile Include="Models\FrequencyModel.cs" />
     <Compile Include="Models\HandbookParametersModelRadiostationModel.cs" />
     <Compile Include="Models\RadiostationParametersDataBaseModel.cs" />
@@ -312,7 +314,7 @@
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Models\StaffRegistrationDataBaseModel.cs" />
     <Compile Include="Models\UserDataBaseModel.cs" />
-    <Compile Include="Models\UserModelStatic.cs" />
+    <Compile Include="Models\Base\UserModelStatic.cs" />
     <Compile Include="Infrastructure\RepositoryDataBase.cs" />
     <Compile Include="Repositories\Interfaces\IWorkRadiostantionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IWorkRadiostantionFullRepository.cs" />
@@ -659,5 +661,6 @@
   <ItemGroup>
     <Resource Include="Images\admin_2.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

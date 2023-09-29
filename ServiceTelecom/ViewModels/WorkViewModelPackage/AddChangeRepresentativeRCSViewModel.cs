@@ -1,6 +1,7 @@
 ﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Infrastructure.Interfaces;
 using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -80,9 +81,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 _getSetRegistryServiceTelecomSetting.
                     SetRegistryRepresentativeRCS(
                     NameRepresentativeRCS, PostRepresentativeRCS);
-                UserModelStatic.RCS_REPRESENTATIVE_TO_SIGN_ACTS 
+                GlobalValue.RCS_REPRESENTATIVE_TO_SIGN_ACTS 
                     = _getSetRegistryServiceTelecomSetting.GetRegistryNameRepresentativeRCS();
-                UserModelStatic.RCS_POST_TO_SIGN_ACTS =
+                GlobalValue.RCS_POST_TO_SIGN_ACTS =
                     _getSetRegistryServiceTelecomSetting.GetRegistryPostRepresentativeRCS();
             }                
         }

@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
 using System;
 using System.Text;
@@ -39,9 +40,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 new ViewModelCommand(
                     ExecuteChangeNumberActRadiostationsForDocumentInDBCommand);
             StringBuilder sb = new StringBuilder();
-            foreach (var item in UserModelStatic.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
+            foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
             {
-                if (UserModelStatic.ROAD == item.RoadBase)
+                if (GlobalValue.ROAD == item.RoadBase)
                 {
                     sb.Append(item.NumberPrintDocumentBase);
                     sb.Append("/");
@@ -81,7 +82,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 return;
 
             foreach (RadiostationForDocumentsDataBaseModel item
-                in UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
+                in GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID)
             {
                 if (_radiostationParametersRepository.CheckSerialNumberInRadiostationParameters(
                     item.Road, item.SerialNumber))
@@ -111,7 +112,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                     break;
                 }
             }
-            UserModelStatic.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
+            GlobalCollection.RADIOSTATIONS_FOR_DOCUMENTS_MULIPLE_SELECTED_DATAGRID = null;
             MessageBox.Show("Успешно", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

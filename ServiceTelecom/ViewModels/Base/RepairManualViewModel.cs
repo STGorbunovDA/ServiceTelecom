@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories.Base;
 using ServiceTelecom.Repositories.Interfaces;
 using System;
@@ -194,7 +195,7 @@ namespace ServiceTelecom.ViewModels.Base
                 RepairManualRadiostantionsCollections.Clear();
             RepairManualRadiostantionsCollections =
                 _repairManualModelRepository.GetRepairManualRadiostantionsCollections(
-                    RepairManualRadiostantionsCollections, UserModelStatic.MODEL);
+                    RepairManualRadiostantionsCollections, GlobalValue.MODEL);
         }
 
         #endregion

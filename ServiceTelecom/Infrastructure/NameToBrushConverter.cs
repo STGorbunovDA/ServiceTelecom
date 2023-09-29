@@ -1,4 +1,5 @@
 ﻿using ServiceTelecom.Models;
+using ServiceTelecom.Models.Base;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -16,11 +17,11 @@ namespace ServiceTelecom.Infrastructure
             string input = (string)value;
             switch (input)
             {
-                case UserModelStatic.IN_REPAIR_TECHNICAL_SERVICES:
+                case GlobalValue.IN_REPAIR_TECHNICAL_SERVICES:
                     return "#D2D235";
-                case UserModelStatic.PASSED_TECHNICAL_SERVICES:
+                case GlobalValue.PASSED_TECHNICAL_SERVICES:
                     return Brushes.LightGreen;
-                case UserModelStatic.DECOMMISSION_RADIOSTANTION:
+                case GlobalValue.DECOMMISSION_RADIOSTANTION:
                     return "#ed6825";
                 default:
                     return DependencyProperty.UnsetValue;

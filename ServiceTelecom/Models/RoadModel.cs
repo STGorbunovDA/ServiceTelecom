@@ -14,7 +14,7 @@ namespace ServiceTelecom.Models
         public RoadModel(int idBase, string road)
         {
             IdBase = idBase;
-            Road = Encryption.DecryptCipherTextToPlainText(road);
+            Road = road;
         }
 
         public override string ToString()
