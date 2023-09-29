@@ -953,9 +953,9 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             PrintStatementParametersCollection.Sort();
 
-            addChangeRepresentativeRCSView =
-                new AddChangeRepresentativeRCSView();
-            addChangeRepresentativeRCSView.ShowDialog();
+            //addChangeRepresentativeRCSView =
+            //    new AddChangeRepresentativeRCSView();
+            //addChangeRepresentativeRCSView.ShowDialog();
 
             new Thread(() =>
             {
@@ -1622,6 +1622,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         async Task GetRoad()
         {
+            int i = 0; // для id дороги
+
             if (RoadsCollection.Count != 0)
                 RoadsCollection.Clear();
 
@@ -1633,10 +1635,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             else
             {
                 foreach (var item in GlobalCollection.STAFF_REGISTRATIONS_DATABASE_MODEL_COLLECTION)
-                {
-                    int i = 0;
                     RoadsCollection.Add(new RoadModel(i++, item.RoadBase));
-                }
             }
         }
 
