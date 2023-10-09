@@ -4083,24 +4083,34 @@ namespace ServiceTelecom.Infrastructure
 
                         if (i < listCompany.Count)
                         {
-                            foreach (RadiostationParametersDataBaseModel item in GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
+                            foreach (RadiostationParametersDataBaseModel item in 
+                                GlobalCollection.PARAMETERS_RADIOSTATION_GENERAL)
                             {
                                 if (listCompany[i] == item.Company)
                                 {
-                                    totalNumberRadiostantion++;
-                                    if (item.PercentAKB != "-")
+                                    try
                                     {
-                                        totalNumberBatteriesCompany++;
+                                        totalNumberRadiostantion++;
+                                        if (item.PercentAKB != "-")
+                                        {
+                                            totalNumberBatteriesCompany++;
 
-                                        if (Convert.ToDouble(item.PercentAKB) < 60)
-                                            countBatteryCapacityLess60++;
-                                        else if (Convert.ToDouble(item.PercentAKB) > 59 && Convert.ToDouble(item.PercentAKB) < 70)
-                                            countBatteryCapacityLess70++;
-                                        else if (Convert.ToDouble(item.PercentAKB) > 69 && Convert.ToDouble(item.PercentAKB) < 80)
-                                            countBatteryCapacityLess80++;
-                                        else if (Convert.ToDouble(item.PercentAKB) > 79)
-                                            countBatteryCapacityMore80++;
+                                            if (Convert.ToDouble(item.PercentAKB) < 60)
+                                                countBatteryCapacityLess60++;
+                                            else if (Convert.ToDouble(item.PercentAKB) > 59 && Convert.ToDouble(item.PercentAKB) < 70)
+                                                countBatteryCapacityLess70++;
+                                            else if (Convert.ToDouble(item.PercentAKB) > 69 && Convert.ToDouble(item.PercentAKB) < 80)
+                                                countBatteryCapacityLess80++;
+                                            else if (Convert.ToDouble(item.PercentAKB) > 79)
+                                                countBatteryCapacityMore80++;
+                                        }
                                     }
+                                    catch (Exception)
+                                    {
+                                        string x = item.PercentAKB;
+                                        string s = item.SerialNumber;
+                                    }
+                                   
                                 }
                             }
                             workSheet.Cells[5 + i, 1] = $"{count++}";
