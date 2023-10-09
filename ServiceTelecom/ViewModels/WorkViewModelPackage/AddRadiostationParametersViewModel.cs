@@ -900,6 +900,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         bool СheckRegexValue()
         {
+            if (!Regex.IsMatch(PercentAKB, @"^[0-9]{1,2}$"))
+            {
+                MessageBox.Show("Введите корректно поле: \"Процент АКБ\"\n" +
+                    "Пример: 0 до 99", "Отмена",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return false;
+            }
             if (!Regex.IsMatch(LowPowerLevelTransmitter, @"^[2][.][0-9]{2,2}$"))
             {
                 MessageBox.Show("Введите корректно поле: \"Низкий, W.\"\n" +

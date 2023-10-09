@@ -701,7 +701,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             ShowNumberActRepair = new ViewModelCommand(ExecuteShowNumberActRepairCommand);
             PrintTagTechnicalWork = new ViewModelCommand(ExecutePrintTagTechnicalWorkCommand);
             AddRadiostationParameters = new ViewModelCommand(ExecuteAddRadiostationParametersCommand);
-            
+
             Task.Run(async () => await GetRoad()).GetAwaiter().GetResult();
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
@@ -855,7 +855,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             printTagTechnicalWorkView = null;
             printTagTechnicalWorkView.Closed += (sender, args) =>
             ClearUserModelStaticRoadCitySerialNumber();
-            printTagTechnicalWorkView.Show();
+            printTagTechnicalWorkView.ShowDialog();
         }
 
         #endregion
@@ -1771,9 +1771,13 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             if (RadiostationsForDocumentsCollection.Count != 0)
                 RadiostationsForDocumentsCollection.Clear();
 
-            RadiostationsForDocumentsCollection = 
+            RadiostationsForDocumentsCollection =
                 await _workRadiostantionRepository.GetRadiostationsForDocumentsCollection(
                     RadiostationsForDocumentsCollection, road, city);
+
+            if (TEMPORARY_INDEX_DATAGRID != -1) // если отсутсвуют РСТ или сбой загрузки
+                SelectedRadiostation = RadiostationsForDocumentsCollection[TEMPORARY_INDEX_DATAGRID];
+
         }
 
         async void GetRadiostationsParametersCollection(string road, string city)
