@@ -392,7 +392,7 @@ namespace ServiceTelecom.Repositories
                 if (!InternetCheck.CheckSkyNET())
                     return primaryMeans;
                 using (MySqlCommand command = new MySqlCommand(
-                   "GetPrimaryMeansInDataBase",
+                   "GetPrimaryMeansInDataBaseForRepair",
                    RepositoryDataBase.GetInstance.GetConnection()))
                 {
                     RepositoryDataBase.GetInstance.OpenConnection();
