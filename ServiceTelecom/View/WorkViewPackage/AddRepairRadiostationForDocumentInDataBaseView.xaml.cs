@@ -8,13 +8,9 @@ namespace ServiceTelecom.View.WorkViewPackage
 {
     public partial class AddRepairRadiostationForDocumentInDataBaseView : Window
     {
-        private WorkRadiostantionFullRepository _workRepositoryRadiostantionFull;
-
         public AddRepairRadiostationForDocumentInDataBaseView(
             RadiostationForDocumentsDataBaseModel radiostation)
         {
-            _workRepositoryRadiostantionFull = new WorkRadiostantionFullRepository();
-
             InitializeComponent();
 
             txtRoad.Text = radiostation.Road;
