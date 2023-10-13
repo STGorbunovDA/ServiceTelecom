@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -707,6 +708,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForFillOutCollections();
             GetNameAndPostRadioCommunicationDirectorate();
             Timer();
+
+            var myCulture = new CultureInfo("ru-RU");
+            myCulture.NumberFormat.NumberDecimalSeparator = ".";
+            Thread.CurrentThread.CurrentCulture = myCulture;
         }
 
         #region GetNameAndPostRadioCommunicationDirectorate
