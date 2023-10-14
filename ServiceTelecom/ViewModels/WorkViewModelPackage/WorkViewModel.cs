@@ -709,12 +709,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             GetNameAndPostRadioCommunicationDirectorate();
-            Timer();
-
-            var myCulture = new CultureInfo("ru-RU");
-            myCulture.NumberFormat.NumberDecimalSeparator = ".";
-            Thread.CurrentThread.CurrentCulture = myCulture;
-            Timer();    
+            Timer(); 
         }
 
       
