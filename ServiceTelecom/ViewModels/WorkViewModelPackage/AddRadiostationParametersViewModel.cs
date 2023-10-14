@@ -1,4 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
+﻿using ServiceTelecom.Infrastructure;
 using ServiceTelecom.Models;
 using ServiceTelecom.Models.Base;
 using ServiceTelecom.Repositories;
@@ -7,11 +7,9 @@ using ServiceTelecom.Repositories.Interfaces;
 using ServiceTelecom.View.Base;
 using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -463,6 +461,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         public AddRadiostationParametersViewModel()
         {
+            Culture.UserCulture();
+
             _radiostationParametersRepository = new RadiostationParametersRepository();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
             _frequenciesDataBaseRepository = new FrequenciesDataBaseRepository();
@@ -502,9 +502,6 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetHandbookParametersModelRadiostationCollection();
             AssigningParametersInEditorsFromHandbookParameters();
 
-            var myCulture = new CultureInfo("ru-RU");
-            myCulture.NumberFormat.NumberDecimalSeparator = ".";
-            Thread.CurrentThread.CurrentCulture = myCulture;
         }
 
         #region AddFrequencyInAllFrequenciesCompleted

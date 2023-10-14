@@ -657,6 +657,8 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
         public ICommand PrintReports { get; }
         public WorkViewModel()
         {
+            Culture.UserCulture();
+
             printExcel = new Print();
             backupCopyRadiostationsForDocuments = new BackupCopyRadiostationsForDocumentsCollection();
             _workRadiostantionRepository = new WorkRadiostantionRepository();
@@ -707,12 +709,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             GetNameAndPostRadioCommunicationDirectorate();
-            Timer();
-
-            var myCulture = new CultureInfo("ru-RU");
-            myCulture.NumberFormat.NumberDecimalSeparator = ".";
-            Thread.CurrentThread.CurrentCulture = myCulture;
+            Timer(); 
         }
+
+      
 
         #region GetNameAndPostRadioCommunicationDirectorate
 

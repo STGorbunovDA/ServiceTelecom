@@ -265,6 +265,7 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\BackupCopyRadiostationsForDocumentsCollection.cs" />
+    <Compile Include="Infrastructure\Culture.cs" />
     <Compile Include="Infrastructure\CustomDataGrid.cs" />
     <Compile Include="Infrastructure\Encryption.cs" />
     <Compile Include="Infrastructure\GetSetRegistryServiceTelecomSetting.cs" />
