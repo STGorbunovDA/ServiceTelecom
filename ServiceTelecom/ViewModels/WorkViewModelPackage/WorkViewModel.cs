@@ -709,10 +709,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
             GetNumberActForSignCollections();
             GetNumberActForFillOutCollections();
             GetNameAndPostRadioCommunicationDirectorate();
-            Timer(); 
+            Timer();
         }
 
-      
+
 
         #region GetNameAndPostRadioCommunicationDirectorate
 
@@ -1649,7 +1649,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
         #region GetCityOnTheRoad
 
-        async void GetCityOnTheRoad(int index)
+        void GetCityOnTheRoad(int index)
         {
             if (index < 0)
                 return;
@@ -1660,12 +1660,10 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 CitiesCollection.Clear();
             }
 
-            CitiesCollection = await _workRadiostantionRepository.
+            CitiesCollection = _workRadiostantionRepository.
                 GetCityAlongRoadForCityCollection(RoadsCollection[index].ToString(), CitiesCollection);
             SelectedIndexCityCollection = 0;
 
-            if (CitiesCollection.Count != 0)
-                Counters();
         }
 
         #endregion
@@ -1760,7 +1758,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
 
             City = city;
 
-            _getSetRegistryServiceTelecomSetting.SetRegistryCity(city);
+            _getSetRegistryServiceTelecomSetting.SetRegistryCityForAddChangeDelete(city);
 
             if (ReserveRadiostationsForDocumentsCollection.Count != 0)
                 ReserveRadiostationsForDocumentsCollection.Clear();
@@ -1780,7 +1778,7 @@ namespace ServiceTelecom.ViewModels.WorkViewModelPackage
                 await _workRadiostantionRepository.GetRadiostationsForDocumentsCollection(
                     RadiostationsForDocumentsCollection, road, city);
 
-            if (TEMPORARY_INDEX_DATAGRID != -1) // если отсутсвуют РСТ или сбой загрузки
+            if (TEMPORARY_INDEX_DATAGRID != -1 ) // если отсутсвуют РСТ или сбой загрузки
                 SelectedRadiostation = RadiostationsForDocumentsCollection[TEMPORARY_INDEX_DATAGRID];
 
         }

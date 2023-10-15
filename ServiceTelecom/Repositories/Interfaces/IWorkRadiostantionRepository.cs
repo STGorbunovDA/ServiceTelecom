@@ -19,7 +19,7 @@ namespace ServiceTelecom.Repositories.Interfaces
             radiostationsForDocumentsCollection, string road);
 
         /// <summary> Получение городов из БД по дороге из radiostantion(рабочей таблице) </summary>
-        Task<ObservableCollection<string>> GetCityAlongRoadForCityCollection(
+        ObservableCollection<string> GetCityAlongRoadForCityCollection(
              string road, ObservableCollection<string> cityCollections);
 
         /// <summary> Добавление радиостанции в в radiostantion(рабочую таблицу) </summary>

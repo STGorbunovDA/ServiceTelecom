@@ -14,13 +14,13 @@ namespace ServiceTelecom.Repositories
 {
     internal class WorkRadiostantionRepository : IWorkRadiostantionRepository
     {
-        public async Task<ObservableCollection<string>> GetCityAlongRoadForCityCollection(
+        public ObservableCollection<string> GetCityAlongRoadForCityCollection(
             string road, ObservableCollection<string> cityCollections)
         {
             try
             {
                 if (!InternetCheck.CheckSkyNET())
-                    return await Task.Run(() => { return cityCollections; });
+                    return cityCollections;
 
                 using (MySqlCommand command = new MySqlCommand("GetCityAlongRoadForCityCollection",
                     RepositoryDataBase.GetInstance.GetConnection()))
@@ -38,10 +38,10 @@ namespace ServiceTelecom.Repositories
                         }
                         reader.Close();
                     }
-                    return await Task.Run(() => { return cityCollections; });
+                    return cityCollections;
                 }
             }
-            catch (Exception) { return await Task.Run(() => { return cityCollections; }); }
+            catch (Exception) { return cityCollections; }
             finally { RepositoryDataBase.GetInstance.CloseConnection(); }
         }
 
